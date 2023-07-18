@@ -1,0 +1,88 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block page_meta_data %}
+<title> Home | watch anime online on as2anime </title>
+<style>
+    #home_wrapper > div > * {
+        margin-bottom: 45px;
+    }
+	
+	div#auth_loader_wrapper,
+	div#home_browsing_loader_wrapper
+	{
+		display: none;
+		position: absolute;
+		width: 100%;
+		border-radius: .3rem;
+		height: 100%;
+		z-index: 1;
+		top: 0;
+		background: var(--secondary-highlight-color);
+	}
+	
+	div#home_browsing_loader_wrapper {
+		background-color: var(--primary-color);
+	}
+	
+	div#inner_annoucement_wrapper {
+	  display: flex;
+	  justify-content: center;
+	  font-weight: 600;
+	  margin: 10px;
+	  font-size: 12px;
+	  background: var(--highlight-color);
+	  padding: 10px;
+	  border-radius: 0.3rem;
+	}
+
+    /*** mobile to tablet screens ***/
+    @media (max-width: 870px) {
+        #home_inner_genres_wrapper {
+            height: 1000px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    }
+    /*** mobile to tablet screens ***/
+</style>
+<link
+    rel="stylesheet"
+    href="/static/css/widgets/loader_two.css"
+    />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+/>
+<script defer>
+  const home_schedule = "{{global_data.attributes.home_schedule}}"
+</script>
+<script defer src="/static/home.js"></script>
+{{site_data.scripts.page_scripts|safe}}
+{% endblock %}
+
+{% block foot_scripts %}
+	{{site_data.scripts.page_foot_scripts|safe}}
+{% endblock %}
+
+{% block feature_slider %}
+	{% if global_data.attributes.home_slider == True %}
+		{% include 'app/sections/feature_slider.html' %}
+	{% endif %}
+{% endblock %}
+
+{% block coming_and_schedule_sections %}
+	{% if global_data.attributes.home_schedule == True %}
+		{% include 'app/sections/schedule.html' %}
+	{% endif %}
+	
+	{% if global_data.attributes.coming_sections == True %}
+		{% include 'app/sections/coming_sections.html' %}
+	{% endif %}
+{% endblock %}
+
+{% block page_content %}
+<div class="page_content" id="home_wrapper">
+    {% include 'app/sections/home_browsing.html' %}
+</div>
+{% endblock %}

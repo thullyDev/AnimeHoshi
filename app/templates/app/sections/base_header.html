@@ -1,0 +1,15 @@
+<header id="base_header">
+  <!-- *** title START *** -->
+  {% include 'app/widgets/title.html' %}
+  <!-- *** title ENDS *** -->
+
+  {% if page is not "landing" %}
+  <!-- *** search_wrapper START *** -->
+  {% include 'app/widgets/search.html' %}
+  <!-- *** search_wrapper ENDS *** -->
+  {% endif %}
+
+  <!-- *** top_nav START *** -->
+  {% include 'app/widgets/top_nav.html' %}
+  <!-- *** top_nav ENDS *** -->
+</header>

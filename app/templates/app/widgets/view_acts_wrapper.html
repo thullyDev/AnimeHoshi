@@ -1,0 +1,36 @@
+{% load static %}
+<div class="view_acts_wrapper">
+	<div class="list_search_wrapper">
+		 <div id="list_search_wrapper">
+			<div id="list_search_input_wrapper">
+			  <button type="button" id="list_search_btn">
+				<img src="/static/images/search.svg" width="20px" height="20px" alt="search icon" class="search_icon">
+			  </button>
+			  <input placeholder="Search anime..." type="text" name="search" id="list_search" />
+			  <button type="button" id="list_cancel_btn">
+				cancel
+			  </button>
+			</div>
+		  </div>
+    </div>
+	<div class="view_toggle_btns_wrapper">
+		<div class="view_toggle_wrapper">
+			<div data-type='' role='button' class="veiw_toggle_btn view_btns_wrapper">
+			</div>
+		</div>
+		<div class="view_sort_wrapper">
+			<div data-type='all' role='button' class="view_btns_wrapper">
+				All
+			</div>
+			<div data-type='unwatched' role='button' class="view_btns_wrapper">
+				Unwatched
+			</div>
+			<div data-type='watched' role='button' class="view_btns_wrapper">
+				Watched
+			</div>
+			<div data-type='watching' role='button' class="view_btns_wrapper">
+				Watching
+			</div>
+		</div>   
+    </div>
+</div>

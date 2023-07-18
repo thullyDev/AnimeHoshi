@@ -1,0 +1,86 @@
+#renew_text_wrapper {
+  display: flex;
+  justify-content: center;
+  font-family: var(--title-font);
+}
+
+.renew_inp_wrapper {
+  position: relative;
+  margin: 25px 0;
+}
+
+.renew_inp_wrapper > label {
+  top: 30%;
+  left: 5%;
+  position: absolute;
+  font-family: var(--title-font);
+  font-weight: 600;
+  z-index: 5;
+  padding: 0 10px;
+  background-color: var(--primary-color);
+  transition: all 0.5s ease-in-out;
+}
+
+.renew_inp {
+  width: 35vw;
+  height: 40px;
+  background: none;
+  outline: none;
+  border: solid 1.5px var(--third-color);
+  border-radius: 0.3rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-family: var(--regular-font);
+  font-size: 15px;
+  transition: all 1s ease-in-out;
+  padding: 0 5px;
+}
+
+.renew_inp:focus ~ label,
+.renew_inp:not(:placeholder-shown).renew_inp:not(:focus) ~ label {
+  top: -25%;
+  font-size: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.renew_inp:hover {
+  border: solid 1.5px var(--highlight-color);
+  transition: all 0.5s ease-in-out;
+}
+
+#renew_btn_wrapper,
+#cancel_btn_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 25px 0;
+}
+
+#renew_btn,
+#cancel_btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0.3rem;
+  background-color: var(--third-color);
+  font-size: 20px;
+  font-family: var(--title-font);
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+#cancel_btn {
+  background-color: var(--highlight-color);
+}
+
+#renew_btn:hover {
+  background-color: var(--highlight-color);
+  transition: all 1s ease-in-out;
+}
+
+#cancel_btn:hover {
+  background-color: var(--third-color);
+  transition: all 1s ease-in-out;
+}
+
+/* #cancel_renew_btn_wrapper  */

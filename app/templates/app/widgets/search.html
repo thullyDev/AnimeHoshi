@@ -1,0 +1,37 @@
+{% load static %}
+<link
+    rel="stylesheet"
+    href="/static/css/widgets/search.css"
+/>
+<script defer src="/static/search.js"></script>
+<div id="outter_search_wrapper">
+  <button type="button" data-open="false" id="apper_search_btn" class="search_btns">
+    <img src="/static/images/search.svg" width="20px" height="20px" alt="appear seach icon" class="search_icon">
+  </button>
+  <div id="search_wrapper">
+    <div id="search_input_wrapper">
+      <button type="button" id="search_btn" class="search_btns">
+        <img src="/static/images/search.svg" width="20px" height="20px" alt="close icon" class="search_icon">
+      </button>
+      <input placeholder="Search anime..." type="query" name="search" id="search" />
+      <button type="button" id="cancel_btn">
+        cancel
+      </button>
+    </div>
+    <div id="search_items_wrapper">
+	   <div id="search_loader_wrapper">
+	      <div class="loader_two_wrapper">
+		     <div class="loader_two"></div>
+	      </div>
+	   </div>
+      <ul id="search_list_wrapper">
+      </ul>
+	   <div role="button" id="search_view_all_wrapper" data-open="false">
+			view all
+	   </div>
+    </div>
+  </div>
+  <button type="button" id="close_btn" class="search_btns">
+    <img src="/static/images/close.svg" width="20px" height="20px" alt="" class="search_icon">
+  </button>
+</div>

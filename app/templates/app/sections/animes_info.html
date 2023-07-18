@@ -1,0 +1,142 @@
+{% load static %}
+<div id="animes_info_wrapper">
+    <div id="anime_image_cover_details_wrapper">
+        <div id="anime_other_info_image_wrapper">
+            <div id="anime_image_cover_wrapper">
+				<img src="{{data.anime_data.image_url}}" alt="{{data.anime_data.title}}" id="anime_image_cover">
+            </div>
+            <div id="mb_anime_other_info_wrapper" class="anime_other_info_wrapper">
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Other names:
+				  </p>
+				  <p class="other_info_value">
+				  {% for i in data.anime_data.alternative_names %}
+					{% if data.anime_data.alternative_names|length != forloop.counter %}
+						{{i|truncatechars:30}},
+					{% else %}
+						{{i|truncatechars:30}}
+					{% endif %}
+				  {% endfor %}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Realease date:
+				  </p>
+				  <p class="other_info_value">
+					  {{data.anime_data.meta_items.date_aired}}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Status:
+				  </p>
+				  <p class="other_info_value">
+					{{data.anime_data.meta_items.status}}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Episodes:
+				  </p>
+				  <p class="other_info_value">
+					{{data.anime_data.episodes|length}}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Type:
+				  </p>
+				  <p class="other_info_value">
+					{{data.anime_data.meta_items.type}}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Genres:
+				  </p>
+				  <p class="other_info_value genre_info_value">
+					{{data.anime_data.meta_items.genre}}
+				  </p>
+				</div>
+            
+            </div>
+        </div>
+        <div id="anime_details_info_wrapper">
+            <div id="anime_details_wrapper">
+				<div class="anime_name_info_wrapper">
+					{{data.anime_data.title|truncatechars:30}}
+				</div>
+				<div class="anime_synopsis_info_wrapper">
+					<p id="synopsis_text" data-open="false">
+					  {{data.anime_data.description}}
+					</p>
+					<span id="more_synopsis">
+						more
+					</span>
+				</div>
+            </div>
+            <div id="dk_anime_other_info_wrapper" class="anime_other_info_wrapper">
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Other names:
+				  </p>
+				  <p class="other_info_value">
+				  {% for i in data.anime_data.alternative_names %}
+					{% if data.anime_data.alternative_names|length != forloop.counter %}
+						{{i|truncatechars:30}},
+					{% else %}
+						{{i|truncatechars:30}}
+					{% endif %}
+				  {% endfor %}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Realease date:
+				  </p>
+				  <p class="other_info_value">
+					  {{data.anime_data.meta_items.date_aired}}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Status:
+				  </p>
+				  <p class="other_info_value">
+					{{data.anime_data.meta_items.status}}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Episodes:
+				  </p>
+				  <p class="other_info_value">
+					{{data.anime_data.episodes|length}}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Type:
+				  </p>
+				  <p class="other_info_value">
+					{{data.anime_data.meta_items.type}}
+				  </p>
+				</div>
+				<div class="other_info_wrapper">
+				  <p class="other_info_label">
+					Genres:
+				  </p>
+				  <p class="other_info_value genre_info_value">
+					{{data.anime_data.meta_items.genre}}
+				  </p>
+				</div>
+            </div>
+        </div>
+    </div>
+    <div id="anime_rating_wrapper">
+        <div id="inner_anime_rating_wrapper">
+        </div>
+    </div>
+</div>

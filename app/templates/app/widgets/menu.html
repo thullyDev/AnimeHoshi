@@ -1,0 +1,92 @@
+{% load static %}
+<link
+  rel="stylesheet"
+  href="/static/css/widgets/menu.css"
+/>
+<!-- <script defer src="/static/js/widgets/menu.js"></script> -->
+<script defer src="/static/menu.js"></script>
+<div id="menu_wrapper">
+  <div id="menu_btn_wrapper">
+      <button id="menu_btn">
+        <img src="/static/images/menu_bars.svg" width="20px" height="20px" alt="" class="footer_socials">
+      </button>
+    </div>
+    <div id="menu" data-open="false">
+	  <div>
+	  	  {% if global_data.attributes.user == True %}
+		  <div id="menu_profile_wrapper">
+			  <div id="menu_inner_profile_wrapper">
+				<div id="menu_account_details_wrapper"> 
+					<div class="auth_btn_wrapper" data-type="login"> 
+						Login <img src="/static/images/login.svg" width="15px" height="15px" alt="" class="footer_socials">
+					</div>
+				</div>
+				<div id="menu_profile_image_wrapper" style="display: flex;">
+					<div class="auth_btn_wrapper" data-type="signup"> 
+						Sign up <img src="/static/images/login.svg" width="15px" height="15px" alt="" class="footer_socials">
+					</div>
+				</div>
+			  </div>
+			<script>
+			  $.ajax({
+				type: "post",
+				url: "/get_user_profile_image",
+				data: {
+				  csrfmiddlewaretoken: csrf_token,
+				},
+				success: (res) => {
+				  const res_data = JSON.parse(res);
+				  const menu_profile_image_wrapper = document.getElementById("menu_profile_image_wrapper")
+				  
+				  const vip_logo_html = '<img src="/static/images/vip.svg" alt="default profile image image" class="vip_logo">'
+				  
+				  if (res_data.is_auth == false) return null
+				  if(res_data.profile_image != null) menu_profile_image_wrapper.innerHTML = '<a href="/profile"><img src="'+res_data.profile_image+'" alt="default profile image image" id="menu_account_image"></a>'+vip_logo_html
+				  else menu_profile_image_wrapper.innerHTML = '<a href="/profile" class="auth_btn_wrapper" style="display: flex; justify-content: center;">Profile</a>'
+				},
+			  });
+			</script>
+		  </div>
+		  {% endif %}
+		  <div id="menu_nav_wrapper">
+			<ul>
+			  <li class="menu_links_wrapper">
+				<a href="/home" class="menu_link">HOME</a>
+			  </li>
+			  <li class="menu_links_wrapper genre_menu_item">
+				<a href="#genres" class="menu_link menu_genres_link">GENRES</a>
+				<div id="menu_genre_wrapper" data-open="false">
+				  <!-- *** genres START *** -->
+				  {% include 'app/widgets/genres.html' %}
+				  <!-- *** genres ENDS *** -->
+				</div>
+			  </li>
+			  <li class="menu_links_wrapper">
+				<a href="/random" class="menu_link">RANDOM</a>
+			  </li>
+			  {% if global_data.attributes.donate_page == True %}
+			  <li class="menu_links_wrapper">
+				<a href="{{global_data.donate}}" class="menu_link">DONATE</a>
+			  </li>
+			  {% else %}	
+			  <li class="menu_links_wrapper">
+				<a href="{{global_data.redirect_url}}" class="menu_link">DONATE</a>
+			  </li>
+			  {% endif %}	
+			  <li class="menu_links_wrapper">
+				<a href="/#about" class="menu_link">ABOUT</a>
+			  </li>
+			</ul>
+		  </div>
+		  {% if global_data.attributes.darkmode == True %}
+		  <div id="theme_mode_btn_wrapper">
+			<div id="theme_mode_wrapper">
+			  <button id="theme_mode_btn">
+				<i class="fas fa-sun"></i>
+			  </button>
+			</div>
+		  </div>
+		  {% endif %}
+	  </div>
+    </div>
+  </div>

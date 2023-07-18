@@ -1,0 +1,57 @@
+{% load static %}
+<link
+    rel="stylesheet"
+    href="/static/css/sections/base_footer.css"
+/>
+<footer id="base_footer">
+    <div id="bg_image_footer_wrapper"> 
+		{% if global_data.footer_background_image != "" %}
+			<img src="{{global_data.footer_background_image}}" alt="footer background image" id="bg_image_footer">
+		{% else %}
+			<img src="/static/images/landscape_background_image.png" alt="footer background image" id="bg_image_footer">
+		{% endif %}
+    </div>
+    <div id="footer_info_wrapper">
+        <div id="footer_title_websocials_wrapper">
+            <div id="footer_socials_wrapper">
+                <!-- *** title START *** -->
+                {% include 'app/widgets/title.html' %}
+                <!-- *** title ENDS *** -->
+                
+				{% if global_data.attributes.socials == True %}
+					<div class="socials_wrapper">
+						<p>Join now</p>
+						<a href="{{global_data.twitter}}">
+							<img src="/static/images/twitter.svg" width="20px" height="20px" alt="twitter svg" class="footer_socials">
+						</a>
+						<a href="{{global_data.instagram}}">
+							<img src="/static/images/instagram.svg" width="20px" height="20px" alt="instagram svg" class="footer_socials">
+						</a>
+						<a href="{{global_data.reddit}}">
+							<img src="/static/images/reddit.svg" width="20px" height="20px" alt="reddit svg" class="footer_socials">
+						</a>
+						<a href="{{global_data.discord}}">
+							<img src="/static/images/discord.svg" width="20px" height="20px" alt="discord svg" class="footer_socials">
+						</a>
+					</div>
+				{% endif %}	
+            </div>
+			{% if global_data.contact_us|length > 1 %}
+				<div id="inner_contact_us_wrapper">
+						<div id="contact_us_title_wrapper">
+							Contact Us
+						</div>
+						<div id="contact_us_text_wrapper">
+							<p id="contact_us_text_">{{global_data.contact_us}}</p>
+						</div>
+				</div>
+			{% endif %}
+            <div id="footer_discalmers_wrapper">
+                <p>
+                   Copyright <i class="fa fa-copyright" aria-hidden="true"></i> anime_company.com. All Rights Reserved
+                </p>
+                <p>This site does not store any file on its servers. All contents are provided by non-affiliated third parties</p>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,73 @@
+<div id="profile_nav_wrapper">
+	{% if global_data.attributes.page_ads != False %}
+		{% if data.user.is_vip != True %}
+			{% if site_data.scripts.page_ad.script != "" %}
+				{% if site_data.scripts.page_ad.fluid != True %}
+					{% if site_data.scripts.page_ad.height != 0 %}
+					<div class="ad_wrapper profile_ad_wrapper" style="display: block !important; height: {{site_data.scripts.page_ad.height}}px !important;">
+						{{site_data.scripts.page_ad.script|safe}}
+					</div>
+					{% else %}
+					<div class="ad_wrapper profile_ad_wrapper" style="display: block !important; height: auto !important;">
+						{{site_data.scripts.page_ad.script|safe}}
+					</div>
+					{% endif %}
+				{% else %}
+					<div class="ad_wrapper profile_ad_wrapper" style="display: block !important;">
+						{{site_data.scripts.page_ad.script|safe}}
+					</div>
+				{% endif %}
+			{% endif %}
+		{% endif %}
+	{% endif %}
+    <div id="profile_nav_view_wrapper">
+       <div class="nav_view_wrapper">
+			<div style="text-transform: capitalize" id="text_nav_view_label_wrapper" class="nav_view_label_wrapper"></div>
+			<div class="inner_nav_view_wrapper">
+				{% include 'app/widgets/view_acts_wrapper.html' %}
+				<div id="view_wrapper" class="view_wrapper">
+				</div>
+			</div>
+			<div class="next_previous_btns_wrapper">
+				<div data-type='previous' role='button' class="next_previous_btns">
+					previous
+				</div>
+				<div data-type='next' role='button' class="next_previous_btns">
+					next
+				</div>
+			</div>
+			
+		</div>
+    </div>
+	{% if global_data.attributes.page_ads != False %}
+		{% if data.user.is_vip != True %}
+				{% if site_data.scripts.second_page_ad.script != "" %}
+					{% if site_data.scripts.second_page_ad.fluid != True %}
+						{% if site_data.scripts.second_page_ad.height != 0 %}
+						<div class="ad_wrapper browsing_ad_wrapper" style="display: block !important; height: {{site_data.scripts.second_page_ad.height}}px !important;">
+							{{site_data.scripts.second_page_ad.script|safe}}
+						</div>
+						{% else %}
+						<div class="ad_wrapper browsing_ad_wrapper" style="display: block !important; height: auto !important;">
+							{{site_data.scripts.second_page_ad.script|safe}}
+						</div>
+						{% endif %}
+					{% else %}
+						<div class="ad_wrapper browsing_ad_wrapper" style="display: block !important;">
+							{{site_data.scripts.second_page_ad.script|safe}}
+						</div>
+					{% endif %}
+				{% endif %}
+		{% endif %}
+	{% endif %}
+</div>
+
+
+<!---
+	<div id="empty_list_wrapper">
+		<div id="empty_list_image_wrapper">
+			<img src="/static/images/empty_list_image.png" width="20px" height="20px" alt="empty list alert image" class="empty_list_image">
+		</div>
+		<div id="empty_list_text_wrapper">Nothing yet...</div>
+	</div>
+--->

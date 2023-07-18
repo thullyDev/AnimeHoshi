@@ -1,0 +1,402 @@
+{% extends 'app/admin_base.html' %}
+{% load static %}
+
+{% block page_meta_data %} 
+<title>
+  General Settings | As2anime Admin Panel
+</title>
+<script defer src="/static/js/pages/general_settings.js"></script>
+{% endblock %}
+
+{% block page_content %}
+<div id="general_settings_wrapper" class="container-fluid">
+	<div class="outter_settings_wrapper">
+		<div class="settings_label_wrapper">
+			General Settings
+		</div>
+		<div class="inner_settings_wrapper">
+			<div class="image_text_input_wrapper">
+				<div class="settings_text_input_wrapper">
+					<div class="descr_title_wrapper">
+						<div class="outter_input_wrapper">
+							<label for="title" class="settings_input_label_wrapper">
+								Title
+							</label>
+							<input type="text" value="{{site_data.title}}" name="title" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="description" class="settings_input_label_wrapper">
+								Description
+							</label>
+							<input type="text" value="{{site_data.title}}" name="description" class="settings_input">
+						</div>
+					</div>
+					<div class="notice_text_wrapper">
+						<div class="outter_input_wrapper">
+							<label for="home_notice" class="settings_input_label_wrapper">
+								Home Notice
+							</label>
+							<textarea name="text" cols="60" rows="10" data-id="home_notice" class="settings_input">{{site_data.home_notice}}</textarea>
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="watch_notice" class="settings_input_label_wrapper">
+								Watch Notice
+							</label>
+							<textarea name="text" cols="60" rows="10" data-id="watch_notice" class="settings_input">{{site_data.watch_notice}}</textarea>
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="contact_us" class="settings_input_label_wrapper">
+								Contact Us
+							</label>
+							<textarea name="text" cols="60" rows="10" data-id="contact_us" class="settings_input">{{site_data.contact_us}}</textarea>
+						</div>
+					</div>
+					<div class="servers_wrapper">
+						<div class="inner_servers_wrapper">
+							<div class="outter_input_wrapper">
+								<label for="as2server_name" class="settings_input_label_wrapper">
+									As2server Server Name
+								</label>
+								<input type="text" value="{{site_data.as2server_name}}" data-id="as2server_name" id="as2server_name" class="settings_input">
+							</div>
+							<div class="outter_input_wrapper">
+								<label for="backup_server_name" class="settings_input_label_wrapper">
+									Backup Sever Name
+								</label>
+								<input type="text" value="{{site_data.backup_server_name}}" data-id="backup_server_name" id="backup_server_name" class="settings_input">
+							</div>
+						</div>
+						<div class="swipe_servers_wrapper">
+							<div class="outter_input_wrapper">
+							  <div class="settings_input_label_wrapper">
+								  Swipe Servers
+							  </div>
+							  <div class="settings_radio_input_wrapper">
+									<div class="radio_wrapper">
+										{% if site_data.swipe_servers == True %}
+											<input class="radio_btn" checked type="checkbox" data-id="swipe_servers" id="swipe_servers" />
+										{% else %}
+											<input class="radio_btn" type="checkbox" data-id="swipe_servers" id="swipe_servers" />
+										{% endif %}
+										<label class="inner_radio_wrapper" for="swipe_servers"></label>
+									</div>
+							  </div> 
+							</div>
+						</div>
+					</div>
+					<div class="recaptcha_codes_wrapper">
+						<div class="outter_input_wrapper">
+							<label for="redirect_url" class="settings_input_label_wrapper">
+								Redirect Url
+							</label>
+							<input type="text" value="{{site_data.redirect_url}}" data-id="redirect_url" id="redirect_url" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="recaptcha_site_key" class="settings_input_label_wrapper">
+								Recaptcha Site Key
+							</label>
+							<input type="text" value="{{site_data.recaptcha_site_key}}" data-id="recaptcha_site_key" id="recaptcha_site_key" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="recaptcha_secrete_key" class="settings_input_label_wrapper">
+								Recaptcha Secrete Key
+							</label>
+							<input type="text" value="{{site_data.recaptcha_secrete_key}}" data-id="recaptcha_secrete_key" id="recaptcha_secrete_key" class="settings_input">
+						</div>
+					</div>
+					<div class="verf_codes_wrapper">
+						<div class="outter_input_wrapper">
+							<label for="google_verification_code" class="settings_input_label_wrapper">
+								Google verification Code
+							</label>
+							<input type="text" value="{{site_data.google_verification_code}}" data-id="google_verification_code" id="google_verification_code" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="bing_verification_code" class="settings_input_label_wrapper">
+								Bing verification Code
+							</label>
+							<input type="text" value="{{site_data.bing_verification_code}}" data-id="bing_verification_code" id="bing_verification_code" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="yandex_verification_code" class="settings_input_label_wrapper">
+								Yandex verification Code
+							</label>
+							<input type="text" value="{{site_data.yandex_verification_code}}" data-id="yandex_verification_code" id="yandex_verification_code" class="settings_input">
+						</div>
+					</div>
+					<div class="socials_links_wrapper">
+						<div class="outter_input_wrapper">
+							<label for="donate" class="settings_input_label_wrapper">
+								Donate
+							</label>
+							<input type="text" value="{{site_data.donate}}" name="donate" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="facebook" class="settings_input_label_wrapper">
+								Facebook
+							</label>
+							<input type="text" value="{{site_data.facebook}}" name="facebook" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="discord" class="settings_input_label_wrapper">
+								Discord
+							</label>
+							<input type="text" value="{{site_data.discord}}" name="discord" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="twitter" class="settings_input_label_wrapper">
+								Twitter
+							</label>
+							<input type="text" value="{{site_data.twitter}}" name="twitter" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="reddit" class="settings_input_label_wrapper">
+								Reddit
+							</label>
+							<input type="text" value="{{site_data.reddit}}" name="reddit" class="settings_input">
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="instagram" class="settings_input_label_wrapper">
+								Instagram
+							</label>
+							<input type="text" value="{{site_data.instagram}}" name="instagram" class="settings_input">
+						</div>
+					</div>
+	
+					<div class="site_colors_wrapper">
+						<div class="outter_input_wrapper">
+							<label for="primary_color" class="settings_input_label_wrapper">
+								Primary Color
+							</label>
+							<div class="color_input_wrapper">
+								<input type="text" value="{{site_data.primary_color}}" data-id="primary_color" class="settings_input color_input">
+								<div class="color_preview_wrapper">
+									<span class="color_preview" data-id="primary_color">
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="secondary_color" class="settings_input_label_wrapper">
+								Secondary Color
+							</label>
+							<div class="color_input_wrapper">
+								<input type="text" value="{{site_data.secondary_color}}" data-id="secondary_color" class="settings_input color_input">
+								<div class="color_preview_wrapper">
+									<span class="color_preview" data-id="secondary_color">
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="secondary_highlight_color" class="settings_input_label_wrapper">
+								Secondary Highlight Color
+							</label>
+							<div class="color_input_wrapper">
+								<input type="text" value="{{site_data.secondary_highlight_color}}" data-id="secondary_highlight_color" class="settings_input color_input">
+								<div class="color_preview_wrapper">
+									<span class="color_preview" data-id="secondary_highlight_color">
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="third_color" class="settings_input_label_wrapper">
+								Third Color
+							</label>
+							<div class="color_input_wrapper">
+								<input type="text" value="{{site_data.third_color}}" data-id="third_color" class="settings_input color_input">
+								<div class="color_preview_wrapper">
+									<span class="color_preview" data-id="third_color">
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="accent_color" class="settings_input_label_wrapper">
+								Accent Color
+							</label>
+							<div class="color_input_wrapper">
+								<input type="text" value="{{site_data.accent_color}}" data-id="accent_color" class="settings_input color_input">
+								<div class="color_preview_wrapper">
+									<span class="color_preview" data-id="accent_color">
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="highlight_color" class="settings_input_label_wrapper">
+								Highlight Color
+							</label>
+							<div class="color_input_wrapper">
+								<input type="text" value="{{site_data.highlight_color}}" data-id="highlight_color" class="settings_input color_input">
+								<div class="color_preview_wrapper">
+									<span class="color_preview" data-id="highlight_color">
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="outter_input_wrapper">
+							<label for="highlight_accent_color" class="settings_input_label_wrapper">
+								Highlight Accent Color
+							</label>
+							<div class="color_input_wrapper">
+								<input type="text" value="{{site_data.highlight_accent_color}}" data-id="highlight_accent_color" class="settings_input color_input">
+								<div class="color_preview_wrapper">
+									<span class="color_preview" data-id="highlight_accent_color">
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="outter_input_wrapper reset_colors_wrapper">
+							<span class="reset_colors" role="button">
+								Reset Colors
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="settings_image_input_wrapper">
+					<div class="outter_image_input_wrapper">
+						<label for="site_logo" class="settings_input_label_wrapper">
+							Site Logo
+						</label>
+						<label for="site_logo" data-id="site_logo" class="image_preview_wrapper">
+							{% if site_data.site_logo != "" %}
+								<img src="{{site_data.site_logo}}" class="image_preview" data-id="site_logo" width="100px" alt="As2anime logo">
+							{% else %}
+								<img src="/static/images/title_logo.png" class="image_preview" data-id="site_logo" alt="As2anime logo">
+							{% endif %}
+						</label>
+						<input type="file" id="site_logo" onChange="change_image(this, 'site_logo')" accept="image/*" class="settings_image_input">
+					</div>
+					<div class="outter_image_input_wrapper">
+						<label for="shortcut_logo" class="settings_input_label_wrapper">
+							Shortcut icon
+						</label>
+						<label for="shortcut_logo" data-id="shortcut_logo" class="image_preview_wrapper">
+							{% if site_data.shortcut_logo != "" %}
+							    <img src="{{site_data.shortcut_logo}}" class="image_preview" data-id="shortcut_logo" alt="As2anime shortcut icon logo">
+							{% else %}
+								<img src="/static/images/icon_two.png" class="image_preview" data-id="shortcut_logo" alt="As2anime shortcut icon logo">
+							{% endif %}
+						</label>
+						<input type="file" id="shortcut_logo" onChange="change_image(this, 'shortcut_logo')" accept="image/*" class="settings_image_input">
+					</div>
+					<div class="outter_image_input_wrapper">
+						<label for="landing_background_image" class="settings_input_label_wrapper">
+							Landing Background Image
+						</label>
+						<label for="landing_background_image" data-id="landing_background_image" class="image_preview_wrapper">
+							{% if site_data.landing_background_image != "" %}
+								<img src="{{site_data.landing_background_image}}" class="image_preview" data-id="landing_background_image" alt="Landing Background Image">
+							{% else %}
+								<img src="/static/images/landing_background_image.jpg" class="image_preview" data-id="landing_background_image" alt="As2anime logo">
+							{% endif %}
+						</label>
+						<input type="file" id="landing_background_image" onChange="change_image(this, 'landing_background_image')" accept="image/*" class="settings_image_input">
+					</div>
+					<div class="outter_image_input_wrapper">
+						<label for="landing_image" class="settings_input_label_wrapper">
+							Landing Image
+						</label>
+						<label for="landing_image" data-id="landing_image" class="image_preview_wrapper">
+							{% if site_data.landing_image != "" %}
+								<img src="{{site_data.landing_image}}" class="image_preview" data-id="landing_image" alt="Landing Image">
+							{% else %}
+								<img src="/static/images/landing_welcome_image.png" class="image_preview" data-id="landing_image" alt="Landing Image">
+							{% endif %}
+						</label>
+						<input type="file" id="landing_image" onChange="change_image(this, 'landing_image_preview')" accept="image/*" class="settings_image_input">
+					</div>
+					<div class="outter_image_input_wrapper">
+						<label for="footer_background_image" class="settings_input_label_wrapper">
+							Footer Background Image
+						</label>
+						<label for="footer_background_image" data-id="footer_background_image" class="image_preview_wrapper">
+							{% if site_data.footer_background_image != "" %}
+								<img src="{{site_data.footer_background_image}}" class="image_preview" data-id="footer_background_image" alt="Footer Background Image">
+							{% else %}
+								<img src="/static/images/landscape_background_image.png" class="image_preview" data-id="footer_background_image" alt="Footer Background Image">
+							{% endif %}
+						</label>
+						<input type="file" id="footer_background_image" onChange="change_image(this, 'landing_image')" accept="image/*" class="settings_image_input">
+					</div>
+					<div class="outter_image_input_wrapper">
+						<label for="profile_background_image" class="settings_input_label_wrapper">
+							Profile Background Image
+						</label>
+						<label for="profile_background_image" data-id="profile_background_image" class="image_preview_wrapper">
+							{% if site_data.profile_background_image != "" %}
+								<img src="{{site_data.profile_background_image}}" class="image_preview" data-id="profile_background_image" alt="Profile Background Image">
+							{% else %}
+								<img src="/static/images/landscape_background_image.png" class="image_preview" data-id="profile_background_image" alt="Profile Background Image">
+							{% endif %}
+						</label>
+						<input type="file" id="profile_background_image" onChange="change_image(this, 'profile_background_image')" accept="image/*" class="settings_image_input">
+					</div>
+					<div class="outter_image_input_wrapper">
+						<label for="player_image" class="settings_input_label_wrapper">
+							Player Image
+						</label>
+						<label for="player_image" data-id="player_image" class="image_preview_wrapper">
+							{% if site_data.player_image != "" %}
+								<img src="{{site_data.player_image}}" class="image_preview" data-id="player_image" alt="Player Image">
+							{% else %}
+								<img src="/static/images/landing_background_image.jpg" class="image_preview" data-id="player_image" alt="Player Image">
+							{% endif %}
+						</label>
+						<input type="file" id="player_image" onChange="change_image(this, 'player_image')" accept="image/*" class="settings_image_input">
+					</div>
+					<div class="outter_image_input_wrapper">
+						<label for="schedule_background_image" class="settings_input_label_wrapper">
+							Schedule Image
+						</label>
+						<label for="schedule_background_image" data-id="schedule_background_image" class="image_preview_wrapper">
+							{% if site_data.schedule_background_image != "" %}
+								<img src="{{site_data.schedule_background_image}}" class="image_preview" data-id="schedule_background_image" alt="Home Schedule Background Image">
+							{% else %}
+								<img src="/static/images/schedule_background_image.png" class="image_preview" data-id="schedule_background_image" alt="Home Schedule Background Image">
+							{% endif %}
+						</label>
+						<input type="file" id="schedule_background_image" onChange="change_image(this, 'schedule_background_image')" accept="image/*" class="settings_image_input">
+					</div>
+					<div class="outter_image_input_wrapper">
+						<label for="default_image" class="settings_input_label_wrapper">
+							Default Image
+						</label>
+						<label for="default_image" data-id="default_image" class="image_preview_wrapper">
+							{% if site_data.default_image != "" %}
+								<img src="{{site_data.default_image}}" class="image_preview" data-id="default_image" alt="Default Image">
+							{% else %}
+								<img src="/static/images/default.jpg" class="image_preview" data-id="default_image" alt="Default Image">
+							{% endif %}
+						</label>
+						<input type="file" id="default_image" onChange="change_image(this, 'default_image')" accept="image/*" class="settings_image_input">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="save_btn_wrapper">
+			<button type="button" class="save_btn">
+				save
+			</button>
+		</div>	  
+	</div>
+</div>
+
+
+<script defer>
+	function change_image(input, id)  {
+	//* this func is executed on the onchange eventlistner in the image_preview_wrapper tag
+	if (input.files && input.files[0]) {
+		const reader = new FileReader();
+		
+		reader.onload = function (e) {
+			const image_url = e.target.result
+			$(`.image_preview_wrapper[data-id="${id}"]`).html(`<img src="${image_url}" data-id="${id}" class="image_preview" alt="${id} image_preview_wrapper">`)
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+</script>
+{% endblock %}

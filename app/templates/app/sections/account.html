@@ -1,0 +1,32 @@
+{% load static %}
+<div id="account_details_wrapper">
+	{% if site_data.profile_background_image != "" %}
+		<img src="{{site_data.profile_background_image}}" alt="account background image" id="account_bg_image">
+	{% else %}
+		<img src="/static/images/landscape_background_image.png" alt="account background image" id="account_bg_image">
+	{% endif %}
+    <div id="account_image_wrapper">
+        <label for="profile_image_input">
+            <div id="account_inner_image_wrapper">
+				<div id="account_profile_image_wrapper">
+				</div>
+                <div id="account_image_edit_wrapper">
+					<label for="profile_image_input">
+						<img src="/static/images/pencil.svg" alt="edit profile icon" class="pencil_icon" id="edit_profile_icon">
+					</label>
+                </div>
+            </div>
+        </label>
+		<input type="file" accept="image/*" name="profile_image_input" id="profile_image_input" onChange="change_profile_image(this)">
+    </div>
+    <div id="account_info_wrapper">
+        <div id="account_username_wrapper">
+			<div role="button" id="username_wrapper">
+				<p id="username_label"></p>
+			</div>
+        </div>
+        <div id="account_email_wrapper">
+            <p id="email_label"></p>
+        </div>
+    </div>
+</div>

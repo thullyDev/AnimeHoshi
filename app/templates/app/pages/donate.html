@@ -1,0 +1,37 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block page_meta_data %}
+<link
+    rel="stylesheet"
+    href="/static/css/pages/donate.css"
+/>
+<title> donate page | anime site </title>
+{{site_data.scripts.page_scripts|safe}}
+{% endblock %}
+
+{% block foot_scripts %}
+	{{site_data.scripts.page_foot_scripts|safe}}
+{% endblock %}
+
+{% block page_content %}
+<div class="page_content" id="donate_wrapper">
+    <div id="donate_text_wrapper">
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero doloremque iusto ad distinctio, blanditiis quas neque! Aspernatur, sed possimus alias reiciendis at, ea ab consequatur vero, animi in sunt quaerat!
+            Ullam commodi consequatur iure ipsum nihil reprehenderit, eos non. Dolorum iure expedita nobis laboriosam sunt blanditiis, ea quaerat accusamus aspernatur tempore inventore in nostrum id facilis corporis. Voluptatem, voluptates hic.
+            Vel dolore perferendis modi, ipsam a voluptatem veniam ipsum incidunt tempora delectus. Natus enim maxime rem modi quaerat? Aspernatur magnam tempora earum blanditiis? Culpa quasi quos laborum, voluptate vel eligendi.
+        </p>
+    </div>
+    <div id="donate_amount_inp_btn_wrapper">
+        <div id="donate_inp_wrapper">
+            <input type="number" name="donate" id="donate_inp">
+        </div>
+        <div id="donate_btn_wrapper">
+            <button type="button" id="donate_btn">
+                DONATE
+            </button>
+        </div>
+    </div>
+<div>
+{% endblock %}

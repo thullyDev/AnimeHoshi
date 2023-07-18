@@ -1,0 +1,285 @@
+{% load static %}
+<div id="outter_auth_wrapper">
+  <div id="inner_auth_wrapper">
+    <div id="close_auth_btn_wrapper">
+      <button id="close_auth_btn">
+        <img
+          id="close_auth_icon"
+          src="/static/images/close.svg"
+          alt="close authentication form icon"
+        />
+      </button>
+    </div>
+    <div id="main_auth_wrapper">
+      <div id="login_wrapper" class="auth_block_wrapper">
+        <div class="auth_img_wrapper">
+			<img
+			  class="auth_img_wrapper"
+			  src="/static/images/auth_image_one.png"
+			  alt="authentication image"
+			/>
+        </div>
+		<div id="outter_auth_form_wrapper"> 
+			<div class="auth_top_text_wrapper">
+			  <span class="auth_label">Login</span>
+			  <span class="auth_text">Welcome back!</span>
+			</div>
+			<div class="auth_form_wrapper" id="login_btn_form_wrapper">
+			  <div id="login_form_wrapper">
+				<form action="post" id="login_form" accept-charset="utf-8">
+				  <div class="login_inp_wrapper">
+					<input
+					  type="text"
+					  name="email"
+					  id="login_email"
+					  placeholder=" "
+					  class="login_inp"
+					/>
+					<label for="email">Email</label>
+				  </div>
+				  <div class="login_inp_wrapper">
+					<input
+					  type="password"
+					  name="password"
+					  id="login_password"
+					  placeholder=" "
+					  class="login_inp"
+					/>
+					<label for="password">Password</label>
+				  </div>
+				  <div id="forgot_link_wrapper">
+					  <span
+						data-auth="forgot_password"
+						role="button"
+						id="forgot_link"
+						style="cursor: pointer;"
+						>Forgot password</span>
+				  </div>
+				</form>
+			  </div>
+			  <div id="login_forgot_link_btn_wrapper">
+				<div id="login_btn_wrapper">
+				  <button
+					data-auth="login"
+					type="button"
+					class="auth_btn"
+					id="login_btn"
+				  >
+					Login
+				  </button>
+				</div>
+			  </div>
+			</div>
+			<div id="signup_text_link_wrapper">
+			  Create account
+			  <span role="button" id="signup_link" style="cursor: pointer;">signup</span>
+			</div>
+        </div>
+      </div>
+	  <div id="signup_wrapper" class="auth_block_wrapper">
+        <div class="auth_img_wrapper">
+			<img
+			  class="auth_img_wrapper"
+			  src="/static/images/auth_image_one.png"
+			  alt="authentication image"
+			/>
+        </div>
+		<div id="outter_auth_form_wrapper"> 
+			<div class="auth_top_text_wrapper">
+			  <span class="auth_label">Signup</span>
+			  <span class="auth_text">Welcome to as2anime, where you can watch anime for free!</span>
+			</div>
+			<div class="auth_form_wrapper" id="signup_btn_form_wrapper">
+			  <div id="signup_form_wrapper">
+				<form action="post" id="signup_form" accept-charset="utf-8">
+				  <div class="signup_inp_wrapper">
+					<input
+					  type="text"
+					  name="username"
+					  id="username"
+					  placeholder=" "
+					  class="signup_inp"
+					/>
+					<label for="username">Username</label>
+				  </div>
+				  <div class="signup_inp_wrapper">
+					<input
+					  type="text"
+					  name="email"
+					  id="email"
+					  placeholder=" "
+					  class="signup_inp"
+					/>
+					<label for="email">Email</label>
+				  </div>
+				  <div class="signup_inp_wrapper">
+					<input
+					  type="password"
+					  name="password"
+					  id="password"
+					  placeholder=" "
+					  class="signup_inp"
+					/>
+					<label for="password">Password</label>
+				  </div>
+				  <div class="signup_inp_wrapper">
+					<input
+					  type="password"
+					  name="confirm"
+					  id="confirm"
+					  placeholder=" "
+					  class="signup_inp"
+					/>
+					<label for="confirm">Confirm</label>
+				  </div>
+				  {% if global_data.recaptcha_valid == True %}
+				  <div id="outter_recaptcha_wrapper">
+					<div id="g_captcha"class="g-recaptcha" data-sitekey="{{global_data.recaptcha_site_key}}" style="display: flex; justify-content: center;"></div>
+				  </div>
+				  {% endif %}
+				</form>
+			  </div>
+			  <div id="signup_btn_wrapper">
+				<button
+				  data-auth="signup"
+				  type="button"
+				  class="auth_btn"
+				  id="signup_btn"
+				>
+				  Signup
+				</button>
+			  </div>
+			</div>
+			<div id="login_text_link_wrapper">
+			  Already have an account?
+			  <span role="button" id="login_link" style="cursor: pointer;">login</span>
+			</div>
+        </div>
+      </div>
+	  <div id="forgot_wrapper" class="auth_block_wrapper">
+        <div class="auth_img_wrapper">
+			<img
+			  class="auth_img_wrapper"
+			  src="/static/images/auth_image_one.png"
+			  alt="authentication image"
+			/>
+        </div>
+		<div id="outter_auth_form_wrapper"> 
+			<div class="auth_top_text_wrapper">
+			  <span class="auth_label">Forgot Password</span>
+			  <span class="auth_text">Please type the email you want to recover</span>
+			</div>
+			<div id="forgot_form_wrapper">
+			  <form action="post" id="forgot_form" accept-charset="utf-8">
+				<div class="forgot_inp_wrapper">
+				  <input
+					type="text"
+					name="email"
+					id="email"
+					placeholder=" "
+					class="forgot_inp"
+				  />
+				  <label for="email">EMAIL</label>
+				</div>
+			  </form>
+			</div>
+			<div id="recover_btn_wrapper">
+			  <button
+				data-auth="recovery"
+				type="button"
+				id="recover_btn"
+			  >
+				Recover
+			  </button>
+			</div>
+        </div>
+      </div>
+	  <div id="renew_password_wrapper" class="auth_block_wrapper">
+        <div class="auth_img_wrapper">
+			<img
+			  class="auth_img_wrapper"
+			  src="/static/images/auth_image_one.png"
+			  alt="authentication image"
+			/>
+        </div>
+		<div id="outter_auth_form_wrapper"> 
+			<div class="auth_top_text_wrapper">
+			  <span class="auth_label">Renew Password</span>
+			  <span class="auth_text">Your password will be reset once you done</span>
+			</div>
+        <div id="renew_form_wrapper">
+          <form action="post" id="renew_form" accept-charset="utf-8">
+            <div class="renew_inp_wrapper">
+              <input
+                type="password"
+                name="password"
+                id="renew_password"
+                placeholder=" "
+                class="renew_inp"
+              />
+              <label for="password">PASSWORD</label>
+            </div>
+            <div class="renew_inp_wrapper">
+              <input
+                type="password"
+                name="confirm"
+                id="renew_confirm"
+                placeholder=" "
+                class="renew_inp"
+              />
+              <label for="confirm">CONFIRM</label>
+            </div>
+          </form>
+        </div>
+        <div id="cancel_renew_btn_wrapper">
+          <div id="renew_btn_wrapper">
+            <button data-auth="renew" type="button" id="renew_btn">
+              Renew
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+	  <div id="verify_wrapper" class="auth_block_wrapper">
+        <div class="auth_img_wrapper">
+			<img
+			  class="auth_img_wrapper"
+			  src="/static/images/auth_image_one.png"
+			  alt="authentication image"
+			/>
+        </div>
+		<div id="outter_auth_form_wrapper"> 
+			<div class="auth_top_text_wrapper">
+			  <span class="auth_label">Signup</span>
+			  <span class="auth_text">We sent a verification code to the provided email</span>
+			</div>
+			<div id="verify_form_wrapper">
+			  <form action="post" id="verify_form" accept-charset="utf-8">
+				<div class="verify_inp_wrapper">
+				  <input
+					type="number"
+					id="verify_inp"
+					class="verify_inp"
+					placeholder=" "
+				  />
+				  <label for="confirm">VERIFY</label>
+				</div>
+			  </form>
+			</div>
+			<div id="cancel_verify_btn_wrapper">
+			  <div id="verify_btn_wrapper">
+				<button data-auth="verify" type="button" id="verify_btn">
+				  Verify
+				</button>
+			  </div>
+			</div>
+        </div>
+      </div>
+    </div>
+    <!-- loader Start -->
+    <div id="auth_loader_wrapper" class="loading_wrapper">
+          {% include 'app/widgets/loader_two.html' %}
+    </div>
+    <!-- loader END -->
+  </div>
+</div>

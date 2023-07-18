@@ -1,0 +1,554 @@
+div#inner_auth_wrapper {
+  display: inline-block;
+  border-radius: 0.3rem;
+  height: auto;
+  padding: 30px;
+  position: relative;
+  top: -24px;
+  background: var(--secondary-highlight-color);
+}
+
+div#outter_auth_wrapper {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  background: #000000cf;
+  backdrop-filter: blur(10px);
+}
+
+div.auth_block_wrapper {
+  display: none;
+  position: relative;
+  align-items: center;
+}
+
+img#close_auth_icon {
+  width: 40px;
+}
+
+div#close_auth_btn_wrapper {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+button#close_auth_btn {
+  margin: 0;
+  border-radius: 1000px;
+  width: 50px;
+  height: 50px;
+  margin: 3px;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+button#close_auth_btn:hover {
+  background: var(--third-color);
+  transition: all 0.5s ease-in-out;
+}
+
+/*** login css start  ***/
+.login_inp_wrapper {
+  position: relative;
+  margin: 25px 0;
+}
+
+.login_inp_wrapper > label {
+  top: 30%;
+  left: 5%;
+  position: absolute;
+  font-family: var(--title-font);
+  font-weight: 600;
+  z-index: 5;
+  padding: 0 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.login_inp {
+  width: 35vw;
+  height: 40px;
+  background: none;
+  outline: none;
+  border: solid 1.5px var(--third-color);
+  border-radius: 0.3rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-family: var(--regular-font);
+  font-size: 15px;
+  transition: all 1s ease-in-out;
+  padding: 0 5px;
+}
+
+.login_inp:focus ~ label,
+.login_inp:not(:placeholder-shown).login_inp:not(:focus) ~ label {
+  top: -25%;
+  font-size: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.login_inp:hover {
+  border: solid 1.5px var(--highlight-color);
+  transition: all 0.5s ease-in-out;
+}
+
+#login_btn_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#login_btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0.3rem;
+  background-color: var(--third-color);
+  font-size: 15px;
+  font-family: var(--title-font);
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  width: 100%;
+  margin: 0;
+}
+
+#login_btn:hover {
+  background-color: var(--highlight-color);
+  transition: all 1s ease-in-out;
+}
+
+#signup_text_link_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--title-font);
+  font-size: 15px;
+}
+
+#signup_link {
+  margin-left: 5px;
+  color: var(--third-color);
+  font-weight: 600;
+}
+
+#forgot_link_wrapper {
+  display: flex;
+  justify-content: start;
+  margin: 0 0 10px 0;
+}
+
+#forgot_link {
+  color: var(--secondary-color);
+  font-family: var(--title-font);
+  transition: all 1s ease-in-out;
+}
+
+#forgot_link:hover {
+  color: var(--accent-color);
+  transition: all 0.5s ease-in-out;
+}
+/*** login css end  ***/
+
+/*** signup css start  ***/
+.signup_inp_wrapper {
+  position: relative;
+  margin: 25px 0;
+}
+
+.signup_inp_wrapper > label {
+  top: 30%;
+  left: 5%;
+  position: absolute;
+  font-family: var(--title-font);
+  font-weight: 600;
+  z-index: 5;
+  padding: 0 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.signup_inp {
+  width: 35vw;
+  height: 40px;
+  background: none;
+  outline: none;
+  border: solid 1.5px var(--third-color);
+  border-radius: 0.3rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-family: var(--regular-font);
+  font-size: 15px;
+  transition: all 1s ease-in-out;
+  padding: 0 5px;
+}
+
+.signup_inp:focus ~ label,
+.signup_inp:not(:placeholder-shown).signup_inp:not(:focus) ~ label {
+  top: -25%;
+  font-size: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.signup_inp:hover {
+  border: solid 1.5px var(--highlight-color);
+  transition: all 0.5s ease-in-out;
+}
+
+#signup_btn_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#signup_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.3rem;
+  background-color: var(--third-color);
+  font-size: 15px;
+  font-family: var(--title-font);
+  font-weight: 600;
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  margin: 0;
+  width: 100%;
+}
+
+#signup_btn:hover {
+  background-color: var(--highlight-color);
+  transition: all 1s ease-in-out;
+}
+
+#login_text_link_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0;
+  font-family: var(--title-font);
+}
+
+#login_link {
+  margin-left: 5px;
+  color: var(--third-color);
+  font-weight: 600;
+}
+/*** signup css end  ***/
+
+/*** forgot_password css start  ***/
+#forgot_text_wrapper {
+  display: flex;
+  justify-content: center;
+  font-family: var(--title-font);
+}
+
+.forgot_inp_wrapper {
+  position: relative;
+  margin: 25px 0;
+}
+
+.forgot_inp_wrapper > label {
+  top: 30%;
+  left: 5%;
+  position: absolute;
+  font-family: var(--title-font);
+  font-weight: 600;
+  z-index: 5;
+  padding: 0 10px;
+}
+
+.forgot_inp {
+  width: 35vw;
+  height: 40px;
+  background: none;
+  outline: none;
+  border: solid 1.5px var(--third-color);
+  border-radius: 0.3rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-family: var(--regular-font);
+  font-size: 15px;
+  transition: all 1s ease-in-out;
+  padding: 0 5px;
+}
+
+.forgot_inp:focus ~ label,
+.forgot_inp:not(:placeholder-shown).forgot_inp:not(:focus) ~ label {
+  top: -25%;
+  font-size: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.forgot_inp:hover {
+  border: solid 1.5px var(--highlight-color);
+  transition: all 0.5s ease-in-out;
+}
+
+#recover_btn_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#recover_btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0.3rem;
+  background-color: var(--third-color);
+  font-size: 20px;
+  font-family: var(--title-font);
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  margin: 0;
+  width: 100%;
+}
+
+#recover_btn:hover {
+  background-color: var(--highlight-color);
+  transition: all 1s ease-in-out;
+}
+/*** forgot_password css end  ***/
+
+/*** renew css start  ***/
+#renew_text_wrapper {
+  display: flex;
+  justify-content: center;
+  font-family: var(--title-font);
+}
+
+.renew_inp_wrapper {
+  position: relative;
+  margin: 25px 0;
+}
+
+.renew_inp_wrapper > label {
+  top: 30%;
+  left: 5%;
+  position: absolute;
+  font-family: var(--title-font);
+  font-weight: 600;
+  z-index: 5;
+  padding: 0 10px;
+  /* background-color: var(--primary-color); */
+  transition: all 0.5s ease-in-out;
+}
+
+.renew_inp {
+  width: 35vw;
+  height: 40px;
+  background: none;
+  outline: none;
+  border: solid 1.5px var(--third-color);
+  border-radius: 0.3rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-family: var(--regular-font);
+  font-size: 15px;
+  transition: all 1s ease-in-out;
+  padding: 0 5px;
+}
+
+.renew_inp:focus ~ label,
+.renew_inp:not(:placeholder-shown).renew_inp:not(:focus) ~ label {
+  top: -25%;
+  font-size: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.renew_inp:hover {
+  border: solid 1.5px var(--highlight-color);
+  transition: all 0.5s ease-in-out;
+}
+
+#renew_btn_wrapper,
+#cancel_btn_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 25px 0;
+}
+
+#renew_btn,
+#cancel_btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0.3rem;
+  background-color: var(--third-color);
+  font-size: 20px;
+  font-family: var(--title-font);
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  margin: 0;
+  width: 100%;
+}
+
+#cancel_btn {
+  background-color: var(--highlight-color);
+}
+
+#renew_btn:hover {
+  background-color: var(--highlight-color);
+  transition: all 1s ease-in-out;
+}
+
+#cancel_btn:hover {
+  background-color: var(--third-color);
+  transition: all 1s ease-in-out;
+}
+/*** renew css end  ***/
+
+
+/*** verify css start  ***/
+span#verificaiton_email {
+    color: var(--third-color);
+    font-weight: 600;
+}
+
+form#verify_form {
+    display: flex;
+	 align-items: center;
+    flex-direction: column;
+}
+
+.verify_inp_wrapper {
+  position: relative;
+  margin: 25px 0;
+  display: inline-block;
+}
+
+.verify_inp_wrapper > label {
+  top: 30%;
+  left: 5%;
+  position: absolute;
+  font-family: var(--title-font);
+  font-weight: 600;
+  z-index: 5;
+  padding: 0 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.verify_inp {
+  width: 35vw;
+  height: 40px;
+  background: none;
+  outline: none;
+  border: solid 1.5px var(--third-color);
+  border-radius: 0.3rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-family: var(--regular-font);
+  font-size: 15px;
+  transition: all 1s ease-in-out;
+  padding: 0 5px;
+}
+
+.verify_inp:focus ~ label,
+.verify_inp:not(:placeholder-shown).verify_inp:not(:focus) ~ label {
+  top: -25%;
+  font-size: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.verify_inp:hover {
+  border: solid 1.5px var(--highlight-color);
+  transition: all 0.5s ease-in-out;
+}
+
+#verify_btn_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#verify_btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0.3rem;
+  background-color: var(--third-color);
+  font-size: 15px;
+  font-family: var(--title-font);
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  margin: 0;
+  width: 100%;
+}
+
+#verify_btn:hover {
+  background-color: var(--highlight-color);
+  transition: all 1s ease-in-out;
+}
+/*** verify css end  ***/
+
+
+/*** mobile to tablet and large tablets screens ***/
+@media (max-width: 550px) {
+  .login_inp,
+  .signup_inp,
+  .forgot_inp,
+  .renew_inp {
+    width: 100%;
+  }
+}
+/*** mobile to tablet screens ***/
+
+div.auth_block_wrapper * {
+    z-index: 1;
+}
+
+.auth_top_text_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+img.auth_img_wrapper {
+    width: 100%;
+    opacity: 1;
+}
+
+.auth_img_wrapper {
+    width: 100%;
+    height: 400px;
+    z-index: 0 !important;
+}
+
+div#login_btn_form_wrapper {
+    margin-bottom: 60px;
+}
+
+div#auth_top_text_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+span.auth_label {
+    color: var(--third-color);
+    font-weight: 600;
+    font-size: 30px;
+    font-family: var(--regular-font);
+    margin-bottom: 10px;
+}
+
+span.auth_text {
+    font-family: var(--title-font);
+}
+
+
+/*** mobile to tablet and large tablets screens ***/
+@media (max-width: 700px) {
+	.auth_img_wrapper {
+		position: absolute; 
+	}
+
+	img.auth_img_wrapper {
+		opacity: .1;
+	}
+}
+/*** mobile to tablet screens ***/

@@ -1,0 +1,74 @@
+{% load static %}
+<link
+    rel="stylesheet"
+    href="/static/css/widgets/top_nav.css"
+/>
+<script defer src="/static/js/widgets/top_nav.js"></script>
+<div id="top_nav">
+  <div id="random_link_wrapper">
+    <i class="fa fa-random" aria-hidden="true"></i>
+    <a href="/random">Random</a>
+  </div>
+  {% if global_data.attributes.donate_page == True %}
+  <div id="donate_link_wrapper">
+    <i class="fas fa-donate"></i>
+    <a href="{{global_data.donate}}">Donate</a>
+  </div>
+  {% else %}	
+  <div id="donate_link_wrapper">
+    <i class="fas fa-donate"></i>
+    <a href="{{global_data.redirect_url}}">Donate</a>
+  </div>
+  {% endif %}	
+  
+  {% if global_data.attributes.socials == True %}
+  <div id="socials_links_wrapper">
+    <div id="share_btn_wrapper">
+      <button id="share_socials_btn">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+        <p>Share</p>
+      </button>
+    </div>
+    <div id="socials_wrapper" data-open="false">
+      <ul>
+        <li class="social_item">
+          <div class="social_wrapper">
+            <a href="{{global_data.twitter}}" class="social_link">
+              <img src="/static/images/twitter.svg" width="20px" height="20px" alt="" class="footer_socials">
+            </a>
+          </div>
+        </li>
+        <li class="social_item">
+          <div class="social_wrapper">
+            <a href="{{global_data.facebook}}" class="social_link">
+              <img src="/static/images/facebook.svg" width="20px" height="20px" alt="" class="footer_socials">
+            </a>
+          </div>
+        </li>
+        <li class="social_item">
+          <div class="social_wrapper">
+            <a href="{{global_data.instagram}}" class="social_link">
+              <img src="/static/images/instagram.svg" width="20px" height="20px" alt="" class="footer_socials">
+            </a>
+          </div>
+        </li>
+        <li class="social_item">
+          <div class="social_wrapper">
+            <a href="{{global_data.reddit}}" class="social_link">
+              <img src="/static/images/reddit.svg" width="20px" height="20px" alt="" class="footer_socials">
+            </a>
+          </div>
+        </li>
+        <li class="social_item">
+          <div class="social_wrapper">
+            <a href="{{global_data.discord}}" class="social_link">
+              <img src="/static/images/discord.svg" width="20px" height="20px" alt="" class="footer_socials">
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  {% endif %}	
+  {% include 'app/widgets/menu.html' %}
+</div>

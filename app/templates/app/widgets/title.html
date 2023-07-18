@@ -1,0 +1,14 @@
+{% load static %}
+<link
+    rel="stylesheet"
+    href="/static/css/widgets/title.css"
+/>
+<div id="title_wrapper">
+  <a href="{{global_data.redirect_url}}" id="title_link"> 
+	{% if global_data.site_logo != "" %}
+		<img id="title_logo" src="{{global_data.site_logo}}" alt="As2anime logo">
+	{% else %}
+		<img id="title_logo" src="/static/images/title_logo.png" alt="As2anime logo">
+	{% endif %}
+  </a>
+</div>

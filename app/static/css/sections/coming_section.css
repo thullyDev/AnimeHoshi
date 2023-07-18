@@ -1,0 +1,120 @@
+#coming_sections_wapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#coming_toggle_btns_wrapper {
+  display: none;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.coming_toggle_btns {
+  width: 30%;
+  margin: 0;
+  font-weight: 600;
+  transition: all 0.5s ease-in-out;
+}
+
+.coming_toggle_btns:hover {
+  color: var(--third-color);
+  transition: all 0.5s ease-in-out;
+}
+
+.coming_section_wrapper {
+  display: block;
+}
+
+.coming_section_wrapper > .label_wrapper {
+  font-size: 17px;
+  margin: 10px 0;
+}
+
+.list_anime_img {
+  width: 70px;
+  height: 100px;
+  border-radius: 0.3rem;
+}
+
+.list_anime_info_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100px;
+  margin-left: 10px;
+}
+
+.list_anime_name_wrapper {
+  font-size: 15px;
+  font-family: var(--title-font);
+  font-weight: 600;
+}
+
+.list_anime_top_info_wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 10px;
+  color: var(--primary-color);
+  margin: 10px 0;
+}
+
+.list_anime_top_info_wrapper > div {
+  border-radius: 0.3rem;
+  background: var(--third-color);
+  color: var(--primary-color);
+  padding: 5px;
+  font-weight: 600;
+}
+
+.list_anime_top_info_wrapper > .list_anime_source_wrapper {
+  background: none;
+  color: var(--accent-color);
+}
+
+.list_anime_top_info_wrapper > .list_anime_anime_type_wrapper {
+  background: var(--accent-color);
+}
+
+.list_anime_status_wrapper {
+  font-size: 10px;
+  margin: 10px 0;
+}
+
+.premiere_info_wrapper {
+  margin-top: 25px !important;
+}
+
+.list_anime_wrapper {
+  margin: 10px 0;
+  padding: 5px;
+  background: var(--highlight-color);
+  border-radius: 0.3rem;
+  width: 290px;
+}
+
+.list_anime_link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  #coming_toggle_btns_wrapper {
+    display: flex;
+  }
+
+  .coming_section_wrapper {
+    display: none;
+  }
+
+  .active_section_wrapper {
+    display: block;
+  }
+}

@@ -1,0 +1,119 @@
+#top_nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+}
+
+#random_link_wrapper,
+#donate_link_wrapper,
+#share_socials_btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  font-weight: 600;
+  height: auto;
+}
+
+#share_socials_btn {
+  font-size: 15px;
+}
+
+#random_link_wrapper,
+#donate_link_wrapper {
+  justify-content: center;
+}
+
+#random_link_wrapper > a,
+#donate_link_wrapper > a {
+  margin-left: 5px;
+}
+
+#auth_link_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 5px;
+}
+
+#auth_link {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0.3rem;
+  padding: 5px;
+  background: var(--third-color);
+  font-weight: 600;
+  font-size: 15px;
+  font-family: var(--title-font);
+  transition: all 1s ease-in-out;
+}
+
+#auth_link:hover {
+  background: var(--secondary-highlight-color);
+  transition: all 0.5s ease-in-out;
+}
+
+#share_btn_wrapper {
+  display: flex;
+  justify-content: start;
+}
+
+#share_btn_wrapper > button {
+  margin: 0;
+  width: 100%;
+}
+
+#share_btn_wrapper > button > p {
+  margin: 0 10px;
+}
+
+#socials_links_wrapper {
+  position: relative;
+}
+
+#socials_wrapper {
+  position: absolute;
+  display: none;
+  z-index: 5;
+  background-color: var(--secondary-highlight-color);
+  border: solid 1px var(--third-color);
+  border-radius: 0.3rem;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100px;
+  padding-top: 10px;
+}
+
+#socials_wrapper > ul {
+  list-style: none;
+}
+
+#socials_wrapper > ul > li {
+  margin: 10px 0;
+}
+
+/*** mobile screens ***/
+@media (max-width: 900px) {
+  #random_link_wrapper,
+  #donate_link_wrapper,
+  #share_socials_btn {
+    display: none;
+  }
+}
+/*** mobile screens ***/
+
+/*** mobile screens ***/
+@media (max-width: 460px) {
+  #auth_link {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+	.top_nav {
+		width: 450%;
+	}
+}
+/*** mobile screens ***/

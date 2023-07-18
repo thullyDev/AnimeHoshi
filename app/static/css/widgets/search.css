@@ -1,0 +1,209 @@
+#outter_search_wrapper {
+  display: flex;
+  justify-content: start;
+  width: 80%;
+}
+
+button#search_btn {cursor: pointer;}
+
+#apper_search_btn,
+#close_btn {
+  display: none;
+  margin: 0;
+}
+
+#search_wrapper {
+  width: 100%;
+  background-color: var(--primary-color);
+  border-radius: 0.3rem;
+  position: relative;
+  padding: 5px;
+}
+
+#search_wrapper > div {
+  width: 100%;
+}
+
+#search_input_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+#search_input_wrapper > input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+#cancel_btn {
+  width: 20%;
+  margin: 0;
+  font-size: smaller;
+  transition: all 0.5s ease-in-out;
+}
+
+#cancel_btn:hover {
+  color: var(--third-color);
+  transition: all 0.5s ease-in-out;
+}
+
+div#search_view_all_wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    font-weight: 500;
+    font-family: var(--title-font);
+    border-radius: 0 0 .3rem .3rem;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+}
+
+div#search_view_all_wrapper:hover {
+    background: var(--highlight-color);
+    transition: all .5s ease-in-out;
+}
+
+#search_items_wrapper {
+  display: none;
+  position: absolute;
+  z-index: 5;
+  background-color: var(--primary-color);
+  border-radius: 0.3rem;
+  padding: 0;
+  border-top: solid 1px var(--third-color);
+  box-sizing: border-box;
+  right: 0;
+}
+
+#search_list_wrapper {
+  border-radius: 0.3rem;
+  overflow-y: hidden;
+  max-height: 285px;
+}
+
+#search_list_wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+
+#search_list_wrapper::-webkit-scrollbar-track {
+  background: #00000000;
+}
+
+#search_list_wrapper::-webkit-scrollbar-thumb {
+  border-radius: 1000px;
+  background: var(--third-color);
+}
+
+#search_items_wrapper > ul {
+  list-style-position: inside;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+#search_items_wrapper > ul > li {
+  position: relative;
+  width: 100%;
+  background-color: var(--highlight-color);
+}
+
+#search_loader_wrapper {
+  display: none;
+  background-color: var(--primary-color);
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  border-radius: 0.3rem;
+}
+
+#search_items_wrapper > ul > li:nth-child(even) {
+  width: 100%;
+  background-color: var(--primary-color);
+}
+
+.search_item_details_wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+#search_items_wrapper img {
+  width: 50px;
+  height: 70px;
+}
+
+.search_item_wrapper > a {
+  display: flex;
+}
+
+.search_item_anime_info_wrapper {
+  display: flex;
+  justify-content: start;
+}
+
+.search_item_anime_info_wrapper > ul {
+  display: flex;
+  flex: 1;
+  list-style: none;
+  padding: 0;
+}
+
+.search_item_name {
+  font-family: var(--title-font);
+  font-weight: 600;
+  font-size: large;
+}
+
+.search_item_anime_info_wrapper > ul > li {
+  margin-right: 50px;
+  font-size: 10px;
+  border-radius: 0.3rem;
+}
+
+.search_item_image_wrapper {
+  padding: 0 10px;
+}
+
+.search_item_status {
+  background-color: var(--third-color);
+  padding: 5px;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-family: var(--title-font);
+}
+
+.search_item_type {
+  background-color: var(--secondary-highlight-color);
+}
+
+/*** mobile screens ***/
+@media (max-width: 900px) {
+  #search_wrapper {
+    width: 100%;
+    margin-left: 10px;
+  }
+}
+/*** mobile screens ***/
+
+/*** mobile screens ***/
+@media (max-width: 500px) {
+  #outter_search_wrapper {
+    width: 97%;
+  }
+
+  #search_wrapper {
+    display: none;
+  }
+
+  #apper_search_btn {
+    display: inline-block;
+  }
+
+  .search_item_name {
+    font-size: small;
+  }
+}
+/*** mobile screens ***/

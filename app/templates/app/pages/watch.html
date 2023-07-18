@@ -1,0 +1,99 @@
+{% extends 'app/base.html' %} 
+
+{% load static %} 
+{% block page_meta_data %}
+<!-- <link rel="stylesheet" href="/static/css/pages/watch.css" /> -->
+<link rel="stylesheet" href="/static/watch.css" />
+<script defer>
+  const anime_title = "{{data.anime_data.title}}"
+  const anime_image_url = "{{data.anime_data.image_url}}"
+  const anime_slug = "{{data.anime_data.slug}}"
+  const episode_list = JSON.parse("{{data.anime_data.episodes|safe}}".replace(/'/g, '"'))
+  const genres = JSON.parse("{{data.anime_data.genres|safe}}".replace(/'/g, '"'))
+  let mute = "{{user_settings.mute}}"
+  let auto_next = "{{user_settings.auto_next}}"
+  let autostart = "{{user_settings.autostart}}"
+  let auto_skip_intro = "{{user_settings.auto_skip_intro}}"
+  let auto_skip_outro = "{{user_settings.auto_skip_intro}}"
+  
+  function next_episode() {
+	console.log("not yet")
+  }
+</script>
+<title>
+  Watching {{data.anime_data.title}} on as2anime | watch anime online on as2anime
+</title>
+<script defer src="/static/watch.js"></script>
+{{site_data.scripts.page_scripts|safe}}
+{% endblock %}
+
+{% block foot_scripts %}
+	{{site_data.scripts.page_foot_scripts|safe}}
+{% endblock %}
+ 
+{% block trending_related %}
+<!-- *** trending_related START *** -->
+{% include 'app/sections/trending_related.html' %}
+<!-- *** trending_related ENDS *** -->
+{% endblock %} 
+
+{% block watch_comments %}
+	{% if global_data.attributes.watch_comments == True %}
+		<!-- *** watch_comments START *** -->
+		{% include 'app/sections/watch_comments.html' %}
+		<!-- *** watch_comments ENDS *** -->
+	{% endif %}
+{% endblock %} 
+
+{% block page_content %}
+<div class="page_content" id="watch_wrapper">
+  <!-- *** popup_ad_wrapper START *** -->
+	{% if data.user.is_vip != True %}
+	<div class="outter_popup_ad_wrapper">
+		<span role="button" id="popup_close_btn">
+			<img
+			  id="popup_close_btn_icon"
+			  src="/static/images/close.svg"
+			  alt="popup ad close icon"
+			/>
+		</span>
+		{% if global_data.attributes.page_ads != False %}
+			{% if site_data.scripts.page_popup_ad.script != "" %}
+				{% if site_data.scripts.page_popup_ad.fluid != True %}
+					{% if site_data.scripts.page_popup_ad.height != 0 %}
+					<div class="popup_ad_wrapper watch_ad_wrapper" style="display: block !important; height: {{site_data.scripts.page_popup_ad.height}}px !important;">
+						{{site_data.scripts.page_popup_ad.script|safe}}
+					</div>
+					{% else %}
+					<div class="popup_ad_wrapper watch_ad_wrapper" style="display: block !important;">
+						{{site_data.scripts.page_popup_ad.script|safe}}
+					</div>
+					{% endif %}
+				{% else %}
+					<div class="popup_ad_wrapper watch_ad_wrapper" style="display: block !important; height: auto !important;">
+						{{site_data.scripts.page_popup_ad.script|safe}}
+					</div>
+				{% endif %}
+			{% endif %}
+		{% endif %}
+	</div>
+	{% endif %}
+  <!-- *** popup_ad_wrapper ENDS *** -->
+
+
+  <!-- *** player START *** -->
+  {% include 'app/sections/player.html' %}
+  <!-- *** player ENDS *** -->
+
+  <!-- *** animes_info START *** -->
+  {% include 'app/sections/animes_info.html' %}
+  <!-- *** animes_info ENDS *** -->
+  
+  {% if global_data.attributes.related_animes == True %}
+	  <!-- *** watch_browsing START *** -->
+	  {% include 'app/sections/watch_browsing.html' %}
+	  <!-- *** watch_browsing ENDS *** -->
+  {% endif %}
+
+</div>
+{% endblock %}

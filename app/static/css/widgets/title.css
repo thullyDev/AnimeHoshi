@@ -1,0 +1,18 @@
+#title_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 20%;
+}
+
+#title_logo {
+  width: 115px;
+}
+
+/*** mobile screens ***/
+@media (max-width: 900px) {
+  #title_wrapper {
+    width: 35%;
+    margin: 0 5px;
+  }
+}
+/*** mobile screens ***/
