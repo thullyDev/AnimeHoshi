@@ -1,110 +1,30 @@
-{% load static %}
-<!-- <link -->
-    <!-- rel="stylesheet" -->
-    <!-- href="/static/css/sections/home_browsing.css" -->
-<!-- /> -->
-<link
-    rel="stylesheet"
-    href="/static/home_browsing.css"
-/>
-<div id="home_browsing_wrapper">
-    <div id="recent_browsing_wrapper">
-		{% if global_data.attributes.page_ads != False %}
-			{% if data.user.is_vip != True %}
-				{% if site_data.scripts.page_ad.script != "" %}
-					{% if site_data.scripts.page_ad.fluid != True %}
-						{% if site_data.scripts.page_ad.height != 0 %}
-						<div class="ad_wrapper home_ad_wrapper" style="display: block !important; height: {{site_data.scripts.page_ad.height}}px !important;">
-							{{site_data.scripts.page_ad.script|safe}}
-						</div>
-						{% else %}
-						<div class="ad_wrapper home_ad_wrapper" style="display: block !important; height: auto !important;">
-							{{site_data.scripts.page_ad.script|safe}}
-						</div>
-						{% endif %}
-					{% else %}
-						<div class="ad_wrapper home_ad_wrapper" style="display: block !important;">
-							{{site_data.scripts.page_ad.script|safe}}
-						</div>
-					{% endif %}
-				{% endif %}
-			{% endif %}
-		{% endif %}
-		
-		{% if site_data.home_notice != "" %}
-		<div id="outter_annoucement_wrapper">
-			<div id="inner_annoucement_wrapper">{{site_data.home_notice|safe}}</div>
-		</div>
-		{% endif %}
-        <div id="recent_label_toggle_btns_wrapper">
-            <div id="recent_browsing_label_wrapper">
-                Recently Updated
-            </div>
-            <div id="browsing_toggle_wrapper">
-                <div id="toggle_set_btns">
-                    <div id="toggle_set_one" class="toggle_set active_toggle_set">
-                        <span data-url="https://godsapi.onrender.com/anime/2/recent" data-toggle="updated" data-text="Recently Updated" class="toggle_link">Up</span>
-                        <span data-url="https://godsapi.onrender.com/anime/2/sub" data-toggle="sub" data-text="Sub Animes" class="toggle_link">Sub</span>
-                        <span data-url="https://godsapi.onrender.com/anime/2/dub" data-toggle="dub" data-text="Dub Animes" class="toggle_link">Dub</span>
-                        <span data-url="https://godsapi.onrender.com/anime/2/tv" data-toggle="tv" data-text="Tv Shows" class="toggle_link">Tv</span>
-                        <span data-url="https://godsapi.onrender.com/anime/2/movies" data-toggle="movie" data-text="Movies" class="toggle_link">Movie</span>
-                        <span data-url="https://godsapi.onrender.com/anime/2/ova" data-toggle="ova" data-text="Ova Animes" class="toggle_link">Ova</span>
-                        <span data-url="https://godsapi.onrender.com/anime/2/ona" data-toggle="ona" data-text="Ona Animes" class="toggle_link">Ona</span>
-                        <span data-url="https://godsapi.onrender.com/anime/2/special" data-toggle="special" data-text="Special Animes" class="toggle_link">Special</span>
-                    </div>
-                </div>
-                <div id="dt_toggler_btns_wrapper">
-                    <button class="prev_toggle_btn" type="button">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <button class="next_toggle_btn" type="button">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <link
-			rel="stylesheet"
-			href="/static/css/widgets/browsing.css"
-		/>
-		<div id="anime_browsing_wrapper">
-			<div id="animes_wrapper" style="position: relative;">
-				<div class="animes_wrapper active_anime_wrapper"></div>
-				<div id="home_browsing_loader_wrapper">
-					{% include 'app/widgets/loader_two.html' %}
-				</div>
-			</div>
-		</div>
-        <div id="mb_toggler_btns_wrapper">
-            <button class="prev_toggle_btn" type="button" data-next="3">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <button class="next_toggle_btn" type="button" data-next="2">
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-		{% if global_data.attributes.page_ads != False %}
-			{% if data.user.is_vip != True %}
-				{% if site_data.scripts.second_page_ad.script != "" %}
-					{% if site_data.scripts.second_page_ad.fluid != True %}
-						{% if site_data.scripts.second_page_ad.height != 0 %}
-						<div class="ad_wrapper home_ad_wrapper" style="display: block !important; height: {{site_data.scripts.second_page_ad.height}}px !important;">
-							{{site_data.scripts.second_page_ad.script|safe}}
-						</div>
-						{% else %}
-						<div class="ad_wrapper home_ad_wrapper" style="display: block !important; height: auto !important;">
-							{{site_data.scripts.second_page_ad.script|safe}}
-						</div>
-						{% endif %}
-					{% else %}
-						<div class="ad_wrapper home_ad_wrapper" style="display: block !important;">
-							{{site_data.scripts.second_page_ad.script|safe}}
-						</div>
-					{% endif %}
-				{% endif %}
-			{% endif %}
-		{% endif %}
+<div class="browsing_wrapper">
+  <div class="outter_animes_wrapper">
+    <div class="label_wrapper">
+      Recent Animes
     </div>
-    {% include 'app/widgets/watch_list_wrapper.html' %}
-    {% include 'app/widgets/likes_wrapper.html' %}
+    <div class="inner_animes_wrapper" data-wrapper="recent_tv">
+    </div>
+  </div>
+  <div class="outter_animes_wrapper">
+    <div class="label_wrapper">
+      Movie Animes
+    </div>
+    <div class="inner_animes_wrapper" data-wrapper="movies">
+    </div>
+  </div>
+  <div class="outter_animes_wrapper">
+    <div class="label_wrapper">
+      Recent Latino Animes
+    </div>
+    <div class="inner_animes_wrapper" data-wrapper="recent_latino_tv">
+    </div>
+  </div>
+  <div class="outter_animes_wrapper">
+    <div class="label_wrapper">
+      Special Animes
+    </div>
+    <div class="inner_animes_wrapper" data-wrapper="specials">
+    </div>
+  </div>
 </div>

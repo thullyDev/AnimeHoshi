@@ -5,101 +5,36 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% include 'app/base_meta.html' %}
-    {% block page_meta_data %} 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% block head_scripts %}
     {% endblock %}
   </head>
   <body>
-	{% if page != "stream" %}
     <div id="page_wrapper">
-	  {% if page != "landing" %}
-      <div id="top_banner"></div>
-	  {% endif %}
-	  
-      <span id="viewer"></span>
-	  
-	  {% if page != "contact_us" %}
-      <div id="page_loader_wrapper">
-		  {% if page != "maintenance" and page != "alert" %}
-			{% if global_data.attributes.preload == True %}
-			  {% include 'app/widgets/loader_one.html' %}
-			{% endif %}	
-		  {% endif %}
-      </div>
-	  {% endif %}
-      
-      {% if page != "landing" and page != "maintenance" and page != "alert" %}
-        {% include 'app/sections/base_header.html' %}
-      {% endif %}
-      
-      {% if page != "maintenance" and page != "alert" %}
-		{% include 'app/sections/authecation_wrapper.html' %}
-	  {% endif %}
-	  
-      <div id="outter_alert_box">
-        <div id="alert_box">
-        </div>
-      </div>
-	  
-      {% if page == "home" %}
-        {% block feature_slider %} 
-        {% endblock %}
-      {% endif %}
+      <div class="page_side">
+        <!-- header starts -->
+        {% include 'app/sections/header.html' %}
+        <!-- header ends -->
 
-      <div id="main_section">
-        {% block page_content %} 
-        {% endblock %}
+        <div class="outter_main_section">
+          <!-- menu starts -->
+          {% include 'app/sections/menu.html' %}
+          <!-- menu ends -->
 
-        {% if page != "landing" and page != "profile" and page != "donate" and page != "watch" and page != "browsing" and page != "maintenance" and page != "alert" %}
-			{% if global_data.attributes.top_animes == True %}
-			  {% include 'app/sections/top_airing.html' %}
-			{% else %}	
-				<style>
-					.page_content {
-						width: 100% !important;
-					}
-				</style>
-			{% endif %}	
-        {% endif %}	
-
-        {% if page == "browsing" %}
-          <div id="top_airing_alltime_wrapper">
-			{% if global_data.attributes.top_animes == True %}
-			  {% include 'app/sections/top_airing.html' %}
-			{% endif %}	
-            
-            {% block current_top_content %} 
+          <!-- main section starts -->
+          <div id="main_section">
+            {% block page_content %}
             {% endblock %}
           </div>
-        {% endif %}
+          <!-- main sections ends -->
+        </div>
 
+        <!-- footer starts -->
+        {% include 'app/sections/footer.html' %}
+        <!-- footer ends -->
       </div>
-
-      {% if page == "watch" %}
-        {% block watch_comments %} 
-        {% endblock %}
-      {% endif %}
-
-
-      {% if page == "home" %}
-        {% block coming_and_schedule_sections %} 
-        {% endblock %}
-      {% endif %}
-
-		
-      {% if page != "maintenance" and page != "alert" %}
-			{% if global_data.attributes.base_footer == True %}
-				{% include 'app/sections/base_footer.html' %}
-			{% endif %}	
-	  {% endif %}
     </div>
-    {% else %} 
-        {% block player_wrapper %} 
-        {% endblock %}
-    {% endif %} 
-	
-	{% block foot_scripts %} 
-    {% endblock %}
-	{{global_data.scripts.global_foot_scripts|safe}}
+	{% block foot_scripts %}
+  {% endblock %}
   </body>
 </html>
