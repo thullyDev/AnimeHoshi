@@ -6,6 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap');
+
+      :root {
+        --primary-color: #1f222b;
+        --secondary-color: #ffffff;
+        --third-color: #e22be7;
+        --regular-font: 'Assistant', sans-serif;
+        /* --head-font: "Dosis", serif; */
+      }
+    </style>
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js" integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      const current_page = "{{page}}"
+      const csrf_token = "{{csrf_token}}"
+      const page_loader_wrapper = $(".page_loader_wrapper");
+    </script>
     {% block head_scripts %}
     {% endblock %}
   </head>
@@ -32,6 +50,7 @@
         <!-- footer starts -->
         {% include 'app/sections/footer.html' %}
         <!-- footer ends -->
+        <div class="page_loader_wrapper outter_loader"></div>
       </div>
     </div>
 	{% block foot_scripts %}

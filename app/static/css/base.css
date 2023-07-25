@@ -1,0 +1,23 @@
+body {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  font-family: var(--regular-font);
+}
+
+[src$=".svg"] {
+  width: 20px;
+  height: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
+.active_loader {
+  display: flex;
+}
+
+.inactive_loader {
+  display: none;
+}

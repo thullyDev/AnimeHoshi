@@ -29,7 +29,6 @@ class Resources:
     db = firebase.database()
     scraper_base = "https://animehoshiapi.onrender.com/"
 
-
     def __init__(self, cache):
         #? MAKING INITIAL CACHE
         try:
@@ -196,10 +195,162 @@ class Resources:
                 },
             }
         site_data = {
-            "resources": {
-                "schedule_data": {}
-            },
+            "resources": {},
             "database": database,
         }
         cache.set("site_data", site_data)
         self.cache = cache
+
+    def get_home_data(self):
+        slider_data = self.get_silder_resources()
+        recent_data = self.get_recent_animes()
+        recent_latino_data = self.get_recent_latino_animes()
+        movies_data = self.get_movies_animes()
+        specials_data = self.get_specials_animes()
+
+        return {
+           "slider_data": slider_data,
+           "recent_data": recent_data,
+           "recent_latino_data": recent_latino_data,
+           "movies_data": movies_data,
+           "specials_data": specials_data,
+        }
+
+    def get_silder_resources(self):
+        slider_data = self.get_data(name="slider_data", unit="resources")
+
+        if slider_data == None:
+            url_end_point = f"{self.scraper_base}anime/2/sliders/"
+            res = requests.get(url_end_point)
+
+            if res.status_code == 200:
+                data: list = res.json()["data"]["sliders"]
+            else:
+                return {
+                    "error": "some thing went wrong...",
+                    "status_code": res.status_code,
+                }
+
+            if res.status_code == 200: self.set_data(name="slider_data", unit="resources", data=data)
+
+            return {
+                "data": data,
+                "status_code": res.status_code,
+            }
+
+        else:
+
+            return {
+                "data": slider_data,
+                "status_code": 200,
+            }
+
+    def get_recent_animes(self, auto_slider=False):
+        url_end_point = f"{self.scraper_base}anime/1/recent/"
+        res = requests.get(url_end_point)
+
+        if res.status_code == 200:
+            data: list = res.json()["data"]["animes"]
+        else:
+            return {
+                "data": [],
+                "status_code": res.status_code,
+            }
+
+        return {
+            "data": data,
+            "status_code": res.status_code,
+        }
+
+    def get_recent_latino_animes(self, auto_slider=False):
+        url_end_point = f"{self.scraper_base}anime/2/recent/"
+        res = requests.get(url_end_point)
+
+        if res.status_code == 200:
+            data: list = res.json()["data"]["animes"]
+        else:
+            return {
+                "data": [],
+                "status_code": res.status_code,
+            }
+
+        return {
+            "data": data,
+            "status_code": res.status_code,
+        }
+
+    def get_movies_animes(self, auto_slider=False):
+        movies_data = self.get_data(name="movies_data", unit="resources")
+
+        if movies_data == None:
+            url_end_point = f"{self.scraper_base}anime/1/?type=1"
+            res = requests.get(url_end_point)
+
+            if res.status_code == 200:
+                data: list = res.json()["data"]["animes"]
+            else:
+                return {
+                    "data": [],
+                    "status_code": res.status_code,
+                }
+
+            if res.status_code == 200: self.set_data(name="movies_data", unit="resources", data=data)
+
+            return {
+                "data": data,
+                "status_code": res.status_code,
+            }
+        else:
+            return {
+                "data": movies_data,
+                "status_code": 200,
+            }
+
+    def get_specials_animes(self, auto_slider=False):
+        specials_data = self.get_data(name="specials_data", unit="resources")
+
+        if specials_data == None:
+            url_end_point = f"{self.scraper_base}anime/1/?type=3"
+            print(url_end_point)
+            res = requests.get(url_end_point)
+
+            if res.status_code == 200:
+                data: list = res.json()["data"]["animes"]
+            else:
+                return {
+                    "data": [],
+                    "status_code": res.status_code,
+                }
+
+            if res.status_code == 200: self.set_data(name="specials_data", unit="resources", data=data)
+
+            return {
+                "data": data,
+                "status_code": res.status_code,
+            }
+        else:
+            return {
+                "data": specials_data,
+                "status_code": 200,
+            }
+
+    def get_data(self, unit, name):
+        site_data = self.cache.get("site_data")
+
+        if site_data != None:
+            data = site_data.get(unit, {}).get(name)
+        else:
+            database = self.db.child("app").get().val()
+            site_data = {
+                "resources": {},
+                "database": database,
+            }
+            data = site_data.get(unit, {}).get(name)
+            self.cache.set("site_data", site_data)
+
+        return data
+
+    def set_data(self, data, name, unit):
+        site_data = self.cache.get("site_data")
+        site_data[unit][name] = data
+        self.cache.set("site_data", site_data)
