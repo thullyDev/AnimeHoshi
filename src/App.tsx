@@ -1,39 +1,33 @@
-import { useState } from 'react'
-import './App.css'
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './components/pages/home/home';
+// import Header from './components/sections/header/header';
+// import footer from './components/sections/footer/footer';
 
-const reactLogo = "react.svg"
-const viteLogo = "vite.svg"
+// class App extends Component {
+//   render() {
+//     return (
+//       <Router>
+//         <Switch>
+//              <Header/>
+//               <Route exact path="/" component={Home} />
+//              <footer/>
+//           </Switch>
+//       </Router>
+//     );
+//   }
+// }
 
-const reactLogoPath = `/static/${reactLogo}`
-const viteLogoPath = `/static/${viteLogo}`
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogoPath} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogoPath} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React + Django</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </Router>
+    );
+  }
 }
 
-export default App
+export default App;
