@@ -1,30 +1,18 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/pages/home/home';
-// import Header from './components/sections/header/header';
-// import footer from './components/sections/footer/footer';
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <Router>
-//         <Switch>
-//              <Header/>
-//               <Route exact path="/" component={Home} />
-//              <footer/>
-//           </Switch>
-//       </Router>
-//     );
-//   }
-// }
+import Header from './components/sections/header/header';
+import footer from './components/sections/footer/footer';
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-        </Switch>
+          <Routes>
+           <Header/>
+            <Route exact path="/" element={<Home/>}/>
+           <footer/>
+          </Routes>
       </Router>
     );
   }
