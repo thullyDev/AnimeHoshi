@@ -9,9 +9,7 @@ class App extends Component {
     return (
       <Router>
           <Routes>
-           <Header/>
             <Route exact path="/" element={<Home/>}/>
-           <footer/>
           </Routes>
       </Router>
     );
