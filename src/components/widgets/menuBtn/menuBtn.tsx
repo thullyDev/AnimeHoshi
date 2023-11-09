@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-export class MenuBtn extends Component {
+class MenuBtn extends Component {
   render() {
     return (
       <>

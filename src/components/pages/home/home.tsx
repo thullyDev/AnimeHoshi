@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
+import Header from "../../sections/header/header";
+import footer from "../../sections/footer/footer";
+import Menu from "../../sections/menu/menu";
+import Main from "../main";
 
 class Home extends Component {
   render() {
     return (
-      <div>
-        <h1>Hello, World!</h1>
-        <p>This is a simple React application using a class component.</p>
-      </div>
+      <>
+        <Menu />
+        <Header />
+        <Main />
+        <footer />
+      </>
     );
   }
 }
 
 export default Home;
-

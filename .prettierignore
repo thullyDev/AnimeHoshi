@@ -1,4 +1,5 @@
 ./node_modules
+./static/admin
 package-lock.json
 package.json
 .prettierrc
