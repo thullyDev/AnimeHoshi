@@ -109,6 +109,19 @@ import React, { Component } from "react";
                     //   </a>
                     // </li>
 
+
+            // <li className="menu_item genre_item">
+            //   <div className="outter_genres_wrapper">
+            //     <div className="label_genre_wrapper">
+            //       Genres <i className="fa-solid fa-plus"></i>
+            //     </div>
+            //     <div className="genres_wrapper">
+            //       <ul>
+            //       </ul>
+            //     </div>
+            //   </div
+            // </li>
+
 class Menu extends Component {
   render() {
     return (
@@ -120,17 +133,6 @@ class Menu extends Component {
             </span>
           </div>
           <ul>
-            <li className="menu_item genre_item">
-              <div className="outter_genres_wrapper">
-                <div className="label_genre_wrapper">
-                  Genres <i className="fa-solid fa-plus"></i>
-                </div>
-                <div className="genres_wrapper">
-                  <ul>
-                  </ul>
-                </div>
-              </div
-            </li>
           </ul>
         </div>
       </>

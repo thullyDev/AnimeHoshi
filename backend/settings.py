@@ -1,4 +1,7 @@
 from pathlib import Path
+from decouple import config as env_config
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'backend.lib',
 ]
 
 MIDDLEWARE = [
@@ -63,10 +68,20 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+    # 'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': env_config("SQL_ENGINE"),
+        'NAME': env_config("SQL_DB"), 
+        'USER': env_config("SQL_USER"),
+        'PASSWORD': env_config("SQL_PASSWORD"),
+        'HOST': env_config("SQL_HOST"), 
+        'PORT': env_config("SQL_PORT"),
     }
 }
 
