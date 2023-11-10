@@ -4,7 +4,4 @@ from django.shortcuts import render, redirect
 from ..resources import ROOT_FILE
 
 class Users(APIView):
-    def root(self, request):
-        context = {}
-
-        return render(request, ROOT_FILE, context)
+    def root(self, request): return render(request, ROOT_FILE)

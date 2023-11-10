@@ -5,6 +5,14 @@ from ...resources import ROOT_FILE, ResponseHandler
 class UsersAjax(APIView, ResponseHandler):
     def login(self, request):
         if request.POST:
+            post_data = request.POST
+            email = post_data.get("email")
+            username = post_data.get("username")
+            password = post_data.get("password")
+            temporary_id = post_data.get("temporary_id")
+
+            if not email and not username: return self.forbidden_response()
+            
             data = {}
             return self.json_response(data)
         else:

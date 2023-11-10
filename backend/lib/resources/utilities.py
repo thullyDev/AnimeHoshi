@@ -1,1 +1,9 @@
 ROOT_FILE = "index.html"
+SUCESSFUL = 200;
+NOT_FOUND = 404;
+FORBIDEEN = 403;
+CRASH = 503;
+SUCESSFUL_MSG = "sucessful";
+NOT_FOUND_MSG = "not found";
+FORBIDEEN_MSG = "request forbidden";
+CRASH_MSG = "unexpected issue";
