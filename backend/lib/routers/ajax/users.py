@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from django.shortcuts import render, redirect
-from ...utilities import ROOT_FILE
-from ..responseHandler import ResponseHandler
+from ...resources import ROOT_FILE, ResponseHandler
 
 class UsersAjax(APIView, ResponseHandler):
     def login(self, request):
