@@ -12,8 +12,11 @@ class UsersAjax(APIView, ResponseHandler):
             temporary_id = post_data.get("temporary_id")
 
             if not email and not username: return self.forbidden_response()
-            
+            #TODO: get user
+            #TODO: check user is valid, whether if user exist or the password is correct
             data = {}
             return self.json_response(data)
         else:
             return redirect("/")
+
+    def signup(self, request): pass
