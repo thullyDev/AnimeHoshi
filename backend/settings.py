@@ -1,6 +1,8 @@
 from pathlib import Path
 from decouple import config as env_config
+import django
 
+django.setup()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
