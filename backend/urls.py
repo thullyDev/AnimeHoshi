@@ -8,5 +8,7 @@ users_ajax = UsersAjax()
 urlpatterns = [
     path('', users.root, name="index"),
     path('home', users.root, name="home"),
-    path("ajax/login/", users_ajax.login, name="login"),
+    path("ajax/post/login/", users_ajax.login, name="login"),
+    path("ajax/post/signup/", users_ajax.signup, name="signup"),
+    path("ajax/post/resend/", users_ajax.resend, name="resend"),
 ]

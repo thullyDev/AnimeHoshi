@@ -6,8 +6,10 @@ class ResponseHandler:
 		response = JsonResponse(json.dumps(data), status=status_code, safe=False) 
 
 		if not no_cookies:
+			thirty_days = 2592000 # 30 days in seconds
+
 			for key, val in cookies.items():
-				response.set_cookie(val.get("name"), val.get("value"), max_age=val.get("max_age"), secure=True, httponly=True)
+				response.set_cookie(val.get("name"), val.get("value"), max_age=val.get("max_age", thirty_days), secure=True, httponly=True)
 
 		return response
 
