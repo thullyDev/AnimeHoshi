@@ -33,7 +33,10 @@ class UsersAjax(APIView, ResponseHandler):
 
             data = db.get_user(email=email) if email else db.get_user(username=username)
 
-            if not data: return self.forbidden_response()
+            if not data:
+                return self.forbidden_response(data={
+                        "message": "this user does not exist"
+                    })
 
             del data["id"]
             del data["wachlist"]
@@ -83,19 +86,25 @@ class UsersAjax(APIView, ResponseHandler):
                 "email": email,
                 "username": username,
                 "password": password,
-                "temporary_id": generate_unique_id(),
+                "isfor": "signup",
             }
 
             db.set(name=f"vf_code_{code}", data, exp=300) # expires in 5 minues
 
+            del data["isfor"]
 
-            return message
+
+            return self.successful_response(data={
+                    "message": message,
+                    "data": data,
+                })
         
         return redirect("/")
 
     def resend_code(self, request):
         if request.POST:
             post_data = request.POST
+            email = post_data.get("email")
             old_code = db.dset(name=f"vf_email_{email}")
 
             if not old_code: return self.forbidden_response(data={ "message": "unsigthed email" })
@@ -103,7 +112,6 @@ class UsersAjax(APIView, ResponseHandler):
 
             message, code = self.send_verification(email=email, username=username, host=host)
             data = db.dget(f"vf_code_{old_code}"); db.delete(f"vf_code_{old_code}")
-            # data = db.handle_temporary_id(unit="user", temporary_id=temporary_id, data=data, save=False)
 
             db.set(name=f"vf_code_{code}", data, exp=300) # expires in 5 minues
 
@@ -111,17 +119,103 @@ class UsersAjax(APIView, ResponseHandler):
         
         return redirect("/")
 
-    def verify(self, )
+    def verify(self, request)
         if request.POST:
             post_data = request.POST
-            old_code = db.dset(name=f"vf_email_{email}")
+            code = post_data.get("code")
+            data = db.dget(f"vf_code_{code}")
 
-            if not old_code: return self.forbidden_response(data={ "message": "unsigthed email" })
+            if not data: return self.forbidden_response(data={ "message": "invalid code" })
 
-            return self.send_verification(email=email, username=username, host=host)
-        
+            isfor = data.get("isfor")
+
+            data["temporary_id"] = generate_random_code()
+
+            del data["isfor"]
+
+            if isfor == "signup": 
+                db.set_user(unit="user", data=data)
+                db.delete(f"vf_code_{code}")
+                return self.successful_response(data={ "message": "created account sucessfully" }, cookies=data, no_cookies=False)
+
+            return self.successful_response(data={ 
+                "message": "sucessfully verified",
+                "data": {
+                    "code": code,
+                }
+             })
+
         return redirect("/")
 
+    def forgot_password(self, request):
+        if request.POST:
+            post_data = request.POST
+            email = post_data.get("email")
+            username = post_data.get("username")
+
+            if not valid_email(email): 
+                return self.crash_response(data={ "message": "this email is not a valid email" })
+
+            data = db.get_user(email=email) if email else db.get_user(username=username)
+
+            if not data: 
+                return self.forbidden_response(data={
+                        "message": "this user does not exist"
+                    })
+
+            message, code = self.send_verification(email=email, username=username, host=host)
+            data = {
+                "email": email,
+                "username": username,
+                "isfor": "forgot_password",
+            }
+
+            db.set(name=f"vf_code_{code}", data, exp=300) # expires in 5 minues
+
+            del data["isfor"]
+
+            return self.successful_response(data={
+                    "message": message,
+                    "data": data
+                })
+
+        return redirect("/")
+
+    def renew_password(self, request):
+        if request.POST:
+            post_data = request.POST
+            code = post_data.get("code")
+
+            if confirm != password: 
+                return self.crash_response(data={
+                        "message": "password and confirm should be the same"
+                    })
+
+            if len(password) >= 10:
+                return self.crash_response(data={
+                        "message": "password should be atleast 10 characters long"
+                    })
+
+            data = db.dget(f"vf_code_{code}")
+            email = data.get("email")
+            username = data.get("username")
+            temporary_id = generate_unique_id()
+            data = {
+                "email": email,
+                "username": username,
+                "temporary_id": temporary_id,
+            }
+
+            res = db.update_user(data=data)
+
+            db.delete(f"vf_code_{code}")
+
+            del data["isfor"]
+            
+            return self.successful_response(data={ "message": "sucessfully renew password", "data": data, }, cookies=data, no_cookies=False)
+
+
+        return redirect("/")
 
     def send_email(self, subject, body, to_email):
         yag = yagmail.SMTP(SITE_EMAIL, SITE_EMAIL_PASS)
