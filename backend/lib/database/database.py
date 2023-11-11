@@ -4,45 +4,37 @@ from ...resources import ( generate_unique_id, NOT_FOUND )
 class Database(Cache, Sql):
 	modelset = {"user", "admin"}
 
-	def get_user(self, **kwargs): return self.db_get(unit="user", **kwargs[0])
+	def get_user(self, **kwargs): return self.db_get(unit="user", **kwargs)
 
-	def set_user(self, **kwargs): return self.db_set(unit="user", **kwargs[0])
+	def set_user(self, data): return self.db_set(unit="user", data)
 
-	def update_user(self, **kwargs): return self.sql_update(unit="user", **kwargs)
+	def update_user(self, **kwargs): return self.db_update(unit="user", **kwargs)
 
-	def db_get(self, unit, uid):
+	def db_get(self, unit, data):
+		uid = self.get_safe_id(data)
 		cache_data = self.dget(name=f"{unit}_*_{uid}")
-		
+
 		if cache_data: return cache_data
 
+		data = self.sql_get(data)
 
 		self.dset(name=f"{unit}_*_{uid}", data=data)
 
 		return data
 
-	def db_set(self, unit, **kwargs):
-		model = user if unit == "user" else admin
-		instance = model(**kwargs)
-		instance.save()
+	def db_set(self, unit, data):
+		data = self.sql_set(unit, data)
+		uid = data.get("email")
+		self.dset(name=f"{unit}_*_{uid}", data=data)
 
-	def db_update(self, unit, **kwargs):
-		model = user if unit == "user" else admin
-		instance = model(**kwargs)
-		instance.save()
+		return  data
 
-	def handle_tempory_id(self, unit, save=True, **kwargs):
-		data["temporary_id"] = temporary_id
-		cache_data = self.update_user(temporary_id=temporary_id, **kwargs)
+	def db_update(self, unit, data):
+		data = self.sql_update(**data)
 
-		if not cache_data:
-			pass
+		if not data: return data
 
-		temporary_id = generate_unique_id()
-		model = user if unit == "user" else admin
-		data["temporary_id"] = temporary_id
-
-		if save:
-			pass
-
+		uid = data.get("email")
+		self.dset(name=f"{unit}_*_{uid}", data=data)
 
 		return data

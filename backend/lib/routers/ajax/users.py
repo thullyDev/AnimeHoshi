@@ -147,5 +147,20 @@ class UsersAjax(APIView, ResponseHandler):
 
         return f"sent verification code to {hidden_email}", code
 
+    def handle_tempory_id(self, unit, save=True, **kwargs):
+        data["temporary_id"] = temporary_id
+        cache_data = self.update_user(temporary_id=temporary_id, **kwargs)
 
+        if not cache_data:
+            pass
+
+        temporary_id = generate_unique_id()
+        model = user if unit == "user" else admin
+        data["temporary_id"] = temporary_id
+
+        if save:
+            pass
+
+
+        return data
 

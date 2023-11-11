@@ -7,6 +7,7 @@ class admin(models.Model):
     temporary_id = models.CharField(max_length=30) 
     profile_image = models.CharField(max_length=100) 
     role = models.CharField(max_length=200) 
+    deleted = models.CharField(default=True) 
 
 class user(models.Model):
     username = models.CharField(max_length=80)
@@ -16,3 +17,5 @@ class user(models.Model):
     profile_image = models.CharField(max_length=100, null=True, blank=True) 
     wachlist = models.BooleanField(null=True, blank=True)
     likeslist = models.BooleanField(null=True, blank=True)
+    deleted = models.CharField(default=True) 
+    

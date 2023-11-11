@@ -8,39 +8,67 @@ from ...resources import (
 
 class Sql:
 	def sql_get(self, unit, as_dict=True, **kwargs):
-		instance = self.get_instance(unit=unit, **kwargs[0])
+		instance = self.get_instance(unit=unit, **kwargs)
 
         if not instance: return None
-        if as_dict: return instance
-        
+        if not as_dict: return instance
+
         data = model_to_dict(instance)
 
 		return data
 
-	def sql_set(self, unit, **kwargs):
+	def sql_set(self, unit, data):
 		model = user if unit == "user" else admin
-		instance = model(**kwargs)
+		instance = model.objects.create(**data)
 		instance.save()
 
-	def sql_update(self, unit, **kwargs):
-		model = self.get_model(unit)
-	    instance = self.get_instance(unit=unit, **kwargs[0])
+		return instance.to_dict()
 
-	    if not instance: return NOT_FOUND
+	def sql_update(self, unit, data):
+	    instance = self.get_instance(unit=unit, data)
 
-        for key, value in kwargs.items():
-            setattr(model, key, value)
+	    if not instance: return None
 
-        model.save()
+        instance.__dict__.update(data)
+        instance.save()
 
-	def sql_delete(**kwargs):
-		instance = self.get_instance(unit=unit, **kwargs[0])
+        return instance.to_dict()
 
-		if not instance: return NOT_FOUND
+	def sql_delete(data):
+		instance = self.get_instance(unit=unit, data)
+
+		if not instance: return None
 	    instance.delete()
 
-	def get_instance(self, unit, uid): 
-		model =user if unit == "user" else admin
-		instance = model.objects.get(uid)
+	    retun True
 
-		return instance
+	def sql_shallow_delete(data):
+		data["deleted"] = True
+		return self.sql_update(unit=unit, data=data)
+
+	def get_instance(self, unit, ids_dict): 
+		model =user if unit == "user" else admin
+		email = ids_dict.get("email")
+		temporary_id = ids_dict.get("temporary_id")
+		user_id = ids_dict.get("user_id")
+		username = ids_dict.get("username")
+
+		if user_id: return model.objects.get(id=user_id)
+		if email: return model.objects.get(id=email)
+		if temporary_id: return model.objects.get(id=temporary_id)
+		if username: return model.objects.get(id=username)
+
+		return None
+
+	def get_safe_id(self, ids_dict):
+		email = ids_dict.get("email")
+		temporary_id = ids_dict.get("temporary_id")
+		user_id = ids_dict.get("user_id")
+		username = ids_dict.get("username")
+
+		if user_id: return user_id
+		if email: return email
+		if temporary_id: return temporary_id
+		if username: return username
+
+		return None
