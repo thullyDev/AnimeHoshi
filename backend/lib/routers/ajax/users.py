@@ -8,6 +8,7 @@ from ...resources import (
     hide_text, 
     SITE_EMAIL, 
     SITE_EMAIL_PASS
+    generate_unique_id,
 )
 from ...database import Database
 import yagmail
@@ -77,17 +78,43 @@ class UsersAjax(APIView, ResponseHandler):
                         "message": "user already exist, please make sure username and email unique"
                     })
 
+            message, code = self.send_verification(email=email, username=username, host=host)
+            data = {
+                "email": email,
+                "username": username,
+                "password": password,
+                "temporary_id": generate_unique_id(),
+            }
 
-            return self.send_verification(email=email, username=username, host=host)
+            db.set(name=f"vf_code_{code}", data, exp=300) # expires in 5 minues
+
+
+            return message
         
         return redirect("/")
-
 
     def resend_code(self, request):
         if request.POST:
             post_data = request.POST
-            email = post_data.get("email")
-            old_code = db.set(name=f"vf_email_{email}")
+            old_code = db.dset(name=f"vf_email_{email}")
+
+            if not old_code: return self.forbidden_response(data={ "message": "unsigthed email" })
+
+
+            message, code = self.send_verification(email=email, username=username, host=host)
+            data = db.dget(f"vf_code_{old_code}"); db.delete(f"vf_code_{old_code}")
+            # data = db.handle_temporary_id(unit="user", temporary_id=temporary_id, data=data, save=False)
+
+            db.set(name=f"vf_code_{code}", data, exp=300) # expires in 5 minues
+
+            return message
+        
+        return redirect("/")
+
+    def verify(self, )
+        if request.POST:
+            post_data = request.POST
+            old_code = db.dset(name=f"vf_email_{email}")
 
             if not old_code: return self.forbidden_response(data={ "message": "unsigthed email" })
 
@@ -118,5 +145,7 @@ class UsersAjax(APIView, ResponseHandler):
 
         db.set(name=f"vf_email_{email}", code, exp=300) # expires in 5 minues
 
-        return f"sent verification code to {hidden_email}"
+        return f"sent verification code to {hidden_email}", code
+
+
 

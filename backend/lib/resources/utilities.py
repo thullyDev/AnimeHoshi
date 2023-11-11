@@ -1,6 +1,7 @@
 from decouple import config
 import re
 import random
+import uuid
 
 ROOT_FILE = "index.html"
 SUCESSFUL = 200;
@@ -27,3 +28,5 @@ def valid_email(email):
 def hide_text(text, limit=3): return text[:limit] + "..."
 
 def generate_random_code(length=6): return ''.join(random.choices('0123456789', k=length))
+
+def generate_unique_id(length=6): return str(uuid.uuid4())
