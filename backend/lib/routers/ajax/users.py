@@ -24,7 +24,7 @@ class UsersAjax(APIView, ResponseHandler):
             del data["wachlist"]
             del data["likeslist"]
 
-            return self.json_response(data)
+            return self.successful_response(data=data)
         else:
             return redirect("/")
 

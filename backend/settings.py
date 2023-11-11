@@ -19,6 +19,10 @@ SECRET_KEY = 'django-insecure-c*-8b^_eo&qaqt_mgy#+6fb5e$ip%f=10e96s_(_xi)*j(+mx5
 DEBUG = True
 # DEBUG = False
 
+# Use secure cookies
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+
 ALLOWED_HOSTS = ["*"]
 
 
