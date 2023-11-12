@@ -217,6 +217,45 @@ class UsersAjax(APIView, ResponseHandler):
 
         return redirect("/")
 
+    def profile(self, request):
+        if request.POST:
+            cookies = request.COOKIES
+            email = cookies.get("email")
+            username = cookies.get("username")
+            temporary_id = cookies.get("temporary_id")
+
+            if not email and not username and not temporary_id: 
+                return self.forbidden_response(data={ "message": "not authenticated" })
+
+            user = db.get_user(email=email, username=username, temporary_id=temporary_id)
+
+            if not user: return self.forbidden_response(data={ "message": "user does not exist" })
+
+            is_valid = self.is_valid_temporary_id(old_temporary_id=user.get("temporary_id"), temporary_id=temporary_id)
+
+            if not is_valid: return self.forbidden_response(data={ "message": "please login" })
+            
+            new_temporary_id = generate_random_code()
+            email = user.get("email")
+
+            self.update_user(email=email, temporary_id=new_temporary_id)
+
+            cookie_data = {
+                "email": user.get("email"),
+                "usename": user.get("usename"),
+                "temporary_id": new_temporary_id,
+            }
+
+            data = {
+                "profile_image_url": user.get("profile_image_url"),
+                "wachlist": user.get("wachlist"),
+                "likeslist": user.get("likeslist"),
+            }
+            
+            return self.successful_response(data={ "data": {**cookie_data, **data} }, cookies=cookie_data, no_cookies=False)
+
+        return redirect("/")
+
     def send_email(self, subject, body, to_email):
         yag = yagmail.SMTP(SITE_EMAIL, SITE_EMAIL_PASS)
 
@@ -241,20 +280,5 @@ class UsersAjax(APIView, ResponseHandler):
 
         return f"sent verification code to {hidden_email}", code
 
-    def handle_tempory_id(self, unit, save=True, **kwargs):
-        data["temporary_id"] = temporary_id
-        cache_data = self.update_user(temporary_id=temporary_id, **kwargs)
-
-        if not cache_data:
-            pass
-
-        temporary_id = generate_unique_id()
-        model = user if unit == "user" else admin
-        data["temporary_id"] = temporary_id
-
-        if save:
-            pass
-
-
-        return data
-
+    def is_valid_temporary_id(self, old_temporary_id, temporary_id):
+        return old_temporary_id == temporary_id and temporary_id and old_temporary_id
