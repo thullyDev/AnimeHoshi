@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from django.shortcuts import render, redirect
 from ...resources import (
-    ROOT_FILE, 
     ResponseHandler, 
     valid_email, 
     generate_random_code,

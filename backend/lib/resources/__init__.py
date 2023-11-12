@@ -1,4 +1,5 @@
 from .responseHandler import ResponseHandler
+from .apiHandler import apiHandler
 from .utilities import ( 
 	ROOT_FILE, CRASH, 
 	CRASH_MSG, 

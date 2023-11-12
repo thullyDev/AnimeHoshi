@@ -2,8 +2,6 @@ from . import Cache, Sql
 from ...resources import ( generate_unique_id, NOT_FOUND )
 
 class Database(Cache, Sql):
-	modelset = {"user", "admin"}
-
 	def get_user(self, **kwargs): return self.db_get(unit="user", **kwargs)
 
 	def set_user(self, data): return self.db_set(unit="user", data)
