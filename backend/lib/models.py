@@ -1,6 +1,6 @@
 from django.db import models
 
-class admin(models.Model):
+class Admin(models.Model):
     username = models.CharField(max_length=80)
     email = models.CharField(max_length=80)
     password = models.CharField(max_length=20) 
@@ -9,7 +9,10 @@ class admin(models.Model):
     role = models.CharField(max_length=200) 
     deleted = models.CharField(default=True) 
 
-class user(models.Model):
+    class Meta:
+        app_label = 'backend.lib'
+
+class User(models.Model):
     username = models.CharField(max_length=80)
     email = models.CharField(max_length=80)
     password = models.CharField(max_length=20) 
@@ -18,4 +21,7 @@ class user(models.Model):
     wachlist = models.BooleanField(null=True, blank=True)
     likeslist = models.BooleanField(null=True, blank=True)
     deleted = models.CharField(default=True) 
+
+    class Meta:
+        app_label = 'backend.lib'
     

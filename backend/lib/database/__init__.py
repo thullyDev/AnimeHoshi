@@ -1,3 +1,3 @@
 from .database import Database
-from .caching import Cache
+from .cache import Cache
 from .sql import Sql

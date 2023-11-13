@@ -1,5 +1,14 @@
 from django.http import JsonResponse, HttpResponse
-from . import FORBIDDEN, CRASH, SUCCESSFUL, NOT_FOUND_MSG, NOT_FOUND, FORBIDDEN_MSG, CRASH_MSG, SUCCESSFUL_MSG
+from .utilities import (
+	FORBIDDEN, 
+	CRASH, 
+	SUCCESSFUL, 
+	NOT_FOUND_MSG, 
+	NOT_FOUND, 
+	FORBIDDEN_MSG, 
+	CRASH_MSG, 
+	SUCCESSFUL_MSG
+)
 
 class ResponseHandler:
 	def json_response(self, data, status_code, safe=False, no_cookies=True, cookies={}):

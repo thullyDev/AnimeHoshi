@@ -1,5 +1,5 @@
 from .responseHandler import ResponseHandler
-from .apiHandler import apiHandler
+from .apiHandler import ApiHandler
 from .utilities import ( 
 	ROOT_FILE, CRASH, 
 	CRASH_MSG, 
@@ -17,4 +17,5 @@ from .utilities import (
 	valid_email,
 	generate_random_code,
 	generate_unique_id,
+	hide_text,
 )

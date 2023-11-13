@@ -6,7 +6,7 @@ from ...resources import (
     generate_random_code,
     hide_text, 
     SITE_EMAIL, 
-    SITE_EMAIL_PASS
+    SITE_EMAIL_PASS,
     generate_unique_id,
 )
 from ...database import Database
@@ -88,7 +88,7 @@ class UsersAjax(APIView, ResponseHandler):
                 "isfor": "signup",
             }
 
-            db.set(name=f"vf_code_{code}", data, exp=300) # expires in 5 minues
+            db.cset(name=f"vf_code_{code}", data=data, expiry=300) # expires in 5 minues
 
             del data["isfor"]
 
@@ -104,37 +104,37 @@ class UsersAjax(APIView, ResponseHandler):
         if request.POST:
             post_data = request.POST
             email = post_data.get("email")
-            old_code = db.dset(name=f"vf_email_{email}")
+            old_code = db.dcset(name=f"vf_email_{email}")
 
             if not old_code: return self.forbidden_response(data={ "message": "unsigthed email" })
 
 
             message, code = self.send_verification(email=email, username=username, host=host)
-            data = db.dget(f"vf_code_{old_code}"); db.delete(f"vf_code_{old_code}")
+            data = db.dcget(f"vf_code_{old_code}"); db.cdelete(f"vf_code_{old_code}")
 
-            db.set(name=f"vf_code_{code}", data, exp=300) # expires in 5 minues
+            db.cset(name=f"vf_code_{code}", data=data, expiry=300) # expires in 5 minues
 
             return message
         
         return redirect("/")
 
-    def verify(self, request)
+    def verify(self, request):
         if request.POST:
             post_data = request.POST
             code = post_data.get("code")
-            data = db.dget(f"vf_code_{code}")
+            data = db.dcget(f"vf_code_{code}")
 
             if not data: return self.forbidden_response(data={ "message": "invalid code" })
 
             isfor = data.get("isfor")
 
-            data["temporary_id"] = generate_random_code()
+            data["temporary_id"] = generate_unique_id()
 
             del data["isfor"]
 
             if isfor == "signup": 
                 db.set_user(unit="user", data=data)
-                db.delete(f"vf_code_{code}")
+                db.cdelete(f"vf_code_{code}")
                 return self.successful_response(data={ "message": "created account sucessfully" }, cookies=data, no_cookies=False)
 
             return self.successful_response(data={ 
@@ -169,7 +169,7 @@ class UsersAjax(APIView, ResponseHandler):
                 "isfor": "forgot_password",
             }
 
-            db.set(name=f"vf_code_{code}", data, exp=300) # expires in 5 minues
+            db.cset(name=f"vf_code_{code}", data=data, expiry=300) # expires in 5 minues
 
             del data["isfor"]
 
@@ -195,7 +195,7 @@ class UsersAjax(APIView, ResponseHandler):
                         "message": "password should be atleast 10 characters long"
                     })
 
-            data = db.dget(f"vf_code_{code}")
+            data = db.dcget(f"vf_code_{code}")
             email = data.get("email")
             username = data.get("username")
             temporary_id = generate_unique_id()
@@ -207,7 +207,7 @@ class UsersAjax(APIView, ResponseHandler):
 
             res = db.update_user(data=data)
 
-            db.delete(f"vf_code_{code}")
+            db.cdelete(f"vf_code_{code}")
 
             del data["isfor"]
             
@@ -234,7 +234,7 @@ class UsersAjax(APIView, ResponseHandler):
 
             if not is_valid: return self.forbidden_response(data={ "message": "please login" })
             
-            new_temporary_id = generate_random_code()
+            new_temporary_id = generate_unique_id()
             email = user.get("email")
 
             self.update_user(email=email, temporary_id=new_temporary_id)
@@ -266,7 +266,7 @@ class UsersAjax(APIView, ResponseHandler):
 
         yag.close()
 
-    def send_verification(self, email, username, host)
+    def send_verification(self, email, username, host):
         hidden_email = hide_string(text=email, limit=3)
         original_host = request.get_host()
         code = generate_random_code()
@@ -275,7 +275,7 @@ class UsersAjax(APIView, ResponseHandler):
 
         self.send_email(subject=subject, body=body, to_email=email)
 
-        db.set(name=f"vf_email_{email}", code, exp=300) # expires in 5 minues
+        db.cset(name=f"vf_email_{email}", data=code, expiry=300) # expires in 5 minues
 
         return f"sent verification code to {hidden_email}", code
 
