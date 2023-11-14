@@ -11,4 +11,8 @@ tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
 
 class AnimeAjax(APIView, ResponseHandler):
-    pass
+	def home(self, request):
+	    data = tioanime.get_home_data()
+	    print(data)
+
+	    return self.successful_response(data={ "data": data })

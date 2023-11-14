@@ -17,7 +17,7 @@ class ApiHandler:
         response = requests.get(url=url)
 
         if html:
-            return response.text if response.status == 200 else None
+            return response.text if response.status_code == 200 else None
 
-        return response.json() if response.status == 200 else None 
+        return response.json() if response.status_code == 200 else None 
                 

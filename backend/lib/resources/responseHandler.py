@@ -9,6 +9,7 @@ from .utilities import (
 	CRASH_MSG, 
 	SUCCESSFUL_MSG
 )
+import json
 
 class ResponseHandler:
 	def json_response(self, data, status_code, safe=False, no_cookies=True, cookies={}):
@@ -26,7 +27,7 @@ class ResponseHandler:
 		return HttpResponse(text, status=status_code)
 
 	def forbidden_response(self, data=None, safe=False, no_cookies=True, cookies={}):
-		data = data if data else { "message": FORBIDDEN_MSG }
+		data = data if data and data.get("message") else { "message": FORBIDDEN_MSG }
 		data["status_code"] = FORBIDDEN
 		
 		return self.json_response(data=data, status_code=FORBIDDEN, no_cookies=True, cookies=cookies)
