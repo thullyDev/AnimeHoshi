@@ -19,7 +19,7 @@ class Scraper(ApiHandler):
         data = {}
         soup = BeautifulSoup(html, 'html.parser')
         for key, value in blueprint.items():
-            data[key] = self.process_passing(soup=soup, blueprint=value)
+            data[key] = self.process(soup=soup, blueprint=value)
 
         if cache_id: cache.set(name=cache_id, data=data)
 
@@ -29,7 +29,10 @@ class Scraper(ApiHandler):
         data = {}
         for key, value in config.items():
             data[key] = {}
-            selected_elements = element.select(value.get("selector"))
+            selector = value.get("selector")
+            selected_elements = element.select(selector)
+            print("selector ==>", selector)
+            print("selected_elements ==>", selected_elements)
 
             for element in selected_elements:
                 for attribute, attr_value in value.get("attributes").items():
@@ -37,7 +40,7 @@ class Scraper(ApiHandler):
 
         return data
 
-    def process_passing(self, soup, blueprint):
+    def process(self, soup, blueprint):
         parent_elements = soup.select(blueprint["parent_selector"])
 
         data = []
