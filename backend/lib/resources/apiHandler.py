@@ -6,8 +6,8 @@ class ApiHandler:
         head = "https" if https_safe else "http"
         url = f"{head}://{base}/{endpoint}"
         count = 0
-        for i, v in params.items():
-            url += f"?{i}={v}" if not count else f"?{i}={v}"
+        for key, value in params.items():
+            url += f"?{key}={value}" if not count else f"&{key}={value}"
             count += 1
         
         return url

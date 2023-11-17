@@ -16,4 +16,5 @@ urlpatterns = [
     path("ajax/post/verify/", users_ajax.verify, name="verify"),
     path("ajax/post/profile/", users_ajax.profile, name="profile"),
     path("ajax/get/home/", anime_ajax.home, name="get_home_data"),
+    path("ajax/get/filter/<str:site>/", anime_ajax.filter, name="get_filter_data"),
 ]

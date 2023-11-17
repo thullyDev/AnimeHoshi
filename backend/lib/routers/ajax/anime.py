@@ -70,3 +70,33 @@ class AnimeAjax(APIView, ResponseHandler):
 
         cache.dcset(name=cache_id, data=data)
         return self.successful_response(data={"data": data})
+
+    @timing_decorator
+    def filter(self, request, site):
+        filter_data = {}
+        for key, value in request.GET.items():
+            if value: filter_data[key] = value
+
+        rawdata = tioanime.get_filter(data=filter_data)
+        animes = rawdata.get("animes")
+        pages = rawdata.get("pages")[0]
+
+        data = {
+            "page": int(rawdata.get("page")[0].get("page").get("text")),
+            "pages": int(pages[len(pages) - 2]),
+            "animes": []
+        }
+
+        for anime in animes:
+            data["animes"].append({
+                "image_url": f"https://{tioanime.base}/" + anime.get("image").get("url"),
+                "title": anime.get("title").get("text"),
+                "slug": anime.get("anime_slug").get("slug").replace("/anime", ""),
+            })
+
+        return self.successful_response(data=data)
+
+    @timing_decorator
+    def schedule(self, request, site):
+        data = None
+        return self.successful_response(data=data)

@@ -6,8 +6,7 @@ from lxml import html
 cache = Cache()
 
 class Scraper(ApiHandler):
-    def get(self, base, blueprint, endpoint="", params={}, https_safe=True, cache_id="", as_=list):
-        cache_id = ""  #Todo: remove this once we are done and ready to cache
+    def get(self, base, blueprint, endpoint="", params={}, https_safe=True, cache_id=""):
         if cache_id:
             data = cache.get(name=cache_id)
             if data: return data
@@ -30,11 +29,16 @@ class Scraper(ApiHandler):
         for key, value in config.items():
             data[key] = {}
             selector = value.get("selector")
+            return_type = value.get("return_type")
+            if return_type == "list": data = []
             selected_elements = element.select(selector)
 
             for select_element in selected_elements:
-                for attribute, attr_value in value.get("attributes").items():
-                    data[key][attribute] = select_element.get(attr_value) if attr_value != "text_content" else select_element.text
+                for attr_key, attr_value in value.get("attributes").items():
+                    if return_type != "list": data[key][attr_key] = select_element.get(attr_value) if attr_value != "text_content" else select_element.text
+                    else: 
+                        temp = select_element.get(attr_value) if attr_value != "text_content" else select_element.text
+                        data.append(temp)
 
         return data
 
