@@ -6,7 +6,7 @@ from lxml import html
 cache = Cache()
 
 class Scraper(ApiHandler):
-    def get_data(self, base, blueprint, endpoint="", params={}, https_safe=True, cache_id="", as_=list):
+    def get(self, base, blueprint, endpoint="", params={}, https_safe=True, cache_id="", as_=list):
         cache_id = ""  #Todo: remove this once we are done and ready to cache
         if cache_id:
             data = cache.get(name=cache_id)
@@ -25,26 +25,25 @@ class Scraper(ApiHandler):
 
         return data
 
-    def extract_data(self, element, config):
+    def extract(self, element, config):
         data = {}
         for key, value in config.items():
             data[key] = {}
             selector = value.get("selector")
             selected_elements = element.select(selector)
-            print("selector ==>", selector)
-            print("selected_elements ==>", selected_elements)
 
-            for element in selected_elements:
+            for select_element in selected_elements:
                 for attribute, attr_value in value.get("attributes").items():
-                    data[key][attribute] = element.get(attr_value)
+                    data[key][attribute] = select_element.get(attr_value) if attr_value != "text_content" else select_element.text
 
         return data
 
     def process(self, soup, blueprint):
-        parent_elements = soup.select(blueprint["parent_selector"])
+        parent_selector = blueprint["parent_selector"]
+        parent_elements = soup.select(parent_selector)
 
         data = []
         for parent_element in parent_elements:
-            data.append(self.extract_data(parent_element, blueprint["children"]))
+            data.append(self.extract(parent_element, blueprint["children"]))
         
         return data

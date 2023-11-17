@@ -9,11 +9,10 @@ from .utilities import (
 	CRASH_MSG, 
 	SUCCESSFUL_MSG
 )
-import json
 
 class ResponseHandler:
 	def json_response(self, data, status_code, safe=False, no_cookies=True, cookies={}):
-		response = JsonResponse(json.dumps(data), status=status_code, safe=False) 
+		response = JsonResponse(data=data, status=status_code, safe=False) 
 
 		if not no_cookies:
 			thirty_days = 2592000 # 30 days in seconds
