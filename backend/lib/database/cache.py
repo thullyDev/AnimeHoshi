@@ -10,6 +10,8 @@ redis = Redis(
 )
 
 class Cache:
+    default_expiry = 86400
+
     def cget(self, name): 
         raw_data = redis.get(name)
         
@@ -25,14 +27,14 @@ class Cache:
 
         return data
 
-    def cset(self, name, value, expiry=86400):
-        if exp: redis.set(name, value, exp)
+    def cset(self, name, value, expiry=default_expiry):
+        if expiry: redis.set(name, value, expiry)
         else: redis.set(name, value)
         
-    def dcset(self, name, data, expiry=86400):
+    def dcset(self, name, data, expiry=default_expiry):
         raw_data = json.dumps(data)
         
-        if exp: redis.set(name, raw_data, exp)
+        if expiry: redis.set(name, raw_data, expiry)
         else: redis.set(name, raw_data)
         
         

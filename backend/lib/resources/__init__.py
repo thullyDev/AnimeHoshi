@@ -19,3 +19,6 @@ from .utilities import (
 	generate_unique_id,
 	hide_text,
 )
+from .decorators import ( 
+	timing_decorator,
+)
