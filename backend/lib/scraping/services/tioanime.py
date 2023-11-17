@@ -3,6 +3,7 @@ class Tioanime:
     animes_endpoint = "directorio"
     anime_endpoint = "anime/"
     watch_endpoint = "ver/"
+    schedule_endpoint = "programacion"
     tioanime_home_blueprint = { 
             "latest_episodes": {
                 "parent_selector": ".episodes > .col-6.col-sm-4.col-md-3",
@@ -90,13 +91,163 @@ class Tioanime:
             },
         }
     tioanime_schedule_blueprint = { 
-            "monday": {
-                "parent_selector": "#monday",
+            "saturday": {
+                "parent_selector": "#Saturday > .episode",
                 "children": {
-                    "animes": {
-                        "selector": ".anime > a",
+                    "slug": {
+                        "selector": "a",
                         "attributes": {
                             "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "saturday": {
+                "parent_selector": "#Saturday > .episode",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "sunday": {
+                "parent_selector": "#Sunday > .episode",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "monday": {
+                "parent_selector": "#Monday > .episode",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "tuesday": {
+                "parent_selector": "#Tuesday > .episode",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "wednesday": {
+                "parent_selector": "#Wednesday > .episode",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "friday": {
+                "parent_selector": "#Friday > .episode",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
                         }
                     },
                 }
@@ -104,5 +255,6 @@ class Tioanime:
         }
     blueprints = {
         "tioanime_home": tioanime_home_blueprint,
-    	"tioanime_filter": tioanime_filter_blueprint,
+        "tioanime_filter": tioanime_filter_blueprint,
+    	"tioanime_schedule": tioanime_schedule_blueprint,
     }

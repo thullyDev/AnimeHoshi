@@ -97,6 +97,6 @@ class AnimeAjax(APIView, ResponseHandler):
         return self.successful_response(data=data)
 
     @timing_decorator
-    def schedule(self, request, site):
-        data = None
+    def schedule(self, request):
+        data = tioanime.get_schedule()
         return self.successful_response(data=data)
