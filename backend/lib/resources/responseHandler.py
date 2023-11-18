@@ -26,25 +26,29 @@ class ResponseHandler:
 		return HttpResponse(text, status=status_code)
 
 	def forbidden_response(self, data=None, safe=False, no_cookies=True, cookies={}):
-		data = data if data and data.get("message") else { "message": FORBIDDEN_MSG }
+		data = data if data else {}
 		data["status_code"] = FORBIDDEN
+		if not data.get("message"): data["message"] = FORBIDDEN_MSG
 		
 		return self.json_response(data=data, status_code=FORBIDDEN, no_cookies=True, cookies=cookies)
 
 	def successful_response(self, data=None, safe=False, no_cookies=True, cookies={}):
-		data = data if data else { "message": SUCCESSFUL_MSG }
+		data = data if data else {}
 		data["status_code"] = SUCCESSFUL
+		if not data.get("message"): data["message"] = SUCCESSFUL_MSG
 
 		return self.json_response(data=data, status_code=SUCCESSFUL, no_cookies=no_cookies, cookies=cookies)
 
 	def not_found_response(self, data=None, safe=False):
-		data = data if data else { "message": NOT_FOUND_MSG }
+		data = data if data else {}
 		data["status_code"] = NOT_FOUND
+		if not data.get("message"): data["message"] = NOT_FOUND_MSG
 		
 		return self.json_response(data=data, status_code=NOT_FOUND)
 
 	def crash_response(self, data=None, safe=False):
-		data = data if data else { "message": CRASH_MSG }
+		data = data if data else {}
 		data["status_code"] = CRASH
+		if not data.get("message"): data["message"] = CRASH_MSG
 		
 		return self.json_response(data=data, status_code=CRASH)

@@ -98,5 +98,19 @@ class AnimeAjax(APIView, ResponseHandler):
 
     @timing_decorator
     def schedule(self, request):
-        data = tioanime.get_schedule()
-        return self.successful_response(data=data)
+        rawdata = tioanime.get_schedule()
+        data = {}
+        for day, animes in rawdata.items():
+            data[day] = []
+            for anime in animes:
+                slug = anime.get("slug").get("slug").strip()
+                title = anime.get("title").get("text")
+                image = anime.get("image").get("url")
+
+                data[day].append({
+                        "slug": slug if slug != "#" else None,
+                        "title": title,
+                        "image_url": image,
+                    })
+
+        return self.successful_response(data={ "data": data })
