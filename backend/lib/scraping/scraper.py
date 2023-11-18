@@ -29,7 +29,6 @@ class Scraper(ApiHandler):
         for key, value in config.items():
             data[key] = {}
             selector = value.get("selector")
-            print(f"selector ==> {selector}")
             return_type = value.get("return_type")
             if return_type == "list": data = []
             selected_elements = element.select(selector)
@@ -46,8 +45,6 @@ class Scraper(ApiHandler):
     def process(self, soup, blueprint):
         parent_selector = blueprint["parent_selector"]
         parent_elements = soup.select(parent_selector)
-
-        print(parent_selector, "====>", parent_elements)
 
         data = []
         for parent_element in parent_elements:

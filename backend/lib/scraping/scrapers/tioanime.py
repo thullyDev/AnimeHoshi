@@ -6,9 +6,10 @@ class TioanimeScraper(Scraper, Tioanime):
     	return self.get(base=self.base, blueprint=self.blueprints["tioanime_home"])
 
     def get_filter(self, data):
-        # ?type%5B%5D=0&genero%5B%5D=accion&year=1960%2C1993&status=2&sort=recent&p=2&q=s
         params = {}
         for key, value in data.items():
+            if key is not self.queries: continue
+            
             if key == "type": 
                 params["type%5B%5D"] = value
                 continue

@@ -1,39 +1,50 @@
 from .cache import Cache
 from .sql import Sql
-from ..resources import ( generate_unique_id, NOT_FOUND )
+from ..resources import (generate_unique_id, NOT_FOUND)
 
 class Database(Cache, Sql):
-	def get_user(self, **kwargs): return self.db_get(unit="user", data=kwargs)
+    _instance = None
+    
+    def __new__(cls):
+        if not cls._instance:
+            cls._instance = super(Database, cls).__new__(cls)
+        return cls._instance
 
-	def set_user(self, data): return self.db_set(unit="user", data=data)
+    def get_user(self, **kwargs):
+        return self.db_get(unit="user", data=kwargs)
 
-	def update_user(self, **kwargs): return self.db_update(unit="user", data=kwargs)
+    def set_user(self, data):
+        return self.db_set(unit="user", data=data)
 
-	def get(self, unit, data):
-		uid = self.get_safe_id(data)
-		cache_data = self.dget(name=f"{unit}_*_{uid}")
+    def update_user(self, **kwargs):
+        return self.db_update(unit="user", data=kwargs)
 
-		if cache_data: return cache_data
+    def get(self, unit, data):
+        uid = self.get_safe_id(data)
+        cache_data = self.dget(name=f"{unit}_*_{uid}")
 
-		data = self.sql_get(data)
+        if cache_data:
+            return cache_data
 
-		self.dset(name=f"{unit}_*_{uid}", data=data)
+        data = self.sql_get(data)
+        self.dset(name=f"{unit}_*_{uid}", data=data)
 
-		return data
+        return data
 
-	def set(self, unit, data):
-		data = self.sql_set(unit, data)
-		uid = data.get("email")
-		self.dset(name=f"{unit}_*_{uid}", data=data)
+    def set(self, unit, data):
+        data = self.sql_set(unit, data)
+        uid = data.get("email")
+        self.dset(name=f"{unit}_*_{uid}", data=data)
 
-		return  data
+        return data
 
-	def update(self, unit, data):
-		data = self.sql_update(**data)
+    def update(self, unit, data):
+        data = self.sql_update(**data)
 
-		if not data: return data
+        if not data:
+            return data
 
-		uid = data.get("email")
-		self.dset(name=f"{unit}_*_{uid}", data=data)
+        uid = data.get("email")
+        self.dset(name=f"{unit}_*_{uid}", data=data)
 
-		return data
+        return data

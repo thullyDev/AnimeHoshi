@@ -4,6 +4,16 @@ class Tioanime:
     anime_endpoint = "anime/"
     watch_endpoint = "ver/"
     schedule_endpoint = "programacion"
+    queries = {
+        "keywords",
+        "page",
+        "type",
+        "genre",
+        "status",
+        "sort",
+        "year",
+    }
+
     tioanime_home_blueprint = { 
             "latest_episodes": {
                 "parent_selector": ".episodes > .col-6.col-sm-4.col-md-3",

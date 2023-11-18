@@ -16,6 +16,7 @@ urlpatterns = [
     path("ajax/post/verify/", users_ajax.verify, name="verify"),
     path("ajax/post/profile/", users_ajax.profile, name="profile"),
     path("ajax/get/home/", anime_ajax.home, name="get_home_data"),
-    path("ajax/get/filter/<str:site>/", anime_ajax.filter, name="get_filter_data"),
+    path("ajax/get/filter/tioanime/", anime_ajax.tioanime_filter, name="get_filter_data"),
+    path("ajax/get/filter/latanime/", anime_ajax.latanime_filter, name="get_filter_data"),
     path("ajax/get/schedule/tioanime/", anime_ajax.schedule, name="get_schedule_data"),
 ]

@@ -72,27 +72,24 @@ class AnimeAjax(APIView, ResponseHandler):
         return self.successful_response(data={"data": data})
 
     @timing_decorator
-    def filter(self, request, site):
+    def tioanime_filter(self, request):
         filter_data = {}
         for key, value in request.GET.items():
             if value: filter_data[key] = value
 
         rawdata = tioanime.get_filter(data=filter_data)
-        animes = rawdata.get("animes")
-        pages = rawdata.get("pages")[0]
+        data = self.filter_data_processing(rawdata=rawdata, base=tioanime.base, site="tioanime")
 
-        data = {
-            "page": int(rawdata.get("page")[0].get("page").get("text")),
-            "pages": int(pages[len(pages) - 2]),
-            "animes": []
-        }
+        return self.successful_response(data=data)
 
-        for anime in animes:
-            data["animes"].append({
-                "image_url": f"https://{tioanime.base}/" + anime.get("image").get("url"),
-                "title": anime.get("title").get("text"),
-                "slug": anime.get("anime_slug").get("slug").replace("/anime", ""),
-            })
+    @timing_decorator
+    def latanime_filter(self, request):
+        filter_data = {}
+        for key, value in request.GET.items():
+            if value: filter_data[key] = value
+
+        rawdata = latanime.get_filter(data=filter_data)
+        data = self.filter_data_processing(rawdata=rawdata, base=latanime.base, site="latanime")
 
         return self.successful_response(data=data)
 
@@ -114,3 +111,40 @@ class AnimeAjax(APIView, ResponseHandler):
                     })
 
         return self.successful_response(data={ "data": data })
+
+    def filter_data_processing(self, rawdata, site, base):
+        animes = rawdata.get("animes")
+        pages = rawdata.get("pages")[0]
+        data = {
+            "page": int(rawdata.get("page")[0].get("page").get("text")),
+            "pages": int(pages[len(pages) - 2]),
+            "animes": []
+        }
+
+        if site not in [ "tioanime", "latanime" ]: return None
+
+        if site == "tioanime":
+            for anime in animes:
+                data["animes"].append({
+                    "image_url": f"https://{base}/" + anime.get("image").get("url"),
+                    "title": anime.get("title").get("text"),
+                    "slug": anime.get("anime_slug").get("slug").replace("/anime", ""),
+                })
+
+            return data
+
+        if site == "latanime": 
+            for anime in animes:
+                title = anime.get("title").get("text")
+                temp = title.split(" ")
+                watch_type = temp[len(temp) - 1]
+
+                data["animes"].append({
+                    "image_url": anime.get("image").get("url"),
+                    "title": title,
+                    "slug": anime.get("anime_slug").get("slug").replace("https://latanime.org/anime", ""),
+                    "year": anime.get("year").get("text").strip(),
+                    "type": watch_type,
+                })
+
+        return data

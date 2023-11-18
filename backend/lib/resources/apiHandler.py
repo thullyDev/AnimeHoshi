@@ -14,10 +14,11 @@ class ApiHandler:
         
     def request(self, base, endpoint, params={}, headers={}, https_safe=True, html=False):
         url = self.build_url(base=base, endpoint=endpoint, params=params, https_safe=True)
-        response = requests.get(url=url)
-
+        response = requests.get(url)
+        
         if html:
             return response.text if response.status_code == 200 else None
 
         return response.json() if response.status_code == 200 else None 
-                
+                    
+
