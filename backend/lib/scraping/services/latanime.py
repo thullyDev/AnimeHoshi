@@ -3,8 +3,10 @@ class Latanime:
     animes_endpoint = "animes/"
     anime_endpoint = "anime/"
     watch_endpoint = "ver/"
-    calandar_endpoint = "calendario/"
+    schedule_endpoint = "calendario/"
+    search_endpoint = "buscar"
     queries = {
+        "keywords",
         "page",
         "type",
         "genre",
@@ -114,7 +116,242 @@ class Latanime:
                 }
             },
         }
+    latanime_schedule_blueprint = { 
+            "monday": {
+                "parent_selector": ".accordionItem:nth-child(1) .col-lg-4",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".my-2",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "type": {
+                        "selector": ".btn",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": "img.w-100",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "tuesday": {
+                "parent_selector": ".accordionItem:nth-child(2)  .col-lg-4",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".my-2",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "type": {
+                        "selector": ".btn",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": "img.w-100",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "wednesday": {
+                "parent_selector": ".accordionItem:nth-child(3)  .col-lg-4",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".my-2",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "type": {
+                        "selector": ".btn",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": "img.w-100",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "thursday": {
+                "parent_selector": ".accordionItem:nth-child(4)  .col-lg-4",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".my-2",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "type": {
+                        "selector": ".btn",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": "img.w-100",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "friday": {
+                "parent_selector": ".accordionItem:nth-child(5)  .col-lg-4",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".my-2",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "type": {
+                        "selector": ".btn",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": "img.w-100",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "saturday": {
+                "parent_selector": ".accordionItem:nth-child(6)  .col-lg-4",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".my-2",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "type": {
+                        "selector": ".btn",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": "img.w-100",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "sunday": {
+                "parent_selector": ".accordionItem:nth-child(7)  .col-lg-4",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".my-2",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "type": {
+                        "selector": ".btn",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": "img.w-100",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            # "no_date": {
+            #     "parent_selector": ".accordionItem:nth-child(9)  .col-lg-4",
+            #     "children": {
+            #         "slug": {
+            #             "selector": "a",
+            #             "attributes": {
+            #                 "slug": "href",
+            #             }
+            #         },
+            #         "title": {
+            #             "selector": ".my-2",
+            #             "attributes": {
+            #                 "text": "text_content",
+            #             }
+            #         },
+            #         "type": {
+            #             "selector": ".btn",
+            #             "attributes": {
+            #                 "text": "text_content",
+            #             }
+            #         },
+            #         "image": {
+            #             "selector": "img.w-100",
+            #             "attributes": {
+            #                 "url": "src",
+            #             }
+            #         },
+            #     }
+            # },
+        }
     blueprints = {
     	"latanime_home": latanime_home_blueprint,
         "latanime_filter": latanime_filter_blueprint,
+        "latanime_schedule": latanime_schedule_blueprint,
     }

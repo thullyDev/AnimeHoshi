@@ -124,29 +124,6 @@ class Tioanime:
                     },
                 }
             },
-            "saturday": {
-                "parent_selector": "#Saturday > .episode",
-                "children": {
-                    "slug": {
-                        "selector": "a",
-                        "attributes": {
-                            "slug": "href",
-                        }
-                    },
-                    "title": {
-                        "selector": ".title",
-                        "attributes": {
-                            "text": "text_content",
-                        }
-                    },
-                    "image": {
-                        "selector": ".fa-play-circle > img",
-                        "attributes": {
-                            "url": "src",
-                        }
-                    },
-                }
-            },
             "sunday": {
                 "parent_selector": "#Sunday > .episode",
                 "children": {

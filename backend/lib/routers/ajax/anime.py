@@ -11,7 +11,7 @@ cache = Cache()
 
 class AnimeAjax(APIView, ResponseHandler):
     @timing_decorator
-    def home(self, request):
+    def get_home_data(self, request):
         cache_id = "home_data"
         cache_data = cache.dcget(name=cache_id)
 
@@ -94,24 +94,40 @@ class AnimeAjax(APIView, ResponseHandler):
         return self.successful_response(data=data)
 
     @timing_decorator
-    def schedule(self, request):
+    def tioanime_schedule(self, request):
         rawdata = tioanime.get_schedule()
-        data = {}
-        for day, animes in rawdata.items():
-            data[day] = []
-            for anime in animes:
-                slug = anime.get("slug").get("slug").strip()
-                title = anime.get("title").get("text")
-                image = anime.get("image").get("url")
-
-                data[day].append({
-                        "slug": slug if slug != "#" else None,
-                        "title": title,
-                        "image_url": image,
-                    })
+        data = self.schedule_data_processing(rawdata=rawdata)
 
         return self.successful_response(data={ "data": data })
 
+    @timing_decorator
+    def latanime_schedule(self, request):
+        rawdata = latanime.get_schedule()
+        data = self.schedule_data_processing(rawdata=rawdata, base=latanime.base)
+
+        return self.successful_response(data={ "data": data })
+
+    @timing_decorator
+    def latanime_search(self, request):
+        search_data = {}
+        for key, value in request.GET.items():
+            if value: search_data[key] = value
+
+        rawdata = latanime.get_search(data=search_data)
+        data = self.filter_data_processing(rawdata=rawdata, base=latanime.base, site="latanime")
+
+        return self.successful_response(data={ "data": data })
+
+    @timing_decorator
+    def tioanime_anime(self, request, slug):
+        rawdata = tioanime.get_anime(slug=slug)
+
+        pprint(rawdata)
+
+        # return self.successful_response(data={ "data": rawdata })
+        return self.successful_response()
+
+    #*** helper functions START ***#
     def filter_data_processing(self, rawdata, site, base):
         animes = rawdata.get("animes")
         pages = rawdata.get("pages")[0]
@@ -142,9 +158,26 @@ class AnimeAjax(APIView, ResponseHandler):
                 data["animes"].append({
                     "image_url": anime.get("image").get("url"),
                     "title": title,
-                    "slug": anime.get("anime_slug").get("slug").replace("https://latanime.org/anime", ""),
+                    "slug": anime.get("anime_slug").get("slug").replace(f"https://{latanime.base}/anime", ""),
                     "year": anime.get("year").get("text").strip(),
                     "type": watch_type,
                 })
 
+        return data    
+
+    def schedule_data_processing(self, rawdata, base=None):
+        data = {}
+        for day, animes in rawdata.items():
+            data[day] = []
+            for anime in animes:
+                slug = anime.get("slug").get("slug").strip().replace(f"https://{base}/anime", "")
+                title = anime.get("title").get("text")
+                image = anime.get("image").get("url")
+
+                data[day].append({
+                        "slug": slug if slug != "#" else None,
+                        "title": title,
+                        "image_url": image,
+                    })
         return data
+    #*** helper functions END ***#

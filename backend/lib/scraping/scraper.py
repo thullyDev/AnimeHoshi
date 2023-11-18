@@ -35,7 +35,7 @@ class Scraper(ApiHandler):
 
             for select_element in selected_elements:
                 for attr_key, attr_value in value.get("attributes").items():
-                    if return_type != "list": data[key][attr_key] = select_element.get(attr_value) if attr_value != "text_content" else select_element.text
+                    if return_type != "list": data[key][attr_key] = select_element.get(attr_value) if attr_value != "text_content" else select_element.text.strip()
                     else: 
                         temp = select_element.get(attr_value) if attr_value != "text_content" else select_element.text
                         data.append(temp)
@@ -43,11 +43,25 @@ class Scraper(ApiHandler):
         return data
 
     def process(self, soup, blueprint):
-        parent_selector = blueprint["parent_selector"]
-        parent_elements = soup.select(parent_selector)
+        parent_selector = blueprint.get("parent_selector")
+        single_select = blueprint.get("single_select")
 
-        data = []
-        for parent_element in parent_elements:
-            data.append(self.extract(parent_element, blueprint["children"]))
-        
+        data = {}
+        if single_select:
+            elements = soup.select(parent_selector)
+            attribute = blueprint.get("attribute")
+            key = blueprint.get("key")
+
+            for element in elements:
+                if attribute == "html": data[key] = element; continue
+                
+                value = element.get(attribute).strip() if attribute != "text_content" else element.text.replace("\n", " ").strip()
+                data[key] = value
+            
+            return data
+
+        elements = soup.select(parent_selector)
+
+        data = [self.extract(element, blueprint["children"]) for element in elements]
+
         return data
