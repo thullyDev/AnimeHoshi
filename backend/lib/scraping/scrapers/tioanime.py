@@ -102,29 +102,16 @@ class TioanimeScraper(Scraper, Tioanime):
                 "key": "background_image",
             },
             "genres": {
-                "parent_selector": ".btn.btn-sm.btn.primary.rounded-pill",
-                "attribute": "text_content",
-                "children": { 
-                    "genre_slug": {
-                        "selector": "a",
-                        "attributes": {
-                            "link": "href",
-                            "name": "text_content",
-                        }
-                    },
-                },
-            },
-            "genres": {
                 "parent_selector": ".genres",
                 "attribute": "html",
                 "single_select": True,
-                "key": "episodes_html",
+                "key": "genres_html",
             },
-            "episodes": {
-                "parent_selector": ".episodes-list",
-                "attribute": "html",
+            "last_scripts": {
+                "parent_selector": "script",
+                "attribute": "text_content",
                 "single_select": True,
-                "key": "episodes_html",
+                "key": "episodes_script",
             },
         }
         return self.get(base=self.base, endpoint=f"{self.anime_endpoint}{slug}", blueprint=blueprint)

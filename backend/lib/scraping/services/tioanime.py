@@ -240,8 +240,89 @@ class Tioanime:
                 }
             },
         }
+    tioanime_anime_blueprint = {
+        "title": {
+            "parent_selector": "h1.title",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "title",
+        },
+        "original_title": {
+            "parent_selector": "p.original-title",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "original_title",
+        },
+        "type": {
+            "parent_selector": "span.anime-type-peli",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "type",
+        },
+        "year": {
+            "parent_selector": "span.year",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "year",
+        },
+        "season": {
+            "parent_selector": "span.season > .season",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "season",
+        },
+        "score": {
+            "parent_selector": ".mal",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "score",
+        },
+        "votes": {
+            "parent_selector": ".total > span",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "votes",
+        },
+        "description": {
+            "parent_selector": ".sinopsis",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "description",
+        },
+        "status": {
+            "parent_selector": ".btn.btn-block.status",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "status",
+        },
+        "poster_image": {
+            "parent_selector": ".thumb img",
+            "attribute": "src",
+            "single_select": True,
+            "key": "poster_image",
+        },
+        "background_image": {
+            "parent_selector": ".backdrop > img",
+            "attribute": "src",
+            "single_select": True,
+            "key": "background_image",
+        },
+        "genres": {
+            "parent_selector": ".genres",
+            "attribute": "html",
+            "single_select": True,
+            "key": "genres_html",
+        },
+        "last_scripts": {
+            "parent_selector": "script",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "episodes_script",
+        },
+    }
     blueprints = {
         "tioanime_home": tioanime_home_blueprint,
         "tioanime_filter": tioanime_filter_blueprint,
-    	"tioanime_schedule": tioanime_schedule_blueprint,
+        "tioanime_schedule": tioanime_schedule_blueprint,
+    	"tioanime_anime": tioanime_anime_blueprint,
     }

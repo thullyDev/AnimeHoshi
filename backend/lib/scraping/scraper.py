@@ -53,7 +53,7 @@ class Scraper(ApiHandler):
             key = blueprint.get("key")
 
             for element in elements:
-                if attribute == "html": data[key] = element; continue
+                if attribute == "html": data[key] = str(element); continue
                 
                 value = element.get(attribute).strip() if attribute != "text_content" else element.text.replace("\n", " ").strip()
                 data[key] = value
