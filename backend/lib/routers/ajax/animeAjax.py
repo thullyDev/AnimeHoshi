@@ -167,25 +167,23 @@ class AnimeAjax(APIView, ResponseHandler):
     @timing_decorator
     def latanime_anime(self, request, slug):
         rawdata = latanime.get_anime(slug=slug)
-        data = {
-            "title": rawdata.get("title").get("title"),
-            "description": rawdata.get("description").get("description"),
-            "status": rawdata.get("status").get("status"),
-            "poster_image": rawdata.get("poster_image").get("poster_image"),
-            "background_image": rawdata.get("background_image"),
-            "genres": [],
-            "episodes": [],
-        }
-        des_html = rawdata.get("des_html").get("des_html")
+        # data = {
+        #     "title": rawdata.get("title").get("title"),
+        #     "description": rawdata.get("description").get("description"),
+        #     "status": rawdata.get("status").get("status"),
+        #     "poster_image": rawdata.get("poster_image").get("poster_image"),
+        #     "background_image": rawdata.get("background_image"),
+        #     "genres": [],
+        #     "episodes": [],
+        # }
+        # des_html = rawdata.get("des_html").get("des_html")
 
-        for item in genres_html.split('href='):
-            found = item.find("https://latanime.org/ver")
+        # for item in genres_html.split('href='):
+        #     found = item.find("https://latanime.org/ver")
 
-            print()
-
-            if found == 1:
-                temp = item.split(">")[0]
-                data["episodes"].append(temp)
+        #     if found == 1:
+        #         temp = item.split(">")[0]
+        #         data["episodes"].append(temp)
 
         return self.successful_response(data={ "rawdata": rawdata })
 

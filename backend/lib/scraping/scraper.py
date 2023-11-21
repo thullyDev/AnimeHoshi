@@ -42,6 +42,7 @@ class Scraper(ApiHandler):
 
         return data
 
+    # processes each parent select, and passes to the children to the extract function
     def process(self, soup, blueprint):
         parent_selector = blueprint.get("parent_selector")
         single_select = blueprint.get("single_select")

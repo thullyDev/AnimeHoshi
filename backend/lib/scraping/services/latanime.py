@@ -32,7 +32,7 @@ class Latanime:
                         "selector": ".lozad.d-block.w-100",
                         "attributes": {
                             "url": "data-src",
-                            "title": "alt"
+                            "synopsis": "alt"
                         }
                     },
                     "description": {
@@ -350,8 +350,52 @@ class Latanime:
             #     }
             # },
         }
+    latanime_anime_blueprint = {
+        "title": {
+            "parent_selector": ".col-lg-9.col-md-8 > h2",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "title",
+        },
+        "synopsis": {
+            "parent_selector": ".fs-6.text-light.opacity-75",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "synopsis",
+        },
+        "description": {
+            "parent_selector": ".my-2.opacity-75",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "description",
+        },
+        "status": {
+            "parent_selector": ".btn-estado",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "status",
+        },
+        "poster_image": {
+            "parent_selector": ".img-fluid2",
+            "attribute": "src",
+            "single_select": True,
+            "key": "poster_image",
+        },
+        "genres": {
+            "parent_selector": ".col-lg-9.col-md-8 > a",
+            "children": {
+                "slug": {
+                    "selector": "a",
+                    "attributes": {
+                        "slug": "href",
+                    }
+                },
+            },
+        }
+    }
     blueprints = {
     	"latanime_home": latanime_home_blueprint,
         "latanime_filter": latanime_filter_blueprint,
         "latanime_schedule": latanime_schedule_blueprint,
+        "latanime_anime": latanime_anime_blueprint,
     }

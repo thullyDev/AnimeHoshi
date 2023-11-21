@@ -39,16 +39,12 @@ class LatanimeScraper(Scraper, Latanime):
                 params["p"] = value
                 continue
 
-
             if key == "keywords": 
-                print("i am here")
                 params["q"] = value
                 continue
 
         return self.get(base=self.base, endpoint=self.search_endpoint, blueprint=self.blueprints["latanime_filter"], params=params)
     
-    def get_schedule(self):
-        return self.get(base=self.base, endpoint=self.schedule_endpoint, blueprint=self.blueprints["latanime_schedule"])
+    def get_schedule(self): return self.get(base=self.base, endpoint=self.schedule_endpoint, blueprint=self.blueprints["latanime_schedule"])
 
-    def get_anime(self, slug):
-        return self.get(base=self.base, endpoint=f"{self.anime_endpoint}{slug}", blueprint=self.blueprint["latanime_anime"])
+    def get_anime(self, slug): return self.get(base=self.base, endpoint=f"{self.anime_endpoint}{slug}", blueprint=self.blueprints["latanime_anime"])
