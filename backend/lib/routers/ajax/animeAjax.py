@@ -1,8 +1,10 @@
 from rest_framework.views import APIView
 from django.shortcuts import render, redirect
-from ...resources import ResponseHandler, generate_unique_id, timing_decorator
+from ...decorators import timing_decorator
+from ...resources import generate_unique_id, timing_decorator
 from ...database import Cache
 from ...scraping import TioanimeScraper, LatanimeScraper
+from ...handlers import ResponseHandler
 from pprint import pprint
 
 tioanime = TioanimeScraper()

@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from django.shortcuts import render, redirect
-from ...resources import (
-    ResponseHandler, 
+from ....resources import (
     valid_email, 
     generate_random_code,
     hide_text, 
@@ -9,12 +8,15 @@ from ...resources import (
     SITE_EMAIL_PASS,
     generate_unique_id,
 )
-from ...database import Database
+from ....database import Database
+from ....handlers import ResponseHandler
+from ....decorators import timing_decorator
 import yagmail
 
 db = Database()
 
-class UsersAuthAjax(APIView, ResponseHandler):
+class UserAuthAjax(APIView, ResponseHandler):
+    @timing_decorator
     def login(self, request):
         if not request.POST: return redirect("/")
 
@@ -46,7 +48,8 @@ class UsersAuthAjax(APIView, ResponseHandler):
             "email": data.get("email"),
             "username": data.get("username"),
         })
-        
+    
+    @timing_decorator
     def signup(self, request):
         if not request.POST: return redirect("/")
 
@@ -98,6 +101,7 @@ class UsersAuthAjax(APIView, ResponseHandler):
                 "data": data,
             })
     
+    @timing_decorator
     def resend_code(self, request):
         if not request.POST: return redirect("/")
         post_data = request.POST
@@ -114,6 +118,7 @@ class UsersAuthAjax(APIView, ResponseHandler):
 
         return message
     
+    @timing_decorator
     def verify(self, request):
         if not request.POST: return redirect("/")
         post_data = request.POST
@@ -140,6 +145,7 @@ class UsersAuthAjax(APIView, ResponseHandler):
             }
          })
 
+    @timing_decorator
     def forgot_password(self, request):
         if request.POST: return redirect("/")
 
@@ -173,6 +179,7 @@ class UsersAuthAjax(APIView, ResponseHandler):
                 "data": data
             })
 
+    @timing_decorator
     def renew_password(self, request):
         if request.POST: return redirect("/")
 

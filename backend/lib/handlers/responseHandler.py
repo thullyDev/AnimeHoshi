@@ -1,5 +1,5 @@
 from django.http import JsonResponse, HttpResponse
-from ..utilities import (
+from ..resources import (
 	FORBIDDEN, 
 	CRASH, 
 	SUCCESSFUL, 
