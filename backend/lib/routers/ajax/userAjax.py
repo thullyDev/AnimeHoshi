@@ -1,4 +1,3 @@
-from rest_framework.views import APIView
 from django.shortcuts import render, redirect
 from ...resources import (
     valid_email, 
@@ -9,13 +8,12 @@ from ...resources import (
     generate_unique_id,
 )
 from ...database import Database
-from ...handlers import ResponseHandler
 from ...decorators import timing_decorator
 from .authentication.userAuthAjax import UserAuthAjax
 
 db = Database()
 
-class UserAjax(APIView, ResponseHandler, UserAuthAjax):
+class UserAjax(UserAuthAjax):
     @timing_decorator
     def profile(self, request):
         if request.POST: return redirect("/")
@@ -48,6 +46,22 @@ class UserAjax(APIView, ResponseHandler, UserAuthAjax):
         temporary_id = user.get("temporary_id")
 
         response = self.add_to_list(slug=slug, list_type="watch", user_id=user_id, temporary_id=temporary_id)
+
+        if not slug: return self.crash_response(data={ "message": "slug invalid"})
+
+    @timing_decorator
+    def likes_list(self, request):
+        if not request.POST: return redirect("/")
+
+        user = self.GET_CREDITIALS(request.COOKIES, no_update=True)
+
+        if not user: return self.forbidden_response(data={ "message": "login" })
+
+        slug = request.POST.get("slug")
+        user_id = user.get("id")
+        temporary_id = user.get("temporary_id")
+
+        response = self.add_to_list(slug=slug, list_type="likes", user_id=user_id, temporary_id=temporary_id)
 
         if not slug: return self.crash_response(data={ "message": "slug invalid"})
 

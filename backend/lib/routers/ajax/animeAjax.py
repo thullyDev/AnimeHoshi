@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from django.shortcuts import render, redirect
 from ...decorators import timing_decorator
-from ...resources import generate_unique_id, timing_decorator
+from ...resources import generate_unique_id
 from ...database import Cache
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ...handlers import ResponseHandler
@@ -80,7 +80,7 @@ class AnimeAjax(APIView, ResponseHandler):
             if value: filter_data[key] = value
 
         rawdata = tioanime.get_filter(data=filter_data)
-        data = self.filter_data_processing(rawdata=rawdata, base=tioanime.base, site="tioanime")
+        data = self.filter_data_processing(rawdata=rawdata, base=tioanime.base)
 
         return self.successful_response(data=data)
 
@@ -91,7 +91,7 @@ class AnimeAjax(APIView, ResponseHandler):
             if value: filter_data[key] = value
 
         rawdata = latanime.get_filter(data=filter_data)
-        data = self.filter_data_processing(rawdata=rawdata, base=latanime.base, site="latanime")
+        data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)
 
         return self.successful_response(data=data)
 
@@ -116,82 +116,27 @@ class AnimeAjax(APIView, ResponseHandler):
             if value: search_data[key] = value
 
         rawdata = latanime.get_search(data=search_data)
-        data = self.filter_data_processing(rawdata=rawdata, base=latanime.base, site="latanime")
+        data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)
 
         return self.successful_response(data={ "data": data })
 
     @timing_decorator
     def tioanime_anime(self, request, slug):
         rawdata = tioanime.get_anime(slug=slug)
-        base = tioanime.base
-        data = {
-            "title": rawdata.get("title").get("title"),
-            "original_title": rawdata.get("original_title").get("original_title"),
-            "type": rawdata.get("type").get("type"),
-            "year": rawdata.get("year").get("year"),
-            "season": rawdata.get("season").get("season"),
-            "description": rawdata.get("description").get("description"),
-            "status": rawdata.get("status").get("status"),
-            "poster_image": f"https://{base}/" + rawdata.get("poster_image").get("poster_image"),
-            "background_image": f"https://{base}/" + rawdata.get("background_image").get("background_image"),
-            "genres": [],
-            "episodes": [],
-        }
-        genres_hmtl = rawdata.get("genres").get("genres_html").replace("/directorio?genero=", "").replace('</a>', "").replace('</span>', "").replace('</span>', "").replace('<a class="btn btn-sm btn-light rounded-pill"', "").replace('<p class="genres">', "").replace('<span class="btn btn-sm btn-primary rounded-pill">', "")
-        rawgenres_list = genres_hmtl.split("href=")
-        scripts = rawdata.get("last_scripts").get("episodes_script").replace("var anime_info = ", "").replace("episodesList();", "").replace("var episodes = ", "").replace("$(document).ready(function()", "").replace("{", "").replace("});", "").replace("var episodes_details = ", "").replace(";\r", "").replace("  ", "").strip().replace("] [", "]] [[").split("] [")
-        anime_info = eval(scripts[0])
-        episodes_num = eval(scripts[1])
-        episodes_details = eval(scripts[2])
-
-        for ep_num in episodes_num:
-            slug = f"/{anime_info[1]}-{episodes_num[ep_num - 1]}"
-            episode_title = f"Episodio {episodes_num[ep_num - 1]}"
-            image_url = f"https://{tioanime.base}/uploads/thumbs/{anime_info[0]}.jpg"
-
-            data["episodes"].append({
-                "slug": slug,
-                "episode_title": episode_title,
-                "image_url": image_url,
-                })
-
-        for item in rawgenres_list:
-            genre_id = item.replace('"', "").strip().split(">")[0]
-            if not genre_id: continue
-            genre = genre_id.title()
-            data["genres"].append({
-                "genre_id": genre_id,
-                "genre": genre
-                })
+        data = self.anime_processing(rawdata=rawdata, base=tioanime.base)
 
         return self.successful_response(data={ "data": data })
 
     @timing_decorator
     def latanime_anime(self, request, slug):
         rawdata = latanime.get_anime(slug=slug)
-        # data = {
-        #     "title": rawdata.get("title").get("title"),
-        #     "description": rawdata.get("description").get("description"),
-        #     "status": rawdata.get("status").get("status"),
-        #     "poster_image": rawdata.get("poster_image").get("poster_image"),
-        #     "background_image": rawdata.get("background_image"),
-        #     "genres": [],
-        #     "episodes": [],
-        # }
-        # des_html = rawdata.get("des_html").get("des_html")
+        data = self.anime_processing(rawdata=rawdata, base=latanime.base)
 
-        # for item in genres_html.split('href='):
-        #     found = item.find("https://latanime.org/ver")
-
-        #     if found == 1:
-        #         temp = item.split(">")[0]
-        #         data["episodes"].append(temp)
-
-        return self.successful_response(data={ "rawdata": rawdata })
+        return self.successful_response(data={ "data": data })
 
 
     #*** helper functions START ***#
-    def filter_data_processing(self, rawdata, site, base):
+    def filter_data_processing(self, rawdata, base):
         animes = rawdata.get("animes")
         pages = rawdata.get("pages")[0]
         data = {
@@ -200,9 +145,7 @@ class AnimeAjax(APIView, ResponseHandler):
             "animes": []
         }
 
-        if site not in [ "tioanime", "latanime" ]: return None
-
-        if site == "tioanime":
+        if base == tioanime.base:
             for anime in animes:
                 data["animes"].append({
                     "image_url": f"https://{base}/" + anime.get("image").get("url"),
@@ -212,19 +155,18 @@ class AnimeAjax(APIView, ResponseHandler):
 
             return data
 
-        if site == "latanime": 
-            for anime in animes:
-                title = anime.get("title").get("text")
-                temp = title.split(" ")
-                watch_type = temp[len(temp) - 1]
+        for anime in animes:
+            title = anime.get("title").get("text")
+            temp = title.split(" ")
+            watch_type = temp[len(temp) - 1]
 
-                data["animes"].append({
-                    "image_url": anime.get("image").get("url"),
-                    "title": title,
-                    "slug": anime.get("anime_slug").get("slug").replace(f"https://{latanime.base}/anime", ""),
-                    "year": anime.get("year").get("text").strip(),
-                    "type": watch_type,
-                })
+            data["animes"].append({
+                "image_url": anime.get("image").get("url"),
+                "title": title,
+                "slug": anime.get("anime_slug").get("slug").replace(f"https://{latanime.base}/anime", ""),
+                "year": anime.get("year").get("text").strip(),
+                "type": watch_type,
+            })
 
         return data    
 
@@ -242,5 +184,72 @@ class AnimeAjax(APIView, ResponseHandler):
                         "title": title,
                         "image_url": image,
                     })
+        return data
+
+    def anime_processing(self, rawdata, base=None):
+        if base == tioanime.base:
+            data = {
+                "title": rawdata.get("title").get("title"),
+                "original_title": rawdata.get("original_title").get("original_title"),
+                "type": rawdata.get("type").get("type"),
+                "year": rawdata.get("year").get("year"),
+                "season": rawdata.get("season").get("season"),
+                "description": rawdata.get("description").get("description"),
+                "status": rawdata.get("status").get("status"),
+                "poster_image": f"https://{base}/" + rawdata.get("poster_image").get("poster_image"),
+                "background_image": f"https://{base}/" + rawdata.get("background_image").get("background_image"),
+                "genres": [],
+                "episodes": [],
+            }
+            genres_hmtl = rawdata.get("genres").get("genres_html").replace("/directorio?genero=", "").replace('</a>', "").replace('</span>', "").replace('</span>', "").replace('<a class="btn btn-sm btn-light rounded-pill"', "").replace('<p class="genres">', "").replace('<span class="btn btn-sm btn-primary rounded-pill">', "")
+            rawgenres_list = genres_hmtl.split("href=")
+            scripts = rawdata.get("last_scripts").get("episodes_script").replace("var anime_info = ", "").replace("episodesList();", "").replace("var episodes = ", "").replace("$(document).ready(function()", "").replace("{", "").replace("});", "").replace("var episodes_details = ", "").replace(";\r", "").replace("  ", "").strip().replace("] [", "]] [[").split("] [")
+            anime_info = eval(scripts[0])
+            episodes_num = eval(scripts[1])
+            episodes_details = eval(scripts[2])
+
+            for ep_num in episodes_num:
+                slug = f"/{anime_info[1]}-{episodes_num[ep_num - 1]}"
+                episode_title = f"Episodio {episodes_num[ep_num - 1]}"
+                image_url = f"https://{tioanime.base}/uploads/thumbs/{anime_info[0]}.jpg"
+
+                data["episodes"].append({
+                    "slug": slug,
+                    "episode_title": episode_title,
+                    "image_url": image_url,
+                    })
+
+            for item in rawgenres_list:
+                genre_id = item.replace('"', "").strip().split(">")[0]
+                if not genre_id: continue
+                genre = genre_id.title()
+                data["genres"].append({
+                    "genre_id": genre_id,
+                    "genre": genre
+                    })
+            return data
+        data = {
+            "title": rawdata.get("title").get("title"),
+            "description": rawdata.get("description").get("description"),
+            "synopsis": rawdata.get("synopsis").get("synopsis"),
+            "poster_image": rawdata.get("poster_image").get("poster_image"),
+            "genres": [],
+            "episodes": [],
+        }
+        chapters_html = rawdata.get("chapters").get("chapters_html")
+
+        for item in rawdata.get("genres"):
+            data["genres"].append({
+                "genre_id":item.get("slug").get("text"),
+                "genre":item.get("slug").get("text").lower(),
+                })
+
+        for item in chapters_html.split('href='):
+            found = item.find("https://latanime.org/ver")
+
+            if found == 1:
+                temp = item.split(">")[0]
+                data["episodes"].append(temp.replace('\"', "").replace("https://latanime.org/ver", ""))
+
         return data
     #*** helper functions END ***#

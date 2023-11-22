@@ -1,4 +1,4 @@
-from ..resources import ( ApiHandler )
+from ..handlers import ( ApiHandler )
 from ..database import ( Cache )
 from bs4 import BeautifulSoup
 from lxml import html
@@ -30,15 +30,33 @@ class Scraper(ApiHandler):
             data[key] = {}
             selector = value.get("selector")
             return_type = value.get("return_type")
-            if return_type == "list": data = []
             selected_elements = element.select(selector)
+
+            if return_type == "list": data = []
 
             for select_element in selected_elements:
                 for attr_key, attr_value in value.get("attributes").items():
-                    if return_type != "list": data[key][attr_key] = select_element.get(attr_value) if attr_value != "text_content" else select_element.text.strip()
-                    else: 
-                        temp = select_element.get(attr_value) if attr_value != "text_content" else select_element.text
-                        data.append(temp)
+                    if return_type != "list": 
+                        if attr_value == "text_content": 
+                            data[key][attr_key] = select_element.text.strip()
+                            continue
+
+                        if attr_value == "html": 
+                            data[key][attr_key] = str(select_element)
+                            continue
+
+                        data[key][attr_key] = select_element.get(attr_value) 
+                        continue
+
+                    if attr_value == "text_content": 
+                        data.append(select_element.text)
+                        continue
+
+                    if attr_value == "html": 
+                        data.append(str(select_element))
+                        continue
+
+                    data.append(select_element.get(attr_value)) 
 
         return data
 

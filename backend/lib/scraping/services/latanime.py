@@ -385,12 +385,18 @@ class Latanime:
             "parent_selector": ".col-lg-9.col-md-8 > a",
             "children": {
                 "slug": {
-                    "selector": "a",
+                    "selector": ".btn",
                     "attributes": {
-                        "slug": "href",
+                        "text": "text_content",
                     }
                 },
             },
+        },
+        "chapters": {
+            "parent_selector": ".col-lg-9.col-md-8 > .row",
+            "attribute": "html",
+            "single_select": True,
+            "key": "chapters_html",
         }
     }
     blueprints = {

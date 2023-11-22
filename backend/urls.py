@@ -1,20 +1,20 @@
-from .lib.routers import Users, UsersAjax, Anime, AnimeAjax
+from .lib.routers import Users, UserAjax, Anime, AnimeAjax
 from django.urls import path
 
 users = Users()
 anime = Anime()
-users_ajax = UsersAjax()
+user_ajax = UserAjax()
 anime_ajax = AnimeAjax()
 
 urlpatterns = [
     path('', users.root),
     path('home', users.root),
-    path("ajax/post/login/", users_ajax.login),
-    path("ajax/post/signup/", users_ajax.signup),
-    path("ajax/post/resend/", users_ajax.resend_code),
-    path("ajax/post/forgot_password/", users_ajax.forgot_password),
-    path("ajax/post/verify/", users_ajax.verify),
-    path("ajax/post/profile/", users_ajax.profile),
+    path("ajax/post/login/", user_ajax.login),
+    path("ajax/post/signup/", user_ajax.signup),
+    path("ajax/post/resend/", user_ajax.resend_code),
+    path("ajax/post/forgot_password/", user_ajax.forgot_password),
+    path("ajax/post/verify/", user_ajax.verify),
+    path("ajax/post/profile/", user_ajax.profile),
     path("ajax/get/home/", anime_ajax.get_home_data),
     path("ajax/get/tioanime/filter/", anime_ajax.tioanime_filter),
     path("ajax/get/latanime/filter/", anime_ajax.latanime_filter),
