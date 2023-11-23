@@ -16,8 +16,6 @@ db = Database()
 class UserAjax(UserAuthAjax):
     @timing_decorator
     def profile(self, request):
-        if request.POST: return redirect("/")
-
         user = GET_CREDITIALS(request.COOKIES)
 
         if not user: return self.forbidden_response(data={ "message": "login" })
@@ -35,8 +33,6 @@ class UserAjax(UserAuthAjax):
 
     @timing_decorator
     def add_watch_list(self, request):
-        if not request.POST: return redirect("/")
-
         user = self.GET_CREDITIALS(request.COOKIES, no_update=True)
 
         if not user: return self.forbidden_response(data={ "message": "login" })
@@ -51,8 +47,6 @@ class UserAjax(UserAuthAjax):
 
     @timing_decorator
     def add_likes_list(self, request):
-        if not request.POST: return redirect("/")
-
         user = self.GET_CREDITIALS(request.COOKIES, no_update=True)
 
         if not user: return self.forbidden_response(data={ "message": "login" })

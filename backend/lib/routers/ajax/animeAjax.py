@@ -6,7 +6,7 @@ from ...database import Cache
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ...handlers import ResponseHandler
 from pprint import pprint
-from base64 import b64decode
+from base64 import b64decode, b64encode
 import ast
 
 tioanime = TioanimeScraper()
@@ -139,15 +139,43 @@ class AnimeAjax(APIView, ResponseHandler):
     @timing_decorator
     def latanime_watch(self, request, slug):
         rawdata = latanime.get_episode(slug=slug)
-        data = watch_processing(rawdata=rawdata, base=latanime.base)
+        data = self.watch_processing(rawdata=rawdata, base=latanime.base)
 
         return self.successful_response(data={ "data": data })
 
     @timing_decorator
     def tioanime_watch(self, request, slug):
         rawdata = tioanime.get_episode(slug=slug)
-        data = watch_processing(rawdata=rawdata, base=tioanime.base)
+        data = self.watch_processing(rawdata=rawdata, base=tioanime.base)
 
+        return self.successful_response(data={ "data": data })
+
+    @timing_decorator
+    def stream(self, request, encrypted_link):
+        link = b64decode(encrypted_link.replace("b'", "").replace("'", "")).decode("utf-8")
+        site = link.replace("https://", "").split("/")[0]
+        valid_sites = {
+            "ok.ru",
+            "sfastwish.com",
+            "www.mp4upload.com",
+            "denisegrowthwide.com",
+            "www.yourupload.com",
+        }
+
+        if site not in valid_sites:
+            return self.bad_request_response()
+
+        blueprint = {
+            "body": {
+                "parent_selector": "body",
+                "attribute": "html",
+                "single_select": True,
+                "key": "html",
+            },
+        }
+        data = tioanime.get(base=site, endpoint=link.replace(f"https://{site}/", ""), blueprint=blueprint)
+
+        file = data.get("body").get("html").split("file: ")[1].replace('.mp4', ".mp4***cut_here***").split("***cut_here***")[0].replace("'", '')
         return self.successful_response(data={ "data": data })
 
     #*** helper functions START ***#
@@ -281,7 +309,7 @@ class AnimeAjax(APIView, ResponseHandler):
             embed_links = ast.literal_eval(rawlist)
 
             for item in embed_links:
-                link = item[1].replace('\\/', '/')
+                link =  item[1].replace('\\/', '/')
                 name = item[0].lower()
 
                 data["embed_links"].append({
@@ -289,9 +317,11 @@ class AnimeAjax(APIView, ResponseHandler):
                         "link": link,
                     })
 
-                if name in { "yourupload", "sfastwish", "uqload", "mp4upload" }:
+                if name in { "yourupload", "sfastwish", "uqload", "mp4upload", "okru" }:
                     data["safe_links"].append({
                             "name": name,
+                            "embed_id": str(b64encode(link.encode('utf-8'))),
+                            # "id": b64decode(link.encode('utf-8')),
                             "id": link,
                         })
             return data
@@ -312,7 +342,7 @@ class AnimeAjax(APIView, ResponseHandler):
                 link = item.get("embed_link")
                 data["safe_links"].append({
                         "name": name,
-                        "id": link,
+                        "id": str(link.encode("utf-8")),
                     })
 
         for item in rawdata.get("recommendations"):

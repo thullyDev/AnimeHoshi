@@ -34,6 +34,6 @@ class TioanimeScraper(Scraper, Tioanime):
         return self.get(base=self.base, endpoint=self.schedule_endpoint, blueprint=self.blueprints["tioanime_schedule"])
 
     def get_anime(self, slug):
-        return self.get(base=self.base, endpoint=f"{self.anime_endpoint}{slug}", blueprint=self.blueprint["tioanime_anime"])
+        return self.get(base=self.base, endpoint=f"{self.anime_endpoint}{slug}", blueprint=self.blueprints["tioanime_anime"])
 
     def get_episode(self, slug): return self.get(base=self.base, endpoint=f"{self.watch_endpoint}{slug}", blueprint=self.blueprints["tioanime_episode"])

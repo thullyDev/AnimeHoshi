@@ -14,6 +14,7 @@ class ApiHandler:
         
     def request(self, base, endpoint, params={}, headers={}, https_safe=True, html=False):
         url = self.build_url(base=base, endpoint=endpoint, params=params, https_safe=True)
+        print(url)
         response = requests.get(url)
         
         if html:

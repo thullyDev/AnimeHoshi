@@ -11,22 +11,35 @@ class Database(Cache, Sql):
         return cls._instance
 
     def get_user(self, **kwargs):
-        return self.db_get(unit="user", data=kwargs)
+        return self.get(unit="user", data=kwargs)
 
     def set_user(self, data):
-        return self.db_set(unit="user", data=data)
+        return self.set(unit="user", data=data)
 
     def update_user(self, **kwargs):
-        return self.db_update(unit="user", data=kwargs)
+        return self.update(unit="user", data=kwargs)
+
+    def get_admin(self, **kwargs):
+        return self.get(unit="admin", data=kwargs)
+
+    def set_admin(self, data):
+        return self.set(unit="admin", data=data)
+
+    def update_admin(self, **kwargs):
+        return self.update(unit="admin", data=kwargs)
 
     def get(self, unit, data):
         uid = self.get_safe_id(data)
         cache_data = self.dget(name=f"{unit}_*_{uid}")
+        temporary_id = data.get("temporary_id")
 
-        if cache_data:
+        if not temporary_id and cache_data:
             return cache_data
 
         data = self.sql_get(data)
+        data["temporary_id"] = temporary_id
+        
+        self.sql_update(data)
         self.dset(name=f"{unit}_*_{uid}", data=data)
 
         return data
