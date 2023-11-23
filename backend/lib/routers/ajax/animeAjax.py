@@ -6,6 +6,7 @@ from ...database import Cache
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ...handlers import ResponseHandler
 from pprint import pprint
+from base64 import b64decode
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
@@ -134,6 +135,49 @@ class AnimeAjax(APIView, ResponseHandler):
 
         return self.successful_response(data={ "data": data })
 
+    @timing_decorator
+    def latanime_watch(self, request, slug):
+        rawdata = latanime.get_episode(slug=slug)
+        data = {
+            "episode_title": rawdata.get("episode_title").get("title"),
+            "safe_links": [],
+            "embed_links": [],
+            "recommandations": [],
+        }
+
+        for item in rawdata.get("embed_links"):
+            item = item.get("link")
+            name = item.get("name")
+            link = b64decode(item.get("embed_link")).decode('utf-8')
+
+            data["embed_links"].append({
+                    "name": name,
+                    "link": link,
+                })
+
+            if name in { "sfastwish", "uqload", "mp4upload" }:
+                link = item.get("embed_link")
+                data["safe_links"].append({
+                        "name": name,
+                        "id": link,
+                    })
+
+        for item in rawdata.get("recommendations"):
+            title = item.get("title").get("text")
+            slug = item.get("slug").get("slug")
+            date = item.get("date").get("text")
+            episode = item.get("episode").get("text")
+
+            data["recommandations"].append({
+                    "title": title,
+                    "slug": slug,
+                    "date": date,
+                    "episode": episode,
+                })
+
+        # pprint(data)
+
+        return self.successful_response(data={ "data": data })
 
     #*** helper functions START ***#
     def filter_data_processing(self, rawdata, base):

@@ -399,9 +399,65 @@ class Latanime:
             "key": "chapters_html",
         }
     }
+    Latanime_episode_blueprint = {
+        "episode_title": {
+            "parent_selector": ".mojon4.my-3",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "title",
+        },
+        "embed_links": {
+            "parent_selector": ".cap_repro.d-flex.flex-wrap > li",
+            "children": {
+                "link": {
+                    "selector": ".play-video",
+                    "attributes": {
+                        "embed_link": "data-player",
+                        "name": "text_content",
+                    }
+                },
+            },
+        },
+        "recommendations": {
+            "parent_selector": ".recomendados.my-3",
+            "children": {
+                "slug": {
+                    "selector": "a",
+                    "attributes": {
+                        "slug": "href",
+                    }
+                },
+                "image": {
+                    "selector": "img",
+                    "attributes": {
+                        "url": "src",
+                    }
+                },
+                "date": {
+                    "selector": "p",
+                    "attributes": {
+                        "text": "text_content",
+                    }
+                },
+                "title": {
+                    "selector": "h5",
+                    "attributes": {
+                        "text": "text_content",
+                    }
+                },
+                "episode": {
+                    "selector": "span",
+                    "attributes": {
+                        "text": "text_content",
+                    }
+                },
+            },
+        },
+    }
     blueprints = {
     	"latanime_home": latanime_home_blueprint,
         "latanime_filter": latanime_filter_blueprint,
         "latanime_schedule": latanime_schedule_blueprint,
         "latanime_anime": latanime_anime_blueprint,
+        "latanime_episode": Latanime_episode_blueprint,
     }
