@@ -7,7 +7,9 @@ from ..resources import (
 	NOT_FOUND, 
 	FORBIDDEN_MSG, 
 	CRASH_MSG, 
-	SUCCESSFUL_MSG
+	SUCCESSFUL_MSG,
+	BAD_REQUEST_MSG,
+	BAD_REQUEST,
 )
 
 class ResponseHandler:
@@ -15,10 +17,10 @@ class ResponseHandler:
 		response = JsonResponse(data=data, status=status_code, safe=False) 
 
 		if not no_cookies:
-			thirty_days = 2592000 # 30 days in seconds
+			SIXTY_DAYS = 2_592_000 * 2 #* 30 days * 2 in seconds
 
 			for key, val in cookies.items():
-				response.set_cookie(val.get("name"), val.get("value"), max_age=val.get("max_age", thirty_days), secure=True, httponly=True)
+				response.set_cookie(val.get("name"), val.get("value"), max_age=val.get("max_age", SIXTY_DAYS), secure=True, httponly=True)
 
 		return response
 
@@ -52,3 +54,10 @@ class ResponseHandler:
 		if not data.get("message"): data["message"] = CRASH_MSG
 		
 		return self.json_response(data=data, status_code=CRASH)
+
+	def bad_request_response(self, data=None, safe=False):
+		data = data if data else {}
+		data["status_code"] = BAD_REQUEST
+		if not data.get("message"): data["message"] = BAD_REQUEST_MSG
+		
+		return self.json_response(data=data, status_code=BAD_REQUEST)

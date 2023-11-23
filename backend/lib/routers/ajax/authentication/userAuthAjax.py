@@ -27,7 +27,7 @@ class UserAuthAjax(APIView, ResponseHandler):
         temporary_id = post_data.get("temporary_id")
 
         if not valid_email(email): 
-            return self.crash_response(data={
+            return self.bad_request_response(data={
                     "message": "this email is not a valid email"
                 })
 
@@ -60,19 +60,19 @@ class UserAuthAjax(APIView, ResponseHandler):
         confirm = post_data.get("confirm")
 
         if not valid_email(email): 
-            return self.crash_response(data={
+            return self.bad_request_response(data={
                     "message": "this email is not a valid email"
                 })
 
         if not email and not username: return self.forbidden_response()
 
         if confirm != password: 
-            return self.crash_response(data={
+            return self.bad_request_response(data={
                     "message": "password and confirm should be the same"
                 })
 
         if len(password) >= 10:
-            return self.crash_response(data={
+            return self.bad_request_response(data={
                     "message": "password should be atleast 10 characters long"
                 })
 
@@ -154,7 +154,7 @@ class UserAuthAjax(APIView, ResponseHandler):
         username = post_data.get("username")
 
         if not valid_email(email): 
-            return self.crash_response(data={ "message": "this email is not a valid email" })
+            return self.bad_request_response(data={ "message": "this email is not a valid email" })
 
         data = db.get_user(email=email) if email else db.get_user(username=username)
 
@@ -187,12 +187,12 @@ class UserAuthAjax(APIView, ResponseHandler):
         code = post_data.get("code")
 
         if confirm != password: 
-            return self.crash_response(data={
+            return self.bad_request_response(data={
                     "message": "password and confirm should be the same"
                 })
 
         if len(password) >= 10:
-            return self.crash_response(data={
+            return self.bad_request_response(data={
                     "message": "password should be atleast 10 characters long"
                 })
 

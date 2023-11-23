@@ -23,5 +23,6 @@ urlpatterns = [
     path("ajax/get/latanime/search/", anime_ajax.latanime_search),
     path("ajax/get/tioanime/anime/<str:slug>/", anime_ajax.tioanime_anime),
     path("ajax/get/latanime/anime/<str:slug>/", anime_ajax.latanime_anime),
+    path("ajax/get/tioanime/watch/<str:slug>/", anime_ajax.tioanime_watch),
     path("ajax/get/latanime/watch/<str:slug>/", anime_ajax.latanime_watch),
 ]

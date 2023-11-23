@@ -47,10 +47,10 @@ class UserAjax(UserAuthAjax):
 
         response = self.add_to_list(slug=slug, list_type="watch", user_id=user_id, temporary_id=temporary_id)
 
-        if not slug: return self.crash_response(data={ "message": "slug invalid"})
+        if not slug: return self.bad_request_response(data={ "message": "slug invalid"})
 
     @timing_decorator
-    def likes_list(self, request):
+    def add_likes_list(self, request):
         if not request.POST: return redirect("/")
 
         user = self.GET_CREDITIALS(request.COOKIES, no_update=True)
@@ -63,7 +63,7 @@ class UserAjax(UserAuthAjax):
 
         response = self.add_to_list(slug=slug, list_type="likes", user_id=user_id, temporary_id=temporary_id)
 
-        if not slug: return self.crash_response(data={ "message": "slug invalid"})
+        if not slug: return self.bad_request_response(data={ "message": "slug invalid"})
 
 
     def is_valid_temporary_id(self, old_temporary_id, temporary_id):

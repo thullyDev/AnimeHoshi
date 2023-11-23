@@ -7,6 +7,7 @@ from ...scraping import TioanimeScraper, LatanimeScraper
 from ...handlers import ResponseHandler
 from pprint import pprint
 from base64 import b64decode
+import ast
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
@@ -138,44 +139,14 @@ class AnimeAjax(APIView, ResponseHandler):
     @timing_decorator
     def latanime_watch(self, request, slug):
         rawdata = latanime.get_episode(slug=slug)
-        data = {
-            "episode_title": rawdata.get("episode_title").get("title"),
-            "safe_links": [],
-            "embed_links": [],
-            "recommandations": [],
-        }
+        data = watch_processing(rawdata=rawdata, base=latanime.base)
 
-        for item in rawdata.get("embed_links"):
-            item = item.get("link")
-            name = item.get("name")
-            link = b64decode(item.get("embed_link")).decode('utf-8')
+        return self.successful_response(data={ "data": data })
 
-            data["embed_links"].append({
-                    "name": name,
-                    "link": link,
-                })
-
-            if name in { "sfastwish", "uqload", "mp4upload" }:
-                link = item.get("embed_link")
-                data["safe_links"].append({
-                        "name": name,
-                        "id": link,
-                    })
-
-        for item in rawdata.get("recommendations"):
-            title = item.get("title").get("text")
-            slug = item.get("slug").get("slug")
-            date = item.get("date").get("text")
-            episode = item.get("episode").get("text")
-
-            data["recommandations"].append({
-                    "title": title,
-                    "slug": slug,
-                    "date": date,
-                    "episode": episode,
-                })
-
-        # pprint(data)
+    @timing_decorator
+    def tioanime_watch(self, request, slug):
+        rawdata = tioanime.get_episode(slug=slug)
+        data = watch_processing(rawdata=rawdata, base=tioanime.base)
 
         return self.successful_response(data={ "data": data })
 
@@ -294,6 +265,68 @@ class AnimeAjax(APIView, ResponseHandler):
             if found == 1:
                 temp = item.split(">")[0]
                 data["episodes"].append(temp.replace('\"', "").replace("https://latanime.org/ver", ""))
+
+        return data
+
+    def watch_processing(self, rawdata, base):
+        data = {
+            "episode_title": rawdata.get("episode_title").get("title"),
+            "safe_links": [],
+            "embed_links": [],
+        }
+
+        if base == tioanime.base:
+            script = rawdata.get("script").get("embed_script")
+            rawlist = script.split("var videos = ")[1].split(";")[0].strip()
+            embed_links = ast.literal_eval(rawlist)
+
+            for item in embed_links:
+                link = item[1].replace('\\/', '/')
+                name = item[0].lower()
+
+                data["embed_links"].append({
+                        "name": name,
+                        "link": link,
+                    })
+
+                if name in { "yourupload", "sfastwish", "uqload", "mp4upload" }:
+                    data["safe_links"].append({
+                            "name": name,
+                            "id": link,
+                        })
+            return data
+
+        data["recommandations"] =[]
+
+        for item in rawdata.get("embed_links"):
+            item = item.get("link")
+            name = item.get("name")
+            link = b64decode(item.get("embed_link")).decode('utf-8')
+
+            data["embed_links"].append({
+                    "name": name,
+                    "link": link,
+                })
+
+            if name in { "sfastwish", "uqload", "mp4upload" }:
+                link = item.get("embed_link")
+                data["safe_links"].append({
+                        "name": name,
+                        "id": link,
+                    })
+
+        for item in rawdata.get("recommendations"):
+            title = item.get("title").get("text")
+            slug = item.get("slug").get("slug")
+            date = item.get("date").get("text")
+            episode = item.get("episode").get("text")
+
+            data["recommandations"].append({
+                    "title": title,
+                    "slug": slug,
+                    "date": date,
+                    "episode": episode,
+                })
 
         return data
     #*** helper functions END ***#
