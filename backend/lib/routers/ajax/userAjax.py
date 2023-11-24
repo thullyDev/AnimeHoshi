@@ -15,7 +15,7 @@ db = Database()
 
 class UserAjax(UserAuthAjax):
     @timing_decorator
-    def profile(self, request):
+    def get_profile_data(self, request):
         user = GET_CREDITIALS(request.COOKIES)
 
         if not user: return self.forbidden_response(data={ "message": "login" })
@@ -58,7 +58,6 @@ class UserAjax(UserAuthAjax):
         response = self.add_to_list(slug=slug, list_type="likes", user_id=user_id, temporary_id=temporary_id)
 
         if not slug: return self.bad_request_response(data={ "message": "slug invalid"})
-
 
     def is_valid_temporary_id(self, old_temporary_id, temporary_id):
         return old_temporary_id == temporary_id and temporary_id and old_temporary_id

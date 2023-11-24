@@ -1,12 +1,11 @@
-from rest_framework.views import APIView
 from django.shortcuts import render, redirect
-from ....handlers import ResponseHandler
 from ...decorators import timing_decorator
 from ...database import Cache
+from .authentication.adminAuthAjax import AdminAuthAjax
 
 cache = Cache()
 
-class AdminAjax(APIView, ResponseHandler):
+class AdminAjax(AdminAuthAjax):
     @timing_decorator
     def get_scripts(self, request):
         user = GET_CREDITIALS(request.COOKIES)
