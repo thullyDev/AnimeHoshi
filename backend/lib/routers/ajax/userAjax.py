@@ -9,11 +9,11 @@ from ...resources import (
 )
 from ...database import Database
 from ...decorators import timing_decorator
-from .authentication.userAuthAjax import UserAuthAjax
+from ..base import Base
 
 db = Database()
 
-class UserAjax(UserAuthAjax):
+class UserAjax(Base):
     @timing_decorator
     def get_profile_data(self, request):
         user = GET_CREDITIALS(request.COOKIES)

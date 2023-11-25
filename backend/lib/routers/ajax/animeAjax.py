@@ -1,19 +1,20 @@
 from rest_framework.views import APIView
 from django.shortcuts import render, redirect
+from pprint import pprint
+from base64 import b64decode, b64encode
 from ...decorators import timing_decorator
 from ...resources import generate_unique_id
 from ...database import Cache
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ...handlers import ResponseHandler
-from pprint import pprint
-from base64 import b64decode, b64encode
+from ..base import Base
 import ast
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
 cache = Cache()
 
-class AnimeAjax(APIView, ResponseHandler):
+class AnimeAjax(Base):
     @timing_decorator
     def get_home_data(self, request):
         cache_id = "home_data"

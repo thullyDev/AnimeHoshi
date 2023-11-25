@@ -4,8 +4,10 @@ from ....resources import valid_email, hide_text, generate_unique_id
 from ....database import Database
 from ....handlers import ResponseHandler
 from ....decorators import timing_decorator
+from ...base import Base
 
-class AdminAuthAjax(APIView, ResponseHandler):
+
+class AdminAuthAjax(Base):
     @timing_decorator
     def login(self, request):
         if not request.POST: return redirect("/")

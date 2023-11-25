@@ -3,4 +3,4 @@ from django.shortcuts import render, redirect
 from .base import Base
 
 class Users(Base):
-	pass
+	def root(self, request): return render(request, ROOT_FILE)

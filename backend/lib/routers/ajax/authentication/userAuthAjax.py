@@ -11,11 +11,12 @@ from ....resources import (
 from ....database import Database
 from ....handlers import ResponseHandler
 from ....decorators import timing_decorator
+from ...base import Base
 import yagmail
 
 db = Database()
 
-class UserAuthAjax(APIView, ResponseHandler):
+class UserAuthAjax(Base):
     @timing_decorator
     def login(self, request):
         if not request.POST: return redirect("/")
