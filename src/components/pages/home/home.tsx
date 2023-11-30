@@ -1,20 +1,19 @@
-import React, { Component } from "react";
-import Header from "../../sections/header/header";
-import footer from "../../sections/footer/footer";
+import React from "react";
+import Header from "../../sections/adminHeader/adminHeader";
+// import Footer from "../../sections/footer/footer"; // Uncomment if you have a Footer component
 import Menu from "../../sections/menu/menu";
-import Main from "../main";
 
-class Home extends Component {
-  render() {
-    return (
-      <>
-        <Menu />
-        <Header />
-        <Main />
-        <footer />
-      </>
-    );
-  }
-}
+const Home = () => {
+  return (
+    <>
+      <div className="side-bar-con">
+        <Menu></Menu>
+      </div>
+      <div className="right-con">
+        <Header></Header>
+      </div>
+    </>
+  );
+};
 
 export default Home;

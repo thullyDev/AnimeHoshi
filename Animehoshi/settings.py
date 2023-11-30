@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config as env_config
+import os
 # import django
 
 # django.setup()
@@ -131,12 +132,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "dist",
-    BASE_DIR / "public",
-]
 
-STATIC_ROOT = BASE_DIR / "static" 
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+   ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# print("STATIC_ROOT ===>", STATIC_ROOT)
+
+# STATIC_ROOT = BASE_DIR / "static" 
+# STATIC_URL = 'static/'
+# STATICFILES_DIRS = [
+#     '/static/',
+# ]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "dist",
+#     BASE_DIR / "public",
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
