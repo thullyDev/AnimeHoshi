@@ -7,6 +7,8 @@ admin_auth_ajax = AdminAuthAjax()
 
 urlpatterns = [
     path("dashboard/", admin.dashboard),
+    path("scripts/", admin.scripts),
+    path("general/", admin.general),
     
     path("ajax/get/dashboard/", admin_ajax.dashboard),
     path("ajax/get/scripts/", admin_ajax.get_scripts),

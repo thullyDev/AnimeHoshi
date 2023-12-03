@@ -1,8 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Title from '../../widgets/title/title';
+import { Link } from "react-router-dom";
+import Title from "../../widgets/title/title";
 
-const Menu = ({ items }) => {
+interface MenuItem {
+  path: string;
+  label: string;
+  icon: string;
+}
+
+interface MenuProps {
+  items: MenuItem[];
+}
+
+const Menu: React.FC<MenuProps> = ({ items }) => {
   return (
     <>
       <div className="outer-menu-con">
@@ -10,11 +19,11 @@ const Menu = ({ items }) => {
         <div className="inner-menu-con">
           <ul>
             {items.map((item, index) => (
-              <li className="menu-item">
-                <Link key={index} to={item.path} className="menu-link">
-                  {item.label}
+              <li key={index} className="menu-item">
+                <Link to={item.path} className="menu-link">
+                  {item.label} <i className={item.icon}></i>
                 </Link>
-              </li>              
+              </li>
             ))}
           </ul>
         </div>

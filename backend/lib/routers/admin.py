@@ -8,12 +8,12 @@ admin_ajax = AdminAjax()
 class Admin(Base):
     @timing_decorator
     def dashboard(self, request):
-        user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
+        return self.root(request=request)
 
-        if not user: return redirect("/admin/login")
+    @timing_decorator
+    def scripts(self, request):
+        return self.root(request=request)
 
-        context = {
-        	"page": "dashboard",
-        }
-
-        return self.root(request, context=context)
+    @timing_decorator
+    def general(self, request):
+        return self.root(request=request)   

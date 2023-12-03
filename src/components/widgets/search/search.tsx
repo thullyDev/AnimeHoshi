@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import LoaderTwo from "../loaderTwo/loaderTwo";
 
-
 class Search extends Component {
   render() {
     return (
