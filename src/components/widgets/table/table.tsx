@@ -1,4 +1,9 @@
-const Table = ({ items, heads }) => {
+interface TableProps {
+  items: any;
+  heads: any;
+}
+
+const Table: React.FC<TableProps>  = ({ items, heads }) => {
   return (
     <table>
       <thead>

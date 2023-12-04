@@ -1,6 +1,11 @@
-const AnalyticsCard = ({ label, numbers }) => {
+interface AnalyticsCardProps {
+  label: string;
+  numbers: number;
+}
+
+const AnalyticsCard: React.FC<AnalyticsCardProps> = ({ label, numbers }) => {
   return (
-    <div className={`analytic-card card ${label.replaceAll(" ", "-").toLowerCase()}`}>
+    <div className={`analytic-card card ${label.replace(" ", "-").toLowerCase()}`}>
       <div className="inner-con">
         <div className="left-side numbers-text-con">
           <span className="ticks-numbers">

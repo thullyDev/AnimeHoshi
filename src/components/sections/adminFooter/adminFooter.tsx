@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { Link } from "react-router-dom";
 import Title from "../../widgets/title/title";
 import { SITE_NAME, SITE_EMAIL } from "../../../resources/config";

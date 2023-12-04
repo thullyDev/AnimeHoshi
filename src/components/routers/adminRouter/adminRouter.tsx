@@ -1,5 +1,6 @@
-import React from "react";
+// @ts-ignore
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// Rest of your code
 import AdminLayout from "../../layouts/adminLayout/adminLayout";
 import Dashboard from "../../pages/dashboard/dashboard";
 import Scripts from "../../pages/scripts/scripts";

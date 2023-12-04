@@ -142,19 +142,22 @@ const Scripts = () => {
             </div>
             <div className="scripts-con foot-scripts-con">
               {Object.keys(ads_scripts).map((key) => {
-                return ads_scripts[key].map((item, index) => {
-                  const label = key + "_" + item.label;
+                const ads_item = ads_scripts[key]
+
+                return ads_item.map((item, index) => {
+                  const { label, value, height } = item 
+                  const show_label = key + "_" + label;
 
                   return (
                     <>
-                      <ScriptField label={label} value={item.value} key={index}></ScriptField>
+                      <ScriptField label={show_label} value={value} key={index}></ScriptField>
                       <div className="ad-fluid-input-con">
                         <div className="fluid-input-con">
                           <input
                             type="number"
-                            value={item.height}
+                            value={height}
                             placeholder="height"
-                            data-slug={slugify(label)}
+                            data-slug={slugify(show_label)}
                             className="fluid-input"
                           />
                         </div>
