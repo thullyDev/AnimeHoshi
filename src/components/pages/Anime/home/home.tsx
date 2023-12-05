@@ -5,9 +5,7 @@ import Header from "../../sections/adminHeader/adminHeader";
 const Home = () => {
   return (
     <>
-      <div className="side-bar-con">
-        {/*<Menu></Menu>*/}
-      </div>
+      <div className="side-bar-con">{/*<Menu></Menu>*/}</div>
       <div className="right-con">
         <Header></Header>
       </div>

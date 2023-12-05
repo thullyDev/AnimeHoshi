@@ -9,6 +9,8 @@ urlpatterns = [
     path("dashboard/", admin.dashboard),
     path("scripts/", admin.scripts),
     path("general/", admin.general),
+    path("advance/", admin.advance),
+    path("admins/", admin.admins),
     
     path("ajax/get/dashboard/", admin_ajax.dashboard),
     path("ajax/get/scripts/", admin_ajax.get_scripts),

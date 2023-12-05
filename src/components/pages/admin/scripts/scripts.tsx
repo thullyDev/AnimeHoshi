@@ -1,5 +1,5 @@
 import ScriptField from "./scriptField";
-import { slugify } from "../../../resources/utilities";
+import { slugify } from "../../../../resources/utilities";
 
 const head_scripts = [
   {
@@ -141,16 +141,14 @@ const Scripts = () => {
               <p className="scripts-label">Ads Scripts</p>
             </div>
             <div className="scripts-con foot-scripts-con">
-              {Object.keys(ads_scripts).map((key) => {
-                const ads_item = ads_scripts[key]
-
-                return ads_item.map((item, index) => {
-                  const { label, value, height } = item 
+              {Object.entries(ads_scripts).flatMap(([key, ads_items]) =>
+                ads_items.map((item) => {
+                  const { label, value, height } = item;
                   const show_label = key + "_" + label;
 
                   return (
                     <>
-                      <ScriptField label={show_label} value={value} key={index}></ScriptField>
+                      <ScriptField label={show_label} value={value}></ScriptField>
                       <div className="ad-fluid-input-con">
                         <div className="fluid-input-con">
                           <input
@@ -164,8 +162,9 @@ const Scripts = () => {
                       </div>
                     </>
                   );
-                });
-              })}
+                })
+              )}
+
             </div>
           </div>
         </div>

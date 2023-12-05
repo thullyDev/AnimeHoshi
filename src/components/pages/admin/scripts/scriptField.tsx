@@ -1,5 +1,5 @@
 import React from "react";
-import { slugify } from "../../../resources/utilities";
+import { slugify } from "../../../../resources/utilities";
 
 interface ScriptFieldProps {
   label: string;
@@ -16,7 +16,7 @@ const ScriptField: React.FC<ScriptFieldProps> = ({ label, value }) => {
           <p className="field-label">{valid_label}</p>
         </div>
         <div className="field-text-con">
-          <textarea className="field" data-slug={slug} value={value} />
+          <textarea className="field settings-input" data-name={slug} value={value} />
         </div>
       </div>
     </>

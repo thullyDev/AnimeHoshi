@@ -59,7 +59,7 @@ const General = () => {
                     {key.replace("_", " ")}
                   </label>
                 </div>
-                <SettingsInputField type={ type ?? "text" } id={key} value={value}></SettingsInputField>
+                <SettingsInputField type={type ?? "text"} name={key} id={index} value={value}></SettingsInputField>
               </div>
             );
           })}
@@ -73,7 +73,7 @@ const General = () => {
                   <span className="image-label">{key.replace("_", " ")}</span>
                   <SettingsImageContainer id={key} value={value}></SettingsImageContainer>
                 </label>
-                <SettingsInputField type="file" id={key} value={value}></SettingsInputField>
+                <SettingsInputField type="file" name={key} id={index} value={value}></SettingsInputField>
               </div>
             );
           })}

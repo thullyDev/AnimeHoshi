@@ -1,9 +1,11 @@
+import React from "react";
+
 interface TableProps {
-  items: any;
-  heads: any;
+  items: React.ReactNode;
+  heads: React.ReactNode;
 }
 
-const Table: React.FC<TableProps>  = ({ items, heads }) => {
+const Table: React.FC<TableProps> = ({ items, heads }) => {
   return (
     <table>
       <thead>

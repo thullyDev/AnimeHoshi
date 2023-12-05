@@ -1,6 +1,6 @@
 interface SettingsImageContainerProps {
   id: string;
-  value: string; // Assuming value is also a string, adjust the type if it's different
+  value: string;
 }
 
 const SettingsImageContainer: React.FC<SettingsImageContainerProps> = ({ id, value }) => {

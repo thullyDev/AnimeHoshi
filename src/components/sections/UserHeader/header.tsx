@@ -18,10 +18,7 @@ const Header = () => {
   //     </div>
   //   </header>
   // );
-  return (
-    <header className="page_header">
-    </header>
-    )
+  return <header className="page_header"></header>;
 };
 
 export default Header;

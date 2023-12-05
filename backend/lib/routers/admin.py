@@ -16,4 +16,12 @@ class Admin(Base):
 
     @timing_decorator
     def general(self, request):
+        return self.root(request=request)
+
+    @timing_decorator
+    def advance(self, request):
+        return self.root(request=request)   
+
+    @timing_decorator
+    def admins(self, request):
         return self.root(request=request)   

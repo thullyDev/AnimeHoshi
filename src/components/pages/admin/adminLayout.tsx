@@ -3,6 +3,11 @@ import AdminFooter from "../../sections/adminFooter/adminFooter";
 import Header from "../../sections/adminHeader/adminHeader";
 import Menu from "../../sections/menu/menu";
 
+interface AdminLayoutProps {
+  element: React.ReactNode;
+  title: string;
+}
+
 const menu_items = [
   {
     path: "/admin/dashboard",
@@ -31,7 +36,7 @@ const menu_items = [
   },
 ];
 
-const AdminLayout = ({ element, title }) => {
+const AdminLayout: React.FC<AdminLayoutProps> = ({ element, title }) => {
   useEffect(() => {
     document.title = `${title} | Admin Panel` || "Admin Panel";
   }, [title]);

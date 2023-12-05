@@ -1,5 +1,4 @@
-import Table from "../../widgets/table/table";
-
+import Table from "../../../widgets/table/table";
 
 interface Items {
   id: number;
@@ -21,7 +20,6 @@ interface AnalyticsAnimesTableProps {
 
 const heads = ["poster", "title", "status"];
 
-
 const AnalyticsAnimesTable: React.FC<AnalyticsAnimesTableProps> = ({ items, pages }) => {
   const table_heads = heads.map((item, index) => (
     <th className="table-head users-head" key={index}>
@@ -29,7 +27,7 @@ const AnalyticsAnimesTable: React.FC<AnalyticsAnimesTableProps> = ({ items, page
     </th>
   ));
   const table_items = items.map((item, index) => {
-    const { poster_url, title, slug, disabled } = item
+    const { poster_url, title, slug, disabled } = item;
     return (
       <>
         <tr className="table-row anime-row" key={index}>
@@ -44,9 +42,7 @@ const AnalyticsAnimesTable: React.FC<AnalyticsAnimesTableProps> = ({ items, page
             <p className="title-tick">{title}</p>
           </td>
           <td className="table-item anime-item">
-            <p className={!deleted ? "status-tick active" : "status-tick remove"}>
-              {!deleted ? "active" : "inactive"}
-            </p>
+            <p className={!disabled ? "status-tick active" : "status-tick remove"}>{!disabled ? "active" : "inactive"}</p>
           </td>
           <td className="table-item anime-item">
             <button className="table-btn disable" data-disabled={disabled} data-key={index}>
@@ -69,7 +65,7 @@ const AnalyticsAnimesTable: React.FC<AnalyticsAnimesTableProps> = ({ items, page
     );
   }
 
-  const { page, amount_pages } = pages
+  const { page, amount_pages } = pages;
 
   return (
     <div className="table-con">

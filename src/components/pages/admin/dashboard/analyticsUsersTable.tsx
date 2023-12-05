@@ -1,6 +1,5 @@
 import React from "react";
-import Table from "../../widgets/table/table";
-
+import Table from "../../../widgets/table/table";
 
 interface Items {
   id: number;
@@ -30,7 +29,7 @@ const AnalyticsUsersTable: React.FC<AnalyticsUsersTableProps> = ({ items, pages 
     </th>
   ));
   const table_items = items.map((item, index) => {
-    const { id, profile_image, username, email, deleted, disabled} = item
+    const { id, profile_image, username, email, deleted, disabled } = item;
     return (
       <>
         <tr className="table-row user-row" key={index}>
@@ -44,9 +43,7 @@ const AnalyticsUsersTable: React.FC<AnalyticsUsersTableProps> = ({ items, pages 
             <p className="email-tick">{email}</p>
           </td>
           <td className="table-item user-item">
-            <p className={!deleted ? "status-tick active" : "status-tick remove"}>
-              {!deleted ? "active" : "inactive"}
-            </p>
+            <p className={!deleted ? "status-tick active" : "status-tick remove"}>{!deleted ? "active" : "inactive"}</p>
           </td>
           <td className="table-item user-item">
             <button className="table-btn disable" data-disabled={disabled} data-id={id} data-key={index}>
@@ -60,7 +57,8 @@ const AnalyticsUsersTable: React.FC<AnalyticsUsersTableProps> = ({ items, pages 
           </td>
         </tr>
       </>
-    )});
+    );
+  });
   const dot_style = {
     fontSize: "5px",
   };
@@ -73,7 +71,7 @@ const AnalyticsUsersTable: React.FC<AnalyticsUsersTableProps> = ({ items, pages 
     );
   }
 
-  const { page, amount_pages } = pages
+  const { page, amount_pages } = pages;
 
   return (
     <div className="table-con users-table-con">
