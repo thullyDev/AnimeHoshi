@@ -1,9 +1,9 @@
 import Input from "../input/input";
 
 interface CheckBoxProps {
-  className: string,
-  value: boolean,
-  key: number,
+  className: string;
+  value: boolean;
+  key: number;
   name: string;
 }
 
@@ -11,16 +11,10 @@ interface CheckBoxProps {
 const CheckBox: React.FC<CheckBoxProps> = ({ className, value, key, name }) => {
   return (
     <>
-        <div className="checkbox-con">
-          <Input 
-            type="checkbox" 
-            value={value} 
-            className={`checkbox ${className}`} 
-            name={name} 
-            id={`checkbox-${key}`}
-            />
-          <label htmlFor={`checkbox-${key}`}></label>
-        </div>
+      <div className="checkbox-con">
+        <Input type="checkbox" value={value} className={`checkbox ${className}`} name={name} id={`checkbox-${key}`} />
+        <label htmlFor={`checkbox-${key}`}></label>
+      </div>
     </>
   );
 };

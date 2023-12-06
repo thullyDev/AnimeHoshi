@@ -43,34 +43,6 @@ const AdminFooter = () => {
         <div className="title-con">
           <Title></Title>
         </div>
-        <div className="middle-con">
-          <div className="left-side">
-            <div className="inner-con">
-              <ul>
-                {pages.map((item, index) => (
-                  <li className="footer-page-links">
-                    <Link key={index} to={item.path} className="menu-link">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="right-side">
-            <div className="inner-con">
-              <ul>
-                {socials.map((item, index) => (
-                  <li className="footer-links">
-                    <Link key={index} to={item.path} className="menu-link">
-                      {item.label} <i className={item.icon}></i>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
         <div className="bottom-con">
           <div className="inner-con">
             <p>

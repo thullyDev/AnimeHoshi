@@ -9,9 +9,6 @@ const Search = () => (
             <i className="fas fa-search"></i>
           </button>
           <input className="search-input" placeholder="search anime..." type="query" name="search" />
-          <a href="/" className="filter-link">
-            <i className="fas fa-filter"></i> filter
-          </a>
         </div>
         <div className="search-items-con">
           <div className="search-loader-con">

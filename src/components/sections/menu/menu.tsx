@@ -21,7 +21,12 @@ const Menu: React.FC<MenuProps> = ({ items }) => {
             {items.map((item, index) => (
               <li key={index} className="menu-item">
                 <Link to={item.path} className="menu-link">
-                  {item.label} <i className={item.icon}></i>
+                  <i className={item.icon} style={
+                    {
+                      margin: "5px",
+                    }
+                  }></i> 
+                  <span className="menu-text">{item.label} </span>
                 </Link>
               </li>
             ))}

@@ -8,7 +8,6 @@ import General from "../../pages/admin/general/general";
 import Advance from "../../pages/admin/advance/advance";
 import Admins from "../../pages/admin/admins/admins";
 
-
 const AdminRouter = () => {
   return (
     <>

@@ -9,7 +9,7 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({ className, type, value, id, name }) => {
-  const slug = slugify(name)
+  const slug = slugify(name);
   const input_field =
     type == "field" ? (
       <textarea className={className} data-changed="false" id={id} date-name={slug} data-value={value} value={value} />
@@ -17,7 +17,7 @@ const Input: React.FC<InputProps> = ({ className, type, value, id, name }) => {
       <input className={className} type={type} id={id} date-name={slug} data-value={value} data-changed="false" />
     );
 
-  return input_field
+  return input_field;
 };
 
 export default Input;

@@ -9,10 +9,10 @@ interface SettingsInputFieldProps {
 
 const SettingsInputField: React.FC<SettingsInputFieldProps> = ({ id, value, type, name }) => {
   return (
-      <div className="settings-input-con">
-        <Input className="settings-input" name={name} value={value} id={id} type={type} />
-      </div>
-    )
+    <div className="settings-input-con">
+      <Input className="settings-input" name={name} value={value} id={id} type={type} />
+    </div>
+  );
 };
 
 export default SettingsInputField;

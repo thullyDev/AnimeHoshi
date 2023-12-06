@@ -42,7 +42,9 @@ const AnalyticsAnimesTable: React.FC<AnalyticsAnimesTableProps> = ({ items, page
             <p className="title-tick">{title}</p>
           </td>
           <td className="table-item anime-item">
-            <p className={!disabled ? "status-tick active" : "status-tick remove"}>{!disabled ? "active" : "inactive"}</p>
+            <p className={!disabled ? "status-tick active" : "status-tick remove"}>
+              {!disabled ? "active" : "inactive"}
+            </p>
           </td>
           <td className="table-item anime-item">
             <button className="table-btn disable" data-disabled={disabled} data-key={index}>

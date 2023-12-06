@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-
+// import sass from '@vitejs/plugin-sass';
 const css_file = "index.min.css";
 
 export default defineConfig({

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import AdminFooter from "../../sections/adminFooter/adminFooter";
 import Header from "../../sections/adminHeader/adminHeader";
 import Menu from "../../sections/menu/menu";
+import "./adminLayout.scss";
 
 interface AdminLayoutProps {
   element: React.ReactNode;
@@ -25,7 +26,7 @@ const menu_items = [
     icon: "fas fa-sliders-h",
   },
   {
-    path: "/admin/advanced",
+    path: "/admin/advance",
     label: "advanced",
     icon: "fas fa-cogs",
   },
@@ -43,16 +44,16 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ element, title }) => {
 
   return (
     <>
-      <main className="dark-theme">
+      <div className="page-content">
         <div className="side-bar-con">
           <Menu items={menu_items}></Menu>
         </div>
         <div className="right-con">
           <Header></Header>
-          <section className="main-content">{element}</section>
+          <main className="main-content">{element}</main>
           <AdminFooter></AdminFooter>
         </div>
-      </main>
+      </div>
     </>
   );
 };

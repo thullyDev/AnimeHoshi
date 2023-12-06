@@ -1,7 +1,7 @@
 import AdminsModal from "./AdminModal";
 import AdminsTable from "./adminsTable";
 
-const admins_count = 1
+const admins_count = 1;
 const admins_items = [
   {
     id: 0,
@@ -75,7 +75,6 @@ const admins_items = [
   },
 ];
 
-
 const Admins = () => {
   return (
     <>
@@ -86,7 +85,11 @@ const Admins = () => {
               <p className="admins-label">Admins:</p>
               <span className="admin-count">{admins_count}</span>
             </div>
-            <div className="add-admin-btn-con"><button type="button" className="add-admin">Add Admin</button></div>
+            <div className="add-admin-btn-con">
+              <button type="button" className="add-admin">
+                Add Admin
+              </button>
+            </div>
           </div>
           <div className="admins-table-con">
             <AdminsTable admins={admins_items} />

@@ -162,9 +162,8 @@ const Scripts = () => {
                       </div>
                     </>
                   );
-                })
+                }),
               )}
-
             </div>
           </div>
         </div>
