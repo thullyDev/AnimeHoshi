@@ -1,5 +1,6 @@
 import SettingsImageContainer from "./settingsImageContainer";
 import SettingsInputField from "./settingsFieldInput";
+import SaveBtn from "../saveBtn";
 
 const images = [
   {
@@ -27,7 +28,7 @@ const images = [
 const inputs = [
   {
     value: "AnimeHoshi",
-    key: "name",
+    key: "site_name",
   },
   {
     value: "admin@animehoshi.com",
@@ -42,6 +43,25 @@ const inputs = [
       "AnimeHoshi is a vibrant online platform offering a diverse collection of anime content for free streaming. With an extensive library spanning genres and popular titles, AnimeHoshi provides enthusiasts with an immersive experience. User-friendly navigation and high-quality playback make it a go-to destination for anime lovers seeking free, accessible entertainment.",
     key: "site_description",
     type: "field",
+  },
+];
+
+const socials = [
+  {
+    value: "https://discord.com/",
+    key: "discord",
+  },
+  {
+    value: "https://twitter.com/",
+    key: "twitter",
+  },
+  {
+    value: "https://reddit.com/",
+    key: "reddit",
+  },
+  {
+    value: "https://ko-fi.com/",
+    key: "donate",
   },
 ];
 
@@ -78,6 +98,22 @@ const General = () => {
             );
           })}
         </div>
+        <div className="socials-settings-con">
+          {socials.map((item, index) => {
+            const { key, value } = item;
+            return (
+              <div key={index} className="text-input-con">
+                <div className="settings-input-label-con">
+                  <label htmlFor={key} className="label-con">
+                    {key.replace("_", " ")}
+                  </label>
+                </div>
+                <SettingsInputField type="text" name={key} id={index} value={value}></SettingsInputField>
+              </div>
+            );
+          })}
+        </div>
+        <SaveBtn className="general-save"></SaveBtn>
       </div>
     </>
   );

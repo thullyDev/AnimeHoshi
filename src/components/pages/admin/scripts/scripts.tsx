@@ -1,79 +1,80 @@
 import ScriptField from "./scriptField";
 import { slugify } from "../../../../resources/utilities";
+import SaveBtn from "../saveBtn";
 
 const head_scripts = [
   {
-    label: "global head",
+    label: "global_head",
     value: "",
   },
   {
-    label: "home head",
+    label: "home_head",
     value: "",
   },
   {
-    label: "landing head",
+    label: "landing_head",
     value: "",
   },
   {
-    label: "filter head",
+    label: "filter_head",
     value: "",
   },
   {
-    label: "profile head",
+    label: "profile_head",
     value: "",
   },
   {
-    label: "anime head",
+    label: "anime_head",
     value: "",
   },
   {
-    label: "watch head",
+    label: "watch_head",
     value: "",
   },
   {
-    label: "watch_together_browsing head",
+    label: "watch_together_browsing_head",
     value: "",
   },
   {
-    label: "watch_together_anime head",
+    label: "watch_together_anime_head",
     value: "",
   },
 ];
 const foot_scripts = [
   {
-    label: "global foot",
+    label: "global_foot",
     value: "",
   },
   {
-    label: "home foot",
+    label: "home_foot",
     value: "",
   },
   {
-    label: "landing foot",
+    label: "landing_foot",
     value: "",
   },
   {
-    label: "filter foot",
+    label: "filter_foot",
     value: "",
   },
   {
-    label: "profile foot",
+    label: "profile_foot",
     value: "",
   },
   {
-    label: "anime foot",
+    label: "anime_foot",
     value: "",
   },
   {
-    label: "watch foot",
+    label: "watch_foot",
     value: "",
   },
   {
-    label: "watch_together_browsing foot",
+    label: "watch_together_browsing_foot",
     value: "",
   },
   {
-    label: "watch_together_anime foot",
+    label: "watch_together_anime_foot",
     value: "",
   },
 ];
@@ -148,16 +149,18 @@ const Scripts = () => {
 
                   return (
                     <>
-                      <ScriptField label={show_label} value={value}></ScriptField>
-                      <div className="ad-fluid-input-con">
-                        <div className="fluid-input-con">
-                          <input
-                            type="number"
-                            value={height}
-                            placeholder="height"
-                            data-slug={slugify(show_label)}
-                            className="fluid-input"
-                          />
+                      <div className="ads-script-field-con">
+                        <ScriptField label={show_label} value={value}></ScriptField>
+                        <div className="ad-fluid-input-con">
+                          <div className="fluid-input-con">
+                            <input
+                              type="number"
+                              value={height}
+                              placeholder="height"
+                              data-slug={slugify(show_label)}
+                              className="fluid-input"
+                            />
+                          </div>
                         </div>
                       </div>
                     </>
@@ -167,18 +170,7 @@ const Scripts = () => {
             </div>
           </div>
         </div>
-        <div className="scripts-save-btn-con save-btn-con">
-          <button type="button" className="save" data-type="scripts">
-            save{" "}
-            <i
-              className="fas fa-save"
-              style={{
-                fontSize: "15px",
-                margin: "0 5px",
-              }}
-            ></i>
-          </button>
-        </div>
+        <SaveBtn className="script-save"></SaveBtn>
       </div>
     </>
   );

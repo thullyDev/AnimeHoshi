@@ -1,5 +1,5 @@
 import React from "react";
-import { slugify } from "../../../../resources/utilities";
+import { slugify, replaceAll } from "../../../../resources/utilities";
 
 interface ScriptFieldProps {
   label: string;
@@ -8,7 +8,7 @@ interface ScriptFieldProps {
 
 const ScriptField: React.FC<ScriptFieldProps> = ({ label, value }) => {
   const slug = slugify(label);
-  const valid_label = label.replace("_", " ");
+  const valid_label = replaceAll(label, "_", " ");
   return (
     <>
       <div className="field-con inner-con">

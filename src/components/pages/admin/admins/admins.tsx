@@ -1,3 +1,4 @@
+import SaveBtn from "../saveBtn";
 import AdminsModal from "./AdminModal";
 import AdminsTable from "./adminsTable";
 
@@ -97,6 +98,7 @@ const Admins = () => {
         </div>
         <AdminsModal />
       </div>
+      <SaveBtn className="admins-save"></SaveBtn>
     </>
   );
 };

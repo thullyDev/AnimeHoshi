@@ -14,9 +14,9 @@ const AdminRouter = () => {
       <Routes>
         <Route path="dashboard" element={<AdminLayout title="Dashboard" element={<Dashboard />} />} />
         <Route path="scripts" element={<AdminLayout title="Scripts" element={<Scripts />} />} />
-        <Route path="general" element={<AdminLayout title="General Settings" element={<General />} />} />
-        <Route path="advance" element={<AdminLayout title="Advance Settings" element={<Advance />} />} />
-        <Route path="admins" element={<AdminLayout title="Admins Settings" element={<Admins />} />} />
+        <Route path="general" element={<AdminLayout title="General" element={<General />} />} />
+        <Route path="advance" element={<AdminLayout title="Advance" element={<Advance />} />} />
+        <Route path="admins" element={<AdminLayout title="Admins" element={<Admins />} />} />
       </Routes>
     </>
   );

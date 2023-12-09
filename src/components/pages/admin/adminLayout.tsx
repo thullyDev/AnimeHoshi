@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import AdminFooter from "../../sections/adminFooter/adminFooter";
 import Header from "../../sections/adminHeader/adminHeader";
 import Menu from "../../sections/menu/menu";
-import "./adminLayout.scss";
+import "./styles/adminLayout.scss";
+
+
 
 interface AdminLayoutProps {
   element: React.ReactNode;
@@ -40,7 +42,13 @@ const menu_items = [
 const AdminLayout: React.FC<AdminLayoutProps> = ({ element, title }) => {
   useEffect(() => {
     document.title = `${title} | Admin Panel` || "Admin Panel";
-  }, [title]);
+  }, [title])
+  ;
+  const style_import = title.charAt(0).toLowerCase() + title.slice(1) + ".scss"
+
+  remove_stylesheets(style_import)
+
+  import(`./styles/${style_import}`);
 
   return (
     <>
@@ -50,12 +58,36 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ element, title }) => {
         </div>
         <div className="right-con">
           <Header></Header>
-          <main className="main-content">{element}</main>
-          <AdminFooter></AdminFooter>
+          <main className="main-content">
+            <h2 className="page-label">{title}</h2>
+            {element}
+          </main>
         </div>
+        <AdminFooter></AdminFooter>
       </div>
     </>
   );
 };
+
+function remove_stylesheets(title: string) {
+  const stylesheets = document.querySelectorAll('style');
+  stylesheets.forEach((stylesheet) => {
+    const rawhref = stylesheet.getAttribute('data-vite-dev-id')
+
+    if (!rawhref) return null
+
+    const href_list = rawhref.split("/")
+    const current_style = href_list[href_list.length - 1]
+
+
+    const styles =  [ "adminLayout.scss", title ]
+
+    if (!styles.includes(current_style)) {
+      // @ts-ignore
+      // stylesheet.parentNode.removeChild(stylesheet);
+    }
+  });
+}
+
 
 export default AdminLayout;

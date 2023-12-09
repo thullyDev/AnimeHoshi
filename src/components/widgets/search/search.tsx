@@ -8,7 +8,7 @@ const Search = () => (
           <button type="button" className="search-btn">
             <i className="fas fa-search"></i>
           </button>
-          <input className="search-input" placeholder="search anime..." type="query" name="search" />
+          <input className="search-input" placeholder="search..." type="query" name="search" />
         </div>
         <div className="search-items-con">
           <div className="search-loader-con">

@@ -1,5 +1,5 @@
 import CheckBox from "../../../widgets/checkbox/checkbox";
-// import Input from "../../../widgets/input/input";
+import SaveBtn from "../saveBtn";
 
 const settings = [
   { key: "maintanence", value: false },
@@ -11,6 +11,13 @@ const settings = [
   { key: "watch_togather", value: true },
   { key: "user", value: true },
   { key: "schedule", value: true },
+  { key: "features", value: true },
+  { key: "footer", value: true },
+  { key: "landing", value: true },
+  { key: "donation", value: true },
+  { key: "socials", value: true },
+  { key: "contact", value: true },
+  { key: "dark_mode", value: true },
 ];
 
 const Advance = () => {
@@ -18,7 +25,7 @@ const Advance = () => {
     <>
       <div className="inner-con inner-main-content">
         <div className="inputs-con">
-          {settings.map((item, index) => {
+          {settings.map((item) => {
             const { key, value } = item;
 
             return (
@@ -26,14 +33,12 @@ const Advance = () => {
                 <div className="setting-label-con">
                   <p className="setting-label">{key.replace("_", " ")}</p>
                 </div>
-                <CheckBox key={index} name={key} value={value} className="settings-input" />
+                <CheckBox name={key} value={value} className="settings-input" />
               </div>
             );
           })}
         </div>
-        <div className="save-btn-con">
-          <button className="save-btn">save</button>
-        </div>
+        <SaveBtn className="advance-save"></SaveBtn>
       </div>
     </>
   );
