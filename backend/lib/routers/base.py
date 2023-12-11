@@ -8,14 +8,14 @@ from ..handlers import ResponseHandler
 db = Database()
 
 class Base(APIView, ResponseHandler):
-    def root(self, request, context={}): 
+    def root(self, request, context={}, template=ROOT_FILE): 
         user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
         path = request.path.split("/")
 
         if not user: return redirect("/admin/login") if "admin" in path else redirect("/")
 
-        return render(request, ROOT_FILE, context=context)
+        return render(request, template, context=context)
 
     def GET_CREDITIALS(self, DATA, user_type, no_update=False):
         return True #? remove this later

@@ -60,7 +60,7 @@ ROOT_URLCONF = 'Animehoshi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "views"],
+        'DIRS': [BASE_DIR / "frontend" / "dist" ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
