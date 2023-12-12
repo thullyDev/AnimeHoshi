@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="inner-con inner-main-content">
+        <div class="admins-con">
+            <div class="admins-count-add-con">
+                <div class="admins-count-con">
+                    <p class="admins-label">Admins:</p>
+                    <span class="admin-count">{{ admins_count }}</span>
+                </div>
+                <div class="add-admin-btn-con">
+                    <button type="button" class="add-admin">
+                        Add Admin
+                    </button>
+                </div>
+            </div>
+            <div class="admins-table-con">
+                {% include "admins/admins_table.html" with table_heads=heads table_admins=admins_items %}
+            </div>
+        </div>
+        {% include "widgets/modal.html" with modal_class="site-key-modal" modal_text="Enter Site key to confirm" modal_html="modal_html" %}
+    </div>
+   {% include 'pages/admin/widgets/save_btn.html' %}
+{% endblock %}

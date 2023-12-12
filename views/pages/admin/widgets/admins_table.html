@@ -1,0 +1,21 @@
+<tr class="table-row admin-row">
+  <td class="table-item admin-item">
+    <p class="profile-image-tick">
+      <img src="{{ admin.profile_image }}" alt="{{ admin.username }}" title="{{ admin.username }}" class="profile-image">
+    </p>
+  </td>
+  <td class="table-item admin-item">
+    <p class="username-tick">{{ admin.username }}</p>
+  </td>
+  <td class="table-item admin-item">
+    <p class="email-tick">{{ admin.email }}</p>
+  </td>
+  <td class="table-item admin-item">
+    <p class="{% if not admin.deleted %}status-tick active{% else %}status-tick remove{% endif %}">
+      {% if not admin.deleted %}active{% else %}inactive{% endif %}
+    </p>
+  </td>
+  <td class="table-item anime-item">
+    <button class="table-btn disable" data-deleted="{{ admin.deleted }}" data-key="{{ forloop.counter0 }}">delete</button>
+  </td>
+</tr>

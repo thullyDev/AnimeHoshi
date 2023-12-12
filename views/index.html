@@ -19,10 +19,12 @@
       * {
         box-sizing: border-box;
       }
+      
       body {
         margin: 0;
         padding: 0;
       }
+
       .dark-theme {
         background-color: #1c1919; /* Dark background color */
         color: #fff; /* Light text color */
@@ -33,26 +35,7 @@
         max-width: 100%;
       }
     </style>
-    {% if debug %}
-    <script type="module" src="http://localhost:5173/@vite/client"></script>
-    <script type="module">
-      import RefreshRuntime from "http://localhost:5173/@react-refresh";
-      RefreshRuntime.injectIntoGlobalHook(window);
-      window.$RefreshReg$ = () => {};
-      window.$RefreshSig$ = () => (type) => type;
-      window.__vite_plugin_react_preamble_installed__ = true;
-    </script>
-    <script type="module" src="http://localhost:5173/src/main.tsx"></script>
-    {% else %}
-    <script type="module" crossorigin src="{% static '/assets/js/index.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static '/assets/css/index.min.css' %}" />
-    {% endif %}
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!-- Your content goes here -->
-
-    <!-- <script src="your-script.js"></script> -->
   </body>
 </html>

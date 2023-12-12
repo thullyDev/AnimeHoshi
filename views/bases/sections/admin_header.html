@@ -1,0 +1,36 @@
+<header class="main-header">
+  <div class="header-viewer-con desktop-viewer-con">
+    <div class="menu-btn-con">
+      <button type="button" class="menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    {% include "widgets/search.html" %}
+    <div class="outter-account-con">
+      <div class="account-profile-image-con">
+        <span role="button" class="account-btn actions-dropdown-btn">
+          <img
+            src="https://i.pinimg.com/564x/68/78/49/687849b7834fc551b823592e4abac45f.jpg"
+            alt="user name"
+            class="account-image"
+            width="100" 
+          />
+        </span>
+      </div>
+      <div class="actions-dropdown-menu">
+        <ul>
+          <li class="actions-items">
+            <span role="button" class="action-btn logout-btn">
+              LOGOUT
+            </span>
+          </li>
+          <li class="actions-items">
+            <span role="button" class="action-btn reset-btn">
+              RESET
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

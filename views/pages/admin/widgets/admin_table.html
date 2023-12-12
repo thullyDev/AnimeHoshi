@@ -1,0 +1,36 @@
+{% with table_heads=table_heads %}
+    <table class="table-con admins-table-con">
+        <thead>
+            <tr>
+                {% for head in table_heads %}
+                    <th class="table-head admins-head">{{ head }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in table_admins %}
+                <tr class="table-row admin-row">
+                    <td class="table-item admin-item">
+                        <p class="profile-image-tick">
+                            <img src="{{ item.profile_image }}" alt="{{ item.username }}" title="{{ item.username }}" class="profile-image" />
+                        </p>
+                    </td>
+                    <td class="table-item admin-item">
+                        <p class="username-tick">{{ item.username }}</p>
+                    </td>
+                    <td class="table-item admin-item">
+                        <p class="email-tick">{{ item.email }}</p>
+                    </td>
+                    <td class="table-item admin-item">
+                        <p class="{% if not item.deleted %}status-tick active{% else %}status-tick remove{% endif %}">{{ item.deleted|yesno:"active,inactive" }}</p>
+                    </td>
+                    <td class="table-item anime-item">
+                        <button class="table-btn disable" data-deleted="{{ item.deleted }}" data-key="{{ forloop.counter0 }}">
+                            delete
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endwith %}

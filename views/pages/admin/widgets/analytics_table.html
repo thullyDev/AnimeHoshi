@@ -1,0 +1,35 @@
+
+<div class="table-con">
+  <div class="table-label">
+    <h3 class="label">Latest {{ table_heads.1 }}</h3>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        {% for item in table_heads %}
+          <th class="table-head {{ item|lower }}">{{ item }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in table_items %}
+        {{ item|safe }}
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="tabel-pagination">
+    <ul>
+      <li class="pages-ticks">
+        <button data-page="{{ pages.page }}" class="pagination-btn page-btn">
+          {{ pages.page }}
+        </button>
+      </li>
+      <!-- Add pagination dots here -->
+      <li class="pages-ticks">
+        <button data-page="{{ pages.amount_pages }}" class="pagination-btn page-btn">
+          {{ pages.amount_pages }}
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

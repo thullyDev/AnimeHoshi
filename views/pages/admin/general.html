@@ -1,0 +1,42 @@
+<form method="post" enctype="multipart/form-data">
+  <div class="inner-con inner-main-content">
+    <div class="text-inputs-con">
+      {% for item in inputs %}
+        <div class="text-input-con">
+          <div class="settings-input-label-con">
+            <label for="{{ item.key }}" class="label-con">
+              {{ item.key|replace:"_":" " }}
+            </label>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="images-settings-con">
+      {% for item in images %}
+        <div class="image-input-con">
+          <label for="{{ item.key }}" class="settings-input-label">
+            <span class="image-label">{{ item.key|replace:"_":" " }}</span>
+            {% with value=item.value id=item.key %}
+              {% include 'pages/admin/widgets/settings_image_container.html' %}
+            {% endwith %}
+          </label>
+          {% with value=item.value name=item.key id=item.key type="text" %}
+            {% include 'pages/admin/widgets/settings_field_input.html' %}
+          {% endwith %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="socials-settings-con">
+      {% for item in socials %}
+        <div class="text-input-con">
+          <div class="settings-input-label-con">
+            <label for="{{ item.key }}" class="label-con">
+              {{ item.key|replace:"_":" " }}
+            </label>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% include 'pages/admin/widgets/save_btn.html' %}
+  </div>
+</form>

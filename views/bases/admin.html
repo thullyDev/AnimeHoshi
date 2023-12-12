@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+</head>
+<body>
+	  <div class="page-content">
+        <div class="side-bar-con">
+        	{% include "bases/sections/admin_menu.html" %}
+        </div>
+        <div class="right-con">
+          {% include "bases/sections/admin_header.html" %}
+          <main class="main-content">
+            <h2 class="page-label">{title}</h2>
+            {element}
+          </main>
+        </div>
+        {% include "bases/sections/admin_footer.html" %}
+      </div>
+</body>
+</html>
