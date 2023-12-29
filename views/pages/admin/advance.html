@@ -1,17 +1,26 @@
-<form method="post">
-  <div class="inner-con inner-main-content">
-    <div class="inputs-con">
-      {% for item in settings %}
-        <div class="input-con">
-          <div class="setting-label-con">
-            <p class="setting-label">{{ item.key|replace:"_":" " }}</p>
+{% extends "bases/admin.html" %}
+{% load filters %}
+
+{% block head_content %}{% endblock %}
+
+{% block main_content %}
+  <form method="post">
+    <div class="inner-con inner-main-content">
+      <div class="inputs-con">
+        {% for item in settings %}
+          <div class="input-con">
+            <div class="setting-label-con">
+              <p class="setting-label">{{ item.key|replace:"_, " }}</p>
+            </div>
+            {% with name=item.key value=item.value %}
+              {% include 'widgets/checkbox.html' %}
+            {% endwith %}
           </div>
-          {% with name=item.key value=item.value %}
-            {% include 'widgets/checkbox.html' %}
-          {% endwith %}
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
+      {% include 'pages/admin/widgets/save_btn.html' %}
     </div>
-    {% include 'pages/admin/widgets/save_btn.html' %}
-  </div>
-</form>
+  </form>
+{% endblock %}
+
+

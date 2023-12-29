@@ -15,6 +15,11 @@ class Base(APIView, ResponseHandler):
 
         if not user: return redirect("/admin/login") if "admin" in path else redirect("/")
 
+        full_path = request.path_info
+        paths = full_path.split('/')
+        length = len(paths)
+        context["page"] = paths[length - 2]
+
         return render(request, template, context=context)
 
     def GET_CREDITIALS(self, DATA, user_type, no_update=False):

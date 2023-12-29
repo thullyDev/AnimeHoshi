@@ -1,4 +1,3 @@
-
 <div class="table-con">
   <div class="table-label">
     <h3 class="label">Latest {{ table_heads.1 }}</h3>
@@ -13,7 +12,57 @@
     </thead>
     <tbody>
       {% for item in table_items %}
-        {{ item|safe }}
+        {% if widget == "animes" %}
+          <tr class="table-row">
+            <td class="table-item">
+              <p class="profile-image-tick">
+                <a href="/anime/{{ item.slug }}" class="watch-link slug">
+                  <img src="{{ item.poster_url }}" alt="{{ item.title }}" title="{{ item.title }}" class="poster-image" />
+                </a>
+              </p>
+            </td>
+            <td class="table-item">
+              <p class="title-tick">{{ item.title }}</p>
+            </td>
+            <td class="table-item">
+              <p class="{% if not item.disabled %}status-tick active{% else %}status-tick remove{% endif %}">
+                {% if not item.disabled %}active{% else %}inactive{% endif %}
+              </p>
+            </td>
+            <td class="table-item">
+              <button class="table-btn disable" data-disabled="{{ item.disabled }}" data-key="{{ forloop.counter0 }}">
+                disable
+              </button>
+            </td>
+          </tr>
+        {% else %}
+          <tr class="table-row" data-key="{{ forloop.counter0 }}">
+            <td class="table-item">
+              <img src="{{ item.profile_image }}" alt="{{ item.username }}" title="{{ item.username }}" class="profile-image" />
+            </td>
+            <td class="table-item">
+              <p class="username-tick">{{ item.username }}</p>
+            </td>
+            <td class="table-item">
+              <p class="email-tick">{{ item.email }}</p>
+            </td>
+            <td class="table-item">
+              <p class="{% if not item.deleted %}status-tick active{% else %}status-tick remove{% endif %}">
+                {% if not item.deleted %}active{% else %}inactive{% endif %}
+              </p>
+            </td>
+            <td class="table-item">
+              <button class="table-btn disable" data-disabled="{{ item.disabled }}" data-id="{{ item.id }}" data-key="{{ forloop.counter0 }}">
+                disable
+              </button>
+            </td>
+            <td class="table-item">
+              <button class="table-btn delete" data-deleted="{{ item.deleted }}" data-id="{{ item.id }}" data-key="{{ forloop.counter0 }}">
+                delete
+              </button>
+            </td>
+          </tr>
+        {% endif %}
       {% endfor %}
     </tbody>
   </table>

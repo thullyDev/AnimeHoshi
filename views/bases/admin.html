@@ -3,21 +3,38 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title></title>
-</head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link rel="shortcut icon" href="/static/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap" rel="stylesheet" />
+  <link href="/static/css/admin/pages/{{page}}.css" rel="stylesheet" />
+  <link href="/static/css/admin/adminBase.css" rel="stylesheet" />
+  <title> {{ page|title }} | Admin Panel </title>
+  {% block head_content %}
+  {% endblock %}
+</head> 
 <body>
 	  <div class="page-content">
         <div class="side-bar-con">
-        	{% include "bases/sections/admin_menu.html" %}
+        	{% include "sections/admin/admin_menu.html" %}
         </div>
         <div class="right-con">
-          {% include "bases/sections/admin_header.html" %}
+          {% include "sections/admin/admin_header.html" %}
           <main class="main-content">
-            <h2 class="page-label">{title}</h2>
-            {element}
+            <h2 class="page-label">{{ page }}</h2>
+            <div class="core-content">
+              {% block main_content %}
+              {% endblock %}
+            </div>
           </main>
         </div>
-        {% include "bases/sections/admin_footer.html" %}
+        {% include "sections/admin/admin_footer.html" %}
       </div>
 </body>
 </html>

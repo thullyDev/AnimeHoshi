@@ -1,6 +1,9 @@
-{% extends "base.html" %}
+{% extends "bases/admin.html" %}
 
-{% block content %}
+{% block head_content %}
+{% endblock %}
+
+{% block main_content %}
     <div class="inner-con inner-main-content">
         <div class="admins-con">
             <div class="admins-count-add-con">
@@ -15,10 +18,15 @@
                 </div>
             </div>
             <div class="admins-table-con">
-                {% include "admins/admins_table.html" with table_heads=heads table_admins=admins_items %}
+               {% with table_admins=admins_items %}
+                  {% include "pages/admin/widgets/admin_table.html" %}
+               {% endwith %}
             </div>
         </div>
-        {% include "widgets/modal.html" with modal_class="site-key-modal" modal_text="Enter Site key to confirm" modal_html="modal_html" %}
+        {% with modal_class="site-key-modal" modal_text="Enter Site key to confirm" modal_html="<button class='submit-key-btn'>submit</button>" %}
+            {% include "widgets/modal.html"  %}
+        {% endwith %}
     </div>
    {% include 'pages/admin/widgets/save_btn.html' %}
 {% endblock %}
+

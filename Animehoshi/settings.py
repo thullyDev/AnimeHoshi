@@ -60,7 +60,7 @@ ROOT_URLCONF = 'Animehoshi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "frontend" / "dist" ],
+        'DIRS': [ BASE_DIR / "views"  ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'backend.context_processors.admin_context_processors.get_menu_items',
+                'backend.context_processors.admin_context_processors.global_static_data',
             ],
         },
     },
@@ -137,8 +137,8 @@ STATIC_URL = 'static/'
 if DEBUG:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
-        os.path.join(BASE_DIR, 'public'),
-        os.path.join(BASE_DIR, 'dist'),
+        # os.path.join(BASE_DIR, 'public'),
+        # os.path.join(BASE_DIR, 'dist'),
    ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')

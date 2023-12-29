@@ -1,4 +1,4 @@
-<div class="analytic-card card {{ label|lower|replace:" ":"-" }}">
+<div class="analytic-card card {{ label|lower|cut:'_'|join:' ' }}">
   <div class="inner-con">
     <div class="left-side numbers-text-con">
       <span class="ticks-numbers">
