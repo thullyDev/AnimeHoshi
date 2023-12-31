@@ -25,7 +25,7 @@ class Base(APIView, ResponseHandler):
     def GET_CREDITIALS(self, DATA, user_type, no_update=False):
         return True #? remove this later
         CREDITIALS = { "username", "email", "temporary_id" }
-        CREDITIALS_DATA = {key: value for key, value in DATA.items() if key in CREDITIALS }
+        CREDITIALS_DATA = { key: value for key, value in DATA.items() if key in CREDITIALS }
 
         email = CREDITIALS_DATA.get("email")
         username = CREDITIALS_DATA.get("username")

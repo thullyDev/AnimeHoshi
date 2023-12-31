@@ -173,17 +173,30 @@ class AdminAjax(Base):
         data = json.loads(post.get("save_data"))
         save = post.get("save")
 
-        if save not in {"settings", "values", "attributes", "scripts"}:
+        if save not in { "settings", "values", "attributes", "scripts" }:
             return self.bad_request_response()
 
-        site_data = self.get_site_data()
-        for item in site_data:
-            print(f"item =====> {item}")
-        site_data[save] = data
-
-        # cache.dcset(name="site_data", data=site_data, expiry=False)
+        save_data = self.get_save_to_data(save)
+        self.update_data(data, save_data)
+        self.save_site_data(save_data, save)
+        return self.successful_response(data={"data": None})
 
     def add_admin(self, request):
         pass
 
-    def get_site_data(self): return cache.dcget("site_data")
+    def save_site_data(self, data, name):
+        site_data = self.get_site_data()
+        site_data[name] =  data
+        cache.dcset(name="site_data", data=site_data, expiry=False)
+
+    def update_data(self, new_data, old_data):
+        for key, value in new_data.items():
+            if not value and key in old_data: break 
+            old_data[key] = value
+
+    def get_site_data(self): 
+        return cache.dcget("site_data", {})
+
+    def get_save_to_data(self, name):
+        site_data = self.get_site_data()
+        return site_data.get(name, {})
