@@ -10,3 +10,6 @@ def replace(value, arg):
     old_value, new_value = arg.split(',')
     return value.replace(old_value, new_value)
 
+@register.filter(name='times') 
+def times(number):
+    return range(1, number + 1)

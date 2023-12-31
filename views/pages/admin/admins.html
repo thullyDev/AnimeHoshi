@@ -23,9 +23,25 @@
                {% endwith %}
             </div>
         </div>
-        {% with modal_class="site-key-modal" modal_text="Enter Site key to confirm" modal_html="<button class='submit-key-btn'>submit</button>" %}
-            {% include "widgets/modal.html"  %}
-        {% endwith %}
+
+        <div class="outter-modal-con">
+          <div class="modal-con">
+              <div class="text-con">
+                  <p class="text">Enter Site key to confirm</p>
+              </div>
+              <div class="modal-content-con">
+                <div class="sitekey-input-content">
+                    <div class="sitekey-input-con">
+                        <input type="text" hidden class="sitekey-input" style="display: inline-block;">
+                    </div>
+                    <div class="sitekey-submit-btn-con">
+                        <button class="sitekey-submit-btn">Submit</button>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
     </div>
    {% include 'pages/admin/widgets/save_btn.html' %}
 {% endblock %}

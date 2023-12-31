@@ -2,6 +2,10 @@ textarea.field.settings-input {
   height: 250px;
   width: 100%;
   outline: none;
+  box-sizing: border-box;
+  font-family: var(--primary-font);
+  font-weight: bold;
+  font-size: 17px;
 }
 
 .ads-script-field-con > .inner-con {
@@ -23,16 +27,18 @@ input.fluid-input::placeholder {
 /* Styles for screens with a width of 768 pixels or larger */
 @media screen and (min-width: 768px) {
   .field-con.inner-con {
-    width: 48%;
+    width: 46%;
   }
 
   .scripts-con {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-around;
   }
 
   .ads-script-field-con {
-    width: 48%;
+    width: 46%;
     padding: 10px;
   }
 

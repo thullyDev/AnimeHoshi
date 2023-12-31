@@ -2,7 +2,7 @@
     <thead>
         <tr>
             {% for head in table_heads %}
-                <th class="table-head admins-head">{{ head }}</th>
+                <th class="table-head {{ head }}-head admins-head">{{ head }}</th>
             {% endfor %}
         </tr>
     </thead>
@@ -17,7 +17,7 @@
                 <td class="table-item admin-item">
                     <p class="username-tick">{{ item.username }}</p>
                 </td>
-                <td class="table-item admin-item">
+                <td class="table-item Email-tick-item admin-item">
                     <p class="email-tick">{{ item.email }}</p>
                 </td>
                 <td class="table-item admin-item">

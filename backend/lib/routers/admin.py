@@ -9,10 +9,10 @@ class Admin(Base):
     @timing_decorator
     def dashboard(self, request):
         analytics_items = [
-            {"numbers": 0, "label": "Users"},
-            {"numbers": 0, "label": "Admins"},
-            {"numbers": 0, "label": "Weekly Views"},
-            {"numbers": 0, "label": "Scripts"},
+            {"icon": "fas fa-user", "numbers": 0, "label": "Users"},
+            {"icon": "fas fa-user-cog", "numbers": 0, "label": "Admins"},
+            {"icon": "fas fa-eye", "numbers": 0, "label": "Weekly Views"},
+            {"icon": "fas fa-code", "numbers": 0, "label": "Scripts"},
         ]
         users_items = [
             {
@@ -169,8 +169,8 @@ class Admin(Base):
                 "disabled": False,
             },
         ]
-        animes_heads = ["poster", "title", "status"];
-        users_heads = ["profile_image", "username", "email", "status"];
+        animes_heads = ["Poster", "Title", "Status", "" ];
+        users_heads = ["Profile Image", "Username", "Email", "Status", "", ""];
 
         page = 1
         amount_pages = 100
@@ -368,11 +368,11 @@ class Admin(Base):
                     'deleted': False,
                 },
             ]
-        table_heads = [ "profile_image", "username", "email", "status" ]
+        table_heads = [ "Profile Image", "Username", "Email", "Status", "" ]
 
         context = {
             "admins_items": admins_items,
-            "admins_count": 1,
+            "admins_count": len(admins_items),
             "table_heads": table_heads,
         }
         return self.root(request=request, context=context, template="pages/admin/admins.html")   

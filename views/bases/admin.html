@@ -14,7 +14,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap" rel="stylesheet" />
   <link href="/static/css/admin/pages/{{page}}.css" rel="stylesheet" />
-  <link href="/static/css/admin/adminBase.css" rel="stylesheet" />
+  <link href="/static/css/admin/admin.css" rel="stylesheet" />
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer"
+    defer
+    ></script>
+  <script>
+    const csrfToken = "{{csrf_token}}"
+  </script>
+  <script type="module" defer type="text/javascript" src="/static/js/admin/admin.js"></script>
+  <script type="module" defer type="text/javascript" src="/static/js/admin/pages/{{page}}.js"></script>
   <title> {{ page|title }} | Admin Panel </title>
   {% block head_content %}
   {% endblock %}
@@ -27,7 +39,7 @@
         <div class="right-con">
           {% include "sections/admin/admin_header.html" %}
           <main class="main-content">
-            <h2 class="page-label">{{ page }}</h2>
+            <h2 class="page-label">{{ page|title }}</h2>
             <div class="core-content">
               {% block main_content %}
               {% endblock %}
@@ -35,6 +47,6 @@
           </main>
         </div>
         {% include "sections/admin/admin_footer.html" %}
-      </div>
+    </div>
 </body>
 </html>

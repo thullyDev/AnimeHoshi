@@ -1,12 +1,13 @@
-<div class="table-con">
+{% load filters %}
+<div class="outter-table-con">
   <div class="table-label">
-    <h3 class="label">Latest {{ table_heads.1 }}</h3>
+    <h3 class="label">Latest {{ widget|title }}</h3>
   </div>
-  <table>
+  <table class="table-con">
     <thead>
       <tr>
         {% for item in table_heads %}
-          <th class="table-head {{ item|lower }}">{{ item }}</th>
+          <th class="table-head {{ item|replace:' ,-' }}-head">{{ item }}</th>
         {% endfor %}
       </tr>
     </thead>
@@ -43,7 +44,7 @@
             <td class="table-item">
               <p class="username-tick">{{ item.username }}</p>
             </td>
-            <td class="table-item">
+            <td class="table-item Email-tick-item">
               <p class="email-tick">{{ item.email }}</p>
             </td>
             <td class="table-item">
@@ -66,19 +67,43 @@
       {% endfor %}
     </tbody>
   </table>
+  <div class="table-search-con">
+    <div class="inner-table-search-con">
+      <div class="table-search-input-con">
+        <input type="text" class="table-search" data-type="{{widget}}">
+        <button class="table-search-btn" data-type="{{widget}}">search</button>
+      </div>
+    </div>
+  </div>
   <div class="tabel-pagination">
-    <ul>
-      <li class="pages-ticks">
-        <button data-page="{{ pages.page }}" class="pagination-btn page-btn">
-          {{ pages.page }}
-        </button>
-      </li>
-      <!-- Add pagination dots here -->
-      <li class="pages-ticks">
-        <button data-page="{{ pages.amount_pages }}" class="pagination-btn page-btn">
-          {{ pages.amount_pages }}
-        </button>
-      </li>
-    </ul>
+    {% with table_heads=users_heads amount_pages=pages.amount_pages page=pages.page %}
+      <ul>
+        {% if amount_pages > 6 %}
+          {% for i in 5|times %}
+            <li class="pages-ticks">
+              <button data-page="{{ i }}" class="pagination-btn page-btn">
+                {{ i }}
+              </button>
+            </li>
+          {% endfor %}
+            <li class="pages-ticks">
+              <i class="fas fa-ellipsis-h"></i>
+            </li>
+        {% else %}
+          {% for i in amount_pages|times %}
+            <li class="pages-ticks">
+              <button data-page="{{ i }}" class="pagination-btn page-btn">
+                {{ i }}
+              </button>
+            </li>
+          {% endfor %}
+        {% endif %}
+        <li class="pages-ticks">
+          <button data-page="{{ amount_pages }}" class="pagination-btn page-btn">
+            {{ amount_pages }}
+          </button>
+        </li>
+      </ul>
+    {% endwith %}
   </div>
 </div>

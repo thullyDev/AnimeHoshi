@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from ...decorators import timing_decorator
 from ...database import Cache
 from ..base import Base
+import json
 
 cache = Cache()
 users = [
@@ -91,14 +92,15 @@ class AdminAjax(Base):
     def dashboard(self, request):
         user = self.GET_CREDITIALS(request.COOKIES)
 
-        if not user: return redirect("/")
+        if not user:
+            return redirect("/")
 
-        site_data = admin_ajax.get_site_data()
+        site_data = self.get_site_data()
         scripts_amount = len(site_data.get("scripts", {}))
         values_amount = len(site_data.get("values", {}))
         attributes_amount = len(site_data.get("attributes", {}))
         settings_amount = len(site_data.get("settings", {}))
-        users_amount = len(users) # top 10 latest users
+        users_amount = len(users)  # top 10 latest users
         data = {
             "users_amount": users_amount,
             "scripts_amount": scripts_amount,
@@ -108,73 +110,80 @@ class AdminAjax(Base):
             "users": users,
         }
 
-        return self.successful_response(data={ "data": data })
+        return self.successful_response(data={"data": data})
 
     @timing_decorator
     def get_scripts(self, request):
         user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
-        if not user: return self.forbidden_response(data={ "message": "login" })
+        if not user:
+            return self.forbidden_response(data={"message": "login"})
 
         site_data = self.get_site_data()
-        scripts = data.get("scripts")
+        scripts = site_data.get("scripts")
 
-        return self.successful_response(data={ "data": scripts })
+        return self.successful_response(data={"data": scripts})
 
     @timing_decorator
     def get_attributes(self, request):
         user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
-        if not user: return self.forbidden_response(data={ "message": "login" })
+        if not user:
+            return self.forbidden_response(data={"message": "login"})
 
         site_data = self.get_site_data()
-        attributes = data.get("attributes")
+        attributes = site_data.get("attributes")
 
-        return self.successful_response(data={ "data": attributes })
+        return self.successful_response(data={"data": attributes})
 
     @timing_decorator
     def get_values(self, request):
         user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
-        if not user: return self.forbidden_response(data={ "message": "login" })
+        if not user:
+            return self.forbidden_response(data={"message": "login"})
 
         site_data = self.get_site_data()
-        values = data.get("values")
+        values = site_data.get("values")
 
-        return self.successful_response(data={ "data": values })
+        return self.successful_response(data={"data": values})
 
     @timing_decorator
     def get_settings(self, request):
         user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
-        if not user: return self.forbidden_response(data={ "message": "login" })
+        if not user:
+            return self.forbidden_response(data={"message": "login"})
 
         site_data = self.get_site_data()
-        settings = data.get("settings")
+        settings = site_data.get("settings")
 
-        return self.successful_response(data={ "data": settings })
+        return self.successful_response(data={"data": settings})
 
     def save_data(self, request):
-    	if not request.POST: return redirect("admin_login")
+        if not request.POST:
+            return redirect("admin_login")
 
-    	user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
+        user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
-    	if not user: return self.forbidden_response(data={ "message": "login" })
+        if not user:
+            return self.forbidden_response(data={"message": "login"})
 
-    	data = json.load(request.POST.get("data"))
-    	save_type = request.POST.get("save_type")
+        post = request.POST
+        data = json.loads(post.get("save_data"))
+        save = post.get("save")
 
-    	if save_type not in { "settings", "values", "attributes", "scripts" }:
-    		return self.bad_request_response()
+        if save not in {"settings", "values", "attributes", "scripts"}:
+            return self.bad_request_response()
 
-    	site_data = self.get_site_data(save_type=save_type, data=data)
+        site_data = self.get_site_data()
+        for item in site_data:
+            print(f"item =====> {item}")
+        site_data[save] = data
 
-    	site_data[save_type] = data
-
-    	cache.dcset(name="site_data", data=site_data, expiry=False)
+        # cache.dcset(name="site_data", data=site_data, expiry=False)
 
     def add_admin(self, request):
-    	pass
+        pass
 
-    def get_site_data(self):
-    	return cache.dcget("site_data", {})
+    def get_site_data(self): return cache.dcget("site_data")

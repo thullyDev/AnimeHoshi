@@ -6,7 +6,7 @@
   <div class="inner-con inner-main-content">
     <div class="cards-con">
       {% for item in analytics_items %}
-        {% with label=item.label numbers=item.numbers %}
+        {% with icon=item.icon label=item.label numbers=item.numbers %}
           {% include 'pages/admin/widgets/analytics_card.html' %}
         {% endwith %}
       {% endfor %}
