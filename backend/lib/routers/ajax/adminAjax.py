@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from ...decorators import timing_decorator
-from ...database import Cache
+from ...database import Database
 from ..base import Base
+from ...resources import SITE_KEY 
 import json
 
-cache = Cache()
+database = Database()
 users = [
     {
         "id": 0,
@@ -88,83 +89,11 @@ users = [
 ]
 
 class AdminAjax(Base):
-    @timing_decorator
-    def dashboard(self, request):
-        user = self.GET_CREDITIALS(request.COOKIES)
-
-        if not user:
-            return redirect("/")
-
-        site_data = self.get_site_data()
-        scripts_amount = len(site_data.get("scripts", {}))
-        values_amount = len(site_data.get("values", {}))
-        attributes_amount = len(site_data.get("attributes", {}))
-        settings_amount = len(site_data.get("settings", {}))
-        users_amount = len(users)  # top 10 latest users
-        data = {
-            "users_amount": users_amount,
-            "scripts_amount": scripts_amount,
-            "values_amount": values_amount,
-            "attributes_amount": attributes_amount,
-            "settings_amount": settings_amount,
-            "users": users,
-        }
-
-        return self.successful_response(data={"data": data})
-
-    @timing_decorator
-    def get_scripts(self, request):
-        user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
-
-        if not user:
-            return self.forbidden_response(data={"message": "login"})
-
-        site_data = self.get_site_data()
-        scripts = site_data.get("scripts")
-
-        return self.successful_response(data={"data": scripts})
-
-    @timing_decorator
-    def get_attributes(self, request):
-        user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
-
-        if not user:
-            return self.forbidden_response(data={"message": "login"})
-
-        site_data = self.get_site_data()
-        attributes = site_data.get("attributes")
-
-        return self.successful_response(data={"data": attributes})
-
-    @timing_decorator
-    def get_values(self, request):
-        user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
-
-        if not user:
-            return self.forbidden_response(data={"message": "login"})
-
-        site_data = self.get_site_data()
-        values = site_data.get("values")
-
-        return self.successful_response(data={"data": values})
-
-    @timing_decorator
-    def get_settings(self, request):
-        user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
-
-        if not user:
-            return self.forbidden_response(data={"message": "login"})
-
-        site_data = self.get_site_data()
-        settings = site_data.get("settings")
-
-        return self.successful_response(data={"data": settings})
-
     def save_data(self, request):
         if not request.POST:
             return redirect("admin_login")
 
-        user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
+        user = self.GET_CREDITIALS(data=request.COOKIES, user_type="admin", update=True)
 
         if not user:
             return self.forbidden_response(data={"message": "login"})
@@ -184,10 +113,38 @@ class AdminAjax(Base):
     def add_admin(self, request):
         pass
 
+    def create_owner(self, request):
+        data = request.GET
+        req_site_key = data.get("key")
+        email = data.get("email")
+        password = data.get("password")
+        username = data.get("username")
+        
+        if req_site_key != SITE_KEY:
+            return self.forbidden_response()
+
+        if None in [ email, password, username ]:
+            return self.bad_request_response()
+
+        if len(password) < 8:
+            return self.bad_request_response(data={ "message": "password too short, it should be atleast 8 letters" })
+
+        admin_data = {
+            "email": email,
+            "password": password,
+            "username": username,
+            "profile_image": None,
+            "role": "owner",
+        }
+
+        res_data = database.set_admin(admin_data)
+        print(f"res_data ===> {res_data}")
+        return self.successful_response()
+
     def save_site_data(self, data, name):
         site_data = self.get_site_data()
         site_data[name] =  data
-        cache.dcset(name="site_data", data=site_data, expiry=False)
+        database.dcset(name="site_data", data=site_data, expiry=False)
 
     def update_data(self, new_data, old_data):
         for key, value in new_data.items():
@@ -195,7 +152,7 @@ class AdminAjax(Base):
             old_data[key] = value
 
     def get_site_data(self): 
-        return cache.dcget("site_data", {})
+        return database.dcget("site_data", {})
 
     def get_save_to_data(self, name):
         site_data = self.get_site_data()

@@ -1,4 +1,5 @@
 from django import template
+import ast
 
 register = template.Library()
 
@@ -13,3 +14,7 @@ def replace(value, arg):
 @register.filter(name='times') 
 def times(number):
     return range(1, number + 1)
+
+@register.filter(name='safe_list') 
+def safe_list(value):
+    return ast.literal_eval(value)

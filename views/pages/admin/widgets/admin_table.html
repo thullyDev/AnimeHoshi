@@ -1,7 +1,9 @@
+{% load filters %}
+
 <table class="table-con admins-table-con">
     <thead>
         <tr>
-            {% for head in table_heads %}
+            {% for head in "[ 'Profile Image', 'Username', 'Email', 'Status', '' ]"|safe_list %}
                 <th class="table-head {{ head }}-head admins-head">{{ head }}</th>
             {% endfor %}
         </tr>

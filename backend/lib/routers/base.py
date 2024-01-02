@@ -5,11 +5,11 @@ from ..resources import ROOT_FILE
 from ..database import Database
 from ..handlers import ResponseHandler
 
-db = Database()
+database = Database()
 
 class Base(APIView, ResponseHandler):
     def root(self, request, context={}, template=ROOT_FILE): 
-        user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
+        user = self.GET_CREDITIALS(data=request.COOKIES, user_type="admin")
 
         path = request.path.split("/")
 
@@ -22,19 +22,27 @@ class Base(APIView, ResponseHandler):
 
         return render(request, template, context=context)
 
-    def GET_CREDITIALS(self, DATA, user_type, no_update=False):
-        return True #? remove this later
-        CREDITIALS = { "username", "email", "temporary_id" }
-        CREDITIALS_DATA = { key: value for key, value in DATA.items() if key in CREDITIALS }
+    def GET_CREDITIALS(self, data, user_type, update=False):
+        # return True #? remove this later
+        creditials = self.get_safe_creditials(data)
 
-        email = CREDITIALS_DATA.get("email")
-        username = CREDITIALS_DATA.get("username")
-        temporary_id = CREDITIALS_DATA.get("temporary_id")
+        print(f"data ====> {data}")
+        print(f"creditials ====> {creditials}")
 
-        if not email and not username and not temporary_id: 
+        email = creditials.get("email")
+        username = creditials.get("username")
+        temporary_id = creditials.get("temporary_id")
+
+        print(f"email ===> {email}")
+        print(f"username ===> {username}")
+        print(f"temporary_id ===> {temporary_id}")
+
+        return True
+
+        if (not email and not username) or not temporary_id: 
             return None
 
-        user = db.get_user(email=email, username=username) if user_type == 'user' else db.get_admin(email=email, username=username) 
+        user = database.get_user(email=email, username=username) if user_type == 'user' else database.get_admin(email=email, username=username) 
 
         if not user: return None
 
@@ -45,10 +53,15 @@ class Base(APIView, ResponseHandler):
         new_temporary_id = generate_unique_id()
         email = user.get("email")
 
-        if no_update:  
-        	if user_type == 'user': db.update_user(email=email, temporary_id=new_temporary_id)
-        	else: db.update_admin(email=email, temporary_id=new_temporary_id)
+        # if update:  
+        #     print(f"update ===> {update}")
+        #     print(f"user_type ===> {user_type}")
+        #     if user_type == 'user': database.update_user(email=email, temporary_id=new_temporary_id)
+        #     else: database.update_admin(email=email, temporary_id=new_temporary_id)
 
-        user["temporary_id"] = new_temporary_id
+        # user["temporary_id"] = new_temporary_id
 
         return user
+
+    def get_safe_creditials(self, data):
+        return { key: value for key, value in data.items() if key in { "username", "email", "temporary_id" } }

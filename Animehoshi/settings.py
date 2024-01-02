@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c*-8b^_eo&qaqt_mgy#+6fb5e$ip%f=10e96s_(_xi)*j(+mx5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(env_config("DEBUG"))
 # DEBUG = False
 
 # Use secure cookies
@@ -137,23 +137,10 @@ STATIC_URL = 'static/'
 if DEBUG:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
-        # os.path.join(BASE_DIR, 'public'),
-        # os.path.join(BASE_DIR, 'dist'),
    ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# print("STATIC_ROOT ===>", STATIC_ROOT)
-
-# STATIC_ROOT = BASE_DIR / "static" 
-# STATIC_URL = 'static/'
-# STATICFILES_DIRS = [
-#     '/static/',
-# ]
-# STATICFILES_DIRS = [
-#     BASE_DIR / "dist",
-#     BASE_DIR / "public",
-# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

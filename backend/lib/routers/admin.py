@@ -169,9 +169,6 @@ class Admin(Base):
                 "disabled": False,
             },
         ]
-        animes_heads = ["Poster", "Title", "Status", "" ];
-        users_heads = ["Profile Image", "Username", "Email", "Status", "", ""];
-
         page = 1
         amount_pages = 100
 
@@ -368,7 +365,6 @@ class Admin(Base):
                     'deleted': False,
                 },
             ]
-        table_heads = [ "Profile Image", "Username", "Email", "Status", "" ]
 
         context = {
             "admins_items": admins_items,
@@ -376,3 +372,80 @@ class Admin(Base):
             "table_heads": table_heads,
         }
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
+
+
+
+
+    # @timing_decorator
+    # def get_scripts(self, request):
+    #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
+
+    #     if not user:
+    #         return self.forbidden_response(data={"message": "login"})
+
+    #     site_data = self.get_site_data()
+    #     scripts = site_data.get("scripts")
+
+    #     return self.successful_response(data={"data": scripts})
+
+    # @timing_decorator
+    # def get_attributes(self, request):
+    #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
+
+    #     if not user:
+    #         return self.forbidden_response(data={"message": "login"})
+
+    #     site_data = self.get_site_data()
+    #     attributes = site_data.get("attributes")
+
+    #     return self.successful_response(data={"data": attributes})
+
+    # @timing_decorator
+    # def get_values(self, request):
+    #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
+
+    #     if not user:
+    #         return self.forbidden_response(data={"message": "login"})
+
+    #     site_data = self.get_site_data()
+    #     values = site_data.get("values")
+
+    #     return self.successful_response(data={"data": values})
+
+    # @timing_decorator
+    # def get_settings(self, request):
+    #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
+
+    #     if not user:
+    #         return self.forbidden_response(data={"message": "login"})
+
+    #     site_data = self.get_site_data()
+    #     settings = site_data.get("settings")
+
+    #     return self.successful_response(data={"data": settings})
+
+
+    # @timing_decorator
+    # def dashboard(self, request):
+    #     user = self.GET_CREDITIALS(request.COOKIES)
+
+    #     if not user:
+    #         return redirect("/")
+
+    #     site_data = self.get_site_data()
+    #     scripts_amount = len(site_data.get("scripts", {}))
+    #     values_amount = len(site_data.get("values", {}))
+    #     attributes_amount = len(site_data.get("attributes", {}))
+    #     settings_amount = len(site_data.get("settings", {}))
+    #     users_amount = len(users)  # top 10 latest users
+    #     data = {
+    #         "users_amount": users_amount,
+    #         "scripts_amount": scripts_amount,
+    #         "values_amount": values_amount,
+    #         "attributes_amount": attributes_amount,
+    #         "settings_amount": settings_amount,
+    #         "users": users,
+    #     }
+
+    #     return self.successful_response(data={"data": data})
+

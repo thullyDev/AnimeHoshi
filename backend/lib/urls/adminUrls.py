@@ -12,10 +12,11 @@ urlpatterns = [
     path("advance/", admin.advance),
     path("admins/", admin.admins),
     
-    path("ajax/get/dashboard/", admin_ajax.dashboard),
-    path("ajax/get/scripts/", admin_ajax.get_scripts),
-    path("ajax/get/attributes/", admin_ajax.get_attributes),
-    path("ajax/get/values/", admin_ajax.get_values),
-    path("ajax/get/settings/", admin_ajax.get_settings),
+    path("ajax/get/create_owner/", admin_ajax.create_owner),
     path("ajax/post/save_data/", admin_ajax.save_data),
 ]
+
+    # path("ajax/get/scripts/", admin_ajax.get_scripts),
+    # path("ajax/get/attributes/", admin_ajax.get_attributes),
+    # path("ajax/get/values/", admin_ajax.get_values),
+    # path("ajax/get/settings/", admin_ajax.get_settings),
