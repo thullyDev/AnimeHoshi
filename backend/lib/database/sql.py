@@ -12,7 +12,7 @@ class Sql:
 
 		if not instance: return None
 		if not as_dict: return instance
-		data = model_to_dict(instance)
+		data = self.get_instance_as_dict(instance)
 
 		return data
 
@@ -21,7 +21,7 @@ class Sql:
 		instance = model.objects.create(**data)
 		instance.save()
 
-		return instance.to_dict()
+		return self.get_instance_as_dict(instance)
 
 	def sql_update(self, unit, data):
 	    instance = self.get_instance(unit=unit, data=data)
@@ -31,7 +31,7 @@ class Sql:
 	    instance.__dict__.update(data)
 	    instance.save()
 
-	    return instance.to_dict()
+	    return self.get_instance_as_dict(instance)
 
 	def sql_delete(data):
 		instance = self.get_instance(unit=unit, data=data)
@@ -58,6 +58,9 @@ class Sql:
 		if username: return model.objects.get(id=username)
 
 		return None
+
+	def get_instance_as_dict(self, instance):
+		return model_to_dict(instance)
 
 	def get_safe_id(self, data):
 		email = data.get("email")

@@ -176,8 +176,6 @@ class Admin(Base):
             "analytics_items": analytics_items,
             "users_items": users_items,
             "animes_items": animes_items,
-            "animes_heads": animes_heads,
-            "users_heads": users_heads,
             "pages": {
                 "page": page,
                 "amount_pages": amount_pages,
@@ -372,8 +370,6 @@ class Admin(Base):
             "table_heads": table_heads,
         }
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
-
-
 
 
     # @timing_decorator

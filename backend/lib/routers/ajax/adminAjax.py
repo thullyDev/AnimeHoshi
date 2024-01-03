@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from ...decorators import timing_decorator
-from ...database import Database
+from ...database import AdminDatabase
 from ..base import Base
 from ...resources import SITE_KEY 
 import json
 
-database = Database()
+admin_database = AdminDatabase()
 users = [
     {
         "id": 0,
@@ -137,14 +137,14 @@ class AdminAjax(Base):
             "role": "owner",
         }
 
-        res_data = database.set_admin(admin_data)
-        print(f"res_data ===> {res_data}")
+        res_data = admin_database.update_admin()
+        # res_data = admin_database.update_admin(admin_data)
         return self.successful_response()
 
     def save_site_data(self, data, name):
         site_data = self.get_site_data()
         site_data[name] =  data
-        database.dcset(name="site_data", data=site_data, expiry=False)
+        admin_database.dcset(name="site_data", data=site_data, expiry=False)
 
     def update_data(self, new_data, old_data):
         for key, value in new_data.items():
@@ -152,7 +152,7 @@ class AdminAjax(Base):
             old_data[key] = value
 
     def get_site_data(self): 
-        return database.dcget("site_data", {})
+        return admin_database.dcget("site_data", {})
 
     def get_save_to_data(self, name):
         site_data = self.get_site_data()

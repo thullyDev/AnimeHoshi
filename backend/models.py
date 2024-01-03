@@ -6,7 +6,7 @@ class Admin(models.Model):
     email = models.CharField(max_length=80, unique=True)
     password = models.CharField(max_length=20) 
     temporary_id = models.CharField(max_length=30, unique=True) 
-    profile_image = models.CharField(max_length=100) 
+    profile_image = models.CharField(max_length=100, null=True, blank=True) 
     role = models.CharField(max_length=200) 
     deleted = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False, unique=True)
