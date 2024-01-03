@@ -12,7 +12,7 @@ class Database(Cache, Sql):
 
     def get(self, unit, data):
         uid = self.get_safe_id(data)
-        cache_data = self.dget(name=f"{unit}_*_{uid}")
+        cache_data = self.hget(name=f"{unit}_*_{uid}")
         temporary_id = data.get("temporary_id")
 
         if not temporary_id and cache_data:
@@ -22,14 +22,14 @@ class Database(Cache, Sql):
         data["temporary_id"] = temporary_id
         
         self.sql_update(data)
-        self.dset(name=f"{unit}_*_{uid}", data=data)
+        self.hset(name=f"{unit}_*_{uid}", data=data)
 
         return data
 
     def set(self, unit, data):
         data = self.sql_set(unit, data)
         uid = data.get("email")
-        self.dset(name=f"{unit}_*_{uid}", data=data)
+        self.hset(name=f"{unit}_*_{uid}", data=data)
 
         return data
 
@@ -40,6 +40,6 @@ class Database(Cache, Sql):
             return data
 
         uid = data.get("email")
-        self.dset(name=f"{unit}_*_{uid}", data=data)
+        self.hset(name=f"{unit}_*_{uid}", data=data)
 
         return data

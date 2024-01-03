@@ -26,7 +26,7 @@ class Cache:
         
         return raw_data.decode()
         
-    def dcget(self, name, default=None):
+    def hget(self, name, default=None):
         raw_data = redis.get(name)
         if not raw_data: return default
         raw_data =  raw_data.decode()
@@ -41,7 +41,7 @@ class Cache:
 
         redis.set(name, value)
         
-    def dcset(self, name, data, expiry=default_expiry):
+    def hset(self, name, data, expiry=default_expiry):
         print(f"{name} =====> {data}")
         value = json.dumps(data)
         

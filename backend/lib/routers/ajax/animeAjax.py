@@ -18,7 +18,7 @@ class AnimeAjax(Base):
     @timing_decorator
     def get_home_data(self, request):
         cache_id = "home_data"
-        cache_data = cache.dcget(name=cache_id)
+        cache_data = cache.hget(name=cache_id)
 
         if cache_data:
             return self.successful_response(data={"data": cache_data})
@@ -73,7 +73,7 @@ class AnimeAjax(Base):
                 "description": slider.get("description").get("text"),
             })
 
-        cache.dcset(name=cache_id, data=data)
+        cache.hset(name=cache_id, data=data)
         return self.successful_response(data={"data": data})
 
     @timing_decorator

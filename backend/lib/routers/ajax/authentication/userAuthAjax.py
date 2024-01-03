@@ -111,13 +111,13 @@ class UserAuthAjax(Base):
         if not request.POST: return redirect("/")
         post_data = request.POST
         email = post_data.get("email")
-        old_code = db.dcset(name=f"vf_email_{email}")
+        old_code = db.hset(name=f"vf_email_{email}")
 
         if not old_code: return self.forbidden_response(data={ "message": "unsigthed email" })
 
 
         message, code = self.send_verification(email=email, username=username, host=host)
-        data = db.dcget(f"vf_code_{old_code}"); db.cdelete(f"vf_code_{old_code}")
+        data = db.hget(f"vf_code_{old_code}"); db.cdelete(f"vf_code_{old_code}")
 
         db.cset(name=f"vf_code_{code}", data=data, expiry=300) # expires in 5 minues
 
@@ -128,7 +128,7 @@ class UserAuthAjax(Base):
         if not request.POST: return redirect("/")
         post_data = request.POST
         code = post_data.get("code")
-        data = db.dcget(f"vf_code_{code}")
+        data = db.hget(f"vf_code_{code}")
 
         if not data: return self.forbidden_response(data={ "message": "invalid code" })
 
@@ -201,7 +201,7 @@ class UserAuthAjax(Base):
                     "message": "password should be atleast 10 characters long"
                 })
 
-        data = db.dcget(f"vf_code_{code}")
+        data = db.hget(f"vf_code_{code}")
         email = data.get("email")
         username = data.get("username")
         temporary_id = generate_unique_id()

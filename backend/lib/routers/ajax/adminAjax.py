@@ -117,19 +117,19 @@ class AdminAjax(Base):
         data = request.GET
         req_site_key = data.get("key")
         password = data.get("password")
-        username = data.get("username")
         
         if req_site_key != SITE_KEY:
             return self.forbidden_response()
 
-        if None in [ password, username ]:
+        if None in [ password ]:
             return self.bad_request_response()
 
         if len(password) < 8:
             return self.bad_request_response(data={ "message": "password too short, it should be atleast 8 letters" })
 
         email = "owner@gmail.com"
-        
+        username = "owner"
+
         admin_data = {
             "email": email,
             "password": password,
@@ -138,13 +138,13 @@ class AdminAjax(Base):
             "role": "owner",
         }
 
-        res_data = admin_database.update_admin(data=admin_data, emai=email, key="email")
+        res_data = admin_database.update_admin(data=admin_data, unique_id=email, key="email")
         return self.successful_response()
 
     def save_site_data(self, data, name):
         site_data = self.get_site_data()
         site_data[name] =  data
-        admin_database.dcset(name="site_data", data=site_data, expiry=False)
+        admin_database.hset(name="site_data", data=site_data, expiry=False)
 
     def update_data(self, new_data, old_data):
         for key, value in new_data.items():
@@ -152,7 +152,7 @@ class AdminAjax(Base):
             old_data[key] = value
 
     def get_site_data(self): 
-        return admin_database.dcget("site_data", {})
+        return admin_database.hget("site_data", {})
 
     def get_save_to_data(self, name):
         site_data = self.get_site_data()

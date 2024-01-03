@@ -24,7 +24,12 @@ class Sql:
 		return self.get_instance_as_dict(instance)
 
 	def sql_update(self, unit, data, **kwargs):
-	    instance = self.get_instance(unit=unit, **kwargs)
+	    instance = None 
+	    
+	    try:
+	    	instance = self.get_instance(unit=unit, **kwargs)
+	    except Exception as e:
+	    	return self.sql_set(unit=unit, data=data)
 
 	    if not instance: return None
 
