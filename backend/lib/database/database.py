@@ -34,7 +34,7 @@ class Database(Cache, Sql):
         return data
 
     def update(self, unit, data):
-        data = self.sql_update(**data)
+        data = self.sql_update(unit=unit, data=data)
 
         if not data:
             return data

@@ -137,8 +137,7 @@ class AdminAjax(Base):
             "role": "owner",
         }
 
-        res_data = admin_database.update_admin()
-        # res_data = admin_database.update_admin(admin_data)
+        res_data = admin_database.update_admin(admin_data)
         return self.successful_response()
 
     def save_site_data(self, data, name):
