@@ -42,7 +42,6 @@ class Cache:
         redis.set(name, value)
         
     def hset(self, name, data, expiry=default_expiry):
-        print(f"{name} =====> {data}")
         value = json.dumps(data)
         
         if expiry: 
@@ -51,9 +50,6 @@ class Cache:
         
         redis.set(name, value)
 
-        # print("get data ====>", redis.get(name))
-        
-        
     def cmset(self, data): redis.mset(data)
         
     def cdelete(self, name): redis.delete(name)
