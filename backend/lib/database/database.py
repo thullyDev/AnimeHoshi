@@ -33,8 +33,8 @@ class Database(Cache, Sql):
 
         return data
 
-    def update(self, unit, data):
-        data = self.sql_update(unit=unit, data=data)
+    def update(self, unit, data, **kwargs):
+        data = self.sql_update(unit=unit, data=data, **kwargs)
 
         if not data:
             return data

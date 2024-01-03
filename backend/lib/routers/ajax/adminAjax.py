@@ -116,19 +116,20 @@ class AdminAjax(Base):
     def create_owner(self, request):
         data = request.GET
         req_site_key = data.get("key")
-        email = data.get("email")
         password = data.get("password")
         username = data.get("username")
         
         if req_site_key != SITE_KEY:
             return self.forbidden_response()
 
-        if None in [ email, password, username ]:
+        if None in [ password, username ]:
             return self.bad_request_response()
 
         if len(password) < 8:
             return self.bad_request_response(data={ "message": "password too short, it should be atleast 8 letters" })
 
+        email = "owner@gmail.com"
+        
         admin_data = {
             "email": email,
             "password": password,
@@ -137,7 +138,7 @@ class AdminAjax(Base):
             "role": "owner",
         }
 
-        res_data = admin_database.update_admin(admin_data)
+        res_data = admin_database.update_admin(data=admin_data, emai=email, key="email")
         return self.successful_response()
 
     def save_site_data(self, data, name):

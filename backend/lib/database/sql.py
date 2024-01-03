@@ -23,8 +23,8 @@ class Sql:
 
 		return self.get_instance_as_dict(instance)
 
-	def sql_update(self, unit, data):
-	    instance = self.get_instance(unit=unit, data=data)
+	def sql_update(self, unit, data, **kwargs):
+	    instance = self.get_instance(unit=unit, **kwargs)
 
 	    if not instance: return None
 
@@ -33,23 +33,34 @@ class Sql:
 
 	    return self.get_instance_as_dict(instance)
 
-	def sql_delete(self, data):
-		instance = self.get_instance(unit=unit, data=data)
+	def sql_delete(self, **kwargs):
+		instance = self.get_instance(unit=unit, **kwargs)
 
 		if not instance: return None
 		instance.delete()
 
 		return True
 
-	def sql_shallow_delete(self, data):
+	def sql_shallow_delete(self, data, **kwargs):
 		data["deleted"] = True
-		return self.sql_update(unit=unit, data=data)
+		return self.sql_update(unit=unit, data=data, **kwargs)
 
-	def get_instance(self, unit, data): 
+	def get_instance(self, unit, unique_id, key=None): 
 		model = self.get_valid_model(unit)
-		unique_id = self.get_safe_id(data)
 
-		return None if not unique_id else model.objects.get(id=unique_id)
+		if not key: return None
+
+		if key == "email":
+			return model.objects.get(email=unique_id)
+
+		if key == "temporary_id":
+			return model.objects.get(temporary_id=unique_id)
+
+		if key == "username":
+			return model.objects.get(username=unique_id)
+
+
+		return model.objects.get(id=unique_id)
 
 	def get_valid_model(self, unit):
 		return user if unit == "user" else admin
@@ -57,15 +68,4 @@ class Sql:
 	def get_instance_as_dict(self, instance):
 		return model_to_dict(instance)
 
-	def get_safe_id(self, data):
-		email = data.get("email")
-		temporary_id = data.get("temporary_id")
-		user_id = data.get("user_id")
-		username = data.get("username")
-
-		if user_id: return user_id
-		if email: return email
-		if temporary_id: return temporary_id
-		if username: return username
-
-		return None
+	

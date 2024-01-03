@@ -14,5 +14,5 @@ class AdminDatabase(Database):
     def set_admin(self, data):
         return self.set(unit="admin", data=data)
 
-    def update_admin(self, data):
-        return self.update(unit="admin", data=data)
+    def update_admin(self, data, **kwargs):
+        return self.update(unit="admin", data=data, **kwargs)
