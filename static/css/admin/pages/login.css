@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+}
+
+input, input::placeholder {
+  font-size: 15px;
+  font-family: var(--primary-font);
+}
+
+:root {
+  --primary-font: "Dosis", sans-serif;
+  --primary-color: #fff;
+  --secondary-color: #000;
+  --third-color: #7f009c;
+  --accent-color: #575652;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+.page-content {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--primary-font);
+  background-color: var(--primary-color);
+  color: #000;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
+  min-height: 451px;
+}
+
+.inner-con {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+}
+
+@media screen and (min-width: 480px) {
+}
+
+@media screen and (min-width: 768px) {
+}
+
+/* Styles for screens with a width of 768 pixels or larger */
+@media screen and (min-width: 768px) {
+}
+
+/* Styles for screens with a width of 1024 pixels or larger */
+@media screen and (min-width: 1024px) {
+}
+
+/* Styles for screens with a width of 1200 pixels or larger */
+@media screen and (min-width: 1200px) {
+}

@@ -367,9 +367,12 @@ class Admin(Base):
         context = {
             "admins_items": admins_items,
             "admins_count": len(admins_items),
-            "table_heads": table_heads,
         }
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
+
+    @timing_decorator
+    def login(self, request):
+        return self.root(request=request, context={}, template="pages/admin/login.html")   
 
 
     # @timing_decorator

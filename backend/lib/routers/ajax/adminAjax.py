@@ -139,7 +139,7 @@ class AdminAjax(Base):
         }
 
         res_data = admin_database.update_admin(data=admin_data, unique_id=email, key="email")
-        return self.successful_response()
+        return self.successful_response(data={ "message": "owner was created" })
 
     def save_site_data(self, data, name):
         site_data = self.get_site_data()

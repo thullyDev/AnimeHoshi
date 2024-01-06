@@ -1,9 +1,7 @@
-from ..routers import Admin, AdminAjax, AdminAuthAjax
-from django.urls import path
+from ..routers import Admin
+from django.urls import path, include
 
 admin = Admin()
-admin_ajax = AdminAjax()
-admin_auth_ajax = AdminAuthAjax()
 
 urlpatterns = [
     path("dashboard/", admin.dashboard),
@@ -11,12 +9,6 @@ urlpatterns = [
     path("general/", admin.general),
     path("advance/", admin.advance),
     path("admins/", admin.admins),
-    
-    path("ajax/get/create_owner/", admin_ajax.create_owner),
-    path("ajax/post/save_data/", admin_ajax.save_data),
+    path("login/", admin.login, name="admin_login"),
+    path('ajax/', include('backend.lib.urls.adminAjaxUrls')),
 ]
-
-    # path("ajax/get/scripts/", admin_ajax.get_scripts),
-    # path("ajax/get/attributes/", admin_ajax.get_attributes),
-    # path("ajax/get/values/", admin_ajax.get_values),
-    # path("ajax/get/settings/", admin_ajax.get_settings),
