@@ -4,34 +4,36 @@
 
 {% block login_main_content %}
   <div class="inner-con inner-main-content">
-    <div class="form-con">
-      <div class="site-logo-text-con">
-        <div class="site-logo-con">
-          {% include "widgets/title.html" %}
+    <div class="outer-form-con">
+      <div class="form-con">
+        <div class="site-logo-text-con">
+          <div class="site-logo-con">
+            {% include "widgets/title.html" %}
+          </div>
+          <div class="bottom-text-con">
+            Admin Panel
+          </div>
         </div>
-        <div class="bottom-text-con">
-          Admin Panel
-        </div>
-      </div>
-      <div class="inner-form-con">
-        <form action="post">
-          <div class="admin-inputs-con">
-            {% with type="text" label="Email" key="email" icon="fas fa-envelope" %}
-              <div class="admin-login-outer-input-con">
-                {% include "widgets/icon_input.html" %}
-              </div>
-            {% endwith %}
+        <div class="inner-form-con">
+          <form action="post">
+            <div class="admin-inputs-con">
+              {% with type="text" label="Email" key="email" icon="fas fa-envelope" %}
+                <div class="admin-login-outer-input-con">
+                  {% include "widgets/icon_input.html" %}
+                </div>
+              {% endwith %}
 
-            {% with type="hidden" label="Password" key="password"  icon="fas fa-key" %}
-              <div class="admin-login-outer-input-con">
-                {% include "widgets/icon_input.html" %}
-              </div>
-            {% endwith %}
-          </div>
-          <div class="submit-btn-con">
-            <button class="submit-btn" type="button">Login</button>
-          </div>
-        </form>
+              {% with type="hidden" label="Password" key="password"  icon="fas fa-key" %}
+                <div class="admin-login-outer-input-con">
+                  {% include "widgets/icon_input.html" %}
+                </div>
+              {% endwith %}
+            </div>
+            <div class="submit-btn-con">
+              <button class="submit-btn" type="button">Login</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

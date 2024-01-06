@@ -44,6 +44,34 @@ button {
   padding: 10px;
 }
 
+.inner-con.inner-main-content {
+    padding: 0;
+}
+
+.outer-form-con {
+    width: 100vw;
+    height: 100vh;
+    border: solid red;
+    box-sizing: border-box;
+}
+
+.form-con {
+    width: 100%;
+    height: 100%;
+    border: solid;
+    box-sizing: border-box;
+}
+
+.normal-logo-con {
+  display: none;
+}
+
+
+/*
+.site-logo.small-logo {
+  width: 55px;
+}*/
+
 @media screen and (min-width: 480px) {
 }
 
