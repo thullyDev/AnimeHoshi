@@ -10,32 +10,25 @@ database = Database()
 class Base(APIView, ResponseHandler):
     def root(self, request, context={}, template=ROOT_FILE): 
         user = self.GET_CREDITIALS(data=request.COOKIES, user_type="admin")
-
         path = request.path.split("/")
-
-        if not user: return redirect("/admin/login") if "admin" in path else redirect("/")
-
         full_path = request.path_info
         paths = full_path.split('/')
         length = len(paths)
-        context["page"] = paths[length - 2]
+        page = paths[length - 2]
+
+        if page != "login" and not user: 
+            return redirect("admin_login") if "admin" in path else redirect("/")
+
+        context["page"] = page
 
         return render(request, template, context=context)
 
     def GET_CREDITIALS(self, data, user_type, update=False):
         # return True #? remove this later
         creditials = self.get_safe_creditials(data)
-
-        print(f"data ====> {data}")
-        print(f"creditials ====> {creditials}")
-
         email = creditials.get("email")
         username = creditials.get("username")
         temporary_id = creditials.get("temporary_id")
-
-        print(f"email ===> {email}")
-        print(f"username ===> {username}")
-        print(f"temporary_id ===> {temporary_id}")
 
         return True
 

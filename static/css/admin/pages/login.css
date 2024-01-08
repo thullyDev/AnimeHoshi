@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+:root {
+  --primary-font: "Dosis", sans-serif;
+  --label-font:'Bebas Neue', sans-serif;
+  --primary-color: #fff;
+  --secondary-color: #000;
+  --third-color: #7f009c;
+  --accent-color: #575652;
+  --bg-grad: linear-gradient(45deg, rgba(164,72,185,1) 39%, rgba(230,205,235,1) 100%);
+}
+
 body {
   margin: 0;
 }
@@ -5,14 +17,6 @@ body {
 input, input::placeholder {
   font-size: 15px;
   font-family: var(--primary-font);
-}
-
-:root {
-  --primary-font: "Dosis", sans-serif;
-  --primary-color: #fff;
-  --secondary-color: #000;
-  --third-color: #7f009c;
-  --accent-color: #575652;
 }
 
 button {
@@ -49,28 +53,143 @@ button {
 }
 
 .outer-form-con {
+    position: relative;
     width: 100vw;
     height: 100vh;
-    border: solid red;
     box-sizing: border-box;
 }
 
 .form-con {
+    position: relative;
+    background: var(--bg-grad);
     width: 100%;
     height: 100%;
-    border: solid;
     box-sizing: border-box;
+    overflow-y: hidden;
 }
 
 .normal-logo-con {
   display: none;
 }
 
+.top-form-waves > svg.waves {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
+.waves_animate {
+    top: 0;
+    right: 0;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.bottom-form-waves.waves_animate {
+    bottom: 0;
+    left: 0;
+}
+
+.site-logo-text-con {
+    position: relative;
+    z-index: 1;
+}
+
+.inner-form-con {position: relative;z-index: 1;}
+
 
 /*
 .site-logo.small-logo {
   width: 55px;
 }*/
+
+main.main-content {
+    width: 100%;
+}
+
+.inner-con.inner-main-content {
+    padding: 0;
+}
+
+.bottom-text-con {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    font-family: var(--label-font);
+    margin: 20px 0;
+}
+
+.site-logo-con > .title-con {
+    display: flex;
+    justify-content: center;
+}
+
+.icon-input-con {
+    display: flex;
+    gap: 20px;
+    padding: 0 10px;
+    justify-content: center;
+}
+
+.inner-input-con {
+    width: 100%;
+    position: relative;
+}
+
+label.input-label {
+    top: 15px;
+    left: 5px;
+    position: absolute;
+}
+
+input.icon-input {
+    width: 90%;
+    font-size: 20px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: solid 1px var(--secondary-color);
+}
+
+/* Style the placeholder text when there is content in the input field */
+input.icon-input:not(:placeholder-shown) + label.input-label {
+  color: #555;
+}
+
+/* Style the label when there is content in the input.icon-input field */
+input.icon-input:not(:placeholder-shown) + label.input-label {
+  font-size: 10px;
+  top: 0;
+}
+
+.icon-con {
+    display: flex;
+    align-items: center;
+}
+
+.admin-login-outer-input-con {
+    margin: 21px 0;
+}
+
+button.submit-btn {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--primary-font);
+    background: var(--third-color);
+    padding: 5px 10px;
+    border-radius: .5rem;
+}
+
+.submit-btn-con {
+    display: flex;
+    justify-content: center;
+    margin: 27px 0;
+}
 
 @media screen and (min-width: 480px) {
 }

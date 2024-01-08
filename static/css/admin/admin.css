@@ -1,3 +1,11 @@
+:root {
+  --primary-font: "Dosis", sans-serif;
+  --primary-color: #fff;
+  --secondary-color: #000;
+  --third-color: #7f009c;
+  --accent-color: #575652;
+}
+
 body {
   margin: 0;
 }
@@ -7,13 +15,6 @@ input, input::placeholder {
   font-family: var(--primary-font);
 }
 
-:root {
-  --primary-font: "Dosis", sans-serif;
-  --primary-color: #fff;
-  --secondary-color: #000;
-  --third-color: #7f009c;
-  --accent-color: #575652;
-}
 
 button {
     cursor: pointer;

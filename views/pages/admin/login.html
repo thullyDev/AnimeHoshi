@@ -6,6 +6,9 @@
   <div class="inner-con inner-main-content">
     <div class="outer-form-con">
       <div class="form-con">
+        {% with class="top-form-waves" %}
+          {% include "widgets/waves.html" %}
+        {% endwith %}
         <div class="site-logo-text-con">
           <div class="site-logo-con">
             {% include "widgets/title.html" %}
@@ -17,13 +20,13 @@
         <div class="inner-form-con">
           <form action="post">
             <div class="admin-inputs-con">
-              {% with type="text" label="Email" key="email" icon="fas fa-envelope" %}
+              {% with type="text" label="Email" placeholder=" " key="email" icon="fas fa-envelope" %}
                 <div class="admin-login-outer-input-con">
                   {% include "widgets/icon_input.html" %}
                 </div>
               {% endwith %}
 
-              {% with type="hidden" label="Password" key="password"  icon="fas fa-key" %}
+              {% with type="text" label="Password" placeholder=" " key="password"  icon="fas fa-key" %}
                 <div class="admin-login-outer-input-con">
                   {% include "widgets/icon_input.html" %}
                 </div>
@@ -34,6 +37,9 @@
             </div>
           </form>
         </div>
+        {% with class="bottom-form-waves" %}
+          {% include "widgets/waves.html" %}
+        {% endwith %}
       </div>
     </div>
   </div>

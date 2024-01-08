@@ -1,4 +1,4 @@
-# from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from ..decorators import timing_decorator
 from .base import Base
 from .ajax import AdminAjax
@@ -6,6 +6,9 @@ from .ajax import AdminAjax
 admin_ajax = AdminAjax()
 
 class Admin(Base):
+    def base(self, request):
+        return redirect("admin_login")
+
     @timing_decorator
     def dashboard(self, request):
         analytics_items = [
@@ -371,7 +374,7 @@ class Admin(Base):
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
 
     @timing_decorator
-    def login(self, request):
+    def admin_login(self, request):
         return self.root(request=request, context={}, template="pages/admin/login.html")   
 
 

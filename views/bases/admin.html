@@ -13,10 +13,10 @@
   <link rel="shortcut icon" href="/static/images/favicon.png" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap" rel="stylesheet" />
-  <link href="/static/css/admin/pages/{{page}}.css" rel="stylesheet" />
    {% if page != "login" %} 
    <link href="/static/css/admin/admin.css" rel="stylesheet" />
    {% endif %}
+  <link href="/static/css/admin/pages/{{page}}.css" rel="stylesheet" />
   <script 
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
@@ -35,7 +35,14 @@
 </head> 
 <body>
 	  <div class="page-content">
-        {% if page != "login" %}
+        {% if page == "login" %}
+          <main class="main-content">
+            <div class="core-content">
+              {% block login_main_content %}
+              {% endblock %}
+            </div>
+          </main>
+        {% else %}
           <div class="side-bar-con">
             {% include "sections/admin/admin_menu.html" %}
           </div>
@@ -50,16 +57,6 @@
             </main>
           </div>
           {% include "sections/admin/admin_footer.html" %}
-        {% endif %}
-
-
-        {% if page == "login" %}
-            <main class="main-content">
-              <div class="core-content">
-                {% block login_main_content %}
-                {% endblock %}
-              </div>
-            </main>
         {% endif %}
     </div>
 </body>
