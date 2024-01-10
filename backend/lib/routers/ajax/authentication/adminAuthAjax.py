@@ -12,10 +12,11 @@ class AdminAuthAjax(Base):
     def login(self, request):
         if not request.POST: return redirect("/")
 
-        post_data = request.POST
-        email = post_data.get("email")
-        username = post_data.get("username")
-        password = post_data.get("password")
+        data = self.process_request(request.POST.get("data", "{}"))
+        email = data.get("email")
+        password = data.get("password")
+        
+        return self.successful_response()
 
         if not valid_email(email): 
             return self.bad_request_response(data={
@@ -25,8 +26,7 @@ class AdminAuthAjax(Base):
         if not email and not username: return self.forbidden_response()
 
         temporary_id = generate_unique_id()
-        data = db.get_admin(email=email, temporary_id=temporary_id) if email else db.get_admin(username=username, temporary_id=temporary_id)
-
+        data = db.get_admin(email=email, temporary_id=temporary_id) 
         if not data:
             return self.forbidden_response(data={
                     "message": "this user does not exist"

@@ -8,7 +8,7 @@ admin_ajax = AdminAjax()
 class Admin(Base):
     def base(self, request):
         return redirect("admin_login")
-
+        
     @timing_decorator
     def dashboard(self, request):
         analytics_items = [

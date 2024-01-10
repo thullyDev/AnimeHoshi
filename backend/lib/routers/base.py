@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from ..resources import ROOT_FILE
 from ..database import Database
 from ..handlers import ResponseHandler
+import json
 
 database = Database()
 
@@ -22,6 +23,11 @@ class Base(APIView, ResponseHandler):
         context["page"] = page
 
         return render(request, template, context=context)
+
+    def process_request(self, data):
+        if not data: return {}
+
+        return json.loads(data)
 
     def GET_CREDITIALS(self, data, user_type, update=False):
         # return True #? remove this later
