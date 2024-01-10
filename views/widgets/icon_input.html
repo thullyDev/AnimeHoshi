@@ -3,7 +3,7 @@
         <i class="{{icon}}"></i>
     </div>
     <div class="inner-input-con">
-        <label for="" class="input-label">{{label}}</label>
+        {% if label %} <label for="" class="input-label">{{label}}</label> {% endif %}
         <input type="{{type}}" value="{{value}}" name="{{key}}" placeholder="{{placeholder}}" data-key="{{key}}" class="icon-input">
     </div>
 </div>
