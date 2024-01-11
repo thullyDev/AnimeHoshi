@@ -24,20 +24,24 @@ class AdminAuthAjax(Base):
 
         if not email and not username: return self.forbidden_response()
 
-        temporary_id = generate_unique_id()
-        data = admin_database.get_admin(data={
-            "email": email, 
-            "temporary_id": temporary_id,
-            }) 
+        data = admin_database.get_admin(email) 
+
         if not data:
             return self.forbidden_response(data={
                     "message": "this user does not exist"
                 })
 
+
+        if password != data["password"]:
+            return self.forbidden_response(data={
+                    "message": "not valid password"
+                })
+
         del data["deleted"]
         del data["password"]
 
-        return self.successful_response(data=data, no_cookies=False, cookies={
+        data["temporary_id"] = generate_unique_id()
+        return self.successful_response(data={ "data": data }, cookies=True, cookies_data={
             "email": data["email"],
             "username": data["username"],
             "temporary_id": data["temporary_id"],

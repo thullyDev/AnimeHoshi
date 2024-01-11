@@ -8,10 +8,9 @@ class AdminDatabase(Database):
             cls._instance = super(Database, cls).__new__(cls)
         return cls._instance
 
-    def get_admin(self, data={}):
-        email = self.get_email(data)
+    def get_admin(self, email):
         if not email: return 
-        return self.get(unit="admin", key="email", unique_id=email, data=data)
+        return self.get(unit="admin", key="email", unique_id=email)
         
     def set_admin(self, data):
         return self.set(unit="admin", data=data)
@@ -21,5 +20,5 @@ class AdminDatabase(Database):
         if not email: return 
         return self.update(unit="admin", data=data, unique_id=email, key="email")
 
-    def get_email(self, data)
+    def get_email(self, data):
         return data.get("email")

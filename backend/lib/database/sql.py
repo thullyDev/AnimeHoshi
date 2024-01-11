@@ -52,18 +52,20 @@ class Sql:
 
 	def get_instance(self, unit, unique_id, key=None): 
 		if not key: return None
-		
+
 		model = self.get_valid_model(unit)
 
-		if key == "email":
-			return model.objects.get(email=unique_id)
+		try:
+			if key == "email":
+				return model.objects.get(email=unique_id)
 
-		if key == "temporary_id":
-			return model.objects.get(temporary_id=unique_id)
+			if key == "temporary_id":
+				return model.objects.get(temporary_id=unique_id)
 
-		if key == "username":
-			return model.objects.get(username=unique_id)
-
+			if key == "username":
+				return model.objects.get(username=unique_id)
+		except model.DoesNotExist:
+			return None
 
 		return model.objects.get(id=unique_id)
 

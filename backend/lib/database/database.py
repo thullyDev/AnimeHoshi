@@ -10,13 +10,15 @@ class Database(Cache, Sql):
             cls._instance = super(Database, cls).__new__(cls)
         return cls._instance
 
-    def get(self, unit, data, unique_id, key):
-        cache_data = self.hget(name=f"{unit}_*_{unique_id}")
+    def get(self, unit, unique_id, key):
+        cache_name = f"{unit}_*_{unique_id}"
+        cache_data = self.hget(name=cache_name)
 
         if cache_data:
             return cache_data
 
         sqldata = self.sql_get(unit=unit, key=key, unique_id=unique_id)
+        self.hset(name=cache_name, data=sqldata)
 
         return sqldata
 
