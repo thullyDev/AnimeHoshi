@@ -1,11 +1,12 @@
 from rest_framework.views import APIView
 from django.shortcuts import render, redirect
 from ....resources import valid_email, hide_text, generate_unique_id
-from ....database import Database
+from ....database import AdminDatabase
 from ....handlers import ResponseHandler
 from ....decorators import timing_decorator
 from ...base import Base
 
+admin_database = AdminDatabase()
 
 class AdminAuthAjax(Base):
     @timing_decorator
@@ -16,8 +17,6 @@ class AdminAuthAjax(Base):
         email = data.get("email")
         password = data.get("password")
         
-        return self.successful_response()
-
         if not valid_email(email): 
             return self.bad_request_response(data={
                     "message": "this email is not a valid email"
@@ -26,7 +25,7 @@ class AdminAuthAjax(Base):
         if not email and not username: return self.forbidden_response()
 
         temporary_id = generate_unique_id()
-        data = db.get_admin(email=email, temporary_id=temporary_id) 
+        data = admin_database.get_admin(email=email, temporary_id=temporary_id) 
         if not data:
             return self.forbidden_response(data={
                     "message": "this user does not exist"

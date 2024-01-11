@@ -11,6 +11,7 @@ class Database(Cache, Sql):
         return cls._instance
 
     def get(self, unit, data):
+        print(data)
         uid = self.get_safe_id(data)
         cache_data = self.hget(name=f"{unit}_*_{uid}")
         temporary_id = data.get("temporary_id")

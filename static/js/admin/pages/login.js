@@ -18,7 +18,7 @@ function login() {
 		data[key] = value
 	})
 
-	if (!Object.keys(myDict).length) return 
+	if (!Object.keys(data).length) return 
 
 	$.ajax({
 	    url: "/admin/ajax/post/login/",
