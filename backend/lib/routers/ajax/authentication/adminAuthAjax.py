@@ -25,7 +25,10 @@ class AdminAuthAjax(Base):
         if not email and not username: return self.forbidden_response()
 
         temporary_id = generate_unique_id()
-        data = admin_database.get_admin(email=email, temporary_id=temporary_id) 
+        data = admin_database.get_admin(data={
+            "email": email, 
+            "temporary_id": temporary_id,
+            }) 
         if not data:
             return self.forbidden_response(data={
                     "message": "this user does not exist"

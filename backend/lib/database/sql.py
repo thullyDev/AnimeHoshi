@@ -51,9 +51,9 @@ class Sql:
 		return self.sql_update(unit=unit, data=data, **kwargs)
 
 	def get_instance(self, unit, unique_id, key=None): 
-		model = self.get_valid_model(unit)
-
 		if not key: return None
+		
+		model = self.get_valid_model(unit)
 
 		if key == "email":
 			return model.objects.get(email=unique_id)

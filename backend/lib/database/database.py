@@ -10,37 +10,29 @@ class Database(Cache, Sql):
             cls._instance = super(Database, cls).__new__(cls)
         return cls._instance
 
-    def get(self, unit, data):
-        print(data)
-        uid = self.get_safe_id(data)
-        cache_data = self.hget(name=f"{unit}_*_{uid}")
-        temporary_id = data.get("temporary_id")
+    def get(self, unit, data, unique_id, key):
+        cache_data = self.hget(name=f"{unit}_*_{unique_id}")
 
-        if not temporary_id and cache_data:
+        if cache_data:
             return cache_data
 
-        data = self.sql_get(data)
-        data["temporary_id"] = temporary_id
-        
-        self.sql_update(data)
-        self.hset(name=f"{unit}_*_{uid}", data=data)
+        sqldata = self.sql_get(unit=unit, key=key, unique_id=unique_id)
 
-        return data
+        return sqldata
 
-    def set(self, unit, data):
+    def set(self, unit, data, uid):
         data = self.sql_set(unit, data)
-        uid = data.get("email")
         self.hset(name=f"{unit}_*_{uid}", data=data)
 
         return data
 
-    def update(self, unit, data, **kwargs):
+    def update(self, unit, data, uid, **kwargs):
         data = self.sql_update(unit=unit, data=data, **kwargs)
 
         if not data:
             return data
 
-        uid = data.get("email")
         self.hset(name=f"{unit}_*_{uid}", data=data)
 
         return data
+
