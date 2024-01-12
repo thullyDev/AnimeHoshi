@@ -28,13 +28,13 @@ class Database(Cache, Sql):
 
         return data
 
-    def update(self, unit, data, uid, **kwargs):
-        data = self.sql_update(unit=unit, data=data, **kwargs)
+    def update(self, unit, data, unique_id, key):
+        data = self.sql_update(unit=unit, data=data, key=key, unique_id=unique_id)
 
         if not data:
             return data
 
-        self.hset(name=f"{unit}_*_{uid}", data=data)
+        self.hset(name=f"{unit}_*_{unique_id}", data=data)
 
         return data
 

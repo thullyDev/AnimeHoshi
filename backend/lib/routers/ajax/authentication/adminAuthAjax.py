@@ -41,6 +41,9 @@ class AdminAuthAjax(Base):
         del data["password"]
 
         data["temporary_id"] = generate_unique_id()
+
+        admin_database.update_admin(data=data) 
+
         return self.successful_response(data={ "data": data }, cookies=True, cookies_data={
             "email": data["email"],
             "username": data["username"],

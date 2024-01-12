@@ -17,11 +17,11 @@ class ResponseHandler:
 		response = JsonResponse(data=data, status=status_code, safe=False) 
 
 		if cookies:
-			SIXTY_DAYS = 2_592_000 * 2 #* 30 days * 2 in seconds
+			SIXTY_DAYS = 2_592_000 * 3 #* 30 days (in seconds) * 3
 
 			for key, val in cookies_data.items():
 				response.set_cookie(
-					name=key, 
+					key=key, 
 					value=val, 
 					max_age=SIXTY_DAYS, 
 					secure=True, 

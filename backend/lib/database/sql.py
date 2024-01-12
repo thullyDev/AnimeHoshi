@@ -24,19 +24,14 @@ class Sql:
 		return self.get_instance_as_dict(instance)
 
 	def sql_update(self, unit, data, **kwargs):
-	    instance = None 
-	    
-	    try:
-	    	instance = self.get_instance(unit=unit, **kwargs)
-	    except Exception as e:
-	    	return self.sql_set(unit=unit, data=data)
+		instance = self.get_instance(unit=unit, **kwargs)
 
-	    if not instance: return None
+		if not instance: return self.sql_set(unit=unit, data=data)
 
-	    instance.__dict__.update(data)
-	    instance.save()
+		instance.__dict__.update(data)
+		instance.save()
 
-	    return self.get_instance_as_dict(instance)
+		return self.get_instance_as_dict(instance)
 
 	def sql_delete(self, **kwargs):
 		instance = self.get_instance(unit=unit, **kwargs)
