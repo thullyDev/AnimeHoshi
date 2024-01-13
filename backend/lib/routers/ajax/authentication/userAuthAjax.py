@@ -10,14 +10,14 @@ from ....resources import (
 )
 from ....database import Database
 from ....handlers import ResponseHandler
-from ....decorators import timing_decorator
+from ....decorators import timer
 from ...base import Base
 import yagmail
 
 db = Database()
 
 class UserAuthAjax(Base):
-    @timing_decorator
+    @timer
     def login(self, request):
         if not request.POST: return redirect("/")
 
@@ -54,7 +54,7 @@ class UserAuthAjax(Base):
             "temporary_id": data["temporary_id"],
         })
     
-    @timing_decorator
+    @timer
     def signup(self, request):
         if not request.POST: return redirect("/")
 
@@ -106,7 +106,7 @@ class UserAuthAjax(Base):
                 "data": data,
             })
     
-    @timing_decorator
+    @timer
     def resend_code(self, request):
         if not request.POST: return redirect("/")
         post_data = request.POST
@@ -123,7 +123,7 @@ class UserAuthAjax(Base):
 
         return message
     
-    @timing_decorator
+    @timer
     def verify(self, request):
         if not request.POST: return redirect("/")
         post_data = request.POST
@@ -150,7 +150,7 @@ class UserAuthAjax(Base):
             }
          })
 
-    @timing_decorator
+    @timer
     def forgot_password(self, request):
         if request.POST: return redirect("/")
 
@@ -184,7 +184,7 @@ class UserAuthAjax(Base):
                 "data": data
             })
 
-    @timing_decorator
+    @timer
     def renew_password(self, request):
         if request.POST: return redirect("/")
 

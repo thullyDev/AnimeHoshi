@@ -1,1 +1,2 @@
-from .timingDecorator import timing_decorator
+from .validator import validator
+from .timer import timer

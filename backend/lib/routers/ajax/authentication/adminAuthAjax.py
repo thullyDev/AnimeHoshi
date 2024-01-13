@@ -3,13 +3,13 @@ from django.shortcuts import render, redirect
 from ....resources import valid_email, hide_text, generate_unique_id
 from ....database import AdminDatabase
 from ....handlers import ResponseHandler
-from ....decorators import timing_decorator
+from ....decorators import timer
 from ...base import Base
 
 admin_database = AdminDatabase()
 
 class AdminAuthAjax(Base):
-    @timing_decorator
+    @timer
     def login(self, request):
         if not request.POST: return redirect("/")
 

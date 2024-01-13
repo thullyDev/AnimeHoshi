@@ -1,9 +1,12 @@
+from ..handlers import produce_urlpatterns
 from ..routers import Users
 from django.urls import path
 
 users = Users()
 
-urlpatterns = [
-    path('', users.root),
-    path('home', users.root),
+routes = [
+    {"route": "", "view": users.root},
+    {"route": "home", "view": users.root},
 ]
+
+urlpatterns = produce_urlpatterns(routes)

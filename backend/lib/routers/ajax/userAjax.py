@@ -8,13 +8,13 @@ from ...resources import (
     generate_unique_id,
 )
 from ...database import Database
-from ...decorators import timing_decorator
+from ...decorators import timer
 from ..base import Base
 
 db = Database()
 
 class UserAjax(Base):
-    @timing_decorator
+    @timer
     def get_profile_data(self, request):
         user = GET_CREDITIALS(request.COOKIES)
 
@@ -31,7 +31,7 @@ class UserAjax(Base):
         
         return self.successful_response(data={ "data": data }, cookies=cookies, no_cookies=False)
 
-    @timing_decorator
+    @timer
     def add_watch_list(self, request):
         user = self.GET_CREDITIALS(request.COOKIES, no_update=True)
 
@@ -45,7 +45,7 @@ class UserAjax(Base):
 
         if not slug: return self.bad_request_response(data={ "message": "slug invalid"})
 
-    @timing_decorator
+    @timer
     def add_likes_list(self, request):
         user = self.GET_CREDITIALS(request.COOKIES, no_update=True)
 

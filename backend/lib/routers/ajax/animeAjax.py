@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from django.shortcuts import render, redirect
 from pprint import pprint
 from base64 import b64decode, b64encode
-from ...decorators import timing_decorator
+from ...decorators import timer
 from ...resources import generate_unique_id
 from ...database import Cache
 from ...scraping import TioanimeScraper, LatanimeScraper
@@ -15,7 +15,7 @@ latanime = LatanimeScraper()
 cache = Cache()
 
 class AnimeAjax(Base):
-    @timing_decorator
+    @timer
     def get_home_data(self, request):
         cache_id = "home_data"
         cache_data = cache.hget(name=cache_id)
@@ -76,7 +76,7 @@ class AnimeAjax(Base):
         cache.hset(name=cache_id, data=data)
         return self.successful_response(data={"data": data})
 
-    @timing_decorator
+    @timer
     def tioanime_filter(self, request):
         filter_data = {}
         for key, value in request.GET.items():
@@ -87,7 +87,7 @@ class AnimeAjax(Base):
 
         return self.successful_response(data=data)
 
-    @timing_decorator
+    @timer
     def latanime_filter(self, request):
         filter_data = {}
         for key, value in request.GET.items():
@@ -98,21 +98,21 @@ class AnimeAjax(Base):
 
         return self.successful_response(data=data)
 
-    @timing_decorator
+    @timer
     def tioanime_schedule(self, request):
         rawdata = tioanime.get_schedule()
         data = self.schedule_data_processing(rawdata=rawdata)
 
         return self.successful_response(data={ "data": data })
 
-    @timing_decorator
+    @timer
     def latanime_schedule(self, request):
         rawdata = latanime.get_schedule()
         data = self.schedule_data_processing(rawdata=rawdata, base=latanime.base)
 
         return self.successful_response(data={ "data": data })
 
-    @timing_decorator
+    @timer
     def latanime_search(self, request):
         search_data = {}
         for key, value in request.GET.items():
@@ -123,35 +123,35 @@ class AnimeAjax(Base):
 
         return self.successful_response(data={ "data": data })
 
-    @timing_decorator
+    @timer
     def tioanime_anime(self, request, slug):
         rawdata = tioanime.get_anime(slug=slug)
         data = self.anime_processing(rawdata=rawdata, base=tioanime.base)
 
         return self.successful_response(data={ "data": data })
 
-    @timing_decorator
+    @timer
     def latanime_anime(self, request, slug):
         rawdata = latanime.get_anime(slug=slug)
         data = self.anime_processing(rawdata=rawdata, base=latanime.base)
 
         return self.successful_response(data={ "data": data })
 
-    @timing_decorator
+    @timer
     def latanime_watch(self, request, slug):
         rawdata = latanime.get_episode(slug=slug)
         data = self.watch_processing(rawdata=rawdata, base=latanime.base)
 
         return self.successful_response(data={ "data": data })
 
-    @timing_decorator
+    @timer
     def tioanime_watch(self, request, slug):
         rawdata = tioanime.get_episode(slug=slug)
         data = self.watch_processing(rawdata=rawdata, base=tioanime.base)
 
         return self.successful_response(data={ "data": data })
 
-    @timing_decorator
+    @timer
     def stream(self, request, encrypted_link):
         link = b64decode(encrypted_link.replace("b'", "").replace("'", "")).decode("utf-8")
         site = link.replace("https://", "").split("/")[0]

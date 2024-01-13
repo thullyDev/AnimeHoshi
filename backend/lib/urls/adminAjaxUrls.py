@@ -1,16 +1,27 @@
 from ..routers import AdminAjax, AdminAuthAjax
-from django.urls import path
+from ..handlers import produce_urlpatterns
 
 admin_ajax = AdminAjax()
 admin_auth_ajax = AdminAuthAjax()
 
-urlpatterns = [
-    path("get/create_owner/", admin_ajax.create_owner),
-    path("post/save/", admin_ajax.save_data),
-    path("post/login/", admin_auth_ajax.login),
+routes = [
+    {   
+        "route": "get/create_owner/",
+        "view": admin_ajax.create_owner,
+    },
+    {   
+        "route": "post/save/",
+        "view": admin_ajax.save_data,
+    },
+    {   
+        "route": "post/login/",
+        "view": admin_auth_ajax.login,
+    },
 ]
 
-    # path("get/scripts/", admin_ajax.get_scripts),
-    # path("get/attributes/", admin_ajax.get_attributes),
-    # path("get/values/", admin_ajax.get_values),
-    # path("get/settings/", admin_ajax.get_settings),
+urlpatterns = produce_urlpatterns(routes)
+
+# path("get/scripts/", admin_ajax.get_scripts),
+# path("get/attributes/", admin_ajax.get_attributes),
+# path("get/values/", admin_ajax.get_values),
+# path("get/settings/", admin_ajax.get_settings),

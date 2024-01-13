@@ -1,18 +1,21 @@
+from ..handlers import produce_urlpatterns
 from ..routers import AnimeAjax
 from django.urls import path
 
 anime_ajax = AnimeAjax()
 
-urlpatterns = [
-    path("ajax/get/home/", anime_ajax.get_home_data),
-    path("ajax/get/tioanime/filter/", anime_ajax.tioanime_filter),
-    path("ajax/get/latanime/filter/", anime_ajax.latanime_filter),
-    path("ajax/get/tioanime/schedule/", anime_ajax.tioanime_schedule),
-    path("ajax/get/latanime/schedule/", anime_ajax.latanime_schedule),
-    path("ajax/get/latanime/search/", anime_ajax.latanime_search),
-    path("ajax/get/tioanime/anime/<str:slug>/", anime_ajax.tioanime_anime),
-    path("ajax/get/latanime/anime/<str:slug>/", anime_ajax.latanime_anime),
-    path("ajax/get/tioanime/watch/<str:slug>/", anime_ajax.tioanime_watch),
-    path("ajax/get/latanime/watch/<str:slug>/", anime_ajax.latanime_watch),
-    path("ajax/get/stream/<str:encrypted_link>/", anime_ajax.stream),
+routes = [
+    {"route": "ajax/get/home/", "view": anime_ajax.get_home_data},
+    {"route": "ajax/get/tioanime/filter/", "view": anime_ajax.tioanime_filter},
+    {"route": "ajax/get/latanime/filter/", "view": anime_ajax.latanime_filter},
+    {"route": "ajax/get/tioanime/schedule/", "view": anime_ajax.tioanime_schedule},
+    {"route": "ajax/get/latanime/schedule/", "view": anime_ajax.latanime_schedule},
+    {"route": "ajax/get/latanime/search/", "view": anime_ajax.latanime_search},
+    {"route": "ajax/get/tioanime/anime/<str:slug>/", "view": anime_ajax.tioanime_anime},
+    {"route": "ajax/get/latanime/anime/<str:slug>/", "view": anime_ajax.latanime_anime},
+    {"route": "ajax/get/tioanime/watch/<str:slug>/", "view": anime_ajax.tioanime_watch},
+    {"route": "ajax/get/latanime/watch/<str:slug>/", "view": anime_ajax.latanime_watch},
+    {"route": "ajax/get/stream/<str:encrypted_link>/", "view": anime_ajax.stream},
 ]
+
+urlpatterns = produce_urlpatterns(routes)

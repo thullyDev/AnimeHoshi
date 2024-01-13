@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from ..decorators import timing_decorator
+from ..decorators import validator
 from .base import Base
 from .ajax import AdminAjax
 
@@ -9,7 +9,7 @@ class Admin(Base):
     def base(self, request):
         return redirect("admin_login")
         
-    @timing_decorator
+    @validator
     def dashboard(self, request):
         analytics_items = [
             {"icon": "fas fa-user", "numbers": 0, "label": "Users"},
@@ -186,7 +186,7 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")
 
-    @timing_decorator
+    @validator
     def scripts(self, request):
         head_scripts = [
             {"label": "global_head", "value": ""},
@@ -233,7 +233,7 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/scripts.html")
 
-    @timing_decorator
+    @validator
     def general(self, request):
         images = [
             {"key": "site_logo", "value": "/static/images/site-logo.png"},
@@ -266,7 +266,7 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/general.html")
 
-    @timing_decorator
+    @validator
     def advance(self, request):
         settings = [
             {"key": "maintanence", "value": False},
@@ -292,7 +292,7 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/advance.html")   
 
-    @timing_decorator
+    @validator
     def admins(self, request):
         admins_items = [
                 {
@@ -373,12 +373,12 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
 
-    @timing_decorator
+    @validator
     def admin_login(self, request):
         return self.root(request=request, context={}, template="pages/admin/login.html")   
 
 
-    # @timing_decorator
+    # @validator
     # def get_scripts(self, request):
     #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
@@ -390,7 +390,7 @@ class Admin(Base):
 
     #     return self.successful_response(data={"data": scripts})
 
-    # @timing_decorator
+    # @validator
     # def get_attributes(self, request):
     #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
@@ -402,7 +402,7 @@ class Admin(Base):
 
     #     return self.successful_response(data={"data": attributes})
 
-    # @timing_decorator
+    # @validator
     # def get_values(self, request):
     #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
@@ -414,7 +414,7 @@ class Admin(Base):
 
     #     return self.successful_response(data={"data": values})
 
-    # @timing_decorator
+    # @validator
     # def get_settings(self, request):
     #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
@@ -427,7 +427,7 @@ class Admin(Base):
     #     return self.successful_response(data={"data": settings})
 
 
-    # @timing_decorator
+    # @validator
     # def dashboard(self, request):
     #     user = self.GET_CREDITIALS(request.COOKIES)
 

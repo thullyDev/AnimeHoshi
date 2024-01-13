@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from ...decorators import timing_decorator
+from ...decorators import timer
 from ...database import AdminDatabase
 from ..base import Base
 from ...resources import SITE_KEY 
