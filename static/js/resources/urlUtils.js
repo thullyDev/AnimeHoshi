@@ -1,11 +1,11 @@
-export function getPage() {
+function getPage() {
 	const currentURL = window.location.href;
 	const urlParts = currentURL.split("/");
 
 	return urlParts[urlParts.length - 2];	
 }
 
-export function getCookies() {
+function getCookies() {
     const cookies = document.cookie.split(";");
     const cookiesObject = {};
 
@@ -19,7 +19,7 @@ export function getCookies() {
     return cookiesObject;
 }
 
-// export function getCSRFTokenFromCookies() {
+// function getCSRFTokenFromCookies() {
 //     const cookies = getCookies();
 //     console.log({ cookies })
 //     if ("csrfToken" in cookies) {
@@ -28,11 +28,11 @@ export function getCookies() {
 //     return null;
 // }
 
-export function reloadPage() {
+function reloadPage() {
     window.location.reload();
 }
 
-export function showAlert(message) {
+function showAlert(message) {
     const alertBox = $(".alert-box")
 
     alertBox.fadeIn(function() {

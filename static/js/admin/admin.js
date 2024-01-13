@@ -1,45 +1,52 @@
-import { reloadPage, getPage } from '../resources/urlUtils.js';
+// (function () { 
+// 	$(".save-btn").click(function() {
+// 	  saveSettings()
+// 	});
+// })();
 
-(function () { 
-	$(".save-btn").click(function() {
-	  saveSettings()
-	});
-})();
 
-function saveSettings() {
+function getSettingsInput() {
+  const settingsInput = $(".settings-input")
+  const data = {}
+
+  settingsInput.each((_, ele) => {
+    const thisEle = $(ele)
+    const name = thisEle.data("name")
+    const value = thisEle.val()
+
+    data[name] = value
+  })
+
+  return data
+}
+
+function saveSettings({ data, successCallback, errorCallback }) {
 	const page = getPage()
-	const saveData = {}
-
-	$(".settings-input").each(function() {
-		const thisEle = $(this)
-		const value = thisEle.val()
-		const name = thisEle.data("name")
-		saveData[name] = value
-	})
 
 	$.ajax({
 	    url: "/admin/ajax/post/save_data/",
 	    type: 'POST',
 	    data: {
 	        csrfmiddlewaretoken: csrfToken,
-	        save_data: JSON.stringify(saveData),
-	        save: getSaveType(page),
+	        save_data: JSON.stringify(data),
+	        save: getSaveType(page) || "admins",
 	    },
-	    success: function(response) {
-	        console.log(response);
-	    },
-	    error: function(error) {
-	        console.error('Error:', error);
-	    }
+	    success: successCallback(),
+	    error: errorCallback()
 	});
 }
 
 function getSaveType(page) {
-	if (![ "admins", "advance", "general", "scripts" ].includes(page)) return null
+	const types = {
+		"admins": "admins",
+		"dasboard": "dasboard",
+		"advance": "attributes",
+		"general": "general",
+		"scripts": "scripts",
+	}
 
-	if (page == "advance") return "attributes"
-	if (page == "general") return "values"
-	if (page == "scripts") return "scripts"
-
-	return "admins"
+	return types[page]
 }
+
+
+const saveBtn = $(".save-btn")

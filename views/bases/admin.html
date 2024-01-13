@@ -27,9 +27,10 @@
   <script>
     const csrfToken = "{{csrf_token}}"
   </script>
+  <script defer type="text/javascript" src="/static/js/resources/urlUtils.js"></script>
   <script defer type="text/javascript" src="/static/js/global.js"></script>
-  <script type="module" defer type="text/javascript" src="/static/js/admin/admin.js"></script>
-  <script type="module" defer type="text/javascript" src="/static/js/admin/pages/{{page}}.js"></script>
+  <script defer type="text/javascript" src="/static/js/admin/admin.js"></script>
+  <script defer type="text/javascript" src="/static/js/admin/pages/{{page}}.js"></script>
   <title> {{ page|title }} | Admin Panel </title>
   {% block head_content %}
   {% endblock %}

@@ -25,13 +25,13 @@
         <div class="inner-form-con">
           <form action="post">
             <div class="admin-inputs-con">
-              {% with type="text" placeholder="Email" key="email" icon="fas fa-envelope" %}
+              {% with autocomplete="off" type="text" placeholder="Email" key="email" icon="fas fa-envelope" %}
                 <div class="admin-login-outer-input-con">
                   {% include "widgets/icon_input.html" %}
                 </div>
               {% endwith %}
 
-              {% with type="password" placeholder="Password" key="password"  icon="fas fa-key" %}
+              {% with autocomplete="off" type="password" placeholder="Password" key="password"  icon="fas fa-key" %}
                 <div class="admin-login-outer-input-con">
                   {% include "widgets/icon_input.html" %}
                 </div>

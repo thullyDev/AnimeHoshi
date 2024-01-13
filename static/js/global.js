@@ -12,7 +12,6 @@ function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
 
 function showLoader({ selector=".page-loader" } = {}) {
     const loader = $(selector) 
-
     loader.css("display", "flex").hide().fadeIn()
 }
 
@@ -22,7 +21,6 @@ function closeLoader({ selector=".page-loader" } = {}) {
 }
 
 function redirect({ path=null } = {}) {
-    console.log({ path })
     const location = window.location
     !path ? location.reload() : location.replace(path)
 }
