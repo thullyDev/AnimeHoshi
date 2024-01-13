@@ -11,8 +11,6 @@ function login() {
 		const value = thisEle.val()
 		const key = thisEle.data("key")
 
-		console.log({ key, value })
-
 		if (!value || !["email", "password"].includes(key)) return
 
 		data[key] = value
@@ -27,11 +25,18 @@ function login() {
 	        csrfmiddlewaretoken: csrfToken,
 	        data: JSON.stringify(data),
 	    },
+	    beforeSend: function() {
+	    	// showLoader()
+	    },
 	    success: function(response) {
 	        console.log(response);
+	        const { message } = response
+			// closeLoader()
+			// showAlert(message)
 	    },
 	    error: function(error) {
-	        console.error('Error:', error);
+	    	console.log(error.responseJSON)
+			// closeLoader()
 	    }
 	});
 }

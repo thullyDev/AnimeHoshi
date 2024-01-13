@@ -25,6 +25,8 @@ button {
     border: none;
 }
 
+
+
 .page-content {
   display: flex;
   flex-wrap: wrap;
@@ -44,7 +46,20 @@ button {
     height: 100%;
     z-index: 2;
 }
-
+.alert-box {
+    display: none;
+    position: absolute;
+    background: var(--primary-color);
+    padding: 10px 5px;
+    top: 50px;
+    right: 43%;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: .25rem;
+    box-shadow: 0 0 20px #00000050;
+    color: var(--third-color);
+    z-index: 5;
+}
 .spinner {
     border-color: var(--primary-color) !important;
 }

@@ -44,7 +44,7 @@ class AdminAuthAjax(Base):
 
         admin_database.update_admin(data=data) 
 
-        return self.successful_response(data={ "data": data }, cookies=True, cookies_data={
+        return self.successful_response(data={ "message": "successful login" }, cookies=True, cookies_data={
             "email": data["email"],
             "username": data["username"],
             "temporary_id": data["temporary_id"],

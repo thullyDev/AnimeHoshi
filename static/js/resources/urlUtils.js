@@ -32,3 +32,14 @@ export function reloadPage() {
     window.location.reload();
 }
 
+export function showAlert(message) {
+    const alertBox = $(".alert-box")
+
+    alertBox.fadeIn(function() {
+        $(this).text(message)
+    })
+
+    const timeOut = 1500
+    setTimeout(timeOut, alertBox.fadeOut())
+}
+
