@@ -16,7 +16,10 @@ function login() {
 		data[key] = value
 	})
 
-	if (!Object.keys(data).length) return 
+	if (!Object.keys(data).length) { 
+		showAlert({ message: "inputs are empty" }) 
+		return 
+	} 
 
 	$.ajax({
 	    url: "/admin/ajax/post/login/",
@@ -26,17 +29,18 @@ function login() {
 	        data: JSON.stringify(data),
 	    },
 	    beforeSend: function() {
-	    	// showLoader()
+	    	showLoader()
 	    },
 	    success: function(response) {
-	        console.log(response);
 	        const { message } = response
-			// closeLoader()
-			// showAlert(message)
+			showAlert({ message })
+			closeLoader()
+			redirect({ path: "/admin/dashboard" })
 	    },
 	    error: function(error) {
-	    	console.log(error.responseJSON)
-			// closeLoader()
+	    	const { message } = error.responseJSON
+			showAlert({ message })
+			closeLoader()
 	    }
 	});
 }

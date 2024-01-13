@@ -1,22 +1,28 @@
-function showAlert(message) {
-    const alertBox = $(".alert-box")
+function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
+  const alertBox = $(".alert-box");
 
-    alertBox.fadeIn(function() {
-        $(this).text(message)
-    })
+  alertBox.text(message).fadeIn();
 
-    const timeOut = 1500
-    setTimeout(timeOut, alertBox.fadeOut())
+  setTimeout(() => {
+    alertBox.fadeOut(() => {
+      alertBox.text("");
+    });
+  }, timeOut);
 }
 
-function showLoader({ selector }) {
-    const loader = !selector ? $(".alert-box") : $(selector) 
+function showLoader({ selector=".page-loader" } = {}) {
+    const loader = $(selector) 
 
     loader.css("display", "flex").hide().fadeIn()
 }
 
-function closeLoader({ selector }) {
-    const loader = !selector ? $(".alert-box") : $(selector) 
+function closeLoader({ selector=".page-loader" } = {}) {
+    const loader = $(selector) 
     loader.fadeOut()
 }
 
+function redirect({ path=null } = {}) {
+    console.log({ path })
+    const location = window.location
+    !path ? location.reload() : location.replace(path)
+}
