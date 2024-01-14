@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from ..decorators import adminValidator, timer
 from ..handlers import SiteHandler
+from ..scraping import TioanimeScraper, LatanimeScraper
 from ..database import AdminDatabase
 from .base import Base
 from .ajax import AdminAjax
@@ -8,6 +9,8 @@ from .ajax import AdminAjax
 admin_ajax = AdminAjax()
 site = SiteHandler()
 admin_database = AdminDatabase()
+tioanime = TioanimeScraper()
+latanime = LatanimeScraper()
 
 class Admin(Base):
     @timer
@@ -24,6 +27,8 @@ class Admin(Base):
         users = admin_database.get_users()
         views = 0 # get_site_views() use a analytics like google analytics to get the views
         scripts = len(site_data.get("scripts", ""))
+        tioanimes = tioanime.get_filter(data={ "page": 1 })
+        latanimes = latanime.get_filter(data={ "page": 1 })
 
         # weird side affect is adding 6 empty admins, they're safe tho
         # analytics = {
@@ -45,13 +50,17 @@ class Admin(Base):
         user_page = 1
         user_amount_pages = 100
 
-        set_context(context=context, data={
+        self.set_context(context=context, data={
             "analytics": analytics,
             "users": users,
             # "animes": animes,
-            "pages": {
-                "user_page": user_page,
-                "user_amount_pages": user_amount_pages,
+            "animes_pages": {
+                "page": user_page,
+                "pages": user_amount_pages,
+            },
+            "users_pages": {
+                "page": user_page,
+                "pages": user_amount_pages,
             }
         })
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")
@@ -63,7 +72,7 @@ class Admin(Base):
         foot_scripts = scripts["foot_scripts"]
         ads_scripts = scripts["ads_scripts"]
 
-        set_context(context=context, data={
+        self.set_context(context=context, data={
             "head_scripts": head_scripts,
             "foot_scripts": foot_scripts,
             "ads_scripts": ads_scripts,
@@ -77,7 +86,7 @@ class Admin(Base):
         inputs = values["inputs"]
         socials = values["socials"]
 
-        set_context(context=context, data={
+        self.set_context(context=context, data={
             "images": images,
             "inputs": inputs,
             "socials": socials,
@@ -87,7 +96,7 @@ class Admin(Base):
     @adminValidator
     def advance(self, request, site_data, context):
         settings = site_data["settings"]
-        set_context(context=context, data={
+        self.set_context(context=context, data={
             "settings": settings,
         })
         return self.root(request=request, context=context, template="pages/admin/advance.html")   
@@ -95,7 +104,7 @@ class Admin(Base):
     @adminValidator
     def admins(self, request, site_data, context):
         admins = admin_database.get_admins()
-        set_context(context=context, data={
+        self.set_context(context=context, data={
             "admins": admins,
             "admins_count": len(admins),
         })

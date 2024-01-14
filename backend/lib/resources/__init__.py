@@ -19,7 +19,7 @@ from .configs import (
 	SITE_EMAIL_PASS,
 	SITE_KEY,
 )
-from .functions import (
+from .misc import (
 	valid_email,
 	hide_text,
 	generate_random_code,

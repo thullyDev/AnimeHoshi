@@ -10,15 +10,11 @@ database = Database()
 
 class Base(APIView, ResponseHandler):
     def root(self, request, context={}, template=ROOT_FILE): 
-        user = self.GET_CREDITIALS(data=request.COOKIES, user_type="admin")
         path = request.path.split("/")
         full_path = request.path_info
         paths = full_path.split('/')
         length = len(paths)
         page = paths[length - 2]
-
-        if page != "login" and not user: 
-            return redirect("admin_login") if "admin" in path else redirect("/")
 
         context["page"] = page
 
@@ -54,7 +50,7 @@ class Base(APIView, ResponseHandler):
     #     if not is_valid: return None
         
     #     new_temporary_id = generate_unique_id()
-    #     email = user.get("email")kj
+    #     email = user.get("email")
 
     #     # if update:  
     #     #     print(f"update ===> {update}")

@@ -1,5 +1,4 @@
 {% load filters %}
-
-{% with table_heads="['Poster', 'Title', 'Status', '']"|safe_list table_items=items pages=pages widget="animes" %}
+{% with table_heads="['Poster', 'Title', 'Status', '']"|safe_list table_items=items pages=animes_pages.pages page=animes_pages.page widget="animes" %}
   {% include 'pages/admin/widgets/analytics_table.html' %}
 {% endwith %}

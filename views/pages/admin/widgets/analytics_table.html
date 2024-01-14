@@ -76,34 +76,34 @@
     </div>
   </div>
   <div class="tabel-pagination">
-    {% with table_heads=users_heads amount_pages=pages.amount_pages page=pages.page %}
-      <ul>
-        {% if amount_pages > 6 %}
-          {% for i in 5|times %}
-            <li class="pages-ticks">
-              <button data-page="{{ i }}" class="pagination-btn page-btn">
-                {{ i }}
-              </button>
-            </li>
-          {% endfor %}
-            <li class="pages-ticks">
-              <i class="fas fa-ellipsis-h"></i>
-            </li>
-        {% else %}
-          {% for i in amount_pages|times %}
-            <li class="pages-ticks">
-              <button data-page="{{ i }}" class="pagination-btn page-btn">
-                {{ i }}
-              </button>
-            </li>
-          {% endfor %}
-        {% endif %}
-        <li class="pages-ticks">
-          <button data-page="{{ amount_pages }}" class="pagination-btn page-btn">
-            {{ amount_pages }}
-          </button>
-        </li>
-      </ul>
-    {% endwith %}
-  </div>
+    {% with table_heads=users_heads %}
+    <ul>
+      {% if pages > 6 %}
+        {% for i in 5|times %}
+          <li class="pages-ticks">
+            <button data-page="{{ i }}" class="paginatiokn-btn page-btn">
+              {{ i }}
+            </button>
+          </li>
+        {% endfor %}
+          <li class="pages-ticks">
+            <i class="fas fa-ellipsis-h"></i>
+          </li>
+      {% else %}
+        {% for i in pages|times %}
+          <li class="pages-ticks">
+            <button data-page="{{ i }}" class="pagination-btn page-btn">
+              {{ i }}
+            </button>
+          </li>
+        {% endfor %}
+      {% endif %}
+      <li class="pages-ticks">
+        <button data-page="{{ pages }}" class="pagination-btn page-btn">
+          {{ pages }}
+        </button>
+      </li>
+    </ul>
+  {% endwith %}
+</div>
 </div>

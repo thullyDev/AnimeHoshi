@@ -12,7 +12,7 @@
       {% endfor %}
     </div>
     <div class="tables-con">
-      {% with items=users pages=pages %}
+      {% with items=users pages=user_amount_pages amount_pages=user_amount_pages %}
         {% include 'pages/admin/widgets/analytics_users_table.html' %}
       {% endwith %}
       {% with items=animes pages=0 %}

@@ -22,7 +22,7 @@ def adminValidator(request_func):
 
         set_cookies(response=response,
             key="temporary_id", 
-            value=temporary_id, 
+            value=admin["temporary_id"], 
             age=SIXTY_DAYS, 
         )
 
@@ -49,11 +49,11 @@ def get_admin(request):
     if admin == None:
         return 
 
-    if temporary_id != admin["temporary_id"]:
-        return 
+    # if temporary_id != admin["temporary_id"]:
+    #     return 
 
     admin = database.update_admin(data={ "email": email, "temporary_id": generate_unique_id() })
 
-    del admim["password"]
+    del admin["password"]
 
     return admin
