@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from ..resources import generate_unique_id
+from ..handlers import SiteHandler
 from ..database import AdminDatabase
 from ..handlers import set_cookies
 import time
 
+site = SiteHandler()
 database = AdminDatabase()
 
 def adminValidator(request_func):
@@ -15,7 +17,7 @@ def adminValidator(request_func):
         if not admin:
             return redirect("admin_login")
 
-        response = request_func(request_obj, context={ "admin": admin }, *args, **kwargs)
+        response = request_func(request_obj, site_data=site.get_site_data(), context={ "admin": admin }, *args, **kwargs)
         SIXTY_DAYS = 2_592_000 * 2  #* 30 days (in seconds) * 2 = 60 days
 
         set_cookies(response=response,

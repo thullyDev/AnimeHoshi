@@ -14,7 +14,11 @@ class SiteHandler:
             old_data[key] = value
 
     def get_site_data(self): 
-        return database.hget("site_data", {})
+        site_data = database.hget("site_data", {})
+        if site_data:
+            return site_data
+
+        return self.set_default_site_data()
 
     def get_save_to_data(self, name):
         site_data = self.get_site_data()
@@ -28,8 +32,6 @@ class SiteHandler:
         return len(site_data.get(amount_type, ""))
 
 
-    # def reset(self)
-    
     def set_default_site_data(self):
         site_data = self.get_default_site_data()
         database.hset(name="site_data", data=site_data, expiry=False)

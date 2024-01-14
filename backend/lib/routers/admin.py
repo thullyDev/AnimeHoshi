@@ -19,11 +19,11 @@ class Admin(Base):
         return self.root(request=request, context={}, template="pages/admin/login.html")   
    
     @adminValidator
-    def dashboard(self, request, context):
+    def dashboard(self, request, site_data, context):
         admins = admin_database.get_admins()
         users = admin_database.get_users()
         views = 0 # get_site_views() use a analytics like google analytics to get the views
-        scripts = site.get_amount("scripts")
+        scripts = len(site_data.get("scripts", ""))
 
         # weird side affect is adding 6 empty admins, they're safe tho
         # analytics = {
@@ -57,7 +57,12 @@ class Admin(Base):
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")
 
     @adminValidator
-    def scripts(self, request, context):
+    def scripts(self, request, site_data, context):
+        scripts = site_data["scripts"]
+        head_scripts = scripts["head_scripts"]
+        foot_scripts = scripts["foot_scripts"]
+        ads_scripts = scripts["ads_scripts"]
+        
         set_context(context=context, data={
             "head_scripts": head_scripts,
             "foot_scripts": foot_scripts,
@@ -66,7 +71,7 @@ class Admin(Base):
         return self.root(request=request, context=context, template="pages/admin/scripts.html")
 
     @adminValidator
-    def general(self, request, context):
+    def general(self, request, site_data, context):
         # values
 
         set_context(context=context, data={
@@ -77,8 +82,8 @@ class Admin(Base):
         return self.root(request=request, context=context, template="pages/admin/general.html")
 
     @adminValidator
-    def advance(self, request, context):
-        settings = 
+    def advance(self, request, site_data, context):
+        settings = self.get_site_data()
 
         set_context(context=context, data={
             "settings": settings,
@@ -86,7 +91,7 @@ class Admin(Base):
         return self.root(request=request, context=context, template="pages/admin/advance.html")   
 
     @adminValidator
-    def admins(self, request, context):
+    def admins(self, request, site_data, context):
         set_context(context=context, data={
             "admins_items": admins_items,
             "admins_count": len(admins_items),
