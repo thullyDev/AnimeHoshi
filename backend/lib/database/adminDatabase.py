@@ -22,3 +22,6 @@ class AdminDatabase(Database):
 
     def get_email(self, data):
         return data.get("email")
+
+    def get_admins(self):
+        return self.get_all(unit="admin")

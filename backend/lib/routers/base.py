@@ -29,38 +29,42 @@ class Base(APIView, ResponseHandler):
 
         return json.loads(data)
 
-    def GET_CREDITIALS(self, data, user_type, update=False):
-        # return True #? remove this later
-        creditials = self.get_safe_creditials(data)
-        email = creditials.get("email")
-        username = creditials.get("username")
-        temporary_id = creditials.get("temporary_id")
+    def set_context(self, data, context):
+        for key, value in data.items():
+            context[key] = value
 
-        return True
+    # def GET_CREDITIALS(self, data, user_type, update=False):
+    #     # return True #? remove this later
+    #     creditials = self.get_safe_creditials(data)
+    #     email = creditials.get("email")
+    #     username = creditials.get("username")
+    #     temporary_id = creditials.get("temporary_id")
 
-        if (not email and not username) or not temporary_id: 
-            return None
+    #     return True
 
-        user = database.get_user(email=email, username=username) if user_type == 'user' else database.get_admin(email=email, username=username) 
+    #     if (not email and not username) or not temporary_id: 
+    #         return None
 
-        if not user: return None
+    #     user = database.get_user(email=email, username=username) if user_type == 'user' else database.get_admin(email=email, username=username) 
 
-        is_valid = self.is_valid_temporary_id(old_temporary_id=user.get("temporary_id"), temporary_id=temporary_id)
+    #     if not user: return None
 
-        if not is_valid: return None
+    #     is_valid = self.is_valid_temporary_id(old_temporary_id=user.get("temporary_id"), temporary_id=temporary_id)
+
+    #     if not is_valid: return None
         
-        new_temporary_id = generate_unique_id()
-        email = user.get("email")
+    #     new_temporary_id = generate_unique_id()
+    #     email = user.get("email")kj
 
-        # if update:  
-        #     print(f"update ===> {update}")
-        #     print(f"user_type ===> {user_type}")
-        #     if user_type == 'user': database.update_user(email=email, temporary_id=new_temporary_id)
-        #     else: database.update_admin(email=email, temporary_id=new_temporary_id)
+    #     # if update:  
+    #     #     print(f"update ===> {update}")
+    #     #     print(f"user_type ===> {user_type}")
+    #     #     if user_type == 'user': database.update_user(email=email, temporary_id=new_temporary_id)
+    #     #     else: database.update_admin(email=email, temporary_id=new_temporary_id)
 
-        # user["temporary_id"] = new_temporary_id
+    #     # user["temporary_id"] = new_temporary_id
 
-        return user
+    #     return user
 
     def get_safe_creditials(self, data):
         return { key: value for key, value in data.items() if key in { "username", "email", "temporary_id" } }

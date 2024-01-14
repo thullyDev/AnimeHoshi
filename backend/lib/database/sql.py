@@ -75,4 +75,6 @@ class Sql:
 	def get_instance_as_dict(self, instance):
 		return model_to_dict(instance)
 
-	
+	def sql_get_all(self, unit):
+		model = self.get_valid_model(unit)
+		return list(model.objects.values())

@@ -1,9 +1,13 @@
 from django.shortcuts import redirect
 from ..decorators import adminValidator, timer
+from ..handlers import SiteHandler
+from ..database import AdminDatabase
 from .base import Base
 from .ajax import AdminAjax
 
 admin_ajax = AdminAjax()
+site = SiteHandler()
+admin_database = AdminDatabase()
 
 class Admin(Base):
     @timer
@@ -15,14 +19,23 @@ class Admin(Base):
         return self.root(request=request, context={}, template="pages/admin/login.html")   
    
     @adminValidator
-    def dashboard(self, request):
-        analytics_items = [
-            {"icon": "fas fa-user", "numbers": 0, "label": "Users"},
-            {"icon": "fas fa-user-cog", "numbers": 0, "label": "Admins"},
-            {"icon": "fas fa-eye", "numbers": 0, "label": "Weekly Views"},
-            {"icon": "fas fa-code", "numbers": 0, "label": "Scripts"},
-        ]
-        users_items = [
+    def dashboard(self, request, context):
+        # analytics = [
+        #     {"icon": "fas fa-user", "numbers": 0, "label": "Users"},
+        #     {"icon": "fas fa-user-cog", "numbers": 0, "label": "Admins"},
+        #     {"icon": "fas fa-eye", "numbers": 0, "label": "Weekly Views"},
+        #     {"icon": "fas fa-code", "numbers": 0, "label": "Scripts"},
+        # ]
+        admins = admin_database.get_admins()
+        users = admin_database.get_users()
+
+        analytics = {
+            "users": 0,
+            "admins": 0,
+            "views": 0,
+            "scripts": 0,
+        }
+        users = [
             {
                 "id": 0,
                 "username": "animeGirl",
@@ -105,7 +118,7 @@ class Admin(Base):
             },
         ]
 
-        animes_items = [
+        animes = [
             {
                 "id": 0,
                 "title": "Sousou no Frieren",
@@ -180,66 +193,66 @@ class Admin(Base):
         page = 1
         amount_pages = 100
 
-        context = {
-            "analytics_items": analytics_items,
-            "users_items": users_items,
-            "animes_items": animes_items,
+        set_context(context=context, data={
+            "analytics": analytics,
+            "users": users,
+            "animes": animes,
             "pages": {
                 "page": page,
                 "amount_pages": amount_pages,
             }
-        }
+        })
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")
 
     @adminValidator
-    def scripts(self, request):
+    def scripts(self, request, context):
         head_scripts = [
-            {"label": "global_head", "value": ""},
-            {"label": "home_head", "value": ""},
-            {"label": "landing_head", "value": ""},
-            {"label": "filter_head", "value": ""},
-            {"label": "profile_head", "value": ""},
-            {"label": "anime_head", "value": ""},
-            {"label": "watch_head", "value": ""},
-            {"label": "watch_together_browsing_head", "value": ""},
-            {"label": "watch_together_anime_head", "value": ""},
+            {"name": "global_head", "value": ""},
+            {"name": "home_head", "value": ""},
+            {"name": "landing_head", "value": ""},
+            {"name": "filter_head", "value": ""},
+            {"name": "profile_head", "value": ""},
+            {"name": "anime_head", "value": ""},
+            {"name": "watch_head", "value": ""},
+            {"name": "watch_together_browsing_head", "value": ""},
+            {"name": "watch_together_anime_head", "value": ""},
         ]
 
         foot_scripts = [
-            {"label": "global_foot", "value": ""},
-            {"label": "home_foot", "value": ""},
-            {"label": "landing_foot", "value": ""},
-            {"label": "filter_foot", "value": ""},
-            {"label": "profile_foot", "value": ""},
-            {"label": "anime_foot", "value": ""},
-            {"label": "watch_foot", "value": ""},
-            {"label": "watch_together_browsing_foot", "value": ""},
-            {"label": "watch_together_anime_foot", "value": ""},
+            {"name": "global_foot", "value": ""},
+            {"name": "home_foot", "value": ""},
+            {"name": "landing_foot", "value": ""},
+            {"name": "filter_foot", "value": ""},
+            {"name": "profile_foot", "value": ""},
+            {"name": "anime_foot", "value": ""},
+            {"name": "watch_foot", "value": ""},
+            {"name": "watch_together_browsing_foot", "value": ""},
+            {"name": "watch_together_anime_foot", "value": ""},
         ]
 
         ads_scripts = {
             "global": [
-                {"label": "top_advertisement", "value": "", "height": ""},
-                {"label": "bottom_advertisement", "value": "", "height": ""},
+                {"name": "top_advertisement", "value": "", "height": ""},
+                {"name": "bottom_advertisement", "value": "", "height": ""},
             ],
             "landing": [
-                {"label": "middle_advertisement", "value": "", "height": ""},
+                {"name": "middle_advertisement", "value": "", "height": ""},
             ],
             "watch": [
-                {"label": "under_player_advertisement", "value": "", "height": ""},
-                {"label": "under_suggestions_advertisement", "value": "", "height": ""},
+                {"name": "under_player_advertisement", "value": "", "height": ""},
+                {"name": "under_suggestions_advertisement", "value": "", "height": ""},
             ],
         }
 
-        context = {
+        set_context(context=context, data={
             "head_scripts": head_scripts,
             "foot_scripts": foot_scripts,
             "ads_scripts": ads_scripts,
-        }
+        })
         return self.root(request=request, context=context, template="pages/admin/scripts.html")
 
     @adminValidator
-    def general(self, request):
+    def general(self, request, context):
         images = [
             {"key": "site_logo", "value": "/static/images/site-logo.png"},
             {"key": "favicon_logo", "value": "/static/images/favicon.png"},
@@ -264,15 +277,16 @@ class Admin(Base):
             {"value": "https://reddit.com/", "key": "reddit"},
             {"value": "https://ko-fi.com/", "key": "donate"},
         ]
-        context = {
+
+        set_context(context=context, data={
             "images": images,
             "inputs": inputs,
             "socials": socials,
-        }
+        })
         return self.root(request=request, context=context, template="pages/admin/general.html")
 
     @adminValidator
-    def advance(self, request):
+    def advance(self, request, context):
         settings = [
             {"key": "maintanence", "value": False},
             {"key": "adblocker_detection", "value": True},
@@ -292,13 +306,13 @@ class Admin(Base):
             {"key": "dark_mode", "value": True},
         ]
 
-        context = {
+        set_context(context=context, data={
             "settings": settings,
-        }
+        })
         return self.root(request=request, context=context, template="pages/admin/advance.html")   
 
     @adminValidator
-    def admins(self, request):
+    def admins(self, request, context):
         admins_items = [
                 {
                     'id': 0,
@@ -372,10 +386,10 @@ class Admin(Base):
                 },
             ]
 
-        context = {
+        set_context(context=context, data={
             "admins_items": admins_items,
             "admins_count": len(admins_items),
-        }
+        })
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
 
 

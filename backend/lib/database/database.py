@@ -38,3 +38,7 @@ class Database(Cache, Sql):
 
         return data
 
+    def get_all(self, unit):
+        return self.sql_get_all(unit=unit)
+
+

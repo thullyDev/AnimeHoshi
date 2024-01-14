@@ -10,12 +10,12 @@ def adminValidator(request_func):
     def wrapper(request_obj, *args, **kwargs):
         start_time = time.time()
         request = args[0]
-        temporary_id = validating(request)
+        admin = get_admin(request)
 
-        if not temporary_id:
+        if not admin:
             return redirect("admin_login")
 
-        response = request_func(request_obj, *args, **kwargs)
+        response = request_func(request_obj, context={ "admin": admin }, *args, **kwargs)
         SIXTY_DAYS = 2_592_000 * 2  #* 30 days (in seconds) * 2 = 60 days
 
         set_cookies(response=response,
@@ -33,7 +33,7 @@ def adminValidator(request_func):
 
     return wrapper
 
-def validating(request):
+def get_admin(request):
     cookies = request.COOKIES
     email = cookies.get('email')
     username = cookies.get('username')
@@ -50,7 +50,8 @@ def validating(request):
     if temporary_id != admin["temporary_id"]:
         return 
 
-    temporary_id = generate_unique_id()
-    database.update_admin(data={ "email": email, "temporary_id": temporary_id })
+    admin = database.update_admin(data={ "email": email, "temporary_id": generate_unique_id() })
 
-    return temporary_id
+    del admim["password"]
+
+    return admin
