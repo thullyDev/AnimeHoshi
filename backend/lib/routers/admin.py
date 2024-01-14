@@ -20,186 +20,38 @@ class Admin(Base):
    
     @adminValidator
     def dashboard(self, request, context):
-        # analytics = [
-        #     {"icon": "fas fa-user", "numbers": 0, "label": "Users"},
-        #     {"icon": "fas fa-user-cog", "numbers": 0, "label": "Admins"},
-        #     {"icon": "fas fa-eye", "numbers": 0, "label": "Weekly Views"},
-        #     {"icon": "fas fa-code", "numbers": 0, "label": "Scripts"},
-        # ]
         admins = admin_database.get_admins()
         users = admin_database.get_users()
+        views = 0 # get_site_views() use a analytics like google analytics to get the views
+        scripts = site.get_amount("scripts")
 
-        analytics = {
-            "users": 0,
-            "admins": 0,
-            "views": 0,
-            "scripts": 0,
-        }
-        users = [
-            {
-                "id": 0,
-                "username": "animeGirl",
-                "email": "animegirl@gmail.com",
-                "profile_image": "https://i.pinimg.com/564x/07/d4/34/07d434bcb00e39c8e8d25df1cc89a333.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
-            {
-                "id": 1,
-                "username": "animeBoy",
-                "email": "animeBoy@gmail.com",
-                "profile_image": "https://i.pinimg.com/236x/ef/e9/73/efe97322d26afdbb85e03c52b1db7c10.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
-            {
-                "id": 2,
-                "username": "Megumi",
-                "email": "megumi@gmail.com",
-                "profile_image": "https://i.pinimg.com/736x/02/05/28/020528711a47abd638ed5ee670cc4705.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
-            {
-                "id": 3,
-                "username": "Gojo",
-                "email": "gojo@gmail.com",
-                "profile_image": "https://i.pinimg.com/736x/50/c4/bd/50c4bdba9bbe22a46733edbdb55b65a2.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
-            {
-                "id": 4,
-                "username": "Kenji",
-                "email": "kenji@gmail.com",
-                "profile_image": "https://i.pinimg.com/236x/85/42/bb/8542bb42f5e7369e953049fa14ba5170.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
-            {
-                "id": 5,
-                "username": "sky",
-                "email": "sky@gmail.com",
-                "profile_image": "https://i.pinimg.com/236x/1d/da/d3/1ddad3615c85b90dccd31c2b5fbcb5a1.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
-            {
-                "id": 6,
-                "username": "vi",
-                "email": "viCatlin@gmail.com",
-                "profile_image": "https://i.pinimg.com/236x/e5/60/0e/e5600eac05e07ae2e74492d5060130f0.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
-            {
-                "id": 7,
-                "username": "jayce",
-                "email": "jayce@gmail.com",
-                "profile_image": "https://i.pinimg.com/236x/61/b9/59/61b9595898d45dd9e20261a5864455c6.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
-            {
-                "id": 8,
-                "username": "jinx",
-                "email": "jinx@gmail.com",
-                "profile_image": "https://i.pinimg.com/236x/7b/48/e1/7b48e1b4561ab7962b582ca20f78e914.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
-            {
-                "id": 9,
-                "username": "nightGirl",
-                "email": "nightGirl@gmail.com",
-                "profile_image": "https://i.pinimg.com/236x/79/94/e7/7994e7bfaa011c4c4d0675e09cea4d3a.jpg",
-                "deleted": False,
-                "disabled": False,
-            },
+        # weird side affect is adding 6 empty admins, they're safe tho
+        # analytics = {
+        #     "users": len(users) - 6,
+        #     "admins": len(admins) - 6, 
+        #     "views": views,
+        #     "scripts": scripts,
+        # }
+
+        # do proper analytical_cards rendering, hope you understand
+        analytics = [
+            {"icon": "fas fa-user", "numbers": len(users) - 6, "label": "Users"},
+            {"icon": "fas fa-user-cog", "numbers": len(admins) - 6, "label": "Admins"},
+            {"icon": "fas fa-eye", "numbers": views, "label": "Weekly Views"},
+            {"icon": "fas fa-code", "numbers": scripts, "label": "Scripts"},
         ]
 
-        animes = [
-            {
-                "id": 0,
-                "title": "Sousou no Frieren",
-                "slug": "sousou-no-frieren",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-            {
-                "id": 1,
-                "title": "Sousou no Frieren 2",
-                "slug": "sousou-no-frieren-2",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-            {
-                "id": 2,
-                "title": "Sousou no Frieren 3",
-                "slug": "sousou-no-frieren-3",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-            {
-                "id": 3,
-                "title": "Sousou no Frieren 4",
-                "slug": "sousou-no-frieren-4",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-            {
-                "id": 4,
-                "title": "Sousou no Frieren 5",
-                "slug": "sousou-no-frieren-5",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-            {
-                "id": 5,
-                "title": "Sousou no Frieren 6",
-                "slug": "sousou-no-frieren-6",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-            {
-                "id": 6,
-                "title": "Sousou no Frieren 7",
-                "slug": "sousou-no-frieren-7",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-            {
-                "id": 7,
-                "title": "Sousou no Frieren 8",
-                "slug": "sousou-no-frieren-8",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-            {
-                "id": 8,
-                "title": "Sousou no Frieren 9",
-                "slug": "sousou-no-frieren-9",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-            {
-                "id": 9,
-                "title": "Sousou no Frieren 10",
-                "slug": "sousou-no-frieren-10",
-                "poster_url": "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
-                "disabled": False,
-            },
-        ]
-        page = 1
-        amount_pages = 100
+        # do proper pagination here
+        user_page = 1
+        user_amount_pages = 100
 
         set_context(context=context, data={
             "analytics": analytics,
             "users": users,
-            "animes": animes,
+            # "animes": animes,
             "pages": {
-                "page": page,
-                "amount_pages": amount_pages,
+                "user_page": user_page,
+                "user_amount_pages": user_amount_pages,
             }
         })
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")

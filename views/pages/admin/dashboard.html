@@ -5,17 +5,17 @@
 {% block main_content %}
   <div class="inner-con inner-main-content">
     <div class="cards-con">
-      {% for item in analytics_items %}
+      {% for item in analytics %}
         {% with icon=item.icon label=item.label numbers=item.numbers %}
           {% include 'pages/admin/widgets/analytics_card.html' %}
         {% endwith %}
       {% endfor %}
     </div>
     <div class="tables-con">
-      {% with items=users_items pages=pages %}
+      {% with items=users pages=pages %}
         {% include 'pages/admin/widgets/analytics_users_table.html' %}
       {% endwith %}
-      {% with items=animes_items pages=pages %}
+      {% with items=animes pages=0 %}
         {% include 'pages/admin/widgets/analytics_animes_table.html' %}
       {% endwith %}
     </div>

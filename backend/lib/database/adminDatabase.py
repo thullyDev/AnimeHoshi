@@ -25,3 +25,16 @@ class AdminDatabase(Database):
 
     def get_admins(self):
         return self.get_all(unit="admin")
+
+    def get_users(self):
+        return self.get_all(unit="users")
+
+    def get_amount(self, model):
+        # weird side affect is adding 6 empty admins, they're safe tho
+        if model == "admins":
+            return len(self.get_admins()) - 6
+
+        if model == "users":
+            return len(self.get_users()) - 6
+
+        return 0
