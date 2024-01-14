@@ -1,4 +1,4 @@
-from ...database import Database
+from ..database import Database
 
 database = Database()
 
@@ -25,7 +25,7 @@ class SiteHandler:
         return site_data.get(name, {})
 
     def get_amount(self, amount_type):
-        if amount_type not { "settings", "values", "attributes", "scripts" }:
+        if amount_type not in { "settings", "values", "attributes", "scripts" }:
             raise ValueError(f"Invalid value for amount_type: {amount_type}. It must be one of 'settings', 'values', 'attributes', or 'scripts'") 
 
         site_data = self.get_site_data()
@@ -100,7 +100,7 @@ class SiteHandler:
                     {"value": "https://reddit.com/", "key": "reddit"},
                     {"value": "https://ko-fi.com/", "key": "donate"},
                 ],
-            }
+            },
             "settings": [
                 {"key": "maintanence", "value": False},
                 {"key": "adblocker_detection", "value": True},
@@ -118,6 +118,6 @@ class SiteHandler:
                 {"key": "socials", "value": True},
                 {"key": "contact", "value": True},
                 {"key": "dark_mode", "value": True},
-            ]
+            ],
         }
 
