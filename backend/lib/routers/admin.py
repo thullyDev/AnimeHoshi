@@ -86,7 +86,7 @@ class Admin(Base):
 
     @adminValidator
     def advance(self, request, site_data, context):
-
+        settings = site_data["settings"]
         set_context(context=context, data={
             "settings": settings,
         })
