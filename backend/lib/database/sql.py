@@ -1,5 +1,6 @@
 from ...models import User as user, Admin as admin
 from django.forms.models import model_to_dict
+from django.db import IntegrityError
 from ..resources import ( 
 	generate_unique_id, 
 	NOT_FOUND,

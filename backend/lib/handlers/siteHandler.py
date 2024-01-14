@@ -1,6 +1,5 @@
 from ...database import Database
 
-
 database = Database()
 
 class SiteHandler:
@@ -20,3 +19,10 @@ class SiteHandler:
     def get_save_to_data(self, name):
         site_data = self.get_site_data()
         return site_data.get(name, {})
+
+    def get_amount(self, amount_type):
+        if amount_type not { "settings", "values", "attributes", "scripts" }:
+            raise ValueError(f"Invalid value for amount_type: {amount_type}. It must be one of 'settings', 'values', 'attributes', or 'scripts'") 
+
+        site_data = self.get_site_data()
+        return len(site_data.get(amount_type, ""))
