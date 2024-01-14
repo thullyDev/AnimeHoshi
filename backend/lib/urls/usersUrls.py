@@ -5,7 +5,7 @@ from django.urls import path
 users = Users()
 
 routes = [
-    {"route": "", "view": users.root},
+    {"route": "", "view": users.root, "name": "home" },
     {"route": "home", "view": users.root},
 ]
 

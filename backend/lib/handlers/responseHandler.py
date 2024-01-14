@@ -1,4 +1,5 @@
 from django.http import JsonResponse, HttpResponse
+from .cookiesHandlers import set_cookies
 from ..resources import (
 	FORBIDDEN, 
 	CRASH, 

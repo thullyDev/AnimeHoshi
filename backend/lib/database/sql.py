@@ -5,6 +5,7 @@ from ..resources import (
 	NOT_FOUND,
 	SUCCESSFUL
 )
+import logging
 
 class Sql:
 	def sql_get(self, unit, as_dict=True, **kwargs):
@@ -18,10 +19,14 @@ class Sql:
 
 	def sql_set(self, unit, data):
 		model = self.get_valid_model(unit)
-		instance = model.objects.create(**data)
-		instance.save()
-
-		return self.get_instance_as_dict(instance)
+		try:
+			instance = model.objects.create(**data)
+			instance.save()
+			return self.get_instance_as_dict(instance)
+		except IntegrityError as e:
+			logger.exception(e)
+			print(e)
+			return None
 
 	def sql_update(self, unit, data, **kwargs):
 		instance = self.get_instance(unit=unit, **kwargs)

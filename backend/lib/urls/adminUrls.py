@@ -7,11 +7,15 @@ from ..handlers import produce_urlpatterns
 admin = Admin()
 routes = [
     {   
-        "name": "admin_login",
         "route": "",
         "view": admin.base,
     },
     {   
+        "route": "dashboard/",
+        "view": admin.dashboard,
+    },
+    {   
+        "name": "admin_login",
         "route": "login/",
         "view": admin.admin_login,
     },

@@ -1,15 +1,20 @@
 from django.shortcuts import redirect
-from ..decorators import validator
+from ..decorators import adminValidator, timer
 from .base import Base
 from .ajax import AdminAjax
 
 admin_ajax = AdminAjax()
 
 class Admin(Base):
+    @timer
     def base(self, request):
         return redirect("admin_login")
-        
-    @validator
+
+    @timer
+    def admin_login(self, request):
+        return self.root(request=request, context={}, template="pages/admin/login.html")   
+   
+    @adminValidator
     def dashboard(self, request):
         analytics_items = [
             {"icon": "fas fa-user", "numbers": 0, "label": "Users"},
@@ -186,7 +191,7 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")
 
-    @validator
+    @adminValidator
     def scripts(self, request):
         head_scripts = [
             {"label": "global_head", "value": ""},
@@ -233,7 +238,7 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/scripts.html")
 
-    @validator
+    @adminValidator
     def general(self, request):
         images = [
             {"key": "site_logo", "value": "/static/images/site-logo.png"},
@@ -266,7 +271,7 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/general.html")
 
-    @validator
+    @adminValidator
     def advance(self, request):
         settings = [
             {"key": "maintanence", "value": False},
@@ -292,7 +297,7 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/advance.html")   
 
-    @validator
+    @adminValidator
     def admins(self, request):
         admins_items = [
                 {
@@ -373,12 +378,9 @@ class Admin(Base):
         }
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
 
-    @validator
-    def admin_login(self, request):
-        return self.root(request=request, context={}, template="pages/admin/login.html")   
 
 
-    # @validator
+    # @adminValidator
     # def get_scripts(self, request):
     #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
@@ -390,7 +392,7 @@ class Admin(Base):
 
     #     return self.successful_response(data={"data": scripts})
 
-    # @validator
+    # @adminValidator
     # def get_attributes(self, request):
     #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
@@ -402,7 +404,7 @@ class Admin(Base):
 
     #     return self.successful_response(data={"data": attributes})
 
-    # @validator
+    # @adminValidator
     # def get_values(self, request):
     #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
@@ -414,7 +416,7 @@ class Admin(Base):
 
     #     return self.successful_response(data={"data": values})
 
-    # @validator
+    # @adminValidator
     # def get_settings(self, request):
     #     user = self.GET_CREDITIALS(DATA=request.COOKIES, user_type="admin")
 
@@ -427,7 +429,7 @@ class Admin(Base):
     #     return self.successful_response(data={"data": settings})
 
 
-    # @validator
+    # @adminValidator
     # def dashboard(self, request):
     #     user = self.GET_CREDITIALS(request.COOKIES)
 
