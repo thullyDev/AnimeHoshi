@@ -62,7 +62,7 @@ class Admin(Base):
         head_scripts = scripts["head_scripts"]
         foot_scripts = scripts["foot_scripts"]
         ads_scripts = scripts["ads_scripts"]
-        
+
         set_context(context=context, data={
             "head_scripts": head_scripts,
             "foot_scripts": foot_scripts,
@@ -94,8 +94,9 @@ class Admin(Base):
 
     @adminValidator
     def admins(self, request, site_data, context):
+        admins = admin_database.get_admins()
         set_context(context=context, data={
-            "admins_items": admins_items,
-            "admins_count": len(admins_items),
+            "admins": admins,
+            "admins_count": len(admins),
         })
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
