@@ -72,7 +72,10 @@ class Admin(Base):
 
     @adminValidator
     def general(self, request, site_data, context):
-        # values
+        values = site_data["values"]
+        images = values["images"]
+        inputs = values["inputs"]
+        socials = values["socials"]
 
         set_context(context=context, data={
             "images": images,
@@ -83,7 +86,6 @@ class Admin(Base):
 
     @adminValidator
     def advance(self, request, site_data, context):
-        settings = self.get_site_data()
 
         set_context(context=context, data={
             "settings": settings,
