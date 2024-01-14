@@ -11,10 +11,9 @@ def adminValidator(request_func):
         start_time = time.time()
         request = args[0]
         temporary_id = validating(request)
-        print("i am here")
 
-        # if not temporary_id:
-        #     return redirect("admin_login")
+        if not temporary_id:
+            return redirect("admin_login")
 
         response = request_func(request_obj, *args, **kwargs)
         SIXTY_DAYS = 2_592_000 * 2  #* 30 days (in seconds) * 2 = 60 days
@@ -24,6 +23,7 @@ def adminValidator(request_func):
             value=temporary_id, 
             age=SIXTY_DAYS, 
         )
+
         end_time = time.time()
         elapsed_time = end_time - start_time
         FUNCTION_NAME = request_func.__name__.upper()
@@ -50,7 +50,7 @@ def validating(request):
     if temporary_id != admin["temporary_id"]:
         return 
 
-    temporary_id = generate_unique_id() 
+    temporary_id = generate_unique_id()
     database.update_admin(data={ "email": email, "temporary_id": temporary_id })
 
     return temporary_id
