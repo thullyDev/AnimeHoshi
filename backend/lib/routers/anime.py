@@ -2,21 +2,22 @@ from rest_framework.views import APIView
 from django.shortcuts import render, redirect
 from pprint import pprint
 from base64 import b64decode, b64encode
-from ...decorators import timer
-from ...resources import generate_unique_id
-from ...database import Cache
-from ...scraping import TioanimeScraper, LatanimeScraper
-from ...handlers import ResponseHandler
-from ..base import Base
+from ..decorators import timer
+from ..resources import generate_unique_id
+from ..database import Cache
+from ..scraping import TioanimeScraper, LatanimeScraper
+from ..handlers import ResponseHandler, SiteHandler
+from .base import Base
 import ast
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
+site = SiteHandler()
 cache = Cache()
 
-class AnimeAjax(Base):
+class Anime(Base):
     @timer
-    def get_home_data(self, request):
+    def home(self, request):
         cache_id = "home_data"
         cache_data = cache.hget(name=cache_id)
 
@@ -189,12 +190,16 @@ class AnimeAjax(Base):
             "animes": []
         }
 
+        disabled_animes = site.get_save_to_data("disabled_animes")
+
         if base == tioanime.base:
             for anime in animes:
+                slug = anime.get("anime_slug").get("slug").replace("/anime", "")
                 data["animes"].append({
                     "image_url": f"https://{base}/" + anime.get("image").get("url"),
                     "title": anime.get("title").get("text"),
-                    "slug": anime.get("anime_slug").get("slug").replace("/anime", ""),
+                    "slug": slug,
+                    "disabled": False if slug not in disabled_animes else True,
                 })
 
             return data
@@ -203,13 +208,14 @@ class AnimeAjax(Base):
             title = anime.get("title").get("text")
             temp = title.split(" ")
             watch_type = temp[len(temp) - 1]
-
+            slug = anime.get("anime_slug").get("slug").replace(f"https://{latanime.base}/anime", ""),
             data["animes"].append({
                 "image_url": anime.get("image").get("url"),
                 "title": title,
-                "slug": anime.get("anime_slug").get("slug").replace(f"https://{latanime.base}/anime", ""),
+                "slug": slug,
                 "year": anime.get("year").get("text").strip(),
                 "type": watch_type,
+                "disabled": False if slug not in disabled_animes else True,
             })
 
         return data    

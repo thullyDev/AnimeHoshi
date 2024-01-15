@@ -12,10 +12,14 @@
       {% endfor %}
     </div>
     <div class="tables-con">
-      {% with items=users pages=user_amount_pages amount_pages=user_amount_pages %}
+      {% with items=users pages=users_pages.pages page=users_pages.page label="users"  %}
         {% include 'pages/admin/widgets/analytics_users_table.html' %}
       {% endwith %}
-      {% with items=animes pages=0 %}
+
+      {% with items=tioanimes pages=tioanimes_pages.pages page=tioanimes_pages.page label="tioanimes animes" %}
+        {% include 'pages/admin/widgets/analytics_animes_table.html' %}
+      {% endwith %}
+      {% with items=latanimes pages=latanimes_pages.pages page=latanimes_pages.page label="latanimes animes" %}
         {% include 'pages/admin/widgets/analytics_animes_table.html' %}
       {% endwith %}
     </div>

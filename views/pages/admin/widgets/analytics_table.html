@@ -1,7 +1,7 @@
 {% load filters %}
 <div class="outter-table-con">
   <div class="table-label">
-    <h3 class="label">Latest {{ widget|title }}</h3>
+    <h3 class="label">Latest {{ Label|title }}</h3>
   </div>
   <table class="table-con">
     <thead>
@@ -18,7 +18,7 @@
             <td class="table-item">
               <p class="profile-image-tick">
                 <a href="/anime/{{ item.slug }}" class="watch-link slug">
-                  <img src="{{ item.poster_url }}" alt="{{ item.title }}" title="{{ item.title }}" class="poster-image" />
+                  <img src="{{ item.image_url }}" alt="{{ item.title }}" title="{{ item.title }}" class="poster-image" />
                 </a>
               </p>
             </td>

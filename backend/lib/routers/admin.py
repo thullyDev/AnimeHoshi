@@ -5,8 +5,9 @@ from ..scraping import TioanimeScraper, LatanimeScraper
 from ..database import AdminDatabase
 from .base import Base
 from .ajax import AdminAjax
+from .anime import Anime
 
-admin_ajax = AdminAjax()
+anime = Anime()
 site = SiteHandler()
 admin_database = AdminDatabase()
 tioanime = TioanimeScraper()
@@ -27,18 +28,11 @@ class Admin(Base):
         users = admin_database.get_users()
         views = 0 # get_site_views() use a analytics like google analytics to get the views
         scripts = len(site_data.get("scripts", ""))
-        tioanimes = tioanime.get_filter(data={ "page": 1 })
-        latanimes = latanime.get_filter(data={ "page": 1 })
+        raw_tioanimes = tioanime.get_filter(data={ "page": 1 })
+        raw_latanimes = latanime.get_filter(data={ "page": 1 })
+        tioanimes = anime.filter_data_processing(rawdata=raw_tioanimes, base=tioanime.base)
+        latanimes = anime.filter_data_processing(rawdata=raw_latanimes, base=latanime.base)
 
-        # weird side affect is adding 6 empty admins, they're safe tho
-        # analytics = {
-        #     "users": len(users) - 6,
-        #     "admins": len(admins) - 6, 
-        #     "views": views,
-        #     "scripts": scripts,
-        # }
-
-        # do proper analytical_cards rendering, hope you understand
         analytics = [
             {"icon": "fas fa-user", "numbers": len(users) - 6, "label": "Users"},
             {"icon": "fas fa-user-cog", "numbers": len(admins) - 6, "label": "Admins"},
@@ -53,15 +47,21 @@ class Admin(Base):
         self.set_context(context=context, data={
             "analytics": analytics,
             "users": users,
-            # "animes": animes,
-            "animes_pages": {
-                "page": user_page,
-                "pages": user_amount_pages,
+            "tioanimes": tioanimes["animes"],
+            "latanimes": latanimes["animes"],
+            "latanimes_pages": {
+                "page": latanimes["page"],
+                "pages": latanimes["pages"],
+            },
+            "tioanimes_pages": {
+                "page": latanimes["page"],
+                "pages": tioanimes["pages"],
             },
             "users_pages": {
                 "page": user_page,
                 "pages": user_amount_pages,
             }
+
         })
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")
 
