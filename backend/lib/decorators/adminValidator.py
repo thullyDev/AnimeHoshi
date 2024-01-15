@@ -9,11 +9,13 @@ site = SiteHandler()
 response_handler = ResponseHandler()
 database = AdminDatabase()
 
-def adminValidator(request_func, ajax=False):
+def adminValidator(request_func):
     def wrapper(request_obj, *args, **kwargs):
         start_time = time.time()
         request = args[0]
         admin = get_admin(request)
+
+        ajax = is_ajax(request)
 
         if not admin:
             return redirect("admin_login") if not ajax else response_handler.forbidden_response()
@@ -50,11 +52,18 @@ def get_admin(request):
     if admin == None:
         return 
 
-    # if temporary_id != admin["temporary_id"]:
-    #     return 
+    if temporary_id != admin["temporary_id"]:
+        return 
 
     admin = database.update_admin(data={ "email": email, "temporary_id": generate_unique_id() })
 
     del admin["password"]
 
     return admin
+
+def is_ajax(request):
+    meta = request.META
+    path = meta.get("PATH_INFO")
+    parts = path.split("/")
+
+    return "ajax" in parts
