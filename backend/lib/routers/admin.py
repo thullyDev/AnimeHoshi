@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..decorators import adminValidator, timer
 from ..handlers import SiteHandler
 from ..scraping import TioanimeScraper, LatanimeScraper
@@ -41,13 +42,16 @@ class Admin(Base):
             {"icon": "fas fa-code", "numbers": scripts, "label": "Scripts"},
         ]
 
-        # do proper pagination here
-        user_page = 1
-        user_amount_pages = 100
+        paginator = Paginator(users, 20) 
+
+        try:
+            paginated_users = paginator.page(1)
+        except EmptyPage:
+            paginated_users = paginator.page(paginator.num_pages)
 
         self.set_context(context=context, data={
             "analytics": analytics,
-            "users": users,
+            "users": paginated_users,
             "tioanimes": tioanimes["animes"],
             "latanimes": latanimes["animes"],
             "latanimes_pages": {
@@ -59,8 +63,8 @@ class Admin(Base):
                 "pages": tioanimes["pages"],
             },
             "users_pages": {
-                "page": user_page,
-                "pages": user_amount_pages,
+                "page": 1,
+                "pages": paginator.num_pages,
             }
 
         })

@@ -34,9 +34,11 @@ span.ticks-label {
     align-items: center;
 }
 
+p.profile-image-tick {width: 50px;height: 65px;}
+
+p.profile-image-tick img {width: 100%;height: 100%;}
+
 img.profile-image {
-    width: 50px;
-    height: 50px;
     object-fit: cover;
     border-radius: 50%;
     padding: 10px 0;

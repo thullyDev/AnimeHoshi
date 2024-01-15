@@ -9,11 +9,8 @@ cache = Cache()
 def recorder(request_func):
     def wrapper(request_obj, *args, **kwargs):
         start_time = time.time()
-
         increment_views()
-
         response = request_func(request_obj, site_data=site.get_site_data(), *args, **kwargs)
-
         end_time = time.time()
         elapsed_time = end_time - start_time
         FUNCTION_NAME = request_func.__name__.upper()

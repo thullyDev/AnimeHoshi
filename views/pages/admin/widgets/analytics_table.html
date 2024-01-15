@@ -17,7 +17,7 @@
           <tr class="table-row">
             <td class="table-item">
               <p class="profile-image-tick">
-                <a href="/anime/{{ item.slug }}" class="watch-link slug">
+                <a href="/anime{{ item.slug }}" target="_blank" class="watch-link slug">
                   <img src="{{ item.image_url }}" alt="{{ item.title }}" title="{{ item.title }}" class="poster-image" />
                 </a>
               </p>
@@ -98,11 +98,13 @@
           </li>
         {% endfor %}
       {% endif %}
+      {% if pages > 1 %}
       <li class="pages-ticks">
         <button data-page="{{ pages }}" class="pagination-btn page-btn">
           {{ pages }}
         </button>
       </li>
+      {% endif %}
     </ul>
   {% endwith %}
 </div>

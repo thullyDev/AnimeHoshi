@@ -1,6 +1,5 @@
 from rest_framework.views import APIView
 from django.shortcuts import render, redirect
-from pprint import pprint
 from base64 import b64decode, b64encode
 from ..decorators import recorder
 from ..resources import generate_unique_id
@@ -208,7 +207,7 @@ class Anime(Base):
             title = anime.get("title").get("text")
             temp = title.split(" ")
             watch_type = temp[len(temp) - 1]
-            slug = anime.get("anime_slug").get("slug").replace(f"https://{latanime.base}/anime", ""),
+            slug = anime.get("anime_slug").get("slug").replace(f"https://{latanime.base}/anime", "")
             data["animes"].append({
                 "image_url": anime.get("image").get("url"),
                 "title": title,
