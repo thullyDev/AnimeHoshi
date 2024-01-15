@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="admins-table-con">
-               {% with table_admins=admins_items %}
+               {% with table_admins=admins %}
                   {% include "pages/admin/widgets/admin_table.html" %}
                {% endwith %}
             </div>
@@ -32,7 +32,7 @@
               <div class="modal-content-con">
                 <div class="sitekey-input-content">
                     <div class="sitekey-input-con">
-                        <input type="text" hidden class="sitekey-input" style="display: inline-block;">
+                        <input type="password" hidden class="sitekey-input" autocomplete="false" style="display: inline-block;">
                     </div>
                     <div class="sitekey-submit-btn-con">
                         <button class="sitekey-submit-btn">Submit</button>

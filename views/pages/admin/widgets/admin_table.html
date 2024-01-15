@@ -12,9 +12,13 @@
         {% for item in table_admins %}
             <tr class="table-row admin-row">
                 <td class="table-item admin-item">
-                    <p class="profile-image-tick">
-                        <img src="{{ item.profile_image }}" alt="{{ item.username }}" title="{{ item.username }}" class="profile-image" />
-                    </p>
+                    {% if item.profile_image %}
+                        <p class="profile-image-tick">
+                            <img src="{{ item.profile_image }}" alt="{{ item.username }}" title="{{ item.username }}" class="profile-image" />
+                        </p>
+                    {% else %}
+                        <i class="fas fa-user profile-image-tick" title="{{ item.username }}"></i>
+                    {% endif %}
                 </td>
                 <td class="table-item admin-item">
                     <p class="username-tick">{{ item.username }}</p>

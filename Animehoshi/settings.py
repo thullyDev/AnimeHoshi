@@ -24,8 +24,8 @@ DEBUG = bool(env_config("DEBUG"))
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ["*"] if DEBUG else []
+CSRF_TRUSTED_ORIGINS = [ "https://cdbb-165-16-189-115.ngrok-free.app" ]
 
 # Application definition
 

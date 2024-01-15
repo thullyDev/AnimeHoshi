@@ -1,4 +1,5 @@
 {% extends "bases/admin.html" %}
+{% load filters %}
 
 {% block head_content %}{% endblock %}
 
@@ -37,7 +38,7 @@
           <div class="scripts-con foot-scripts-con">
             {% for key, ads_items in ads_scripts.items %}
               {% for item in ads_items %}
-                {% with label=key|add:"_"|name:item.name value=item.value height=item.height %}
+                {% with name=item.name|replace:"_, " value=item.value height=item.height %}
                   {% include 'pages/admin/widgets/ads_script_field.html' %}
                 {% endwith %}
               {% endfor %}

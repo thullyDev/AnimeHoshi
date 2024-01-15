@@ -119,6 +119,6 @@ class SiteHandler:
                 {"key": "contact", "value": True},
                 {"key": "dark_mode", "value": True},
             ],
-            "disabled_animes": set(),
+            "disabled_animes": {},
         }
 
