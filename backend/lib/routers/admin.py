@@ -26,7 +26,8 @@ class Admin(Base):
     def dashboard(self, request, site_data, context):
         admins = admin_database.get_admins()
         users = admin_database.get_users()
-        views = 0 # get_site_views() use a analytics like google analytics to get the views
+        views = admin_database.cget(name="site_views")
+        views = 0 if not views else views 
         scripts = len(site_data.get("scripts", ""))
         raw_tioanimes = tioanime.get_filter(data={ "page": 1 })
         raw_latanimes = latanime.get_filter(data={ "page": 1 })
