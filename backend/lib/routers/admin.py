@@ -43,7 +43,7 @@ class Admin(Base):
             {"icon": "fas fa-code", "numbers": scripts, "label": "Scripts"},
         ]
 
-        paginated_users = self.paginate(data=users, limit=20, page=1)
+        paginated_users, pages = self.paginate(data=users, limit=20, page=1)
 
         self.set_context(context=context, data={
             "analytics": analytics,
@@ -60,7 +60,7 @@ class Admin(Base):
             },
             "users_pages": {
                 "page": 1,
-                "pages": paginator.num_pages,
+                "pages": pages,
             }
 
         })
@@ -119,4 +119,4 @@ class Admin(Base):
         except EmptyPage:
             paginated = paginator.page(paginator.num_pages)
 
-        return paginated
+        return paginated, paginator.num_pages
