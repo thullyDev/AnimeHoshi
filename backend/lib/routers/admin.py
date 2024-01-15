@@ -43,12 +43,7 @@ class Admin(Base):
             {"icon": "fas fa-code", "numbers": scripts, "label": "Scripts"},
         ]
 
-        paginator = Paginator(users, 20) 
-
-        try:
-            paginated_users = paginator.page(1)
-        except EmptyPage:
-            paginated_users = paginator.page(paginator.num_pages)
+        paginated_users = self.paginate(data=users, limit=20, page=1)
 
         self.set_context(context=context, data={
             "analytics": analytics,
@@ -115,3 +110,13 @@ class Admin(Base):
             "admins_count": len(admins),
         })
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
+
+    def paginate(self, data, limit, page):
+        paginator = Paginator(data, limit) 
+
+        try:
+            paginated = paginator.page(page)
+        except EmptyPage:
+            paginated = paginator.page(paginator.num_pages)
+
+        return paginated
