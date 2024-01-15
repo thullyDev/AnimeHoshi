@@ -8,13 +8,8 @@
     {% include "widgets/search.html" %}
     <div class="outter-account-con">
       <div class="account-profile-image-con">
-        <span role="button" class="account-btn actions-dropdown-btn">
-          <img
-            src="https://i.pinimg.com/564x/68/78/49/687849b7834fc551b823592e4abac45f.jpg"
-            alt="user name"
-            class="account-image"
-            width="100" 
-          />
+        <span role="button" class="account-btn actions-dropdown-btn" title="{{admin.username}}">
+            {{ admin.username|make_list|first|upper }}
         </span>
       </div>
       <div class="actions-dropdown-menu">

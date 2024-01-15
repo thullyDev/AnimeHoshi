@@ -1,21 +1,19 @@
 from django.shortcuts import render, redirect
-from ...decorators import timer
+from ...decorators import timer, adminValidator
+from ...handlers import SiteHandler
 from ...database import AdminDatabase
 from ..base import Base
 from ...resources import SITE_KEY 
 import json
 
 admin_database = AdminDatabase()
+site = SiteHandler()
 
 class AdminAjax(Base):
-    def save_data(self, request):
+    @adminValidator
+    def save_data(self, request, site_data, **kwargs):
         if not request.POST:
             return redirect("admin_login")
-
-        user = self.GET_CREDITIALS(data=request.COOKIES, user_type="admin", update=True)
-
-        if not user:
-            return self.forbidden_response(data={"message": "login"})
 
         post = request.POST
         data = json.loads(post.get("save_data"))
@@ -24,14 +22,22 @@ class AdminAjax(Base):
         if save not in { "settings", "values", "attributes", "scripts" }:
             return self.bad_request_response()
 
-        save_data = self.get_save_to_data(save)
+        save_data = site_data.get(save, {})
         self.update_data(data, save_data)
         self.save_site_data(save_data, save)
-        return self.successful_response(data={"data": None})
+        
+        return self.successful_response()
 
+    @adminValidator
+    def reset_settings(self, request, **kwargs):
+        site.set_default_site_data()
+        return self.successful_response()
+
+    @adminValidator
     def add_admin(self, request):
         pass
 
+    @timer
     def create_owner(self, request):
         data = request.GET
         req_site_key = data.get("key")

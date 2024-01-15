@@ -3,6 +3,7 @@
   --primary-color: #fff;
   --secondary-color: #000;
   --third-color: #7f009c;
+  --label-font:'Bebas Neue', sans-serif;
   --accent-color: #575652;
 }
 
@@ -225,9 +226,16 @@ p.filter-text {
 }
 
 span.account-btn.actions-dropdown-btn {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 40px;
   height: 40px;
+  font-weight: 600;
+  font-size: 20px;
+  background: var(--third-color);
+  color: var(--primary-color);
+  border-radius: 50%;
 }
 
 img.account-image {
