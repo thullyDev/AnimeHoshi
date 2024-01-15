@@ -39,6 +39,7 @@ class Database(Cache, Sql):
         return data
 
     def get_all(self, unit):
+        print(f"unit ===> {unit}")
         return self.sql_get_all(unit=unit)
 
 

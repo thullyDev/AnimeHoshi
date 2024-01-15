@@ -34,8 +34,8 @@ class Admin(Base):
         latanimes = anime.filter_data_processing(rawdata=raw_latanimes, base=latanime.base)
 
         analytics = [
-            {"icon": "fas fa-user", "numbers": len(users) - 6, "label": "Users"},
-            {"icon": "fas fa-user-cog", "numbers": len(admins) - 6, "label": "Admins"},
+            {"icon": "fas fa-user", "numbers": len(users), "label": "Users"},
+            {"icon": "fas fa-user-cog", "numbers": len(admins), "label": "Admins"},
             {"icon": "fas fa-eye", "numbers": views, "label": "Weekly Views"},
             {"icon": "fas fa-code", "numbers": scripts, "label": "Scripts"},
         ]
