@@ -1,21 +1,22 @@
 from django.shortcuts import render, redirect
 from ..resources import generate_unique_id
-from ..handlers import SiteHandler
+from ..handlers import SiteHandler, ResponseHandler
 from ..database import AdminDatabase
 from ..handlers import set_cookies
 import time
 
 site = SiteHandler()
+response_handler = ResponseHandler()
 database = AdminDatabase()
 
-def adminValidator(request_func):
+def adminValidator(request_func, ajax=False):
     def wrapper(request_obj, *args, **kwargs):
         start_time = time.time()
         request = args[0]
         admin = get_admin(request)
 
         if not admin:
-            return redirect("admin_login")
+            return redirect("admin_login") if not ajax else response_handler.forbidden_response()
 
         response = request_func(request_obj, site_data=site.get_site_data(), context={ "admin": admin }, *args, **kwargs)
         SIXTY_DAYS = 2_592_000 * 2  #* 30 days (in seconds) * 2 = 60 days

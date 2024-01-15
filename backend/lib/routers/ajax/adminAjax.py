@@ -10,7 +10,7 @@ admin_database = AdminDatabase()
 site = SiteHandler()
 
 class AdminAjax(Base):
-    @adminValidator
+    @adminValidator(ajax=True)
     def save_data(self, request, site_data, **kwargs):
         if not request.POST:
             return redirect("admin_login")
@@ -28,12 +28,12 @@ class AdminAjax(Base):
         
         return self.successful_response()
 
-    @adminValidator
+    @adminValidator(ajax=True)
     def reset_settings(self, request, **kwargs):
         site.set_default_site_data()
         return self.successful_response()
 
-    @adminValidator
+    @adminValidator(ajax=True)
     def add_admin(self, request):
         pass
 
