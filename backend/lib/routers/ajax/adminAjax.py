@@ -24,8 +24,9 @@ class AdminAjax(Base):
             return self.bad_request_response()
 
         save_data = site_data.get(save, {})
-        self.update_data(save, data, save_data)
-        self.save_site_data(save_data, save)
+        self.process_images(data, save_data)
+        # self.update_data(save, data, save_data)
+        # self.save_site_data(save_data, save)
         
         return self.successful_response()
 
@@ -76,6 +77,27 @@ class AdminAjax(Base):
         for type_key, type_values in old_data.items():
             for key, value in type_values.items():
                 old_data[type_key][key]["value"] = new_data[key]
+
+    def process_images(self, new_data, old_data):
+        images_keys = list(old_data["images"].keys())
+        images = []
+
+        for key, value in new_data.items():
+            if key not in images_keys or old_data["images"][key]["value"] == value:
+                continue 
+
+            images.append({
+                "name": key,
+                "value": value,
+            })
+
+        if not images:
+            return
+
+        print(f"images ===> {images}")
+
+        #upload to imgur here
+
 
     def get_site_data(self): 
         return admin_database.hget("site_data", {})

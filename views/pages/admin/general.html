@@ -1,7 +1,8 @@
 {% extends "bases/admin.html" %}
 {% load filters %}
 
-{% block head_content %}{% endblock %}
+{% block head_content %}
+{% endblock %}
 
 {% block main_content %}
   <form method="post" enctype="multipart/form-data">
@@ -33,7 +34,7 @@
             </label>
             {% with value=item.value name=item.name id=item.name type="file" %}
               <div class="settings-input-con">
-                <input class="settings-input" data-name="{{name}}" value="{{value}}" id="{{id}}" type="{{type}}" />
+                <input class="settings-input image-input" data-name="{{name}}" name="{{name}}" data-type="{{type}}" data-value="{{value}}" value id="{{id}}" type="{{type}}" />
               </div>
             {% endwith %}
           </div>

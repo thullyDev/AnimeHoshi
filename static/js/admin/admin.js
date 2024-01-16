@@ -12,8 +12,7 @@ function getSettingsInput() {
   settingsInput.each((_, ele) => {
     const thisEle = $(ele)
     const name = thisEle.data("name")
-    const value = thisEle.val()
-    console.log({ name, value })
+    const value = thisEle.data("value") || thisEle.val()  
 
     data[name] = value
   })

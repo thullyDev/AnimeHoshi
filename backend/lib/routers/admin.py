@@ -8,6 +8,7 @@ from .base import Base
 from .ajax import AdminAjax
 from .anime import Anime
 from pprint import pprint
+import json
 
 anime = Anime()
 site = SiteHandler()

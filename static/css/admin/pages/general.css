@@ -1,3 +1,7 @@
+label.settings-input-label {
+    cursor: pointer;
+}
+
 .text-inputs-con {
     display: flex;
     flex-direction: column;
