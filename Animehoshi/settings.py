@@ -77,28 +77,28 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Animehoshi.wsgi.application'
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': 'system.log',
-        },
-        'console': {
-            'class': 'logging.StreamHandler',
-            'level': 'ERROR',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file', 'console'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'ERROR',
+#             'class': 'logging.FileHandler',
+#             'filename': 'system.log',
+#         },
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#             'level': 'ERROR',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file', 'console'],
+#             'level': 'ERROR',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 
 # Database

@@ -1,6 +1,7 @@
 (function () { 
 	saveBtn.click(function() {
 	  const data = getSettingsInput()
-	  saveSettings({data})
+	  console.log({data})
+	  // saveSettings({data})
 	});
 })();

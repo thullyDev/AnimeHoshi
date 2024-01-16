@@ -12,7 +12,7 @@
             <p class="scripts-label">Head Scripts</p>
           </div>
           <div class="scripts-con head-scripts-con">
-            {% for item in head_scripts %}
+            {% for key, item in head_scripts.items %}
               {% with name=item.name value=item.value %}
                 {% include 'pages/admin/widgets/script_field.html' %}
               {% endwith %}
@@ -24,7 +24,7 @@
             <p class="scripts-label">Foot Scripts</p>
           </div>
           <div class="scripts-con foot-scripts-con">
-            {% for item in foot_scripts %}
+            {% for key, item in foot_scripts.items %}
               {% with name=item.name value=item.value %}
                 {% include 'pages/admin/widgets/script_field.html' %}
               {% endwith %}
@@ -36,12 +36,10 @@
             <p class="scripts-label">Ads Scripts</p>
           </div>
           <div class="scripts-con foot-scripts-con">
-            {% for key, ads_items in ads_scripts.items %}
-              {% for item in ads_items %}
-                {% with name=item.name|replace:"_, " value=item.value height=item.height %}
-                  {% include 'pages/admin/widgets/ads_script_field.html' %}
-                {% endwith %}
-              {% endfor %}
+            {% for key, item in ads_scripts.items %}
+              {% with name=item.name value=item.value height=item.height %}
+                {% include 'pages/admin/widgets/ads_script_field.html' %}
+              {% endwith %}
             {% endfor %}
           </div>
         </div>

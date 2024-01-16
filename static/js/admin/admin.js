@@ -20,19 +20,30 @@ function getSettingsInput() {
   return data
 }
 
-function saveSettings({ data, successCallback, errorCallback }) {
+function saveSettings({ data }) {
 	const page = getPage()
 
 	$.ajax({
-	    url: "/admin/ajax/post/save_data/",
+	    url: "/admin/ajax/post/save/",
 	    type: 'POST',
 	    data: {
 	        csrfmiddlewaretoken: csrfToken,
 	        save_data: JSON.stringify(data),
 	        save: getSaveType(page) || "admins",
 	    },
-	    success: successCallback(),
-	    error: errorCallback()
+	    beforeSend: function() {
+	    	showLoader()
+	    },
+	    success: (response) => {
+	        const { message } = response
+					showAlert({ message })
+					closeLoader()
+	    },
+	    error: (error) => {
+	    	const { message } = error.responseJSON
+				showAlert({ message })
+				closeLoader()
+	    }
 	});
 }
 
@@ -40,8 +51,8 @@ function getSaveType(page) {
 	const types = {
 		"admins": "admins",
 		"dasboard": "dasboard",
-		"advance": "attributes",
-		"general": "general",
+		"advance": "settings",
+		"general": "values",
 		"scripts": "scripts",
 	}
 

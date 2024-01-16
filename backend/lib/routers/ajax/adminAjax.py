@@ -3,6 +3,7 @@ from ...decorators import timer, adminValidator
 from ...handlers import SiteHandler
 from ...database import AdminDatabase
 from ..base import Base
+from pprint import pprint
 from ...resources import SITE_KEY 
 import json
 
@@ -19,12 +20,14 @@ class AdminAjax(Base):
         data = json.loads(post.get("save_data"))
         save = post.get("save")
 
-        if save not in { "settings", "values", "attributes", "scripts" }:
+        if save not in { "settings", "values", "scripts" }:
             return self.bad_request_response()
 
         save_data = site_data.get(save, {})
-        self.update_data(data, save_data)
-        self.save_site_data(save_data, save)
+        pprint(save_data)
+        self.update_data(save, data, save_data)
+        pprint(save_data)
+        # self.save_site_data(save_data, save)
         
         return self.successful_response()
 
@@ -71,10 +74,11 @@ class AdminAjax(Base):
         site_data[name] =  data
         admin_database.hset(name="site_data", data=site_data, expiry=False)
 
-    def update_data(self, new_data, old_data):
-        for key, value in new_data.items():
-            if not value and key in old_data: break 
-            old_data[key] = value
+    def update_data(self, save, new_data, old_data):
+        for type_key, type_values in old_data.items():
+            for key, value in type_values.items():
+                old_data[type_key][key]["value"] = new_data[key]
+        return
 
     def get_site_data(self): 
         return admin_database.hget("site_data", {})

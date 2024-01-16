@@ -7,14 +7,14 @@
   <form method="post" enctype="multipart/form-data">
     <div class="inner-con inner-main-content">
       <div class="text-inputs-con">
-        {% for item in inputs %}
+        {% for key, item in inputs.items %}
           <div class="text-input-con">
             <div class="settings-input-label-con">
-              <label for="{{ item.key }}" class="label-con">
-                {{ item.key|replace:"_, " }}
+              <label for="{{ item.name }}" class="label-con">
+                {{ item.name|replace:"_, " }}
               </label>
             </div>
-            {% with value=item.value name=item.key id=item.key type="text" %}
+            {% with value=item.value name=item.name id=item.name type="text" %}
               <div class="settings-input-con">
                 <input class="settings-input" name="{{name}}" value="{{value}}" id="{{id}}" type="{{type}}" />
               </div>
@@ -23,15 +23,15 @@
         {% endfor %}
       </div>
       <div class="images-settings-con">
-        {% for item in images %}
+        {% for key, item in images.items %}
           <div class="image-input-con">
-            <label for="{{ item.key }}" class="settings-input-label">
-              <span class="image-label">{{ item.key|replace:"_, " }}</span>
-              {% with value=item.value id=item.key %}
+            <label for="{{ item.name }}" class="settings-input-label">
+              <span class="image-label">{{ item.name|replace:"_, " }}</span>
+              {% with value=item.value id=item.name %}
                 {% include 'pages/admin/widgets/settings_image_container.html' %}
               {% endwith %}
             </label>
-            {% with value=item.value name=item.key id=item.key type="file" %}
+            {% with value=item.value name=item.name id=item.name type="file" %}
               <div class="settings-input-con">
                 <input class="settings-input" name="{{name}}" value="{{value}}" id="{{id}}" type="{{type}}" />
               </div>
@@ -40,14 +40,14 @@
         {% endfor %}
       </div>
       <div class="socials-settings-con">
-        {% for item in socials %}
+        {% for key, item in socials.items %}
           <div class="text-input-con">
             <div class="settings-input-label-con">
-              <label for="{{ item.key }}" class="label-con">
-                {{ item.key|replace:"_, " }}
+              <label for="{{ item.name }}" class="label-con">
+                {{ item.name|replace:"_, " }}
               </label>
             </div>
-            {% with value=item.value name=item.key id=item.key type="text" %}
+            {% with value=item.value name=item.name id=item.name type="text" %}
               <div class="settings-input-con">
                 <input class="settings-input" name="{{name}}" value="{{value}}" id="{{id}}" type="{{type}}" />
               </div>
