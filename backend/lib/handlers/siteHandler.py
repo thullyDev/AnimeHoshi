@@ -90,7 +90,7 @@ class SiteHandler:
                 "inputs": {
                     "site_name": {"value": "AnimeHoshi", "name": "site_name"},
                     "email": {"value": "admin@animehoshi.com", "name": "email"},
-                    "name": {"value": "Watch Anime On AnimeHoshi For No ads | AnimeHoshi", "name": "title"},
+                    "title": {"value": "Watch Anime On AnimeHoshi For No ads | AnimeHoshi", "name": "title"},
                     "site_description": {
                         "value": "AnimeHoshi is a vibrant online platform offering a diverse collection of anime content for free streaming. With an extensive library spanning genres and popular titles, AnimeHoshi provides enthusiasts with an immersive experience. User-friendly navigation and high-quality playback make it a go-to destination for anime lovers seeking free, accessible entertainment.",
                         "name": "site_description",

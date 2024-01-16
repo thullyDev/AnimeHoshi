@@ -13,6 +13,7 @@ function getSettingsInput() {
     const thisEle = $(ele)
     const name = thisEle.data("name")
     const value = thisEle.val()
+    console.log({ name, value })
 
     data[name] = value
   })

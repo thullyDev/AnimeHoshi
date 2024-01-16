@@ -24,10 +24,8 @@ class AdminAjax(Base):
             return self.bad_request_response()
 
         save_data = site_data.get(save, {})
-        pprint(save_data)
         self.update_data(save, data, save_data)
-        pprint(save_data)
-        # self.save_site_data(save_data, save)
+        self.save_site_data(save_data, save)
         
         return self.successful_response()
 
@@ -78,7 +76,6 @@ class AdminAjax(Base):
         for type_key, type_values in old_data.items():
             for key, value in type_values.items():
                 old_data[type_key][key]["value"] = new_data[key]
-        return
 
     def get_site_data(self): 
         return admin_database.hget("site_data", {})
