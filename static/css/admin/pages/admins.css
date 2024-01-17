@@ -84,6 +84,74 @@ button.sitekey-submit-btn {
     color: var(--primary-color);
 }
 
+
+.outter-add-admin-modal-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background: #00000066;
+    backdrop-filter: blur(.75px);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.outter-add-admin-modal-con > .inner-con {
+    background: var(--primary-color);
+    padding: 20px;
+    border-radius: .5rem;
+    box-shadow: 0 0 20px #00000050;
+}
+
+.icon-input-con {
+    display: flex;
+    justify-content: space-around;
+}
+
+input.icon-input {
+    width: 100%;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
+    border: solid 1px var(--third-color);
+    border-radius: .35rem;
+    padding: 5px 0 5px 5px;
+}
+
+.inner-input-con {
+    width: 85%;
+}
+
+.icon-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-add-admin-modal-con {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.close-btn-con {
+    display: flex;
+    justify-content: end;
+}
+
+button.close-btn {
+    background: var(--third-color);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}
+
+button.close-btn > i {font-size: 15px;color: var(--primary-color);}
+
 /* Styles for screens with a width of 480 pixels or larger */
 @media screen and (min-width: 480px) {
     .Email-tick-item, .Email-head {

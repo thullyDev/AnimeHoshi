@@ -42,7 +42,37 @@
           </div>
         </div>
 
+        <div class="outter-add-admin-modal-con">
+            <div class="inner-con">
+                <div class="close-btn-con"><button class="close-btn"><i class="fa-solid fa-x"></i></button></div>
+                <div class="inner-add-admin-modal-con">
+                  {% with type="text" placeholder="Name" key="username"  icon="fa fa-user" %}
+                    <div class="admin-login-outer-input-con">
+                      {% include "widgets/icon_input.html" %}
+                    </div>
+                  {% endwith %}
+
+                  {% with type="text" placeholder="Email" key="email" icon="fas fa-envelope" %}
+                    <div class="admin-login-outer-input-con">
+                      {% include "widgets/icon_input.html" %}
+                    </div>
+                  {% endwith %}
+
+                  {% with type="password" placeholder="Password" key="password"  icon="fas fa-key" %}
+                    <div class="admin-login-outer-input-con">
+                      {% include "widgets/icon_input.html" %}
+                    </div>
+                  {% endwith %}
+
+                  {% with type="password" placeholder="Confirm" key="confirm"  icon="fas fa-key" %}
+                    <div class="admin-login-outer-input-con">
+                      {% include "widgets/icon_input.html" %}
+                    </div>
+                  {% endwith %}
+                </div>
+                {% include 'pages/admin/widgets/save_btn.html' %}
+            </div>
+        </div>
     </div>
-   {% include 'pages/admin/widgets/save_btn.html' %}
 {% endblock %}
 
