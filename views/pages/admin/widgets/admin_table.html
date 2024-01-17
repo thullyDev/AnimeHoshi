@@ -27,11 +27,11 @@
                     <p class="email-tick">{{ item.email }}</p>
                 </td>
                 <td class="table-item admin-item">
-                    <p class="{% if not item.deleted %}status-tick active{% else %}status-tick remove{% endif %}">{{ item.deleted|yesno:"active,inactive" }}</p>
+                    <p class="status-tick {% if not item.deleted %}active{% else %}remove{% endif %}" data-email="{{ item.email }}">{{ item.deleted|yesno:"inactive,active" }}</p>
                 </td>
                 <td class="table-item anime-item">
-                    <button class="table-btn disable" data-deleted="{{ item.deleted }}" data-key="{{ forloop.counter0 }}">
-                        delete
+                    <button class="table-btn disable delete-btn" data-email="{{ item.email }}" data-deleted="{{ item.deleted|safebool }}">
+                        {% if not item.deleted %}delete{% else %}add{% endif %}
                     </button>
                 </td>
             </tr>

@@ -37,6 +37,14 @@
 		});
 	});
 
+	$(".delete-btn").click(function() {
+		const thisEle = $(this)
+		const email = thisEle.data("email")
+		const deleted = thisEle.data("deleted")
+		const deleteAdmin = deleted ? false : true
+		modifyAdmin(deleteAdmin, email)
+	});
+
 
 	function getInput() {
 	  const settingsInput = $(".outter-add-admin-modal-con .icon-input")
@@ -52,6 +60,33 @@
 	  if( Object.keys(data).length < 4) return 
 
 	  return data
+	}
+
+	function modifyAdmin(deleteAdmin, email) {
+		$.ajax({
+		    url: "/admin/ajax/post/modify_admin/",
+		    type: 'POST',
+		    data: {
+		        csrfmiddlewaretoken: csrfToken,
+		        data: JSON.stringify({ deleteAdmin: deleteAdmin, email }),
+		        site_key: $(".sitekey-input").val()
+		    },
+		    beforeSend: function() {
+		    	showLoader()
+		    },
+		    success: (response) => {
+		        const { message } = response
+				showAlert({ message })
+				$(`.status-tick[data-email="${email}"]`).text(deleteAdmin ? "inactive" : "active")
+				$(`.delete-btn[data-email="${email}"]`).text(deleteAdmin ? "add" : "delete")
+				closeLoader()
+		    },
+		    error: (error) => {
+		    	const { message } = error.responseJSON
+				showAlert({ message })
+				closeLoader()
+		    }
+		});
 	}
 
 	function validate({ username, email, password, confirm }) {

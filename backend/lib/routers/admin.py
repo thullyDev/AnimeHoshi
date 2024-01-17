@@ -26,7 +26,7 @@ class Admin(Base):
         return self.root(request=request, context={}, template="pages/admin/login.html")   
    
     @adminValidator
-    def dashboard(self, request, site_data, context):
+    def dashboard(self, request, site_data, context, **kwargs):
         admins = admin_database.get_admins()
         users = admin_database.get_users()
         views = admin_database.cget(name="site_views")
@@ -68,7 +68,7 @@ class Admin(Base):
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")
 
     @adminValidator
-    def scripts(self, request, site_data, context):
+    def scripts(self, request, site_data, context, **kwargs):
         scripts = site_data["scripts"]
         head_scripts = scripts["head_scripts"]
         foot_scripts = scripts["foot_scripts"]
@@ -82,7 +82,7 @@ class Admin(Base):
         return self.root(request=request, context=context, template="pages/admin/scripts.html")
 
     @adminValidator
-    def general(self, request, site_data, context):
+    def general(self, request, site_data, context, **kwargs):
         values = site_data["values"]
         images = values["images"]
         inputs = values["inputs"]
@@ -96,7 +96,7 @@ class Admin(Base):
         return self.root(request=request, context=context, template="pages/admin/general.html")
 
     @adminValidator
-    def advance(self, request, site_data, context):
+    def advance(self, request, site_data, context, **kwargs):
         # settings = json.loads(json.dumps(site_data["settings"]))
         settings = site_data["settings"]
         self.set_context(context=context, data={
@@ -105,7 +105,7 @@ class Admin(Base):
         return self.root(request=request, context=context, template="pages/admin/advance.html")   
 
     @adminValidator
-    def admins(self, request, site_data, context):
+    def admins(self, request, site_data, context, **kwargs):
         admins = admin_database.get_admins()
         self.set_context(context=context, data={
             "admins": admins,

@@ -13,7 +13,7 @@ storage = Storage()
 
 class AdminAjax(Base):
     @adminValidator
-    def save_data(self, request, site_data, **kwargs):
+    def save_data(self, request, site_data, *args, **kwargs):
         if not request.POST:
             return redirect("admin_login")
 
@@ -32,12 +32,12 @@ class AdminAjax(Base):
         return self.successful_response()
 
     @adminValidator
-    def reset_settings(self, request, **kwargs):
+    def reset_settings(self, request, *args, **kwargs):
         site.set_default_site_data()
         return self.successful_response()
 
     @adminValidator
-    def add_admin(self, request, **kwargs):
+    def add_admin(self, request, *args, **kwargs):
         if not request.POST:
             return redirect("admin_login")
 
