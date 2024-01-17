@@ -22,9 +22,9 @@ class Database(Cache, Sql):
 
         return sqldata
 
-    def set(self, unit, data, uid):
+    def set(self, unit, data, unique_id):
         data = self.sql_set(unit, data)
-        self.hset(name=f"{unit}_*_{uid}", data=data)
+        self.hset(name=f"{unit}_*_{unique_id}", data=data)
 
         return data
 

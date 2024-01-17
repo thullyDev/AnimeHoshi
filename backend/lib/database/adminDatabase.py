@@ -12,8 +12,8 @@ class AdminDatabase(Database):
         if not email: return 
         return self.get(unit="admin", key="email", unique_id=email)
         
-    def set_admin(self, data):
-        return self.set(unit="admin", data=data)
+    def set_admin(self, email, data):
+        return self.set(unit="admin", unique_id=email, data=data)
 
     def update_admin(self, data):
         email = self.get_email(data)

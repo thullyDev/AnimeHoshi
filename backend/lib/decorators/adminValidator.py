@@ -20,7 +20,16 @@ def adminValidator(request_func):
         if not admin:
             return redirect("admin_login") if not ajax else response_handler.forbidden_response()
 
-        response = request_func(request_obj, site_data=site.get_site_data(), context={ "admin": admin }, *args, **kwargs)
+        response = request_func(
+            request_obj, 
+            site_data=site.get_site_data(), 
+            context={ "admin": admin }, 
+            email=admin["email"], 
+            username=admin["username"], 
+            temporary_id=admin["temporary_id"], 
+            *args, 
+            **kwargs
+            )
         SIXTY_DAYS = 2_592_000 * 2  #* 30 days (in seconds) * 2 = 60 days
 
         set_cookies(response=response,

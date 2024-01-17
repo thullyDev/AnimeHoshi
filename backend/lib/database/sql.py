@@ -25,7 +25,7 @@ class Sql:
 			instance.save()
 			return self.get_instance_as_dict(instance)
 		except IntegrityError as e:
-			logger.exception(e)
+			# logging.exception(e)
 			print(e)
 			return None
 

@@ -13,13 +13,13 @@
 		const isValidate = validate(data)
 		if(!isValidate) return
 
-		console.log({data, isValidate})
 		$.ajax({
 		    url: "/admin/ajax/post/add_admin/",
 		    type: 'POST',
 		    data: {
 		        csrfmiddlewaretoken: csrfToken,
-		        save_data: JSON.stringify(data),
+		        data: JSON.stringify(data),
+		        site_key: $(".sitekey-input").val()
 		    },
 		    beforeSend: function() {
 		    	showLoader()

@@ -37,8 +37,27 @@ class AdminAjax(Base):
         return self.successful_response()
 
     @adminValidator
-    def add_admin(self, request):
-        pass
+    def add_admin(self, request, **kwargs):
+        if not request.POST:
+            return redirect("admin_login")
+
+        post = request.POST
+        site_key = post.get("site_key")
+
+        if SITE_KEY != site_key:
+            return self.forbidden_response(data={ "message": "site key is invalid" })
+
+        data = json.loads(post.get("data"))
+        is_validate = self.validate(
+            username=data["username"],
+            email=data["email"],
+            password=data["password"],
+            confirm=data["confirm"],
+            )
+
+        del data["confirm"]
+        admin_database.set_admin(email=data["email"], data=data)
+        return self.successful_response()
 
     @timer
     def create_owner(self, request):
@@ -111,3 +130,12 @@ class AdminAjax(Base):
     def get_save_to_data(self, name):
         site_data = self.get_site_data()
         return site_data.get(name, {})
+
+
+    def validate(self, username, email, password, confirm):
+        if None in [username, email, password, confirm] or \
+            password != confirm or \
+            len(confirm) < 8:
+            return False
+
+        return True
