@@ -13,7 +13,7 @@
 	  reader.onload = function(e) {
 	  	const res = e.target.result
 	    $(`.settings-image[data-name="${name}"]`).attr("src", res)
-	    thisEle.data("value", JSON.stringify(res))
+	    thisEle.data("value", res)
 	  }
 	  
 	  reader.readAsDataURL(file);

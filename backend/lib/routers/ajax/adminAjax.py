@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from ...decorators import timer, adminValidator
 from ...handlers import SiteHandler
-from ...database import AdminDatabase
+from ...database import AdminDatabase, Storage
 from ..base import Base
 from pprint import pprint
 from ...resources import SITE_KEY 
@@ -9,6 +9,7 @@ import json
 
 admin_database = AdminDatabase()
 site = SiteHandler()
+storage = Storage()
 
 class AdminAjax(Base):
     @adminValidator
@@ -88,16 +89,16 @@ class AdminAjax(Base):
 
             images.append({
                 "name": key,
-                "value": value,
+                "value": value.replace("data:image/jpeg;base64,", ""),
             })
 
         if not images:
             return
 
-        print(f"images ===> {images}")
-
-        #upload to imgur here
-
+        for img in images:
+            name = img.get("name")
+            value = img.get("value")
+            storage.upload_base64_image(name=name, base64_img=value)
 
     def get_site_data(self): 
         return admin_database.hget("site_data", {})
