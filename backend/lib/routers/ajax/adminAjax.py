@@ -59,6 +59,22 @@ class AdminAjax(Base):
         admin_database.set_admin(email=data["email"], data=data)
         return self.successful_response()
 
+    @adminValidator
+    def update_admin(self, request, *args, **kwargs):
+        if not request.POST:
+            return redirect("admin_login")
+
+        post = request.POST
+        site_key = post.get("site_key")
+
+        if SITE_KEY != site_key:
+            return self.forbidden_response(data={ "message": "site key is invalid" })
+
+        data = json.loads(post.get("data"))
+
+        admin_database.update_admin(email=data["email"], data=data)
+        return self.successful_response()
+
     @timer
     def create_owner(self, request):
         data = request.GET

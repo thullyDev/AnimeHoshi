@@ -64,7 +64,7 @@
 
 	function modifyAdmin(deleteAdmin, email) {
 		$.ajax({
-		    url: "/admin/ajax/post/modify_admin/",
+		    url: "/admin/ajax/post/update_admin/",
 		    type: 'POST',
 		    data: {
 		        csrfmiddlewaretoken: csrfToken,
