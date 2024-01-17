@@ -86,7 +86,7 @@ button.sitekey-submit-btn {
 
 
 .outter-add-admin-modal-con {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -103,6 +103,8 @@ button.sitekey-submit-btn {
     padding: 20px;
     border-radius: .5rem;
     box-shadow: 0 0 20px #00000050;
+    width: 100%;
+    max-width: 460px;
 }
 
 .icon-input-con {

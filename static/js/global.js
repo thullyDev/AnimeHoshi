@@ -1,4 +1,5 @@
 function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
+        console.log("i am here 2") 
   const alertBox = $(".alert-box");
 
   alertBox.text(message).fadeIn();
