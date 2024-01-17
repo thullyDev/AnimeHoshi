@@ -1,4 +1,4 @@
 <div class="checkbox-con">
-  <input type="checkbox" value="{{ value }}" class="checkbox {{ class }}" name="{{ name }}" id="checkbox-{{ name }}">
+  <input type="checkbox" {% if value %} checked {% endif %} data-name="{{ name }}" class="checkbox {{class}}" name="{{ name }}" id="checkbox-{{ name }}">
   <label for="checkbox-{{ name }}"></label>
 </div>

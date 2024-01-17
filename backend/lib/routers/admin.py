@@ -97,6 +97,7 @@ class Admin(Base):
 
     @adminValidator
     def advance(self, request, site_data, context):
+        # settings = json.loads(json.dumps(site_data["settings"]))
         settings = site_data["settings"]
         self.set_context(context=context, data={
             "settings": settings,

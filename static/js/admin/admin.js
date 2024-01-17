@@ -5,14 +5,14 @@
 // })();
 
 
-function getSettingsInput() {
+function getSettingsInput({ is_checkbox = false } = {}) {
   const settingsInput = $(".settings-input")
   const data = {}
 
   settingsInput.each((_, ele) => {
     const thisEle = $(ele)
     const name = thisEle.data("name")
-    const value = thisEle.data("value") || thisEle.val()  
+    const value = is_checkbox ? thisEle.is(':checked') : thisEle.data("value") || thisEle.val()  
 
     data[name] = value
   })

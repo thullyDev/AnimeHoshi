@@ -15,6 +15,15 @@ def replace(value, arg):
 def times(number):
     return range(1, number + 1)
 
+@register.filter(name='safebool') 
+def safebool(value):
+    hashmap = {
+        False: "false",
+        True: "true"
+    }
+    
+    return hashmap.get(value, value)
+
 @register.filter(name='safe_list') 
 def safe_list(value):
     return ast.literal_eval(value)

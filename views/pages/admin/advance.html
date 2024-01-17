@@ -12,7 +12,7 @@
             <div class="setting-label-con">
               <p class="setting-label">{{ item.name|replace:"_, " }}</p>
             </div>
-            {% with name=item.name value=item.value %}
+            {% with class="settings-input" name=item.name value=item.value %}
               {% include 'widgets/checkbox.html' %}
             {% endwith %}
           </div>

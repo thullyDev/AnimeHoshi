@@ -25,9 +25,9 @@ class AdminAjax(Base):
             return self.bad_request_response()
 
         save_data = site_data.get(save, {})
-        self.process_images(data, save_data)
-        # self.update_data(save, data, save_data)
-        # self.save_site_data(save_data, save)
+        if save == "values": self.process_images(data, save_data)
+        self.update_data(save, data, save_data)
+        self.save_site_data(save_data, save)
         
         return self.successful_response()
 
@@ -75,6 +75,11 @@ class AdminAjax(Base):
         admin_database.hset(name="site_data", data=site_data, expiry=False)
 
     def update_data(self, save, new_data, old_data):
+        if save == "settings":
+            for key, value in old_data.items():
+                old_data[key]["value"] = new_data[key]
+            return
+
         for type_key, type_values in old_data.items():
             for key, value in type_values.items():
                 old_data[type_key][key]["value"] = new_data[key]
