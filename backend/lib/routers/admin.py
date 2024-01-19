@@ -37,8 +37,6 @@ class Admin(Base):
         tioanime_page = get_data.get("tioanime_page", 1)
         # end
 
-        # /admin/dashboard/?{{content}}_page={{ i }}
-
         admins = admin_database.get_admins()
         users = admin_database.get_query_users(query=users_keyword) if users_keyword else admin_database.get_users()
         views = admin_database.cget(name="site_views")

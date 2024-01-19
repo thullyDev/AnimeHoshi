@@ -29,5 +29,10 @@ class AdminDatabase(Database):
     def get_users(self):
         return self.get_all(unit="user")
 
+    def update_users(self, data):
+        email = self.get_email(data)
+        if not email: return 
+        return self.update(unit="users", data=data, unique_id=email, key="email")
+
     def get_query_users(self, query):
         return self.get_query(unit="user", query=query)

@@ -75,6 +75,37 @@ class AdminAjax(Base):
         admin_database.update_admin(data=data)
         return self.successful_response()
 
+    @adminValidator
+    def update_user(self, request, *args, **kwargs):
+        if not request.POST:
+            return redirect("admin_login")
+
+        post = request.POST
+        data = json.loads(post.get("data"))
+
+        admin_database.update_users(data=data)
+        return self.successful_response()
+
+    @adminValidator
+    def update_anime(self, request, site_data, *args, **kwargs):
+        if not request.POST:
+            return redirect("admin_login")
+
+        post = request.POST
+        data = json.loads(post.get("data"))
+        slug = data.get("slug")
+        disabled_animes = site_data["disabled_animes"]
+
+        if slug in disabled_animes:
+            del disabled_animes[slug]
+            site.save_site_data("disabled_animes", disabled_animes)
+            return self.successful_response(data={ "data": { "deleted": True }})
+
+
+        disabled_animes.add(slug)
+        site.save_site_data("disabled_animes", disabled_animes)
+        return self.successful_response(data={ "data": { "deleted": False }})
+
     @timer
     def create_owner(self, request):
         data = request.GET
