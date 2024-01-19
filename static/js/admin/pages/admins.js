@@ -68,7 +68,7 @@
 		    type: 'POST',
 		    data: {
 		        csrfmiddlewaretoken: csrfToken,
-		        data: JSON.stringify({ deleteAdmin: deleteAdmin, email }),
+		        data: JSON.stringify({ deleted: deleteAdmin, email }),
 		        site_key: $(".sitekey-input").val()
 		    },
 		    beforeSend: function() {
@@ -78,7 +78,7 @@
 		        const { message } = response
 				showAlert({ message })
 				$(`.status-tick[data-email="${email}"]`).text(deleteAdmin ? "inactive" : "active")
-				$(`.delete-btn[data-email="${email}"]`).text(deleteAdmin ? "add" : "delete")
+				$(`.delete-btn[data-email="${email}"]`).data("deleted", deleteAdmin).text(deleteAdmin ? "add" : "delete")
 				closeLoader()
 		    },
 		    error: (error) => {

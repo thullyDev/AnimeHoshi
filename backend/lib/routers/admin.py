@@ -27,13 +27,30 @@ class Admin(Base):
    
     @adminValidator
     def dashboard(self, request, site_data, context, **kwargs):
+        # gets data from GET
+        get_data = request.GET
+        users_keyword = get_data.get("uKeyword")
+        users_page = get_data.get("uPage", 1)
+        tioanime_keyword = get_data.get("tKeyword")
+        latanime_keyword = get_data.get("lKeyword")
+        latanime_page = get_data.get("lPage", 1)
+        tioanime_page = get_data.get("tPage", 1)
+        # end
+
         admins = admin_database.get_admins()
-        users = admin_database.get_users()
+        users = admin_database.get_query_users(query=users_keyword) if users_keyword else admin_database.get_users()
         views = admin_database.cget(name="site_views")
         views = 0 if not views else views 
-        scripts = len(site_data.get("scripts", ""))
-        raw_tioanimes = tioanime.get_filter(data={ "page": 1 })
-        raw_latanimes = latanime.get_filter(data={ "page": 1 })
+        scripts = site_data.get("scripts", "")
+
+        count = 0
+        for inner_key, inner_scripts in scripts.items():
+            for key, script in inner_scripts.items():
+                if script['value']: count += 1
+
+        raw_tioanimes = tioanime.get_filter(data={ "page": tioanime_page, "keywords": tioanime_keyword })
+        raw_latanimes = latanime.get_filter(data={ "page": latanime_page, "keywords": latanime_keyword })
+
         tioanimes = anime.filter_data_processing(rawdata=raw_tioanimes, base=tioanime.base)
         latanimes = anime.filter_data_processing(rawdata=raw_latanimes, base=latanime.base)
 
@@ -41,10 +58,10 @@ class Admin(Base):
             {"icon": "fas fa-user", "numbers": len(users), "label": "Users"},
             {"icon": "fas fa-user-cog", "numbers": len(admins), "label": "Admins"},
             {"icon": "fas fa-eye", "numbers": views, "label": "Weekly Views"},
-            {"icon": "fas fa-code", "numbers": scripts, "label": "Scripts"},
+            {"icon": "fas fa-code", "numbers": count, "label": "Scripts"},
         ]
 
-        paginated_users, pages = self.paginate(data=users, limit=20, page=1)
+        paginated_users, pages = self.paginate(data=users, page=users_page)
 
         self.set_context(context=context, data={
             "analytics": analytics,
@@ -113,7 +130,7 @@ class Admin(Base):
         })
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
 
-    def paginate(self, data, limit, page):
+    def paginate(self, data, page, limit=20):
         paginator = Paginator(data, limit) 
 
         try:

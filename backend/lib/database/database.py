@@ -41,4 +41,5 @@ class Database(Cache, Sql):
     def get_all(self, unit):
         return self.sql_get_all(unit=unit)
 
-
+    def get_query(self, unit, query):
+        return self.sql_get_query(unit=unit, query=query)

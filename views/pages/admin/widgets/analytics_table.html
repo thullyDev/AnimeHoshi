@@ -23,7 +23,7 @@
               </p>
             </td>
             <td class="table-item">
-              <p class="title-tick">{{ item.title }}</p>
+              <p class="title-tick" title="{{ item.title }}">{{ item.title|truncatechars:30 }}</p>
             </td>
             <td class="table-item">
               <p class="{% if not item.disabled %}status-tick active{% else %}status-tick remove{% endif %}">
@@ -48,7 +48,7 @@
                 {% endif %}
             </td>
             <td class="table-item">
-              <p class="username-tick">{{ item.username }}</p>
+              <p class="username-tick|truncatechars:30">{{ item.username }}</p>
             </td>
             <td class="table-item Email-tick-item">
               <p class="email-tick">{{ item.email }}</p>

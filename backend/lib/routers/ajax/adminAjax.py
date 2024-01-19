@@ -72,7 +72,7 @@ class AdminAjax(Base):
 
         data = json.loads(post.get("data"))
 
-        admin_database.update_admin(email=data["email"], data=data)
+        admin_database.update_admin(data=data)
         return self.successful_response()
 
     @timer

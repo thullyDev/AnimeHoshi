@@ -76,6 +76,13 @@ class Sql:
 	def get_instance_as_dict(self, instance):
 		return model_to_dict(instance)
 
+		# filtered_data = YourModel.objects.filter(your_field1__condition1='value1', your_field2__condition2='value2')
+
 	def sql_get_all(self, unit):
 		model = self.get_valid_model(unit)
 		return list(model.objects.values())
+
+	def sql_get_query(self, unit, query):
+		model = self.get_valid_model(unit)
+		values = model.objects.filter(username=query, email=query)
+		return list(values)
