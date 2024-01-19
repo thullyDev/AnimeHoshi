@@ -393,13 +393,21 @@ li.pages-ticks {
     align-items: center;
 }
 
-button.pagination-btn.page-btn {
+a.pagination-btn.page-btn {
+    display: flex;
+    justify-content: center;
     width: 40px;
     padding: 5px;
-    background: var(--third-color);
-    color: var(--primary-color);
     font-family: var(--primary-font);
     border-radius: .25rem;
+    text-decoration: none;
+    color: var(--secondary-color);
+    background: #a5a5a580;
+}
+
+a.hl-ele.pagination-btn.page-btn {
+    background: var(--third-color);
+    color: var(--primary-color);
 }
 
 

@@ -87,9 +87,9 @@
       {% if pages > 6 %}
         {% for i in 5|times %}
           <li class="pages-ticks">
-            <button data-page="{{ i }}" class="paginatiokn-btn page-btn">
+            <a href="{{ i }}" data-page="{{ i }}" class="{% if i == 1 %} hl-ele {% endif %}pagination-btn page-btn">
               {{ i }}
-            </button>
+            </a href="{{ i }}">
           </li>
         {% endfor %}
           <li class="pages-ticks">
@@ -98,17 +98,17 @@
       {% else %}
         {% for i in pages|times %}
           <li class="pages-ticks">
-            <button data-page="{{ i }}" class="pagination-btn page-btn">
+            <a href="{{ i }}" data-page="{{ i }}" class="pagination-btn page-btn">
               {{ i }}
-            </button>
+            </a href="{{ i }}">
           </li>
         {% endfor %}
       {% endif %}
       {% if pages > 1 %}
       <li class="pages-ticks">
-        <button data-page="{{ pages }}" class="pagination-btn page-btn">
+        <a href="{{ i }}" data-page="{{ pages }}" class="hl-ele pagination-btn page-btn">
           {{ pages }}
-        </button>
+        </a href="{{ i }}">
       </li>
       {% endif %}
     </ul>
