@@ -2,9 +2,9 @@ import json
 import requests
 
 class ApiHandler:
-    def build_url(self, base, endpoint, params, https_safe):
+    def build_url(self, base, endpoint, params, https_safe=True):
         head = "https" if https_safe else "http"
-        url = f"{head}://{base}/{endpoint}"
+        url = f"{head}://{base}/{endpoint}" if base else f"/{endpoint}"
         count = 0
         for key, value in params.items():
             url += f"?{key}={value}" if not count else f"&{key}={value}"

@@ -12,14 +12,14 @@
       {% endfor %}
     </div>
     <div class="tables-con">
-      {% with items=users pages=users_pages.pages page=users_pages.page label="users"  %}
+      {% with query_url=users_pages.query_url content="user" items=users pages=users_pages.pages page=users_pages.page label="users"  %}
         {% include 'pages/admin/widgets/analytics_users_table.html' %}
       {% endwith %}
 
-      {% with items=tioanimes pages=tioanimes_pages.pages page=tioanimes_pages.page label="tioanimes animes" %}
+      {% with query_url=tioanimes_pages.query_url content="tioanime" items=tioanimes pages=tioanimes_pages.pages page=tioanimes_pages.page label="tioanimes animes" %}
         {% include 'pages/admin/widgets/analytics_animes_table.html' %}
       {% endwith %}
-      {% with items=latanimes pages=latanimes_pages.pages page=latanimes_pages.page label="latanimes animes" %}
+      {% with query_url=latanimes_pages.query_url content="latanimes" items=latanimes pages=latanimes_pages.pages page=latanimes_pages.page label="latanimes animes" %}
         {% include 'pages/admin/widgets/analytics_animes_table.html' %}
       {% endwith %}
     </div>

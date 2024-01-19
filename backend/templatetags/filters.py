@@ -1,5 +1,6 @@
 from django import template
 import ast
+import json
 
 register = template.Library()
 
@@ -27,3 +28,19 @@ def safebool(value):
 @register.filter(name='safe_list') 
 def safe_list(value):
     return ast.literal_eval(value)
+
+# @register.filter(name='build_url') 
+# def build_url(value):
+#     queries = value.split("||")
+#     endpoint = queries[0]
+#     print(queries[1])
+#     params = {}
+#     params = json.loads(queries[1])
+#     url = f"{endpoint}"
+#     count = 0
+#     for key, value in params.items():
+#         url += f"?{key}={value}" if not count else f"&{key}={value}"
+#         count += 1
+    
+#     # return url
+#     return

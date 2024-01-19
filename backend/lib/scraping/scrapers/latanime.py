@@ -8,7 +8,7 @@ class LatanimeScraper(Scraper, Latanime):
     def get_filter(self, data):
         params = { "letra": "false" }
         for key, value in data.items():
-            if not value or key is not self.queries: continue
+            if not value or key not in self.queries: continue
 
             if key == "type": 
                 params["categoria"] = value

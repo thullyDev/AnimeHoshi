@@ -1,4 +1,5 @@
 {% load filters %}
+
 <div class="outter-table-con">
   <div class="table-label">
     <h3 class="label">Latest {{ label|title }}</h3>
@@ -76,8 +77,8 @@
   <div class="table-search-con">
     <div class="inner-table-search-con">
       <div class="table-search-input-con">
-        <input type="text" class="table-search" data-type="{{widget}}">
-        <button class="table-search-btn" data-type="{{widget}}">search</button>
+        <input type="text" class="table-search" data-type="{{content}}">
+        <button class="table-search-btn" data-type="{{content}}">search</button>
       </div>
     </div>
   </div>
@@ -87,9 +88,11 @@
       {% if pages > 6 %}
         {% for i in 5|times %}
           <li class="pages-ticks">
-            <a href="{{ i }}" data-page="{{ i }}" class="{% if i == 1 %} hl-ele {% endif %}pagination-btn page-btn">
+            <a href="{{query_url}}" 
+               data-page="{{ i }}" 
+               class="{% if i == 1 %} hl-ele {% endif %}pagination-btn page-btn">
               {{ i }}
-            </a href="{{ i }}">
+            </a>
           </li>
         {% endfor %}
           <li class="pages-ticks">
@@ -98,17 +101,21 @@
       {% else %}
         {% for i in pages|times %}
           <li class="pages-ticks">
-            <a href="{{ i }}" data-page="{{ i }}" class="pagination-btn page-btn">
+            <a href="{{query_url}}" 
+               data-page="{{ i }}" 
+               class="{% if i == 1 %} hl-ele {% endif %}pagination-btn page-btn">
               {{ i }}
-            </a href="{{ i }}">
+            </a>
           </li>
         {% endfor %}
       {% endif %}
       {% if pages > 1 %}
       <li class="pages-ticks">
-        <a href="{{ i }}" data-page="{{ pages }}" class="hl-ele pagination-btn page-btn">
+        <a href="{{query_url}}" 
+           data-page="{{ pages }}" 
+           class="hl-ele pagination-btn page-btn">
           {{ pages }}
-        </a href="{{ i }}">
+        </a>
       </li>
       {% endif %}
     </ul>

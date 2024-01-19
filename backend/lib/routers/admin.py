@@ -29,13 +29,15 @@ class Admin(Base):
     def dashboard(self, request, site_data, context, **kwargs):
         # gets data from GET
         get_data = request.GET
-        users_keyword = get_data.get("uKeyword")
-        users_page = get_data.get("uPage", 1)
-        tioanime_keyword = get_data.get("tKeyword")
-        latanime_keyword = get_data.get("lKeyword")
-        latanime_page = get_data.get("lPage", 1)
-        tioanime_page = get_data.get("tPage", 1)
+        users_keyword = get_data.get("user_keyword")
+        users_page = get_data.get("users_page", 1)
+        tioanime_keyword = get_data.get("tioanime_keyword", "")
+        latanime_keyword = get_data.get("latanime_keyword", "")
+        latanime_page = get_data.get("latanime_page", 1)
+        tioanime_page = get_data.get("tioanime_page", 1)
         # end
+
+        # /admin/dashboard/?{{content}}_page={{ i }}
 
         admins = admin_database.get_admins()
         users = admin_database.get_query_users(query=users_keyword) if users_keyword else admin_database.get_users()
@@ -71,14 +73,29 @@ class Admin(Base):
             "latanimes_pages": {
                 "page": latanimes["page"],
                 "pages": latanimes["pages"],
+                "query_url": tioanime.build_url(
+                    base="", 
+                    endpoint="/admin/dashboard/", 
+                    params={ "page": tioanimes["page"], "latanimes_keywords": latanime_keyword }
+                    )
             },
             "tioanimes_pages": {
-                "page": latanimes["page"],
+                "page": tioanimes["page"],
                 "pages": tioanimes["pages"],
+                "query_url": tioanime.build_url(
+                    base="", 
+                    endpoint="/admin/dashboard/", 
+                    params={ "page": tioanimes["page"], "tioanime_keywords": tioanime_keyword }
+                    )
             },
             "users_pages": {
-                "page": 1,
+                "page": users_page,
                 "pages": pages,
+                "query_url": tioanime.build_url(
+                    base="", 
+                    endpoint="/admin/dashboard/", 
+                    params={ "page": users_page, "user_keyword": tioanime_keyword }
+                    )
             }
 
         })

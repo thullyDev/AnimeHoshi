@@ -8,7 +8,7 @@ class TioanimeScraper(Scraper, Tioanime):
     def get_filter(self, data):
         params = {}
         for key, value in data.items():
-            if not value or key is not self.queries: continue
+            if not value or key not in self.queries: continue
             
             if key == "type": 
                 params["type%5B%5D"] = value
@@ -23,6 +23,7 @@ class TioanimeScraper(Scraper, Tioanime):
                 continue
 
             if key == "page": 
+                print("i am here")
                 params["p"] = value
                 continue
 
