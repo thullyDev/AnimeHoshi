@@ -238,6 +238,7 @@ span.account-btn.actions-dropdown-btn {
   background: var(--third-color);
   color: var(--primary-color);
   border-radius: 50%;
+  cursor: pointer;
 }
 
 img.account-image {
@@ -248,6 +249,7 @@ img.account-image {
 }
 
 .actions-dropdown-menu > ul {
+  width: 100%;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -261,6 +263,7 @@ span.action-btn {
   height: 100%;
   width: 100%;
   margin: 8px 0;
+  cursor: pointer;
 }
 
 .account-profile-image-con {
@@ -272,10 +275,11 @@ span.action-btn {
   display: none;
   position: absolute;
   top: 50px;
-  right: -15%;
+  right: 17%;
   background: var(--third-color);
   border-radius: 0.25rem;
-  width: 100px;
+  width: 75px;
+  font-size: 13px;
 }
 
 .outter-account-con {

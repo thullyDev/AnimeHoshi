@@ -1,12 +1,10 @@
 (function () { 
 	$(".logout-btn").click(function() {
-		return null
 		$.ajax({
-		    url: "/admin/ajax/post/reset_settings/",
+		    url: "/admin/ajax/get/logout/",
 		    type: 'POST',
 		    data: {
 		        csrfmiddlewaretoken: csrfToken,
-		        site_key: $(".sitekey-input").val()
 		    },
 		    beforeSend: function() {
 		    	showLoader()
@@ -44,7 +42,8 @@ function getSettingsInput({ is_checkbox = false } = {}) {
   return data
 }
 
-function showCloseEle({showele_key}) {
+function showCloseEle(showele_key) {
+		console.log({ showele_key })
 		const showEle = $(showele_key)
 		const showEleIsOpen = showEle.data("open")
 
