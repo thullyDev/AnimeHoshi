@@ -178,7 +178,9 @@ class AdminAjax(Base):
         for img in images:
             name = img.get("name")
             value = img.get("value")
-            storage.upload_base64_image(name=name, base64_img=value)
+            image_url = storage.upload_base64_image(name=name, base64_img=value)
+
+            if image_url: old_data["images"][name]["value"] = image_url
 
     def get_site_data(self): 
         return admin_database.hget("site_data", {})

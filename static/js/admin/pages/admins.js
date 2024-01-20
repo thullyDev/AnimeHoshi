@@ -1,5 +1,5 @@
 (function () { 
-	$(".add-admin, .outter-add-admin-modal-con .close-btn").click(() => showCloseEle(".outter-add-admin-modal-con"));
+	$(".real.add-admin, .outter-add-admin-modal-con .close-btn").click(() => showCloseEle(".outter-add-admin-modal-con"));
 
 	$(".reset-btn").click(function() {
 		$.ajax({

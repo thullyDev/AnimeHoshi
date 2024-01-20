@@ -12,28 +12,15 @@ imagekit = ImageKit(
 )
 class Storage:
 	def upload(self, name, file):
-		file = "C://Users//Thully//Documents//projects//AnimeHoshi//site_logo.jpg"
 		upload = imagekit.upload_file(file=file, file_name=name)
 		response = upload.response_metadata.raw
 		return response.get("url")
 
 	def upload_base64_image(self, name, base64_img):
-		imgdata = base64.b64decode(base64_img)
-		filename = f"{name}.jpg"  
-		with open(filename, 'wb') as file:
-		    file.write(imgdata)
-		    print(file.name)
-		    image_path = os.path.join(settings.BASE_DIR, filename)
-		    print(image_path)
-		    upload = self.upload(name=filename, file=image_path)
-		    print(upload)
+		try:
+			upload_url = self.upload(name=f"{name}.jpg", file=base64_img)
+			return upload_url
+		except Exception as e:
+			print(f"Error uploading image: {e}")
+			return None
 
-		# with tempfile.NamedTemporaryFile(mode="wb", suffix='.jpg') as jpg:
-		# 	jpg.write(imgdata)
-		# 	upload = self.upload(name=name, file=jpg.name)
-		# 	print(upload)
-
-
-	# def delete(self, file_id, options=None):
-	# 	response = imagekit.delete_file(file_id=file_id)
-	# 	return response.response_metadata.raw

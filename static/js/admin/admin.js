@@ -34,7 +34,7 @@ function getSettingsInput({ is_checkbox = false } = {}) {
   settingsInput.each((_, ele) => {
     const thisEle = $(ele)
     const name = thisEle.data("name")
-    const value = is_checkbox ? thisEle.is(':checked') : thisEle.data("value").trim() || thisEle.val().trim()  
+    const value = is_checkbox ? thisEle.is(':checked') : $.trim(thisEle.data("value")) || $.trim(thisEle.val())  
 
     data[name] = value
   })
