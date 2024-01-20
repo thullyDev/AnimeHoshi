@@ -21,6 +21,10 @@ class ResponseHandler:
 			SIXTY_DAYS = 2_592_000 * 3 #* 30 days (in seconds) * 3
 
 			for key, val in cookies_data.items():
+				if not val:
+					response.delete_cookie('cookie_name2')
+					continue
+
 				response.set_cookie(
 					key=key, 
 					value=val, 

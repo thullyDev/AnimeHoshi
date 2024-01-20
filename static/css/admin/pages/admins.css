@@ -18,6 +18,11 @@ span.admin-count {
     padding: 10px;
 }
 
+.add-admin-btn-con {
+    display: flex;
+    gap: 15px;
+}
+
 button.add-admin {
     background: var(--third-color);
     padding: 10px;

@@ -8,6 +8,30 @@
 			adminModal.fadeOut().data("open", false) 
 	});
 
+	$(".reset-btn").click(function() {
+		$.ajax({
+		    url: "/admin/ajax/post/add_admin/",
+		    type: 'POST',
+		    data: {
+		        csrfmiddlewaretoken: csrfToken,
+		        site_key: $(".sitekey-input").val()
+		    },
+		    beforeSend: function() {
+		    	showLoader()
+		    },
+		    success: (response) => {
+		        const { message } = response
+				showAlert({ message })
+				closeLoader()
+		    },
+		    error: (error) => {
+		    	const { message } = error.responseJSON
+				showAlert({ message })
+				closeLoader()
+		    }
+		});
+	})
+
 	$(".save-btn").click(function() {
 		const data = getInput()
 		const isValidate = validate(data)

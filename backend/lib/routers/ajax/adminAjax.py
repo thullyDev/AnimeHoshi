@@ -33,6 +33,15 @@ class AdminAjax(Base):
 
     @adminValidator
     def reset_settings(self, request, *args, **kwargs):
+        if not request.POST:
+            return redirect("admin_login")
+
+        post = request.POST
+        site_key = post.get("site_key")
+
+        if SITE_KEY != site_key:
+            return self.forbidden_response(data={ "message": "site key is invalid" })
+            
         site.set_default_site_data()
         return self.successful_response()
 
