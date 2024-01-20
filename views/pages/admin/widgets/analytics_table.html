@@ -27,13 +27,13 @@
               <p class="title-tick" title="{{ item.title }}">{{ item.title|truncatechars:30 }}</p>
             </td>
             <td class="table-item">
-              <p class="{% if not item.disabled %}status-tick active{% else %}status-tick remove{% endif %}">
-                {% if not item.disabled %}active{% else %}inactive{% endif %}
+              <p class="{% if not item.disabled %}status-tick active{% else %}status-tick remove{% endif %}" data-id="{{ item.slug }}">
+                {% if item.slug not in disabled_animes %}active{% else %}inactive{% endif %}
               </p>
             </td>
             <td class="table-item">
-              <button class="table-btn disable" data-disabled="{{ item.disabled }}" data-key="{{ forloop.counter0 }}">
-                disable
+              <button class="table-btn disable" data-id="{{ item.slug }}" data-content="{{ widget }}" data-deleted="{{ item.disabled }}" data-key="{{ forloop.counter0 }}">
+                {% if item.slug not in disabled_animes %}disable{% else %}add{% endif %}
               </button>
             </td>
           </tr>
@@ -60,12 +60,12 @@
               </p>
             </td>
             <td class="table-item">
-              <button class="table-btn disable" data-disabled="{{ item.disabled }}" data-id="{{ item.id }}" data-key="{{ forloop.counter0 }}">
+              <button class="table-btn disable" data-disabled="{{ item.disabled }}" data-id="{{ item.id }}" data-content="{{ widget }}" data-key="{{ forloop.counter0 }}">
                 disable
               </button>
             </td>
             <td class="table-item">
-              <button class="table-btn delete" data-deleted="{{ item.deleted }}" data-id="{{ item.id }}" data-key="{{ forloop.counter0 }}">
+              <button class="table-btn delete" data-deleted="{{ item.deleted }}" data-id="{{ item.id }}" data-content="{{ widget }}"  data-key="{{ forloop.counter0 }}">
                 delete
               </button>
             </td>

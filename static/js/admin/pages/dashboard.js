@@ -2,6 +2,39 @@
 	$(".table-search-btn").click(function() {
 		searchTable(this)
 	})
+
+	$(".table-btn.disable").click(function() {
+		const thisEle = $(this)
+		const content = thisEle.data("content")
+		const id = thisEle.data("id")
+		const url = content == "animes" ? "/admin/ajax/post/update_anime/" : "/admin/ajax/post/update_user/"
+		$.ajax({
+		    url: url,
+		    type: 'POST',
+		    data: {
+		        id: id,
+		        csrfmiddlewaretoken: csrfToken,
+		    },
+		    beforeSend: function() {
+		    	showLoader()
+		    },
+		    success: (response) => {
+		        const { message, data } = response
+		        const { deleted } = data
+
+		        thisEle.text(deleted ? "add" : "disable")
+		        $(`.status-tick[data-id="${id}"]`).text(deleted ? "inactive" : "active")
+
+				closeLoader()
+		    },
+		    error: (error) => {
+		    	const { message } = error.responseJSON
+				showAlert({ message })
+				closeLoader()
+		    }
+		});
+	})
+
 	const searchTableInput = $(".table-search")
 	searchTableInput.change(function() {
 		searchTable(this)

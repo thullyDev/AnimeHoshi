@@ -59,6 +59,7 @@ button.table-btn {
     border-radius: .25rem;
     color: var(--primary-color);
     font-family: var(--primary-font);
+    width: 70px;
 }
 
 /* Styles for screens with a width of 480 pixels or larger */

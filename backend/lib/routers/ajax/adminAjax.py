@@ -92,19 +92,17 @@ class AdminAjax(Base):
             return redirect("admin_login")
 
         post = request.POST
-        data = json.loads(post.get("data"))
-        slug = data.get("slug")
+        slug = post.get("id")
         disabled_animes = site_data["disabled_animes"]
 
         if slug in disabled_animes:
             del disabled_animes[slug]
-            site.save_site_data("disabled_animes", disabled_animes)
-            return self.successful_response(data={ "data": { "deleted": True }})
+            site.save_site_data(name="disabled_animes", data=disabled_animes)
+            return self.successful_response(data={ "data": { "deleted": False }})
 
-
-        disabled_animes.add(slug)
-        site.save_site_data("disabled_animes", disabled_animes)
-        return self.successful_response(data={ "data": { "deleted": False }})
+        disabled_animes[slug] = 0
+        site.save_site_data(name="disabled_animes", data=disabled_animes)
+        return self.successful_response(data={ "data": { "deleted": True }})
 
     @timer
     def create_owner(self, request):

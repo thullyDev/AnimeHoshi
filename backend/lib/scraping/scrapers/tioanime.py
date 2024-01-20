@@ -23,7 +23,6 @@ class TioanimeScraper(Scraper, Tioanime):
                 continue
 
             if key == "page": 
-                print("i am here")
                 params["p"] = value
                 continue
 

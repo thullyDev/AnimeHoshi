@@ -10,6 +10,8 @@ routes = [
     route_producer(route="post/login/", view=admin_auth_ajax.login),
     route_producer(route="post/add_admin/", view=admin_ajax.add_admin),
     route_producer(route="post/update_admin/", view=admin_ajax.update_admin),
+    route_producer(route="post/update_user/", view=admin_ajax.update_user),
+    route_producer(route="post/update_anime/", view=admin_ajax.update_anime),
 ]
 
 urlpatterns = produce_urlpatterns(routes)

@@ -61,11 +61,13 @@ class Admin(Base):
             {"icon": "fas fa-code", "numbers": count, "label": "Scripts"},
         ]
 
+        disabled_animes = site_data["disabled_animes"]
         paginated_users, pages = self.paginate(data=users, page=users_page)
 
         self.set_context(context=context, data={
             "analytics": analytics,
             "users": paginated_users,
+            "disabled_animes": disabled_animes,
             "tioanimes": tioanimes["animes"],
             "latanimes": latanimes["animes"],
             "latanimes_pages": {
@@ -95,7 +97,6 @@ class Admin(Base):
                     params={ "page": users_page, "user_keyword": tioanime_keyword }
                     )
             }
-
         })
         return self.root(request=request, context=context, template="pages/admin/dashboard.html")
 
