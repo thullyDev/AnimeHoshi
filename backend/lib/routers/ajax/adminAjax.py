@@ -81,7 +81,9 @@ class AdminAjax(Base):
             return redirect("admin_login")
 
         post = request.POST
+        email = post.get("id")
         data = json.loads(post.get("data"))
+        data["email"] = email
 
         admin_database.update_users(data=data)
         return self.successful_response()

@@ -6,13 +6,16 @@
 	$(".table-btn.disable").click(function() {
 		const thisEle = $(this)
 		const content = thisEle.data("content")
+		const deleted = thisEle.data("deleted")
 		const id = thisEle.data("id")
 		const url = content == "animes" ? "/admin/ajax/post/update_anime/" : "/admin/ajax/post/update_user/"
+		
 		$.ajax({
 		    url: url,
 		    type: 'POST',
 		    data: {
 		        id: id,
+		        data: JSON.stringify({ deleted }),
 		        csrfmiddlewaretoken: csrfToken,
 		    },
 		    beforeSend: function() {
@@ -22,6 +25,7 @@
 		        const { message, data } = response
 		        const { deleted } = data
 
+		        thisEle.data("deleted", deleted)
 		        thisEle.text(deleted ? "add" : "disable")
 		        $(`.status-tick[data-id="${id}"]`).text(deleted ? "inactive" : "active")
 

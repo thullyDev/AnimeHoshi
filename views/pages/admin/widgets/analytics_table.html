@@ -55,12 +55,12 @@
               <p class="email-tick">{{ item.email }}</p>
             </td>
             <td class="table-item">
-              <p class="{% if not item.deleted %}status-tick active{% else %}status-tick remove{% endif %}">
+              <p class="{% if not item.deleted %}status-tick active{% else %}status-tick remove{% endif %}" data-id="{{ item.email }}">
                 {% if not item.deleted %}active{% else %}inactive{% endif %}
               </p>
             </td>
             <td class="table-item">
-              <button class="table-btn disable" data-disabled="{{ item.disabled }}" data-id="{{ item.id }}" data-content="{{ widget }}" data-key="{{ forloop.counter0 }}">
+              <button class="table-btn disable" data-disabled="{{ item.disabled }}" data-id="{{ item.email }}" data-content="{{ widget }}" data-key="{{ forloop.counter0 }}">
                 disable
               </button>
             </td>
