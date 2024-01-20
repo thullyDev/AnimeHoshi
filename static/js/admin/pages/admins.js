@@ -1,16 +1,9 @@
 (function () { 
-	$(".add-admin, .outter-add-admin-modal-con .close-btn").click(function() {
-		const adminModal = $(".outter-add-admin-modal-con")
-		const adminModalIsOpen = adminModal.data("open")
-
-		!adminModalIsOpen ?
-			adminModal.css("display", "flex").hide().fadeIn().data("open", true) :
-			adminModal.fadeOut().data("open", false) 
-	});
+	$(".add-admin, .outter-add-admin-modal-con .close-btn").click(() => showCloseEle(".outter-add-admin-modal-con"));
 
 	$(".reset-btn").click(function() {
 		$.ajax({
-		    url: "/admin/ajax/post/add_admin/",
+		    url: "/admin/ajax/post/reset_settings/",
 		    type: 'POST',
 		    data: {
 		        csrfmiddlewaretoken: csrfToken,

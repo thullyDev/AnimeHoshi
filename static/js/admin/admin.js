@@ -1,9 +1,33 @@
-// (function () { 
-// 	$(".save-btn").click(function() {
-// 	  saveSettings()
-// 	});
-// })();
+(function () { 
+	$(".logout-btn").click(function() {
+		return null
+		$.ajax({
+		    url: "/admin/ajax/post/reset_settings/",
+		    type: 'POST',
+		    data: {
+		        csrfmiddlewaretoken: csrfToken,
+		        site_key: $(".sitekey-input").val()
+		    },
+		    beforeSend: function() {
+		    	showLoader()
+		    },
+		    success: (response) => {
+		        const { message } = response
+				showAlert({ message })
+				closeLoader()
+				window.location.replace("/admin/login")
+		    },
+		    error: (error) => {
+		    	const { message } = error.responseJSON
+				showAlert({ message })
+				closeLoader()
+		    }
+		});
+	})
 
+
+	$(".actions-dropdown-btn").click(() => showCloseEle(".actions-dropdown-menu"));
+})();
 
 function getSettingsInput({ is_checkbox = false } = {}) {
   const settingsInput = $(".settings-input")
@@ -19,6 +43,15 @@ function getSettingsInput({ is_checkbox = false } = {}) {
 
   return data
 }
+
+function showCloseEle({showele_key}) {
+		const showEle = $(showele_key)
+		const showEleIsOpen = showEle.data("open")
+
+		!showEleIsOpen ?
+			showEle.css("display", "flex").hide().fadeIn().data("open", true) :
+			showEle.fadeOut().data("open", false) 
+	}
 
 function saveSettings({ data }) {
 	const page = getPage()
