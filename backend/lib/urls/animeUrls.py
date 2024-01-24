@@ -1,6 +1,5 @@
 from ..handlers import produce_urlpatterns, route_producer
 from ..routers import Anime
-from django.urls import path
 
 anime = Anime()
 

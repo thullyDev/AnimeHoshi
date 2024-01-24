@@ -44,7 +44,7 @@ class LatanimeScraper(Scraper, Latanime):
                 continue
 
         return self.get(base=self.base, endpoint=self.search_endpoint, blueprint=self.blueprints["latanime_filter"], params=params)
-    
+
     def get_schedule(self): return self.get(base=self.base, endpoint=self.schedule_endpoint, blueprint=self.blueprints["latanime_schedule"])
 
     def get_anime(self, slug): return self.get(base=self.base, endpoint=f"{self.anime_endpoint}{slug}", blueprint=self.blueprints["latanime_anime"])

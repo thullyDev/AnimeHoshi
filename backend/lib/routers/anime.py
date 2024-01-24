@@ -8,6 +8,7 @@ from ..scraping import TioanimeScraper, LatanimeScraper
 from ..handlers import ResponseHandler, SiteHandler
 from .base import Base
 import ast
+from pprint import pprint
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
@@ -16,12 +17,13 @@ cache = Cache()
 
 class Anime(Base):
     @recorder
-    def home(self, request):
+    def home(self, request, context, **kwargs):
         cache_id = "home_data"
         cache_data = cache.hget(name=cache_id)
 
         if cache_data:
-            return self.successful_response(data={"data": cache_data})
+            context["data"] = cache_data        
+            return self.root(request=request, context=context, template="pages/anime/home.html")
 
         tioanime_rawdata = tioanime.get_home()
         latanime_rawdata = latanime.get_home()
@@ -73,11 +75,13 @@ class Anime(Base):
                 "description": slider.get("description").get("text"),
             })
 
-        cache.hset(name=cache_id, data=data)
-        return self.successful_response(data={"data": data})
+        twelve_hours = 43_200
+        cache.hset(name=cache_id, data=data, expiry=twelve_hours)
+        context["data"] = data
+        return self.root(request=request, context=context, template="pages/anime/home.html")
 
     @recorder
-    def tioanime_filter(self, request):
+    def tioanime_filter(self, request, context, **kwargs):
         filter_data = {}
         for key, value in request.GET.items():
             if value: filter_data[key] = value
@@ -88,7 +92,7 @@ class Anime(Base):
         return self.successful_response(data=data)
 
     @recorder
-    def latanime_filter(self, request):
+    def latanime_filter(self, request, context, **kwargs):
         filter_data = {}
         for key, value in request.GET.items():
             if value: filter_data[key] = value
@@ -99,21 +103,21 @@ class Anime(Base):
         return self.successful_response(data=data)
 
     @recorder
-    def tioanime_schedule(self, request):
+    def tioanime_schedule(self, request, context, **kwargs):
         rawdata = tioanime.get_schedule()
         data = self.schedule_data_processing(rawdata=rawdata)
 
         return self.successful_response(data={ "data": data })
 
     @recorder
-    def latanime_schedule(self, request):
+    def latanime_schedule(self, request, context, **kwargs):
         rawdata = latanime.get_schedule()
         data = self.schedule_data_processing(rawdata=rawdata, base=latanime.base)
 
         return self.successful_response(data={ "data": data })
 
     @recorder
-    def latanime_search(self, request):
+    def latanime_search(self, request, context, **kwargs):
         search_data = {}
         for key, value in request.GET.items():
             if value: search_data[key] = value
@@ -124,35 +128,35 @@ class Anime(Base):
         return self.successful_response(data={ "data": data })
 
     @recorder
-    def tioanime_anime(self, request, slug):
+    def tioanime_anime(self, request, slug, context, **kwargs):
         rawdata = tioanime.get_anime(slug=slug)
         data = self.anime_processing(rawdata=rawdata, base=tioanime.base)
 
         return self.successful_response(data={ "data": data })
 
     @recorder
-    def latanime_anime(self, request, slug):
+    def latanime_anime(self, request, slug, context, **kwargs):
         rawdata = latanime.get_anime(slug=slug)
         data = self.anime_processing(rawdata=rawdata, base=latanime.base)
 
         return self.successful_response(data={ "data": data })
 
     @recorder
-    def latanime_watch(self, request, slug):
+    def latanime_watch(self, request, slug, context, **kwargs):
         rawdata = latanime.get_episode(slug=slug)
         data = self.watch_processing(rawdata=rawdata, base=latanime.base)
 
         return self.successful_response(data={ "data": data })
 
     @recorder
-    def tioanime_watch(self, request, slug):
+    def tioanime_watch(self, request, slug, context, **kwargs):
         rawdata = tioanime.get_episode(slug=slug)
         data = self.watch_processing(rawdata=rawdata, base=tioanime.base)
 
         return self.successful_response(data={ "data": data })
 
     @recorder
-    def stream(self, request, encrypted_link):
+    def stream(self, request, encrypted_link, context, **kwargs):
         link = b64decode(encrypted_link.replace("b'", "").replace("'", "")).decode("utf-8")
         site = link.replace("https://", "").split("/")[0]
         valid_sites = {

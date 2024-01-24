@@ -1,4 +1,3 @@
-from .users import Users
 from .user import User
 from .admin import Admin
 from .anime import Anime
