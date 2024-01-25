@@ -9,15 +9,34 @@
 			<div class="slider-con">
 				<div class="features-swiper-container swiper-container">
 				  <div class="features-swiper-wrapper swiper-wrapper">
-				    <div class="features-swiper-slide swiper-slide">
-				      <img src="image1.jpg" alt="Image 1">
-				    </div>
-				    <div class="features-swiper-slide swiper-slide">
-				      <img src="image2.jpg" alt="Image 2">
-				    </div>
+					{% for anime in data.latanime.features %}
+		           		{% with background=anime.background_image_url title=anime.title poster=anime.preview_image_url title=anime.title description=anime.description %}
+						    <div class="features-swiper-slide swiper-slide">
+						    	<div class="feature-con">
+						    		<div class="background-image-con">
+						    			<img src="{{background}}" alt="{{title}} background-image" class="background-image">
+						    		</div>
+						    		<div class="anime-info-con">
+						    			<div class="left-side-con">
+						    				<div class="details-con">
+						    					<p class="title">
+						    						{{title}}
+							    				</p>
+							    				<p class="description">
+							    					{{description}}
+							    				</p>		
+						    				</div>
+						    				<a href="/anime{{slug}}?type=latino" class="watch-link">Watch Now</a>
+						    			</div>
+						    			<div class="right-side">
+						    				<img src="{{poster}}" class="features-poster" alt="{{title}}">
+						    			</div>
+						    		</div>
+						    	</div>
+						    </div>
+		           		{% endwith %}
+					{% endfor %}
 				  </div>
-				  
-
 				  <div class="features-swiper-button swiper-button-next">
 				    <i class="fas fa-chevron-right"></i>
 				  </div>
@@ -28,8 +47,14 @@
 			</div>
 		</div>
 		<div class="outter-animes-con">
-           {% with label="Anime Episodios" animes=data.tioanime.episodes %}
-           		{% include "pages/anime/widgets/anime_wrapper.html" %}
+           {% with label="Anime Episodios" animes=data.tioanime.episodes episodes=True type="main" %}
+           		{% include "pages/anime/widgets/animes_wrapper.html" %}
+           {% endwith %}
+           {% with label="Animes" animes=data.tioanime.animes episodes=False type="latino" %}
+           		{% include "pages/anime/widgets/animes_wrapper.html" %}
+           {% endwith %}
+           {% with label="Anime Latino Episodios" animes=data.latanime.episodes episodes=True type="latino" %}
+           		{% include "pages/anime/widgets/animes_wrapper.html" %}
            {% endwith %}
 		</div>
 	</div>

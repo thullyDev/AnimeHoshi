@@ -6,16 +6,18 @@
 		<div class="inner-con">
 			<ul>
 				{% for anime in animes %}
-				<li class="anime-con">
-					<a href="/anime/sub/{{slug}}" class="anime-link">
-						<div class="inner-anime-con">
-							<div class="anime-poster-con">
-								<img src="" alt="anime name" class="anime-poster">
+	           		{% with slug=anime.slug title=anime.title poster=anime.image_url %}
+					<li class="anime-con">
+						<a href="/{% if episodes == True %}episodes{% else %}anime{% endif %}{{slug}}?type={{type}}" class="anime-link">
+							<div class="inner-anime-con">
+								<div class="anime-poster-con">
+									<img src="{{poster}}" alt="{{title}}" class="anime-poster">
+								</div>
+								<span class="anime-title">{{title}}</span>
 							</div>
-							<span class="anime-title">anime name</span>
-						</div>
-					</a>
-				</li>
+						</a>
+					</li>
+	           		{% endwith %}
 				{% endfor %}
 			</ul>
 		</div>

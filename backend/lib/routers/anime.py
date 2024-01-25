@@ -22,7 +22,7 @@ class Anime(Base):
         cache_data = cache.hget(name=cache_id)
 
         if cache_data:
-            context["data"] = cache_data        
+            context["data"] = cache_data 
             return self.root(request=request, context=context, template="pages/anime/home.html")
 
         tioanime_rawdata = tioanime.get_home()
@@ -46,7 +46,7 @@ class Anime(Base):
             data["tioanime"]["episodes"].append({
                 "image_url": f"https://{tioanime.base}/" + episode.get("image").get("url"),
                 "title": episode.get("image").get("title"),
-                "episode_slug": episode.get("episode_slug").get("slug").replace("/ver", ""),
+                "slug": episode.get("episode_slug").get("slug").replace("/ver", ""),
             })
 
         for anime in latest_animes:
@@ -63,7 +63,7 @@ class Anime(Base):
             data["latanime"]["episodes"].append({
                 "image_url": episode.get("image").get("url"),
                 "title": episode.get("image").get("title"),
-                "episode_slug": episode.get("episode_slug").get("slug").replace(f"https://{latanime.base}/ver", ""),
+                "slug": episode.get("episode_slug").get("slug").replace(f"https://{latanime.base}/ver", ""),
             })
 
         for slider in sliders:
