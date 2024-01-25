@@ -47,10 +47,10 @@
           </main>
         {% else %}
           <div class="side-bar-con">
-            {% include "sections/admin/admin_menu.html" %}
+            {% include "sections/admin/menu.html" %}
           </div>
           <div class="right-con">
-            {% include "sections/admin/admin_header.html" %}
+            {% include "sections/admin/header.html" %}
             <main class="main-content">
               <h2 class="page-label">{{ page|title }}</h2>
               <div class="core-content">
@@ -59,7 +59,7 @@
               </div>
             </main>
           </div>
-          {% include "sections/admin/admin_footer.html" %}
+          {% include "sections/admin/footer.html" %}
         {% endif %}
 
         <div style="display: none;" class="page-loader">

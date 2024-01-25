@@ -10,7 +10,7 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
-  <link rel="shortcut icon" href="{{ site_data.values.images.site_logo.value }}" />
+  <link rel="shortcut icon" href="{{ site_data.values.images.favicon_logo.value }}" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
@@ -35,18 +35,18 @@
 </head> 
 <body>
 	  <div class="page-content">
+        {% include "sections/anime/header.html" %}
         <main class="main-content">
           <div class="core-content">
             {% block main_content %}
             {% endblock %}
           </div>
         </main>
-
         <div style="display: none;" class="page-loader">
           {% include "widgets/spinner.html" %}
         </div>
-
         <div class="alert-box"></div>
+        {% include "sections/admin/footer.html" %}
     </div>
 </body>
 </html>

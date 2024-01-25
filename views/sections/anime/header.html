@@ -1,0 +1,40 @@
+<header class="main-header">
+  <div class="header-viewer-con">
+    {% include "widgets/title.html" %}
+    {% include "sections/anime/nav.html" %}
+    {% include "widgets/search.html" %}
+    <div class="account-profile-image-con">
+      {% if user %}
+      <a href="/user/{{user.username}}" class="profile-link">
+        <img src="{{user.profile_image_url}}" alt="{{user.username}}" class="profile-image-con">
+      </a>
+      {% else %}
+      <span class="anon-user-con login-btn">
+        <i class="fa fa-user"></i>
+      </span>
+      {% endif %}
+    </div>
+    <div class="menu-btn-con mobile-menu-btn-con">
+      <button type="button" class="menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-viewer-con">
+    {% include "sections/anime/nav.html" %}
+    <div class="search-account-con">
+      {% include "widgets/search.html" %}
+      <div class="account-profile-image-con">
+        {% if user %}
+        <a href="/user/{{user.username}}" class="profile-link">
+          <img src="{{user.profile_image_url}}" alt="{{user.username}}" class="profile-image-con">
+        </a>
+        {% else %}
+        <span class="anon-user-con login-btn">
+          <i class="fa fa-user"></i>
+        </span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>

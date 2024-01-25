@@ -1,8 +1,36 @@
 {% extends "bases/anime.html" %}
-{% load filters %}
 
 {% block head_content %}
 {% endblock %}
 
 {% block main_content %}
+	<div class="inner-con inner-main-content">
+		<div class="features-con">
+			<div class="slider-con">
+				<div class="features-swiper-container swiper-container">
+				  <div class="features-swiper-wrapper swiper-wrapper">
+				    <div class="features-swiper-slide swiper-slide">
+				      <img src="image1.jpg" alt="Image 1">
+				    </div>
+				    <div class="features-swiper-slide swiper-slide">
+				      <img src="image2.jpg" alt="Image 2">
+				    </div>
+				  </div>
+				  
+
+				  <div class="features-swiper-button swiper-button-next">
+				    <i class="fas fa-chevron-right"></i>
+				  </div>
+				  <div class="features-swiper-button swiper-button-prev">
+				    <i class="fas fa-chevron-left"></i>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<div class="outter-animes-con">
+           {% with label="Anime Episodios" animes=data.tioanime.episodes %}
+           		{% include "pages/anime/widgets/anime_wrapper.html" %}
+           {% endwith %}
+		</div>
+	</div>
 {% endblock %}
