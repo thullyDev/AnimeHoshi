@@ -88,10 +88,9 @@ class Anime(Base):
 
         rawdata = tioanime.get_filter(data=filter_data)
         data = self.filter_data_processing(rawdata=rawdata, base=tioanime.base)
-        del filter_data["page"]
+        if page in filter_data: del filter_data["page"]
         
         query = tioanime.build_query(filter_data)
-        print([ query ])
         context["data"] = data
         context["query"] = query.replace("?", "&")
         context["type"] = "main"
@@ -105,22 +104,29 @@ class Anime(Base):
 
         rawdata = latanime.get_filter(data=filter_data)
         data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)
+        if page in filter_data: del filter_data["page"]
+        
+        query = latanime.build_query(filter_data)
         context["data"] = data
+        context["query"] = query.replace("?", "&")
+        context["type"] = "latino"
         return self.root(request=request, context=context, template="pages/anime/filter.html")
 
     @recorder
     def tioanime_schedule(self, request, context, **kwargs):
         rawdata = tioanime.get_schedule()
         data = self.schedule_data_processing(rawdata=rawdata)
-
-        return self.successful_response(data={ "data": data })
+        context["data"] = data
+        context["type"] = "main"
+        return self.root(request=request, context=context, template="pages/anime/schedule.html")
 
     @recorder
     def latanime_schedule(self, request, context, **kwargs):
         rawdata = latanime.get_schedule()
         data = self.schedule_data_processing(rawdata=rawdata, base=latanime.base)
-
-        return self.successful_response(data={ "data": data })
+        context["data"] = data
+        context["type"] = "latino"
+        return self.root(request=request, context=context, template="pages/anime/schedule.html")
 
     @recorder
     def latanime_search(self, request, context, **kwargs):
@@ -129,9 +135,16 @@ class Anime(Base):
             if value: search_data[key] = value
 
         rawdata = latanime.get_search(data=search_data)
-        data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)
+        if not rawdata["animes"]: return redirect("home")
 
-        return self.successful_response(data={ "data": data })
+        data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)
+        if page in search_data: del search_data["page"]
+
+        query = latanime.build_query(search_data)
+        context["data"] = data
+        context["query"] = query.replace("?", "&")
+        context["type"] = "latino"
+        return self.root(request=request, context=context, template="pages/anime/filter.html")
 
     @recorder
     def tioanime_anime(self, request, slug, context, **kwargs):

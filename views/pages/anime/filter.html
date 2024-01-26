@@ -6,6 +6,7 @@
 
 {% block main_content %}
 	<div class="inner-con inner-main-content">
+		{% if not page == "search" %}
 		<div class="filter-con">
 			<div class="inner-con">
       			{% if type == "main" %}
@@ -19,6 +20,7 @@
 				{% endif %}
 			</div>
 		</div>
+		{% endif %}
 		<div class="outter-animes-con">
            {% with label="Animes" animes=data.animes type="latino" %}
            		{% include "pages/anime/widgets/animes_wrapper.html" %}

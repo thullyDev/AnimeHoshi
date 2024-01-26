@@ -4,7 +4,7 @@ from ..routers import Anime
 anime = Anime()
 
 routes = [
-    route_producer(route="", view=anime.home),
+    route_producer(route="", view=anime.home, name="home"),
     route_producer(route="main/filter/", view=anime.tioanime_filter),
     route_producer(route="latino/filter/", view=anime.latanime_filter),
     route_producer(route="main/schedule/", view=anime.tioanime_schedule),
