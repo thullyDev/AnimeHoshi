@@ -83,7 +83,6 @@
     </div>
   </div>
   <div class="tabel-pagination">
-    {% with table_heads=users_heads %}
     <ul>
       {% if pages > 6 %}
         {% for i in 5|times %}
@@ -119,6 +118,5 @@
       </li>
       {% endif %}
     </ul>
-  {% endwith %}
 </div>
 </div>

@@ -5,6 +5,7 @@ from ..resources import ROOT_FILE
 from ..database import Database
 from ..handlers import ResponseHandler
 import json
+from pprint import pprint
 
 database = Database()
 

@@ -1,0 +1,53 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+{% endblock %}
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<div class="filter-con">
+			<div class="inner-con">
+      			{% if type == "main" %}
+	      			{% for key, values in tioanime_queries.items %}
+	      				{% include "pages/anime/widgets/filters.html" %}
+					{% endfor %}
+				{% else %}
+	      			{% for key, values in latanime_queries.items %}
+	      				{% include "pages/anime/widgets/filters.html" %}
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+		<div class="outter-animes-con">
+           {% with label="Animes" animes=data.animes type="latino" %}
+           		{% include "pages/anime/widgets/animes_wrapper.html" %}
+           {% endwith %}
+		</div>
+		<div class="pagination-con">
+			<ul>
+				{% with pages=data.pages%}
+					{% for page in pages|pagi %}
+			          <li class="pages-ticks">
+			            <a href="/{{type}}/filter?page={{page}}{{query}}" 
+			               class="{% if page == 1 %} hl-ele {% endif %}pagination-btn page-btn">
+			              {{ page }}
+			            </a>
+			          </li>
+			        {% endfor %}
+					{% if pages > 1 %}
+			          <li class="pages-ticks">
+			            <i class="fas fa-ellipsis-h"></i>
+			          </li>
+				      <li class="pages-ticks">
+				        <a href="/{{type}}/filter?page={{pages}}{{query}}" 
+				           class="hl-ele pagination-btn page-btn">
+				          {{ pages }}
+				        </a>
+				      </li>
+					{% endif %}
+				{% endwith %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

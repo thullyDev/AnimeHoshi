@@ -16,6 +16,11 @@ def replace(value, arg):
 def times(number):
     return range(1, number + 1)
 
+@register.filter(name='pagi') 
+def pagi(pages):
+    end = 6 if pages > 6 else pages
+    return range(1, end)
+
 @register.filter(name='safebool') 
 def safebool(value):
     hashmap = {

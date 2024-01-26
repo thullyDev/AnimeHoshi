@@ -88,8 +88,14 @@ class Anime(Base):
 
         rawdata = tioanime.get_filter(data=filter_data)
         data = self.filter_data_processing(rawdata=rawdata, base=tioanime.base)
-
-        return self.successful_response(data=data)
+        del filter_data["page"]
+        
+        query = tioanime.build_query(filter_data)
+        print([ query ])
+        context["data"] = data
+        context["query"] = query.replace("?", "&")
+        context["type"] = "main"
+        return self.root(request=request, context=context, template="pages/anime/filter.html")
 
     @recorder
     def latanime_filter(self, request, context, **kwargs):
@@ -99,8 +105,8 @@ class Anime(Base):
 
         rawdata = latanime.get_filter(data=filter_data)
         data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)
-
-        return self.successful_response(data=data)
+        context["data"] = data
+        return self.root(request=request, context=context, template="pages/anime/filter.html")
 
     @recorder
     def tioanime_schedule(self, request, context, **kwargs):

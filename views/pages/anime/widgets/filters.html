@@ -1,0 +1,10 @@
+<div class="filters-options">
+	<label for="{{key}}" class="filters-label">{{key|title}}</label>
+	<div class="inner-filters-options">
+		<select id="{{key}}" name="{{key}}" class="filter-select">
+  			{% for item in values %}
+  				<option value="{{item.value}}">{{item.name}}</option>
+			{% endfor %}
+		</select>
+	</div>
+</div>

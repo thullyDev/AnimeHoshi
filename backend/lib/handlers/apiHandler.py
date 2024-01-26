@@ -4,13 +4,18 @@ import requests
 class ApiHandler:
     def build_url(self, base, endpoint, params, https_safe=True):
         head = "https" if https_safe else "http"
-        url = f"{head}://{base}/{endpoint}" if base else f"/{endpoint}"
+        query = self.build_query(params);
+        url = f"{head}://{base}{endpoint}{query}"
+        return url
+
+    def build_query(self, params):
         count = 0
+        query = ""
         for key, value in params.items():
-            url += f"?{key}={value}" if not count else f"&{key}={value}"
+            query += f"?{key}={value}" if not count else f"&{key}={value}"
             count += 1
         
-        return url
+        return query
         
     def request(self, base, endpoint, params={}, headers={}, https_safe=True, html=False):
         url = self.build_url(base=base, endpoint=endpoint, params=params, https_safe=True)
