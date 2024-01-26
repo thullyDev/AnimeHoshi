@@ -1,0 +1,41 @@
+{% extends "bases/anime.html" %}
+
+{% block head_content %}
+{% endblock %}
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<h2 class="title">{{data.episode_title}}</h2>
+		<div class="player-con">
+			<div class="inner-con">
+				<iframe src="{{first_embed.link}}" frameborder="0" class="player"></iframe>
+			</div>
+		</div>
+		<div class="servers-links-con">
+			<div class="servers-embed-label">
+				<div class="servers-label">
+					Site Servers
+				</div>
+				<div class="server-links-con">
+					{% for server in data.safe_links %}
+						{% with link=server.embed_id name=server.name %}
+							{% include "pages/anime/widgets/server_wrapper.html" %}
+						{% endwith %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="servers-embed-label">
+				<div class="servers-label">
+					BackUp Servers
+				</div>
+				<div class="server-links-con">
+					{% for server in data.embed_links %}
+						{% with link=server.link name=server.name %}
+							{% include "pages/anime/widgets/server_wrapper.html" %}
+						{% endwith %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

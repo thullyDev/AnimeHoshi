@@ -8,7 +8,6 @@ from ..scraping import TioanimeScraper, LatanimeScraper
 from ..handlers import ResponseHandler, SiteHandler
 from .base import Base
 import ast
-from pprint import pprint
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
@@ -166,15 +165,22 @@ class Anime(Base):
     def latanime_watch(self, request, slug, context, **kwargs):
         rawdata = latanime.get_episode(slug=slug)
         data = self.watch_processing(rawdata=rawdata, base=latanime.base)
-
-        return self.successful_response(data={ "data": data })
+        del data["recommandations"]
+        context["data"] = data
+        embed_links = data.get("embed_links", [])
+        first_embed = {} if not embed_links else embed_links[0]
+        context["first_embed"] = first_embed
+        return self.root(request=request, context=context, template="pages/anime/watch.html")
 
     @recorder
     def tioanime_watch(self, request, slug, context, **kwargs):
         rawdata = tioanime.get_episode(slug=slug)
         data = self.watch_processing(rawdata=rawdata, base=tioanime.base)
-
-        return self.successful_response(data={ "data": data })
+        context["data"] = data
+        embed_links = data.get("embed_links", [])
+        first_embed = {} if not embed_links else embed_links[0]
+        context["first_embed"] = first_embed
+        return self.root(request=request, context=context, template="pages/anime/watch.html")
 
     @recorder
     def stream(self, request, encrypted_link, context, **kwargs):
