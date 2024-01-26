@@ -150,15 +150,17 @@ class Anime(Base):
     def tioanime_anime(self, request, slug, context, **kwargs):
         rawdata = tioanime.get_anime(slug=slug)
         data = self.anime_processing(rawdata=rawdata, base=tioanime.base)
-
-        return self.successful_response(data={ "data": data })
+        context["type"] = "main"
+        context["data"] = data
+        return self.root(request=request, context=context, template="pages/anime/anime.html")
 
     @recorder
     def latanime_anime(self, request, slug, context, **kwargs):
         rawdata = latanime.get_anime(slug=slug)
         data = self.anime_processing(rawdata=rawdata, base=latanime.base)
-
-        return self.successful_response(data={ "data": data })
+        context["type"] = "latino"
+        context["data"] = data
+        return self.root(request=request, context=context, template="pages/anime/anime.html")
 
     @recorder
     def latanime_watch(self, request, slug, context, **kwargs):

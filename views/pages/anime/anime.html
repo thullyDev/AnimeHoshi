@@ -1,0 +1,74 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+{% endblock %}
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<div class="info-con">
+			<div class="left-con">
+				<div class="image-poster-con">
+					<img src="{{data.poster_image}}" alt="{{data.title}}" title="{{data.title}}" class="poster">
+				</div>
+			</div>
+			<div class="right-con">
+				<div class="details-con">
+					<h3 class="title">{{data.title}}</h3>
+					{% if type == "main" %}
+					<div class="ticks-con">
+						<span class="tick type-tick">
+							{{data.type}}
+						</span>
+						<span class="tick year-tick">
+							{{data.year}}
+						</span>
+						<span class="tick season-tick">
+							{{data.season}}
+						</span>
+						<span class="tick status-tick">
+							{{data.status}}
+						</span>
+					</div>
+					{% endif %}
+					<div class="genres-ticks-con ticks-con">
+						<ul>
+							{% for value in data.genres %}
+							<li class="tick genre-tick">
+								<a href="/{{type}}/filter/?genre={{value.genre_id}}" class="genre-link">{{value.genre}}</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="description-con">
+						<p class="description">{{data.description}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="episodes-con">
+			<h4 class="episodes-label">{{data.title}} episodes</h4>
+			<div class="inner-episodes-con">
+				<ul>
+					{% if type == "main" %}
+						{% for value in data.episodes %}
+							{% with title=value.episode_title slug=value.slug %}
+								<li class="episode-item">
+									<a href="{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
+								</li>
+							{% endwith %}
+						{% endfor %}
+					{% else %}
+						{% for value in data.episodes %}
+							{% with title=value|replace:"/, "|replace:"-, "|title slug=value %}
+								<li class="episode-item">
+									<a href="{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
+								</li>
+							{% endwith %}
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}

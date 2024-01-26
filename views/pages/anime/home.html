@@ -1,4 +1,5 @@
 {% extends "bases/anime.html" %}
+{% load filters %}
 
 {% block head_content %}
 {% endblock %}
@@ -10,7 +11,7 @@
 				<div class="features-swiper-container swiper-container">
 				  <div class="features-swiper-wrapper swiper-wrapper">
 					{% for anime in data.latanime.features %}
-		           		{% with background=anime.background_image_url title=anime.title poster=anime.preview_image_url title=anime.title description=anime.description %}
+		           		{% with background=anime.background_image_url title=anime.slug|replace:"/, "|replace:"-, "|title poster=anime.preview_image_url slug=anime.slug description=anime.description %}
 						    <div class="features-swiper-slide swiper-slide">
 						    	<div class="feature-con">
 						    		<div class="background-image-con">
@@ -26,7 +27,7 @@
 							    					{{description}}
 							    				</p>		
 						    				</div>
-						    				<a href="/anime{{slug}}?type=latino" class="watch-link">Watch Now</a>
+						    				<a href="/latino/anime{{slug}}" class="watch-link">Watch Now</a>
 						    			</div>
 						    			<div class="right-side">
 						    				<img src="{{poster}}" class="features-poster" alt="{{title}}">
