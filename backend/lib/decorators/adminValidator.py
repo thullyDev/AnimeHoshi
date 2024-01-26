@@ -61,8 +61,8 @@ def get_admin(request):
     if admin == None:
         return 
 
-    # if temporary_id != admin["temporary_id"]:
-    #     return 
+    if temporary_id != admin["temporary_id"]:
+        return 
 
     admin = database.update_admin(data={ "email": email, "temporary_id": generate_unique_id() })
 

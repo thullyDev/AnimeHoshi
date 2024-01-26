@@ -1,0 +1,38 @@
+.inner-con {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.normal-logo-con {
+  display: none;
+}
+
+.site-logo.small-logo {
+  width: 55px;
+}
+
+.header-viewer-con {display: flex;justify-content: space-between;}
+
+.header-viewer-con .nav-bar-con {
+    display: none;
+}
+
+.header-viewer-con .outter-search-con {
+    display: none;
+}
+
+header.main-header {
+    width: 100%;
+    padding: 15px;
+}
+
+header.main-header {
+    background: var(--secondary-accent-color);
+}
+
+.menu-btn-con.mobile-menu-btn-con {
+    display: flex;
+}
+
+button.menu-btn {background: var(--third-color);width: 50px;height: 50px;color: var(--primary-color);border-radius: 100%;}
