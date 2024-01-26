@@ -1,4 +1,5 @@
 {% extends "bases/anime.html" %}
+{% load filters %}
 
 {% block head_content %}
 {% endblock %}
@@ -11,8 +12,11 @@
 				<iframe src="{{first_embed.link}}" frameborder="0" class="player"></iframe>
 			</div>
 		</div>
+		<div class="watch2gather-btn-con">
+			<button class="watch2gather-con" data-slug="{{anime_slug}}">Watch Togather</button>
+		</div>
 		<div class="servers-links-con">
-			<div class="servers-embed-label">
+		<!-- 	<div class="servers-embed-label">
 				<div class="servers-label">
 					Site Servers
 				</div>
@@ -23,10 +27,10 @@
 						{% endwith %}
 					{% endfor %}
 				</div>
-			</div>
+			</div> -->
 			<div class="servers-embed-label">
 				<div class="servers-label">
-					BackUp Servers
+					Servers
 				</div>
 				<div class="server-links-con">
 					{% for server in data.embed_links %}
@@ -35,6 +39,30 @@
 						{% endwith %}
 					{% endfor %}
 				</div>
+			</div>
+		</div>
+		<div class="episodes-con">
+			<h4 class="episodes-label">episodes</h4>
+			<div class="inner-episodes-con">
+				<ul>
+					{% if type == "main" %}
+						{% for value in episodes %}
+							{% with title=value.episode_title slug=value.slug %}
+								<li class="episode-item">
+									<a href="/{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
+								</li>
+							{% endwith %}
+						{% endfor %}
+					{% else %}
+						{% for value in episodes %}
+							{% with title=value|replace:"/, "|replace:"-, "|title slug=value %}
+								<li class="episode-item">
+									<a href="/{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
+								</li>
+							{% endwith %}
+						{% endfor %}
+					{% endif %}
+				</ul>
 			</div>
 		</div>
 	</div>

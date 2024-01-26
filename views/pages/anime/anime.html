@@ -1,4 +1,5 @@
 {% extends "bases/anime.html" %}
+{% load filters %}
 
 {% block head_content %}
 {% endblock %}
@@ -9,6 +10,9 @@
 			<div class="left-con">
 				<div class="image-poster-con">
 					<img src="{{data.poster_image}}" alt="{{data.title}}" title="{{data.title}}" class="poster">
+				</div>
+				<div class="watch2gather-btn-con">
+					<button class="watch2gather-con" data-slug="{{anime_slug}}">Watch Togather</button>
 				</div>
 			</div>
 			<div class="right-con">

@@ -8,6 +8,7 @@ from ..scraping import TioanimeScraper, LatanimeScraper
 from ..handlers import ResponseHandler, SiteHandler
 from .base import Base
 import ast
+from pprint import pprint
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
@@ -149,6 +150,7 @@ class Anime(Base):
     def tioanime_anime(self, request, slug, context, **kwargs):
         rawdata = tioanime.get_anime(slug=slug)
         data = self.anime_processing(rawdata=rawdata, base=tioanime.base)
+        context["anime_slug"] = slug
         context["type"] = "main"
         context["data"] = data
         return self.root(request=request, context=context, template="pages/anime/anime.html")
@@ -165,21 +167,32 @@ class Anime(Base):
     def latanime_watch(self, request, slug, context, **kwargs):
         rawdata = latanime.get_episode(slug=slug)
         data = self.watch_processing(rawdata=rawdata, base=latanime.base)
+        anime_slug = slug.split("-episodio")[0]
+        context["anime_slug"] = anime_slug
+        episodes = self.get_episodes(anime_slug, latanime)
         del data["recommandations"]
         context["data"] = data
         embed_links = data.get("embed_links", [])
         first_embed = {} if not embed_links else embed_links[0]
         context["first_embed"] = first_embed
+        context["episodes"] = episodes
+        context["type"] = "latino"
         return self.root(request=request, context=context, template="pages/anime/watch.html")
 
     @recorder
     def tioanime_watch(self, request, slug, context, **kwargs):
         rawdata = tioanime.get_episode(slug=slug)
+        temp = slug.split("-")
+        anime_slug = "-".join(temp[:-1])
+        episodes = self.get_episodes(anime_slug, tioanime)
         data = self.watch_processing(rawdata=rawdata, base=tioanime.base)
         context["data"] = data
+        context["anime_slug"] = anime_slug
         embed_links = data.get("embed_links", [])
         first_embed = {} if not embed_links else embed_links[0]
         context["first_embed"] = first_embed
+        context["episodes"] = episodes
+        context["type"] = "main"
         return self.root(request=request, context=context, template="pages/anime/watch.html")
 
     @recorder
@@ -211,6 +224,11 @@ class Anime(Base):
         return self.successful_response(data={ "data": data })
 
     #*** helper functions START ***#
+    def get_episodes(self, slug, instance):
+        rawdata = instance.get_anime(slug)
+        data = self.anime_processing(rawdata=rawdata, base=instance.base)
+        return data["episodes"]
+
     def filter_data_processing(self, rawdata, base):
         animes = rawdata.get("animes")
         pages = rawdata.get("pages")[0]
