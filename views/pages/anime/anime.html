@@ -54,7 +54,7 @@
 						{% for value in data.episodes %}
 							{% with title=value.episode_title slug=value.slug %}
 								<li class="episode-item">
-									<a href="{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
+									<a href="/{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
 								</li>
 							{% endwith %}
 						{% endfor %}
@@ -62,7 +62,7 @@
 						{% for value in data.episodes %}
 							{% with title=value|replace:"/, "|replace:"-, "|title slug=value %}
 								<li class="episode-item">
-									<a href="{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
+									<a href="/{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
 								</li>
 							{% endwith %}
 						{% endfor %}
