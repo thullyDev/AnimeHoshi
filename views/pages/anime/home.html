@@ -2,13 +2,29 @@
 {% load filters %}
 
 {% block head_content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css" integrity="sha512-pmAAV1X4Nh5jA9m+jcvwJXFQvCBi3T17aZ1KWkqXr7g/O2YMvO8rfaa5ETWDuBvRq6fbDjlw4jHL44jNTScaKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.js" integrity="sha512-hRhHH3+D9xVKPpodEiYzHWIG8CWbCjp7LCdZ00K3/6xsdC3iT0OlPJLIwxSMEl07gya1Ae8iAqXjMMLpzqqh0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer>
+  const swiper = new Swiper('.swiper', {
+	  direction: 'horizontal',
+	  loop: true,
+		slidesPerView: 1,
+	  // pagination: {
+	  //   el: '.swiper-pagination',
+	  // },
+	  navigation: {
+	    nextEl: '.swiper-button-next',
+	    prevEl: '.swiper-button-prev',
+	  },
+	});
+</script>
 {% endblock %}
 
 {% block main_content %}
 	<div class="inner-con inner-main-content">
 		<div class="features-con">
 			<div class="slider-con">
-				<div class="features-swiper-container swiper-container">
+				<div class="features-swiper swiper">
 				  <div class="features-swiper-wrapper swiper-wrapper">
 					{% for anime in data.latanime.features %}
 		           		{% with background=anime.background_image_url title=anime.slug|replace:"/, "|replace:"-, "|title poster=anime.preview_image_url slug=anime.slug description=anime.description %}
@@ -38,12 +54,15 @@
 		           		{% endwith %}
 					{% endfor %}
 				  </div>
-				  <div class="features-swiper-button swiper-button-next">
-				    <i class="fas fa-chevron-right"></i>
-				  </div>
+
 				  <div class="features-swiper-button swiper-button-prev">
 				    <i class="fas fa-chevron-left"></i>
 				  </div>
+
+				  <div class="features-swiper-button swiper-button-next">
+				    <i class="fas fa-chevron-right"></i>
+				  </div>
+				  <!-- <div class="swiper-pagination"></div> -->
 				</div>
 			</div>
 		</div>
