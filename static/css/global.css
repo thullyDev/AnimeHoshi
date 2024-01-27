@@ -29,7 +29,7 @@ button {
   flex-wrap: wrap;
   font-family: var(--primary-font);
   background-color: var(--primary-color);
-  color: #000;
+  color: var(--secondary-color);
   /* position: relative; */
 }
 
@@ -69,3 +69,35 @@ button {
   gap: 20px;
   min-height: 451px;
 }
+
+footer.main-footer .small-logo-con {
+  display: none;
+}
+
+footer.main-footer .normal-logo-con {
+  display: flex;
+}
+
+footer.main-footer {
+  color: var(--primary-color);
+  background: var(--third-color);
+  width: 100%;
+}
+
+footer.main-footer a {
+  color: var(--accent-color);
+}
+
+a.home-link.title-link {
+  display: flex;
+  justify-content: center;
+}
+
+.bottom-con > .inner-con {
+  font-size: 10px;
+}
+
+.bottom-con > .inner-con > p {
+  text-align: center;
+}
+

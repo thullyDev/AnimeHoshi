@@ -2,7 +2,10 @@
   <div class="header-viewer-con">
     {% include "widgets/title.html" %}
     {% include "sections/anime/nav.html" %}
-    {% include "widgets/search.html" %}
+    <div class="search-account-con">
+      {% include "widgets/search.html" %}
+      <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
+    </div>
     <div class="account-profile-image-con">
       {% if user %}
       <a href="/user/{{user.username}}" class="profile-link">
@@ -22,10 +25,16 @@
   </div>
   <div class="mobile-viewer-con">
     {% include "sections/anime/nav.html" %}
-    <div class="search-account-con">
-      {% include "widgets/search.html" %}
+    <div class="user-btns-con">
+      <div class="user-action-btn-con">
+        {% if is_auth == True %}
+          <button class="user-action-btn" data-type="logout">logout</button>
+        {% else %}
+          <button class="user-action-btn" data-type="login">login</button>
+        {% endif %}
+      </div>
       <div class="account-profile-image-con">
-        {% if user %}
+        {% if is_auth == True %}
         <a href="/user/{{user.username}}" class="profile-link">
           <img src="{{user.profile_image_url}}" alt="{{user.username}}" class="profile-image-con">
         </a>
@@ -35,6 +44,10 @@
         </span>
         {% endif %}
       </div>
+    </div>
+    <div class="search-account-con">
+      {% include "widgets/search.html" %}
+      <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
     </div>
   </div>
 </header>

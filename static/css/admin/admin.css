@@ -344,37 +344,6 @@ a.hl-ele.pagination-btn.page-btn {
 }
 
 
-footer.main-footer .small-logo-con {
-  display: none;
-}
-
-footer.main-footer .normal-logo-con {
-  display: flex;
-}
-
-footer.main-footer {
-  color: var(--primary-color);
-  background: var(--third-color);
-  width: 100%;
-}
-
-footer.main-footer a {
-  color: var(--accent-color);
-}
-
-a.home-link.title-link {
-  display: flex;
-  justify-content: center;
-}
-
-.bottom-con > .inner-con {
-  font-size: 10px;
-}
-
-.bottom-con > .inner-con > p {
-  text-align: center;
-}
-
 button.save-btn {
   cursor: pointer;
   color: var(--primary-color);
@@ -414,6 +383,10 @@ button.save-btn:hover {
   }
 }
 
+
+@media screen and (min-width: 601px) {
+}
+
 @media screen and (min-width: 768px) {
   .menu-text {
     display: inline-block;
@@ -424,21 +397,17 @@ button.save-btn:hover {
     width: calc(20% - 10px);
     min-width: 150px;
   }
-}
-
-
-/* Styles for screens with a width of 768 pixels or larger */
-@media screen and (min-width: 768px) {
     .table-con th,
     .table-con tr {
         font-size: 15px;
     }
 }
 
-/* Styles for screens with a width of 1024 pixels or larger */
+@media screen and (min-width: 901px) {
+}
+
 @media screen and (min-width: 1024px) {
 }
 
-/* Styles for screens with a width of 1200 pixels or larger */
 @media screen and (min-width: 1200px) {
 }
