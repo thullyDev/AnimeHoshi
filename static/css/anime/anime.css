@@ -22,9 +22,17 @@ button {
 }
 
 img.site-logo.normal-logo {
-    width: 150px;
+    width: 116px;
 }
-.header-viewer-con {display: flex;justify-content: space-between;}
+
+.header-viewer-con {display: flex;justify-content: start;}
+
+
+.header-viewer-con nav.main-nav-bar > ul {
+    display: flex;
+    gap: 10px;
+    padding: 0 10px;
+}
 
 .header-viewer-con .nav-bar-con, .header-viewer-con .account-profile-image-con, .header-viewer-con .search-account-con {
     display: none;
@@ -33,12 +41,27 @@ img.site-logo.normal-logo {
 header.main-header {
     width: 100%;
     padding: 15px;
-}
-
-header.main-header {
     background: var(--secondary-accent-color);
 }
 
+.header-viewer-con .nav-bar-con {
+    width: 72%;
+}
+
+.title-con {
+    display: flex;
+    align-items: center;
+}
+
+.header-viewer-con .search-account-con {
+    justify-content: center;
+    width: 40%;
+    align-items: center;
+}
+
+.header-viewer-con .search-account-con a.filter-link {
+    height: 75%;
+}
 .mobile-viewer-con {
     display: none;
     flex-direction: column;
@@ -175,24 +198,42 @@ footer.main-footer {
 }
 
 
-@media screen and (min-width: 480px) {
+/*@media screen and (min-width: 480px) {
 }
+*/
 
-
-@media screen and (min-width: 601px) {
-    .header-viewer-con .nav-bar-con, .header-viewer-con .account-profile-image-con, .header-viewer-con .search-account-con {
-        display: none;
-    }
+/*@media screen and (min-width: 601px) {
 }
+*/
 
-@media screen and (min-width: 768px) {
+/*@media screen and (min-width: 768px) {
 }
 
 @media screen and (min-width: 901px) {
 }
-
+*/
 @media screen and (min-width: 1024px) {
+    .header-viewer-con .nav-bar-con, .header-viewer-con .account-profile-image-con, .header-viewer-con .search-account-con {
+        display: flex;
+    }
+
+    .menu-btn-con.mobile-menu-btn-con {
+        display: none;
+    }
+
+    .header-viewer-con a.nav-link {
+        display: flex;
+        justify-content: center;
+        border: none;
+        font-size: 14px;
+        width: 100px;
+        border-radius: 50px;
+        padding: 10px;
+        background: var(--third-color);
+    }
 }
 
+/*
 @media screen and (min-width: 1200px) {
 }
+*/

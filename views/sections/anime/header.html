@@ -7,7 +7,7 @@
       <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
     </div>
     <div class="account-profile-image-con">
-      {% if user %}
+      {% if is_auth == True %}
       <a href="/user/{{user.username}}" class="profile-link">
         <img src="{{user.profile_image_url}}" alt="{{user.username}}" class="profile-image-con">
       </a>

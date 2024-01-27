@@ -101,3 +101,43 @@ a.home-link.title-link {
   text-align: center;
 }
 
+@media screen and (min-width: 768px) {
+
+  .header-viewer-con .nav-bar-con {
+      width: 72%;
+  }
+
+  .title-con {
+      display: flex;
+      align-items: center;
+  }
+
+  .header-viewer-con .search-account-con {
+      justify-content: center;
+      width: 40%;
+      align-items: center;
+  }
+
+  .header-viewer-con .search-account-con a.filter-link {
+      height: 75%;
+  }
+
+  .main-footer > .inner-con {
+      flex-direction: row;
+      gap: 20px;
+  }
+
+  .bottom-con > .inner-con {
+      flex-direction: row;
+      gap: 20px;
+      padding: 0;
+  }
+
+
+  .bottom-con > .inner-con > p {margin: 0;}
+
+  .bottom-con {
+      display: flex;
+      align-items: end;
+  }
+}
