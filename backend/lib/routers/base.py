@@ -17,7 +17,7 @@ class Base(APIView, ResponseHandler):
         length = len(paths)
         page = paths[length - 2]
 
-        context["page"] = page if page != "" else context["site_data"]["values"]["inputs"]["site_name"]["value"]
+        context["page"] = page if page != "" else "index"
 
         return render(request, template, context=context)
 

@@ -69,6 +69,7 @@ button {
   justify-content: start;
   gap: 20px;
   min-height: 451px;
+  width: 100%;
 }
 
 footer.main-footer .small-logo-con {

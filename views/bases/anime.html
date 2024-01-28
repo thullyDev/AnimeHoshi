@@ -31,7 +31,7 @@
   <script defer type="text/javascript" src="/static/js/global.js"></script>
   <script defer type="text/javascript" src="/static/js/anime/anime.js"></script>
   <script defer type="text/javascript" src="/static/js/anime/pages/{{page}}.js"></script>
-  <title> {{ page|title }} | {{ site_data.values.inputs.title.value }} </title>
+  <title> {% if page == "index" %} Home {% else %} {{page|title}} {% endif %} | {{ site_data.values.inputs.title.value }} </title>
   {% block head_content %}
   {% endblock %}
 </head> 
