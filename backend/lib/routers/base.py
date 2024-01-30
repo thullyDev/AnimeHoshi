@@ -11,13 +11,15 @@ database = Database()
 
 class Base(APIView, ResponseHandler):
     def root(self, request, context={}, template=ROOT_FILE): 
+        if "page" in context: return render(request, template, context=context)
+
         path = request.path.split("/")
         full_path = request.path_info
         paths = full_path.split('/')
         length = len(paths)
         page = paths[length - 2]
 
-        context["page"] = page if page != "" else "index"
+        context["page"] = page 
 
         return render(request, template, context=context)
 

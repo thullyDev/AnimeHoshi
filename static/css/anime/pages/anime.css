@@ -1,0 +1,72 @@
+img.poster {
+    width: 55%;
+    max-width: 205px;
+}
+
+.image-poster-con {
+    display: flex;
+    justify-content: center;
+}
+
+button.watch2gather-con {
+    padding: 10px;
+    background: var(--third-color);
+    font-family: var(--primary-font);
+    margin: 10px 0;
+    border-radius: .25rem;
+    box-shadow: 0 0 15px 0px var(--third-color);
+}
+
+.watch2gather-btn-con {
+    display: flex;
+    justify-content: center;
+}
+
+.ticks-con {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+span.tick i {
+    margin-right: 5px;
+}
+
+span.tick.type-tick {
+    color: #f00;
+}
+
+span.tick.status-tick {
+    color: #45d100;
+}
+
+span.tick {
+    font-size: 13px;
+}
+
+span.tick.season-tick {
+    color: #c2c2ff;
+}
+
+.genres-ticks-con.ticks-con ul {
+    display: flex;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+li.tick.genre-tick {
+    background: var(--secondary-accent-color);
+    padding: 5px 10px;
+    border-radius: .25rem;
+    color: var(--secondary-color);
+}
+
+a.genre-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.inner-episodes-con ul {display: flex;padding: 0;list-style: none;flex-wrap: wrap;gap: 10px;}
+
+a.episode-link {display: flex;justify-content: center;padding: 10px 0;color: var(--secondary-color);background: var(--third-color);width: 100px;text-decoration: none;}

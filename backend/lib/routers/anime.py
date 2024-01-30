@@ -80,6 +80,7 @@ class Anime(Base):
         twelve_hours = 43_200
         cache.hset(name=cache_id, data=data, expiry=twelve_hours)
         context["data"] = data
+        context["page"] = "index"
         return self.root(request=request, context=context, template="pages/anime/home.html")
 
     @recorder
@@ -158,6 +159,8 @@ class Anime(Base):
         context["anime_slug"] = slug
         context["type"] = "main"
         context["data"] = data
+        context["page"] = "anime"
+
         return self.root(request=request, context=context, template="pages/anime/anime.html")
 
     @recorder
@@ -169,6 +172,8 @@ class Anime(Base):
         data = self.anime_processing(rawdata=rawdata, base=latanime.base)
         context["type"] = "latino"
         context["data"] = data
+        context["page"] = "anime"
+
         return self.root(request=request, context=context, template="pages/anime/anime.html")
 
     @recorder
@@ -185,6 +190,8 @@ class Anime(Base):
         context["first_embed"] = first_embed
         context["episodes"] = episodes
         context["type"] = "latino"
+        context["page"] = "watch"
+
         return self.root(request=request, context=context, template="pages/anime/watch.html")
 
     @recorder
@@ -201,6 +208,8 @@ class Anime(Base):
         context["first_embed"] = first_embed
         context["episodes"] = episodes
         context["type"] = "main"
+        context["page"] = "watch"
+
         return self.root(request=request, context=context, template="pages/anime/watch.html")
 
     @recorder
