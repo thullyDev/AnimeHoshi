@@ -213,7 +213,10 @@ footer.main-footer {
 @media screen and (min-width: 480px) {
 }*/
 
-@media screen and (min-width: 601px) {
+/*@media screen and (min-width: 601px) {
+}
+*/
+@media screen and (min-width: 768px) {
     .header-viewer-con .nav-bar-con {
         display: flex;
     }
@@ -234,10 +237,7 @@ footer.main-footer {
     }
 }
 
-/*@media screen and (min-width: 768px) {
-}
-
-
+/*
 @media screen and (min-width: 901px) {
 }
 

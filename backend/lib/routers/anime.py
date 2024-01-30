@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from base64 import b64decode, b64encode
 from ..decorators import recorder
 from ..resources import generate_unique_id
@@ -7,6 +8,7 @@ from ..database import Cache
 from ..scraping import TioanimeScraper, LatanimeScraper
 from ..handlers import ResponseHandler, SiteHandler
 from .base import Base
+from urllib.parse import quote
 import ast
 from pprint import pprint
 
@@ -149,6 +151,9 @@ class Anime(Base):
     @recorder
     def tioanime_anime(self, request, slug, context, **kwargs):
         rawdata = tioanime.get_anime(slug=slug)
+
+        if not rawdata: return redirect("not_found")
+
         data = self.anime_processing(rawdata=rawdata, base=tioanime.base)
         context["anime_slug"] = slug
         context["type"] = "main"
@@ -158,6 +163,9 @@ class Anime(Base):
     @recorder
     def latanime_anime(self, request, slug, context, **kwargs):
         rawdata = latanime.get_anime(slug=slug)
+
+        if not rawdata: return redirect("not_found")
+
         data = self.anime_processing(rawdata=rawdata, base=latanime.base)
         context["type"] = "latino"
         context["data"] = data
@@ -222,6 +230,38 @@ class Anime(Base):
 
         file = data.get("body").get("html").split("file: ")[1].replace('.mp4', ".mp4***cut_here***").split("***cut_here***")[0].replace("'", '')
         return self.successful_response(data={ "data": data })
+
+    @recorder
+    def alert(self, request, context, **kwargs):
+        message = request.GET.get("message")
+        description = request.GET.get("description")
+
+        if None in [message, description]: return redirect("home")
+
+        context["message"] = message
+        context["description"] = description
+
+        return self.root(request=request, context=context, template="pages/anime/alert.html")
+
+    @recorder
+    def maintenance(self, request, context, **kwargs):
+        url = reverse('alert')
+        message = quote("Under Construction")
+        description = quote("we are currently doing maintenance to the site")
+
+        url = f"{url}?message={message}&description={description}"
+        
+        return redirect(url)
+
+    @recorder
+    def not_found(self, request, context, **kwargs):
+        url = reverse('alert')
+        message = quote("404 - Page Not Found")
+        description = quote("The requested page could not be found.")
+
+        url = f"{url}?message={message}&description={description}"
+        
+        return redirect(url)
 
     #*** helper functions START ***#
     def get_episodes(self, slug, instance):
@@ -325,7 +365,9 @@ class Anime(Base):
                     "genre_id": genre_id,
                     "genre": genre
                     })
+
             return data
+
         data = {
             "title": rawdata.get("title").get("title"),
             "description": rawdata.get("description").get("description"),
