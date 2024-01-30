@@ -15,8 +15,9 @@ routes = [
     route_producer(route="main/watch/<str:slug>/", view=anime.tioanime_watch),
     route_producer(route="latino/watch/<str:slug>/", view=anime.latanime_watch),
     route_producer(route="stream/<str:encrypted_link>/", view=anime.stream),
-    route_producer(route="alert/", view=anime.alert),
-    route_producer(route="maintenance/", view=anime.maintenance),
+    route_producer(route="alert/", view=anime.alert, name="alert"),
+    route_producer(route="maintenance/", view=anime.maintenance, name="maintenance"),
+    route_producer(route="not_found/", view=anime.not_found, name="not_found"),
 ]
 
 urlpatterns = produce_urlpatterns(routes)

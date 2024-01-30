@@ -6,8 +6,8 @@
 
 {% block main_content %}
 	<div class="inner-con inner-main-content">
-		<img src="{% if page == 'maintenance' %}{{site_data.values.images.alert.value}}{% else %}{{site_data.values.images.maintenance.value}}{% endif %}" alt="alert image" class="alert-image">
+		<img src="{% if page == 'maintenance' %}{{site_data.values.images.maintenance.value}}{% else %}{{site_data.values.images.alert.value}}{% endif %}" alt="alert image" class="alert-image">
 		<h1>{{message}}</h1>
-    	<p>{{description_message}}</p>
+    	<p>{{description}}</p>
 	</div>
 {% endblock %}
