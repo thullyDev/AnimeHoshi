@@ -76,8 +76,30 @@ span.anime-title {font-size: 13px;}
     }
 
     .schedule-viewer-con.desktop-schedule-viewer-con {
-        display: flex;
+        display: block;
     }
+
+    .days-grid-con {
+        display: flex;
+        background: var(--third-color);
+        margin-bottom: 10px;
+    }
+
+    .days-grid-item.grid-item {
+        width: 100%;
+        padding: 10px;
+    }
+
+
+    .desktop-schedule-viewer-con.schedule-viewer-con  .days-animes-grid-con {
+        flex-direction: row;
+    }
+
+    .desktop-schedule-viewer-con.schedule-viewer-con  li.anime-con .inner-anime-con {
+        flex-direction: column;
+    }
+
+    .desktop-schedule-viewer-con.schedule-viewer-con .days-animes-grid-con .day-animes-con {width: 100%;}
 }
 
 
