@@ -78,8 +78,8 @@ class Anime(Base):
                 "description": slider.get("description").get("text"),
             })
 
-        twelve_hours = 43_200
-        cache.hset(name=cache_id, data=data, expiry=twelve_hours)
+        self.cache_data(cache_id=cache_id, data=data)
+
         context["data"] = data
         context["page"] = "index"
         return self.root(request=request, context=context, template="pages/anime/home.html")
@@ -92,7 +92,7 @@ class Anime(Base):
 
         rawdata = tioanime.get_filter(data=filter_data)
         data = self.filter_data_processing(rawdata=rawdata, base=tioanime.base)
-        if page in filter_data: del filter_data["page"]
+        if "page" in filter_data: del filter_data["page"]
         
         query = tioanime.build_query(filter_data)
         context["data"] = data
@@ -118,18 +118,32 @@ class Anime(Base):
 
     @recorder
     def tioanime_schedule(self, request, context, **kwargs):
+        cache_id = "tioanime_schedule"
+        cache_data = cache.hget(name=cache_id)
+
+        if cache_data:
+            context["data"] = cache_data 
+
         rawdata = tioanime.get_schedule()
         data = self.schedule_data_processing(rawdata=rawdata)
         context["data"] = data
         context["type"] = "main"
+        self.cache_data(cache_id=cache_id, data=data)
         return self.root(request=request, context=context, template="pages/anime/schedule.html")
 
     @recorder
     def latanime_schedule(self, request, context, **kwargs):
+        cache_id = "latanime_schedule"
+        cache_data = cache.hget(name=cache_id)
+
+        if cache_data:
+            context["data"] = cache_data 
+
         rawdata = latanime.get_schedule()
         data = self.schedule_data_processing(rawdata=rawdata, base=latanime.base)
         context["data"] = data
         context["type"] = "latino"
+        self.cache_data(cache_id=cache_id, data=data)
         return self.root(request=request, context=context, template="pages/anime/schedule.html")
 
     @recorder
@@ -402,6 +416,10 @@ class Anime(Base):
                 data["episodes"].append(temp.replace('\"', "").replace("https://latanime.org/ver", ""))
 
         return data
+
+    def cache_data(self, cache_id, data):
+        twelve_hours = 43_200
+        cache.hset(name=cache_id, data=data, expiry=twelve_hours)
 
     def watch_processing(self, rawdata, base):
         data = {

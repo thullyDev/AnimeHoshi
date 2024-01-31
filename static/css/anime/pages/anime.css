@@ -99,6 +99,31 @@ span.close-btn {
     cursor: pointer;
 }
 
+
+.info-con {
+    display: flex;
+    gap: 10px;
+}
+
+.left-con {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+}
+
+.right-con {
+    width: 70%;
+}
+
+img.poster {width: 100%;}
+
+h3.title {
+    font-size: 22px;
+}
+
+
+
 .inner-episodes-con ul {display: flex;padding: 0;list-style: none;flex-wrap: wrap;gap: 10px;}
 
 a.episode-link {display: flex;justify-content: center;padding: 10px 0;color: var(--secondary-color);background: var(--third-color);text-decoration: none;padding: 10px;border-radius: .25rem;}

@@ -1,0 +1,7 @@
+.schedule-viewer-con {
+    display: none;
+}
+
+.schedule-viewer-con.mobile-schedule-viewer-con {
+    display: flex;
+}

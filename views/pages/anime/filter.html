@@ -6,8 +6,8 @@
 
 {% block main_content %}
 	<div class="inner-con inner-main-content">
-		{% if not page == "search" %}
 		<div class="filter-con">
+			{% if not page == "search" %}
 			<div class="inner-con">
       			{% if type == "main" %}
 	      			{% for key, values in tioanime_queries.items %}
@@ -19,8 +19,11 @@
 					{% endfor %}
 				{% endif %}
 			</div>
+			{% endif %}
 		</div>
-		{% endif %}
+		<div class="switch-con">
+			<a href='/{% if type == "main" %}latino{% else %}main{% endif %}/filter/' class="filter-swap-link">{% if type == "main" %}latino{% else %}main{% endif %}</a>
+		</div>
 		<div class="outter-animes-con">
            {% with label="Animes" animes=data.animes type="latino" %}
            		{% include "pages/anime/widgets/animes_wrapper.html" %}

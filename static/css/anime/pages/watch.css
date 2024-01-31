@@ -1,0 +1,48 @@
+iframe.player {
+    height: 405px;
+}
+
+.player-con > .inner-con {
+    padding: 0;
+}
+
+button.watch2gather-con {
+    padding: 10px;
+    background: var(--third-color);
+    font-family: var(--primary-font);
+    margin: 10px 0;
+    border-radius: .25rem;
+    box-shadow: 0 0 15px 0px var(--third-color);
+}
+
+.watch2gather-btn-con {
+    display: flex;
+}
+
+button.server-link-con {
+    background: var(--third-color);
+    width: 100px;
+    padding: 5px;
+    font-family: var(--primary-font);
+    font-size: 15px;
+    border-radius: .35rem;
+}
+
+.server-links-con {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.inner-episodes-con ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 10px;
+}
+
+
+a.episode-link {display: flex;justify-content: center;padding: 10px 0;color: var(--secondary-color);background: var(--third-color);text-decoration: none;padding: 10px;border-radius: .25rem;}
