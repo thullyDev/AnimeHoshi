@@ -25,6 +25,7 @@ class Anime(Base):
 
         if cache_data:
             context["data"] = cache_data 
+            context["page"] = "index"
             return self.root(request=request, context=context, template="pages/anime/home.html")
 
         tioanime_rawdata = tioanime.get_home()
