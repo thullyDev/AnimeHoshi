@@ -14,7 +14,7 @@
     </div>
     <div class="forms-con">
       {% for auth, items in auths.items %}
-      <div class="form-con" data-type="{{type}}">
+      <div class="form-con{% if forloop.counter == 1 %} active{% endif %}" data-type="{{type}}">
           <form action="post">
               <div class="auth-inputs-con">
                 <div class="auth-text">

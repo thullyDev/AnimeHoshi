@@ -29,5 +29,6 @@ env
 *.env
 todo.txt
 notes.txt
+temp.txt
 site_logo.jpg
 some_image.jpg
