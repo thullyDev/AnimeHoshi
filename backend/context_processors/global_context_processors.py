@@ -33,6 +33,7 @@ def global_static_data(request):
 
 	tioanime_queries = {
 		"genres": [
+			{"value": "None", "name": "None"},
 		    {"value": "accion", "name": "Acción"},
 		    {"value": "artes-marciales", "name": "Artes Marciales"},
 		    {"value": "aventura", "name": "Aventuras"},
@@ -75,21 +76,23 @@ def global_static_data(request):
 		    {"value": "yuri", "name": "Yuri"}
 		 ], 
 		 "status": [
+			    {"value": "None", "name": "None"},
 			    {"value": "2", "name": "Finalizado"},
 			    {"value": "1", "name": "En emisión"},
 			    {"value": "3", "name": "Próximamente"}
 			],
 		 "types": [
+			    {"value": "None", "name": "None"},
 			    {"value": "0", "name": "TV"},
 			    {"value": "1", "name": "Película"},
 			    {"value": "2", "name": "OVA"},
 			    {"value": "3", "name": "Especial"}
 			],
-		 "years": get_years(),
+		 "year": get_years(),
 	}
 	latanime_queries = {
 		"genres": [
-		    {"value": "false", "name": "Seleccionar"},
+			{"value": "None", "name": "None"},
 		    {"value": "accion", "name": "Acción"},
 		    {"value": "aventura", "name": "Aventura"},
 		    {"value": "carreras", "name": "Carreras"},
@@ -139,6 +142,7 @@ def global_static_data(request):
 		    {"value": "suspenso", "name": "Suspenso"}
 		 ],
 		 "alphabet_options": [
+			{"value": "None", "name": "None"},
 		    {"value": "09", "name": "0-9"},
 		    {"value": "A", "name": "A"},
 		    {"value": "B", "name": "B"},
@@ -168,7 +172,7 @@ def global_static_data(request):
 		    {"value": "Z", "name": "Z"}
 		],
 		"types": [
-		    {"value": "false", "name": "Seleccionar"},
+			{"value": "None", "name": "None"},
 		    {"value": "anime", "name": "Anime"},
 		    {"value": "ova", "name": "Ova"},
 		    {"value": "Película", "name": "Película"},
@@ -190,7 +194,7 @@ def global_static_data(request):
 		    {"value": "Cartoon", "name": "Cartoon"},
 		    {"value": "catalan", "name": "Catalán"}
 		 ],
-		"years": get_years(),
+		"year": get_years(),
 	}
 	data = {
 		"admin_menu_items": admin_menu_items,

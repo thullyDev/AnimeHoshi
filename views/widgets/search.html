@@ -4,7 +4,9 @@
       <button type="button" class="search-btn">
         <i class="fas fa-search"></i>
       </button>
-      <input class="search-input" placeholder="search..." type="query" name="search" />
+      <input class="search-input" 
+      placeholder='search {% if type == "latino" %}latino{% endif %}...' 
+      type="search" name="search" data-type="{{type}}"/>
     </div>
     <div class="search-items-con">
       <div class="search-loader-con">
