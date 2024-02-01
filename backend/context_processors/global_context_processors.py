@@ -1,3 +1,7 @@
+from datetime import datetime
+from functools import lru_cache
+
+
 def global_static_data(request):
 	admin_menu_items = [
 		  {
@@ -26,6 +30,7 @@ def global_static_data(request):
 		    "icon": "fas fa-user-cog",
 		  },
 	]
+
 	tioanime_queries = {
 		"genres": [
 		    {"value": "accion", "name": "Acción"},
@@ -80,6 +85,7 @@ def global_static_data(request):
 			    {"value": "2", "name": "OVA"},
 			    {"value": "3", "name": "Especial"}
 			],
+		 "years": get_years(),
 	}
 	latanime_queries = {
 		"genres": [
@@ -183,7 +189,8 @@ def global_static_data(request):
 		    {"value": "live-action", "name": "Live Action"},
 		    {"value": "Cartoon", "name": "Cartoon"},
 		    {"value": "catalan", "name": "Catalán"}
-		 ]
+		 ],
+		"years": get_years(),
 	}
 	data = {
 		"admin_menu_items": admin_menu_items,
@@ -191,3 +198,9 @@ def global_static_data(request):
 		"latanime_queries": latanime_queries,
 	}
 	return data
+
+@lru_cache(maxsize=None)
+def get_years(start_year=1950):
+    current_year = datetime.now().year
+    years = [ {"value": i, "name": i} for i in range(current_year, start_year - 1, -1) ]
+    return years

@@ -42,6 +42,5 @@
 
 	$(".swiper-button-next").click(() => nextSlider());
 	$(".swiper-button-prev").click(() => prevSlider());
-	$(".menu-btn").click(() => showCloseEle(".mobile-viewer-con"));
     setInterval(() => nextSlider(), 7000);
 })();
