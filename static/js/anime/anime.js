@@ -11,7 +11,7 @@
 		if (value) return 
 
 		const url = type == "latino" ? "/latino/search/" : "/main/filter/"
-		const query = `${url}?keywords=${encodeURIComponent(originalString)}`
+		const query = `${url}?keywords=${encodeURIComponent(value)}`
 		window.location.href = query 
 	}
 })();
