@@ -1,7 +1,15 @@
 (function () {
-	data = getfilterInput
+  $(".apply-btn").click(function () {
+    const data = getfilterInput()
+    const url = buildUrl(data)
+    window.location.href = url;
+  });
 })();
 
+function buildUrl(params) {
+    const query = new URLSearchParams(params).toString();
+    return `/${type}/filter/${query ? `?${query}` : ''}`;
+}
 
 function getfilterInput() {
   const selectInputs = $(".filter-select")
