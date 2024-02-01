@@ -8,11 +8,17 @@ class UserDatabase(Database):
             cls._instance = super(Database, cls).__new__(cls)
         return cls._instance
 
-    def get_user(self, **kwargs):
-        return self.get(unit="user", data=kwargs)
+    def get_user(self, email):
+        if not email: return 
+        return self.get(unit="user", key="email", unique_id=email)
         
-    def set_user(self, data):
-        return self.set(unit="user", data=data)
+    def set_user(self, email, data):
+        return self.set(unit="user", unique_id=email, data=data)
 
     def update_user(self, data):
-        return self.update(unit="user", data=data)
+        email = self.get_email(data)
+        if not email: return 
+        return self.update(unit="user", data=data, unique_id=email, key="email")
+
+    def get_email(self, data):
+        return data.get("email")

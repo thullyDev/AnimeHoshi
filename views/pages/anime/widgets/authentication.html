@@ -1,0 +1,49 @@
+{% load filters %}
+<div class="auth-con">
+  <span class="close-btn"><i class="fa-solid fa-x"></i></span>
+  <div class="inner-auth-con">
+    <div class="top-waves-con waves-con">  
+      {% with class="top-form-waves" %}
+        {% include "widgets/waves.html" %}
+      {% endwith %}
+    </div>
+    <div class="site-logo-text-con">
+      <div class="site-logo-con">
+        {% include "widgets/title.html" %}
+      </div>
+    </div>
+    <div class="forms-con">
+      {% for auth, items in auths.items %}
+      <div class="form-con" data-type="{{type}}">
+          <form action="post">
+              <div class="auth-inputs-con">
+                <div class="auth-text">
+                  {{auth|replace:"_, "|title}}
+                </div> 
+                {% for value in items %}
+                  {% with type=value.input placeholder=value.key|title value="" key=value.key icon=value.icon %}
+                    <div class="auth-outer-input-con">
+                      {% include "widgets/icon_input.html" %}
+                    </div>
+                  {% endwith %}
+                {% endfor %}
+                <div class="submit-btn-con">
+                  <button class="submit-btn" type="button" data-type="{{auth}}">submit</button>
+                  {% if auth == "login" or auth == "signup" %}
+                    <p class="signup-login-text">
+                      I {% if auth == "signup" %}dont {% endif %}have an account <span class="auth-link" data-type="{{auth}}">{{auth|replace:"_, "|title}}</span>
+                    </p> 
+                  {% endif %}
+                </div>
+              </div>
+          </form>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="bottom-waves-con waves-con">          
+      {% with class="bottom-form-waves" %}
+        {% include "widgets/waves.html" %}
+      {% endwith %}
+    </div>
+  </div>
+</div>

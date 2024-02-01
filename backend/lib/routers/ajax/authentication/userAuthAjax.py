@@ -23,7 +23,6 @@ class UserAuthAjax(Base):
 
         post_data = request.POST
         email = post_data.get("email")
-        username = post_data.get("username")
         password = post_data.get("password")
 
         if not valid_email(email): 
@@ -31,11 +30,9 @@ class UserAuthAjax(Base):
                     "message": "this email is not a valid email"
                 })
 
-        if not email and not username: return self.forbidden_response()
+        if not email: return self.forbidden_response()
 
-        temporary_id = generate_unique_id()
-
-        data = db.get_user(email=email, temporary_id=temporary_id) if email else db.get_user(username=username, temporary_id=temporary_id)
+        data = db.get_user({"email": email})
 
         if not data:
             return self.forbidden_response(data={
@@ -48,10 +45,12 @@ class UserAuthAjax(Base):
         del data["password"]
         del data["deleted"]
 
+        temporary_id = self.update_user(email)
+
         return self.successful_response(data=data, no_cookies=False, cookies={
             "email": data["email"],
             "username": data["username"],
-            "temporary_id": data["temporary_id"],
+            "temporary_id": temporary_id,
         })
     
     @timer
@@ -81,7 +80,7 @@ class UserAuthAjax(Base):
                     "message": "password should be atleast 10 characters long"
                 })
 
-        valid_user = db.get_user(email=email) if email else db.get_user(username=username)
+        valid_user = db.get_user({ "email":email }) 
 
         if valid_user: 
             return self.forbidden_response(data={
@@ -100,7 +99,6 @@ class UserAuthAjax(Base):
 
         del data["isfor"]
 
-
         return self.successful_response(data={
                 "message": message,
                 "data": data,
@@ -114,7 +112,6 @@ class UserAuthAjax(Base):
         old_code = db.hset(name=f"vf_email_{email}")
 
         if not old_code: return self.forbidden_response(data={ "message": "unsigthed email" })
-
 
         message, code = self.send_verification(email=email, username=username, host=host)
         data = db.hget(f"vf_code_{old_code}"); db.cdelete(f"vf_code_{old_code}")
@@ -156,17 +153,17 @@ class UserAuthAjax(Base):
 
         post_data = request.POST
         email = post_data.get("email")
-        username = post_data.get("username")
 
         if not valid_email(email): 
             return self.bad_request_response(data={ "message": "this email is not a valid email" })
 
-        data = db.get_user(email=email) if email else db.get_user(username=username)
+        data = db.get_user(email=email)
 
         if not data: 
             return self.forbidden_response(data={
                     "message": "this user does not exist"
                 })
+        username = data[""]
 
         message, code = self.send_verification(email=email, username=username, host=host)
         data = {
@@ -243,3 +240,8 @@ class UserAuthAjax(Base):
 
         return f"sent verification code to {hidden_email}", code
 
+    def update_user(self, email):
+        temporary_id = generate_unique_id()
+        data = db.get_user({ "email": email, "temporary_id": temporary_id })
+
+        return temporary_id

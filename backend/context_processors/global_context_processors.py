@@ -30,7 +30,6 @@ def global_static_data(request):
 		    "icon": "fas fa-user-cog",
 		  },
 	]
-
 	tioanime_queries = {
 		"genres": [
 			{"value": "None", "name": "None"},
@@ -196,10 +195,81 @@ def global_static_data(request):
 		 ],
 		"year": get_years(),
 	}
+
+	auths = {
+		"login": [
+			{
+				"input": "text",
+				"key": "email",
+				"icon": "fas fa-envelope",
+			},
+			{
+				"input": "password",
+				"key": "password",
+				"icon": "fas fa-key",
+			},
+		],
+		"signup": [
+			{
+				"input": "text",
+				"key": "user",
+				"icon": "fas fa-user",
+			},
+			{
+				"input": "text",
+				"key": "email",
+				"icon": "fas fa-envelope",
+			},
+			{
+				"input": "password",
+				"key": "confirm",
+				"icon": "fas fa-key",
+			},
+			{
+				"input": "password",
+				"key": "password",
+				"icon": "fas fa-key",
+			},
+		],
+		"forgot_password": [
+			{
+				"input": "text",
+				"key": "email",
+				"icon": "fas fa-envelope",
+			},
+		],
+		"resend_code": [
+			{
+				"input": "text",
+				"key": "email",
+				"icon": "fas fa-envelope",
+			},
+		],
+		"verify": [
+			{
+				"input": "text",
+				"key": "code",
+				"icon": "fas fa-key",
+			},
+		],
+		"renew_password": [
+			{
+				"input": "password",
+				"key": "confirm",
+				"icon": "fas fa-key",
+			},
+			{
+				"input": "password",
+				"key": "password",
+				"icon": "fas fa-key",
+			},
+		],
+	}
 	data = {
 		"admin_menu_items": admin_menu_items,
 		"tioanime_queries": tioanime_queries,
 		"latanime_queries": latanime_queries,
+		"auths": auths,
 	}
 	return data
 
