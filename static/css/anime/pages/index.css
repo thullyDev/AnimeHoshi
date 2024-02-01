@@ -90,6 +90,7 @@
      position: relative;
 }
  .features-swiper-button {
+    cursor: pointer;
     position: absolute;
     top: 50%;
     background: var(--third-color);

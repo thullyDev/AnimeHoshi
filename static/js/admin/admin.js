@@ -42,16 +42,6 @@ function getSettingsInput({ is_checkbox = false } = {}) {
   return data
 }
 
-function showCloseEle(showele_key) {
-		console.log({ showele_key })
-		const showEle = $(showele_key)
-		const showEleIsOpen = showEle.data("open")
-
-		!showEleIsOpen ?
-			showEle.css("display", "flex").hide().fadeIn().data("open", true) :
-			showEle.fadeOut().data("open", false) 
-	}
-
 function saveSettings({ data }) {
 	const page = getPage()
 

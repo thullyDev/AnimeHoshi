@@ -24,3 +24,12 @@ function redirect({ path=null } = {}) {
     const location = window.location
     !path ? location.reload() : location.replace(path)
 }
+
+function showCloseEle(showele_key) {
+    const showEle = $(showele_key)
+    const showEleIsOpen = showEle.data("open")
+
+    !showEleIsOpen ?
+      showEle.css("display", "flex").hide().slideDown().data("open", true) :
+      showEle.slideUp().data("open", false) 
+  }
