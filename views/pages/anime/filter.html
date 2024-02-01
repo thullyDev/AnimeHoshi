@@ -29,7 +29,7 @@
 			<a href='/{% if type == "main" %}latino{% else %}main{% endif %}/filter/' class="filter-swap-link">{% if type == "main" %}latino{% else %}main{% endif %}</a>
 		</div>
 		<div class="outter-animes-con">
-           {% with label="Animes" animes=data.animes type="latino" %}
+           {% with label="Animes" animes=data.animes %}
            		{% include "pages/anime/widgets/animes_wrapper.html" %}
            {% endwith %}
 		</div>

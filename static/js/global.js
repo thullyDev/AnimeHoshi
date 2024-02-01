@@ -25,11 +25,17 @@ function redirect({ path=null } = {}) {
     !path ? location.reload() : location.replace(path)
 }
 
-function showCloseEle(showele_key) {
+function showCloseEle(showele_key, animate="fade") {
     const showEle = $(showele_key)
     const showEleIsOpen = showEle.data("open")
-
+ 
+    if (animate == "slide") {
+        !showEleIsOpen ?
+          showEle.css("display", "flex").hide().slideDown().data("open", true) :
+          showEle.slideUp().data("open", false) 
+          return
+    }
     !showEleIsOpen ?
-      showEle.css("display", "flex").hide().slideDown().data("open", true) :
-      showEle.slideUp().data("open", false) 
+      showEle.css("display", "flex").hide().fadeIn().data("open", true) :
+      showEle.fadeOut().data("open", false) 
   }

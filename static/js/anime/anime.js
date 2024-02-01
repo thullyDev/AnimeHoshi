@@ -1,3 +1,3 @@
 (function () {
-	$(".menu-btn").click(() => showCloseEle(".mobile-viewer-con"));
+	$(".menu-btn").click(() => showCloseEle(".mobile-viewer-con", "slide"));
 })();
