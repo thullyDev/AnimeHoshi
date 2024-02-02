@@ -197,18 +197,6 @@ def global_static_data(request):
 	}
 
 	auths = {
-		"login": [
-			{
-				"input": "text",
-				"key": "email",
-				"icon": "fas fa-envelope",
-			},
-			{
-				"input": "password",
-				"key": "password",
-				"icon": "fas fa-key",
-			},
-		],
 		"signup": [
 			{
 				"input": "text",
@@ -224,6 +212,18 @@ def global_static_data(request):
 				"input": "password",
 				"key": "confirm",
 				"icon": "fas fa-key",
+			},
+			{
+				"input": "password",
+				"key": "password",
+				"icon": "fas fa-key",
+			},
+		],
+		"login": [
+			{
+				"input": "text",
+				"key": "email",
+				"icon": "fas fa-envelope",
 			},
 			{
 				"input": "password",
