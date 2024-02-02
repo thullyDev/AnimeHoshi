@@ -14,6 +14,7 @@ routes = [
     route_producer(route="ajax/post/signup/", view=user_auth_ajax.signup),
     route_producer(route="ajax/post/resend/", view=user_auth_ajax.resend_code),
     route_producer(route="ajax/post/forgot_password/", view=user_auth_ajax.forgot_password),
+    route_producer(route="ajax/post/renew_password/", view=user_auth_ajax.renew_password),
     route_producer(route="ajax/post/verify/", view=user_auth_ajax.verify),
 ]
 

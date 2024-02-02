@@ -1,5 +1,5 @@
 {% load filters %}
-<div class="auth-con">
+<div class="auth-con" data-open="false">
   <span class="close-btn"><i class="fa-solid fa-x"></i></span>
   <div class="inner-auth-con">
     <div class="top-waves-con waves-con">  
@@ -14,7 +14,7 @@
     </div>
     <div class="forms-con">
       {% for auth, items in auths.items %}
-      <div class="form-con{% if forloop.counter == 1 %} active{% endif %}" data-type="{{type}}">
+      <div class="form-con{% if forloop.counter == 1 %} active{% endif %}" data-type="{{auth}}">
           <form action="post">
               <div class="auth-inputs-con">
                 <div class="auth-text">

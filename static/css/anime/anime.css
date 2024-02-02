@@ -107,6 +107,7 @@ span.anon-user-con.login-btn {
     height: 40px;
     border-radius: 50%;
     background: var(--third-color);
+    cursor: pointer;
 }
 
 .account-profile-image-con {

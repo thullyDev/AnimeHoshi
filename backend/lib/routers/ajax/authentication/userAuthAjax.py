@@ -75,7 +75,7 @@ class UserAuthAjax(Base):
                     "message": "password and confirm should be the same"
                 })
 
-        if len(password) >= 10:
+        if len(password) <= 10:
             return self.bad_request_response(data={
                     "message": "password should be atleast 10 characters long"
                 })

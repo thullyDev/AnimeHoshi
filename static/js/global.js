@@ -39,3 +39,25 @@ function showCloseEle(showele_key, animate="fade") {
       showEle.css("display", "flex").hide().fadeIn().data("open", true) :
       showEle.fadeOut().data("open", false) 
   }
+
+
+function getInputs(selector) {
+  const selectInputs = $(selector)
+  const data = {}
+
+  selectInputs.each((_, ele) => {
+    const thisEle = $(ele)
+    const name = thisEle.data("key")
+    let value = $.trim(thisEle.val())
+    value = value == "None" ? "" : value
+
+    data[name] = value
+  })
+
+  return data
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}

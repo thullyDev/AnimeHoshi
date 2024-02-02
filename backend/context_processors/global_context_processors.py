@@ -238,7 +238,7 @@ def global_static_data(request):
 				"icon": "fas fa-envelope",
 			},
 		],
-		"resend_code": [
+		"resend": [
 			{
 				"input": "text",
 				"key": "email",
