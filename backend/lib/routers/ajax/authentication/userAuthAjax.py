@@ -7,14 +7,15 @@ from ....resources import (
     SITE_EMAIL, 
     SITE_EMAIL_PASS,
     generate_unique_id,
+    get_data_from_string
 )
-from ....database import Database
+from ....database import UserDatabase
 from ....handlers import ResponseHandler
 from ....decorators import timer
 from ...base import Base
 import yagmail
 
-db = Database()
+db = UserDatabase()
 
 class UserAuthAjax(Base):
     @timer
@@ -58,17 +59,18 @@ class UserAuthAjax(Base):
         if not request.POST: return redirect("/")
 
         post_data = request.POST
+        post_data = get_data_from_string(post_data.get("data"))
         email = post_data.get("email")
-        username = post_data.get("username")
+        username = post_data.get("user")
         password = post_data.get("password")
         confirm = post_data.get("confirm")
+
+        if None in [email, username, confirm, password]: return self.bad_request_response()
 
         if not valid_email(email): 
             return self.bad_request_response(data={
                     "message": "this email is not a valid email"
                 })
-
-        if not email and not username: return self.forbidden_response()
 
         if confirm != password: 
             return self.bad_request_response(data={
@@ -87,7 +89,7 @@ class UserAuthAjax(Base):
                     "message": "user already exist, please make sure username and email unique"
                 })
 
-        message, code = self.send_verification(email=email, username=username, host=host)
+        message, code = self.send_verification(email=email, username=username, host=request.get_host())
         data = {
             "email": email,
             "username": username,
@@ -95,7 +97,7 @@ class UserAuthAjax(Base):
             "isfor": "signup",
         }
 
-        db.cset(name=f"vf_code_{code}", data=data, expiry=300) # expires in 5 minues
+        db.hset(name=f"vf_code_{code}", data=data, expiry=300) # expires in 5 minues
 
         del data["isfor"]
 
@@ -228,15 +230,14 @@ class UserAuthAjax(Base):
         yag.close()
 
     def send_verification(self, email, username, host):
-        hidden_email = hide_string(text=email, limit=3)
-        original_host = request.get_host()
+        hidden_email = hide_text(text=email, limit=3)
         code = generate_random_code()
         body = f"user with the username of {username} registed on {host} with this email, please verify by inputting the code {code}, this code expires in 5 minutes"
         subject = f"{host} verification"
 
         self.send_email(subject=subject, body=body, to_email=email)
-
-        db.cset(name=f"vf_email_{email}", data=code, expiry=300) # expires in 5 minues
+        five_minutes = 300
+        db.cset(name=f"vf_email_{email}", value=code, expiry=five_minutes) 
 
         return f"sent verification code to {hidden_email}", code
 

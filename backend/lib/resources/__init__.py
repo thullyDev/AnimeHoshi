@@ -28,4 +28,5 @@ from .misc import (
 	hide_text,
 	generate_random_code,
 	generate_unique_id,
+	get_data_from_string,
 )

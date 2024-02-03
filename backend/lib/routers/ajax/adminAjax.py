@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from ...decorators import timer, adminValidator
 from ...handlers import SiteHandler
 from ...database import AdminDatabase, Storage
+from ...resources import get_data_from_string
 from ..base import Base
 from pprint import pprint
 from ...resources import SITE_KEY 
@@ -18,7 +19,7 @@ class AdminAjax(Base):
             return redirect("admin_login")
 
         post = request.POST
-        data = json.loads(post.get("save_data"))
+        data = get_data_from_string(post.get("save_data"))
         save = post.get("save")
 
         if save not in { "settings", "values", "scripts" }:
@@ -56,7 +57,7 @@ class AdminAjax(Base):
         if SITE_KEY != site_key:
             return self.forbidden_response(data={ "message": "site key is invalid" })
 
-        data = json.loads(post.get("data"))
+        data = get_data_from_string(post.get("data"))
         is_validate = self.validate(
             username=data["username"],
             email=data["email"],
@@ -79,7 +80,7 @@ class AdminAjax(Base):
         if SITE_KEY != site_key:
             return self.forbidden_response(data={ "message": "site key is invalid" })
 
-        data = json.loads(post.get("data"))
+        data = get_data_from_string(post.get("data"))
 
         admin_database.update_admin(data=data)
         return self.successful_response()
@@ -91,7 +92,7 @@ class AdminAjax(Base):
 
         post = request.POST
         email = post.get("id")
-        data = json.loads(post.get("data"))
+        data = get_data_from_string(post.get("data"))
         data["email"] = email
 
         admin_database.update_users(data=data)
