@@ -247,7 +247,7 @@ def global_static_data(request):
 		],
 		"verify": [
 			{
-				"input": "text",
+				"input": "number",
 				"key": "code",
 				"icon": "fas fa-key",
 			},

@@ -23,6 +23,7 @@ class UserAuthAjax(Base):
         if not request.POST: return redirect("/")
 
         post_data = request.POST
+        post_data = get_data_from_string(post_data.get("data"))
         email = post_data.get("email")
         password = post_data.get("password")
 
@@ -97,7 +98,7 @@ class UserAuthAjax(Base):
             "isfor": "signup",
         }
 
-        db.hset(name=f"vf_code_{code}", data=data, expiry=300) # expires in 5 minues
+        db.hset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 15 minues
 
         del data["isfor"]
 
@@ -110,6 +111,7 @@ class UserAuthAjax(Base):
     def resend_code(self, request):
         if not request.POST: return redirect("/")
         post_data = request.POST
+        post_data = get_data_from_string(post_data.get("data"))
         email = post_data.get("email")
         old_code = db.hset(name=f"vf_email_{email}")
 
@@ -118,7 +120,7 @@ class UserAuthAjax(Base):
         message, code = self.send_verification(email=email, username=username, host=host)
         data = db.hget(f"vf_code_{old_code}"); db.cdelete(f"vf_code_{old_code}")
 
-        db.cset(name=f"vf_code_{code}", data=data, expiry=300) # expires in 5 minues
+        db.cset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 5 minues
 
         return message
     
@@ -126,6 +128,7 @@ class UserAuthAjax(Base):
     def verify(self, request):
         if not request.POST: return redirect("/")
         post_data = request.POST
+        post_data = get_data_from_string(post_data.get("data"))
         code = post_data.get("code")
         data = db.hget(f"vf_code_{code}")
 
@@ -174,7 +177,7 @@ class UserAuthAjax(Base):
             "isfor": "forgot_password",
         }
 
-        db.cset(name=f"vf_code_{code}", data=data, expiry=300) # expires in 5 minues
+        db.cset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 15 minues
 
         del data["isfor"]
 
@@ -232,12 +235,11 @@ class UserAuthAjax(Base):
     def send_verification(self, email, username, host):
         hidden_email = hide_text(text=email, limit=3)
         code = generate_random_code()
-        body = f"user with the username of {username} registed on {host} with this email, please verify by inputting the code {code}, this code expires in 5 minutes"
+        body = f"user with the username of {username} registed on {host} with this email, please verify by inputting the code {code}, this code expires in 15 minutes"
         subject = f"{host} verification"
 
         self.send_email(subject=subject, body=body, to_email=email)
-        five_minutes = 300
-        db.cset(name=f"vf_email_{email}", value=code, expiry=five_minutes) 
+        db.cset(name=f"vf_email_{email}", value=code, expiry=1500) # expires in 15 minutes 
 
         return f"sent verification code to {hidden_email}", code
 

@@ -1,5 +1,9 @@
 (function () {
-	$(".auth-con span.close-btn, .user-action-btn, .anon-user-con").click(() => showCloseEle(".auth-con", "fade"));
+	$(".auth-con span.close-btn, .user-action-btn, .anon-user-con").click(() => {
+		$(`.form-con`).removeClass('active')
+		$(`.form-con[data-type="signup"]`).addClass('active')
+		showCloseEle(".auth-con", "fade")
+	});
 
 	$(".submit-btn").click(function () {
 		const thisEle = $(this)
@@ -54,7 +58,6 @@
 	  	}
 
 
-
 	$.ajax({
 	    url: `/user/ajax/post/${type}/`,
 	    type: 'POST',
@@ -69,7 +72,11 @@
 	        const { message } = response
 			showAlert({ message })
 			closeLoader()
-			window.location.reload()
+			
+			if (["login", "renew_password", "verify"].includes(type)) window.location.reload()
+
+			if (["signup", "forgot_password"].includes(type)) showCloseAuthEle(type, "verify")
+
 	    },
 	    error: function(error) {
 	    	const { message } = error.responseJSON
@@ -77,6 +84,10 @@
 			closeLoader()
 	    }
 	});
-
 	});
 })();
+
+function showCloseAuthEle(closeEle, showEle) {
+	$(`.form-con[data-type="${closeEle}"]`).removeClass('active')
+	$(`.form-con[data-type="${showEle}"]`).addClass('active')
+}
