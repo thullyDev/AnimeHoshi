@@ -4,6 +4,13 @@
 		$(`.form-con[data-type="signup"]`).addClass('active')
 		showCloseEle(".auth-con", "fade")
 	});
+	
+	$(".auth-link").click(function() {
+		const thisEle = $(this)
+		const closeEle = thisEle.data('type')
+		const showEle = closeEle == "login" ? "signup" : "login"
+		showCloseAuthEle(closeEle, showEle)
+	});
 
 	$(".submit-btn").click(function () {
 		const thisEle = $(this)

@@ -141,9 +141,10 @@ class UserAuthAjax(Base):
         del data["isfor"]
 
         if isfor == "signup": 
-            db.set_user(unit="user", data=data)
+            db.set_user(data=data)
+            del data["password"]
             db.cdelete(f"vf_code_{code}")
-            return self.successful_response(data={ "message": "created account sucessfully" }, cookies=data, no_cookies=False)
+            return self.successful_response(data={ "message": "created account sucessfully" }, cookies_data=data, cookies=True)
 
         return self.successful_response(data={ 
             "message": "sucessfully verified",
