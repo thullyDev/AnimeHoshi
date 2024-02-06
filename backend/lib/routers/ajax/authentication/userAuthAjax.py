@@ -15,7 +15,7 @@ from ....decorators import timer
 from ...base import Base
 import yagmail
 
-db = UserDatabase()
+database = UserDatabase()
 
 class UserAuthAjax(Base):
     @timer
@@ -34,7 +34,7 @@ class UserAuthAjax(Base):
 
         if not email: return self.forbidden_response()
 
-        data = db.get_user({"email": email})
+        data = database.get_user({"email": email})
 
         if not data:
             return self.forbidden_response(data={
@@ -81,7 +81,7 @@ class UserAuthAjax(Base):
                     "message": "password should be atleast 10 characters long"
                 })
 
-        valid_user = db.get_user({ "email":email }) 
+        valid_user = database.get_user({ "email":email }) 
 
         if valid_user: 
             return self.forbidden_response(data={
@@ -96,7 +96,7 @@ class UserAuthAjax(Base):
             "isfor": "signup",
         }
 
-        db.hset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 15 minues
+        database.hset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 15 minues
 
         del data["isfor"]
 
@@ -111,14 +111,14 @@ class UserAuthAjax(Base):
         post_data = request.POST
         post_data = get_data_from_string(post_data.get("data"))
         email = post_data.get("email")
-        old_code = db.hset(name=f"vf_email_{email}")
+        old_code = database.hset(name=f"vf_email_{email}")
 
         if not old_code: return self.forbidden_response(data={ "message": "unsigthed email" })
 
         message, code = self.send_verification(email=email, username=username, host=host)
-        data = db.hget(f"vf_code_{old_code}"); db.cdelete(f"vf_code_{old_code}")
+        data = database.hget(f"vf_code_{old_code}"); database.cdelete(f"vf_code_{old_code}")
 
-        db.cset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 5 minues
+        database.cset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 5 minues
 
         return message
     
@@ -128,7 +128,7 @@ class UserAuthAjax(Base):
         post_data = request.POST
         post_data = get_data_from_string(post_data.get("data"))
         code = post_data.get("code")
-        data = db.hget(f"vf_code_{code}")
+        data = database.hget(f"vf_code_{code}")
 
         if not data: return self.forbidden_response(data={ "message": "invalid code" })
 
@@ -139,9 +139,9 @@ class UserAuthAjax(Base):
         del data["isfor"]
 
         if isfor == "signup": 
-            db.set_user(data=data)
+            database.set_user(data=data)
             del data["password"]
-            db.cdelete(f"vf_code_{code}")
+            database.cdelete(f"vf_code_{code}")
             return self.successful_response(data={ "message": "created account sucessfully" }, cookies_data=data, cookies=True)
 
         return self.successful_response(data={ 
@@ -162,7 +162,7 @@ class UserAuthAjax(Base):
         if not valid_email(email): 
             return self.bad_request_response(data={ "message": "this email is not a valid email" })
 
-        data = db.get_user({"email": email})
+        data = database.get_user({"email": email})
 
         if not data: 
             return self.forbidden_response(data={
@@ -177,7 +177,7 @@ class UserAuthAjax(Base):
             "isfor": "forgot_password",
         }
 
-        db.hset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 15 minues
+        database.hset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 15 minues
 
         return self.successful_response(data={
                 "message": message,
@@ -204,7 +204,7 @@ class UserAuthAjax(Base):
                     "message": "password should be atleast 10 characters long"
                 })
 
-        data = db.hget(f"vf_code_{code}")
+        data = database.hget(f"vf_code_{code}")
         email = data.get("email")
         username = data.get("username")
         temporary_id = generate_unique_id()
@@ -215,9 +215,9 @@ class UserAuthAjax(Base):
             "password": password,
         }
 
-        res = db.update_user(data=data)
+        res = database.update_user(data=data)
 
-        db.cdelete(f"vf_code_{code}")
+        database.cdelete(f"vf_code_{code}")
 
         del data["password"]
         
@@ -241,12 +241,12 @@ class UserAuthAjax(Base):
         subject = f"{host} verification"
 
         self.send_email(subject=subject, body=body, to_email=email)
-        db.cset(name=f"vf_email_{email}", value=code, expiry=1500) # expires in 15 minutes 
+        database.cset(name=f"vf_email_{email}", value=code, expiry=1500) # expires in 15 minutes 
 
         return f"sent verification code to {email}, may take 60 seconds to reflect", code
 
     def update_user(self, email):
         temporary_id = generate_unique_id()
-        data = db.get_user({ "email": email, "temporary_id": temporary_id })
+        data = database.update_user({ "email": email, "temporary_id": temporary_id })
 
         return temporary_id

@@ -14,16 +14,17 @@ def userValidator(request_func):
         start_time = time.time()
         request = args[0]
         user = get_user(request)
-
         ajax = is_ajax(request)
 
         if not user:
             return redirect("home") if not ajax else response_handler.forbidden_response()
 
+
         site_data = site.get_site_data()
         response = request_func(
             request_obj, 
             site_data=site_data, 
+            user=user,
             context={ "user_data": user, "site_data": site_data}, 
             email=user["email"], 
             username=user["username"], 
@@ -31,8 +32,8 @@ def userValidator(request_func):
             *args, 
             **kwargs
             )
-        SIXTY_DAYS = 2_592_000 * 2  #* 30 days (in seconds) * 2 = 60 days
 
+        SIXTY_DAYS = 2_592_000 * 2  #* 30 days (in seconds) * 2 = 60 days
         set_cookies(response=response,
             key="temporary_id", 
             value=user["temporary_id"], 
@@ -62,8 +63,8 @@ def get_user(request):
     if user == None:
         return 
 
-    if temporary_id != user["temporary_id"]:
-        return 
+    # if temporary_id != user["temporary_id"]:
+    #     return 
 
     user = database.update_user(data={ "email": email, "temporary_id": generate_unique_id() })
 

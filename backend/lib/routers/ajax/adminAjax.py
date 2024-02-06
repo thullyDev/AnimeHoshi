@@ -93,10 +93,14 @@ class AdminAjax(Base):
         post = request.POST
         email = post.get("id")
         data = get_data_from_string(post.get("data"))
-        data["email"] = email
+        deleted = bool(data["deleted"])
+        deleted = False if deleted else True
 
-        admin_database.update_users(data=data)
-        return self.successful_response()
+        data["email"] = email
+        data["deleted"] = deleted
+
+        data = admin_database.update_users(data=data)
+        return self.successful_response(data={ "data": { "deleted": data["deleted"] }})
 
     @adminValidator
     def update_anime(self, request, site_data, *args, **kwargs):
@@ -142,7 +146,7 @@ class AdminAjax(Base):
             "role": "owner",
         }
 
-        res_data = admin_database.update_admin(data=admin_data, unique_id=email, key="email")
+        res_data = admin_database.update_admin(data=admin_data)
         return self.successful_response(data={ "message": "owner was created" })
 
     def save_site_data(self, data, name):

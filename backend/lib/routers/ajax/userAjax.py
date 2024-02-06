@@ -15,7 +15,7 @@ database = UserDatabase()
 
 class UserAjax(Base):
     @userValidator
-    def add_to_list(self, request, user):
+    def add_to_list(self, request, user, **kwargs):
         if not request.POST: return redirect("/")
 
         slug = request.POST.get("slug")

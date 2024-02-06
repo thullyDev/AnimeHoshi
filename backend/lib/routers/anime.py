@@ -294,6 +294,11 @@ class Anime(Base):
         return data["episodes"]
 
     def filter_data_processing(self, rawdata, base):
+        if not rawdata: return {
+            "page": 1,
+            "page": 0,
+            "animes": [],
+        } 
         animes = rawdata.get("animes")
         pages = rawdata.get("pages")[0]
         data = {

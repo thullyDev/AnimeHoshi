@@ -60,13 +60,8 @@
               </p>
             </td>
             <td class="table-item">
-              <button class="table-btn disable" data-disabled="{{ item.disabled }}" data-id="{{ item.email }}" data-content="{{ widget }}" data-key="{{ forloop.counter0 }}">
-                disable
-              </button>
-            </td>
-            <td class="table-item">
-              <button class="table-btn delete" data-deleted="{{ item.deleted }}" data-id="{{ item.id }}" data-content="{{ widget }}"  data-key="{{ forloop.counter0 }}">
-                delete
+              <button class="table-btn disable" data-deleted="{{ item.deleted }}" data-id="{{ item.email }}" data-content="{{ widget }}"  data-key="{{ forloop.counter0 }}">
+                {% if item.deleted %}add{% else %}delete{% endif %}
               </button>
             </td>
           </tr>
