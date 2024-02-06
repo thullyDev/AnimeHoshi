@@ -35,4 +35,4 @@ class AdminDatabase(Database):
         return self.update(unit="user", data=data, unique_id=email, key="email")
 
     def get_query_users(self, query):
-        return self.get_query(unit="user", query=query)
+        return self.get_query(unit="user", username=query, email=query)

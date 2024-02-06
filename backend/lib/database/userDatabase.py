@@ -22,5 +22,10 @@ class UserDatabase(Database):
         if not email: return 
         return self.update(unit="user", data=data, unique_id=email, key="email")
 
+    def add_to_list(self, data):
+        sqldata = self.sql_set(unit="lists", data=data)
+        
+        return sqldata
+
     def get_email(self, data):
         return data.get("email")

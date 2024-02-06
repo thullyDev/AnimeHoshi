@@ -185,6 +185,7 @@ class Anime(Base):
         if not rawdata: return redirect("not_found")
 
         data = self.anime_processing(rawdata=rawdata, base=latanime.base)
+        context["anime_slug"] = slug
         context["type"] = "latino"
         context["data"] = data
         context["page"] = "anime"

@@ -1,4 +1,4 @@
-from ...models import User as user, Admin as admin
+from ...models import User as user, Admin as admin, Watchlists as lists
 from django.forms.models import model_to_dict
 from django.db import IntegrityError
 from ..resources import ( 
@@ -57,6 +57,9 @@ class Sql:
 		model = self.get_valid_model(unit)
 
 		try:
+			if key == "id":
+				return model.objects.get(id=unique_id)
+
 			if key == "email":
 				return model.objects.get(email=unique_id)
 
@@ -71,7 +74,16 @@ class Sql:
 		return model.objects.get(id=unique_id)
 
 	def get_valid_model(self, unit):
-		return user if unit == "user" else admin
+		if unit == "user":
+			return user
+
+		if unit == "admin":
+			return user
+
+		if unit == "lists":
+			return lists
+
+		return None
 
 	def get_instance_as_dict(self, instance):
 		return model_to_dict(instance)

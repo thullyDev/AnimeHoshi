@@ -40,8 +40,8 @@ class User(models.Model):
 
 class Watchlists(models.Model):
     slug = models.CharField(unique=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    email = models.CharField(max_length=80, unique=True)
+    user = models.IntegerField() 
+    email = models.CharField(max_length=80)
     anime_title = models.CharField(max_length=200)
     watch_type = models.CharField(max_length=10) 
     anime_image = models.CharField(max_length=200) 

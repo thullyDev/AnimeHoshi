@@ -61,3 +61,35 @@ function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
+
+function addToList(slug, watchType) {
+    $.ajax({
+      url: "/user/ajax/post/add/list/",
+      type: 'POST',
+      data: {
+          slug: slug,
+          watch_type: watchType,
+          csrfmiddlewaretoken: csrfToken,
+      },
+      beforeSend: function() {
+        showLoader()
+      },
+      success: (response) => {
+          const { message } = response
+          showAlert({ message })
+          closeLoader()
+      },
+      error: (error) => {
+        const { message } = error.responseJSON
+        showAlert({ message })
+        closeLoader()
+      }
+  });
+}
+
+$(".add-to-list-btn").click(function() {
+  const thisEle = $(this)
+  const slug = thisEle.data("slug")
+  const type = thisEle.data("type")
+  addToList(slug, type)
+});
