@@ -7,9 +7,8 @@ user_auth_ajax = UserAuthAjax()
 user_ajax = UserAjax()
 
 routes = [
-    route_producer(route="ajax/get/profile/", view=user_ajax.get_profile_data),
-    route_producer(route="ajax/post/add/watch/", view=user_ajax.add_watch_list),
-    route_producer(route="ajax/post/add/likes/", view=user_ajax.add_likes_list),
+    route_producer(route="profile/", view=user.profile),
+    route_producer(route="ajax/post/add/list/", view=user_ajax.add_to_list),
     route_producer(route="ajax/post/login/", view=user_auth_ajax.login),
     route_producer(route="ajax/post/signup/", view=user_auth_ajax.signup),
     route_producer(route="ajax/post/resend/", view=user_auth_ajax.resend_code),
