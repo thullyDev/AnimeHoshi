@@ -11,13 +11,12 @@
 				<div class="image-poster-con">
 					<img src="{{data.poster_image}}" alt="{{data.title}}" title="{{data.title}}" class="poster">
 				</div>
-				<div class="watch2gather-btn-con">
-					<button class="watch2gather-con" data-slug="{{anime_slug}}">Watch Togather</button>
-				</div>
+				{% include "pages/anime/widgets/watch_togather.html" %}
 			</div>
 			<div class="right-con">
 				<div class="details-con">
 					<h3 class="title">{{data.title}}</h3>
+					{% include "pages/anime/widgets/add_to_list.html" %}
 					{% if type == "main" %}
 					<div class="ticks-con">
 						<span class="tick type-tick">

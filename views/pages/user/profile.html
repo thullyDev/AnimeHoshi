@@ -6,6 +6,47 @@
 
 {% block main_content %}
 	<div class="inner-con inner-main-content">
-		{{user_data}}
+		<div class="profile-con">
+			<div class="profile-image-con">
+				<label for="profile-image-inp" class="profile-image">
+					<img src="{{user_data.profile_image}}" alt="{{user_data.username}}" class="profile-image">
+				</label>
+				<input type="file" id="profile-image-inp" style="display: none;">
+				<i class="fa fa-pencil"></i>
+			</div>
+			<div class="user-details-con">
+				<div class="username-input-con">
+					<input type="text" value="{{username}}" class="username-inp">
+					<button class="username-inp">
+						<i class="fa fa-pencil"></i>
+					</button>
+				</div>
+				<div class="logout-btn-con">
+					<buttton class="logout-btn">logout</buttton>
+				</div>
+			</div>
+		</div>
+		<div class="list-con">
+			<div class="list-label-search-con">
+				<div class="list-label-con">
+					<p class="list-label">My list</p>
+				</div>
+				<div class="list-search-con"><input type="text" class="list-search-inp"></div>
+			</div>
+			<div class="list-animes-con">
+				<ul class="list-animes-list">
+					<li class="anime-con" title="Majo to Yajuu">
+						<a href="/main/anime/majo-to-yajuu" target="_blank" class="anime-link">
+							<div class="inner-anime-con">
+								<div class="anime-poster-con">
+									<img src="https://tioanime.com//uploads/portadas/3981.jpg" alt="Majo to Yajuu" class="anime-poster">
+								</div>
+								<span class="anime-title">Majo to Yajuu</span>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 {% endblock %}

@@ -38,5 +38,19 @@ class User(models.Model):
         return self.name
 
 
-# like_id, user_id, user_email slug, anime_title, anime_image_url, type [latino or main]
-# watch_id, user_id, user_email slug, anime_title, anime_image_url, type [latino or main]
+class Watchlists(models.Model):
+    slug = models.CharField(unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.CharField(max_length=80, unique=True)
+    anime_title = models.CharField(max_length=200)
+    watch_type = models.CharField(max_length=10) 
+    anime_image = models.CharField(max_length=200) 
+    created_at = models.DateTimeField(auto_now_add=True, editable=False,unique=True)
+    updated_at = models.DateTimeField(auto_now=True, editable=False, unique=True)
+
+    class Meta:
+        app_label = 'backend'
+
+    def _str_(self):
+        return self.name
+

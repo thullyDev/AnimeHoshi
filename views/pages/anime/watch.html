@@ -12,22 +12,11 @@
 				<iframe src="{{first_embed.link}}" data-src="{{first_embed.link}}" frameborder="0" class="player"></iframe>
 			</div>
 		</div>
-		<div class="watch2gather-btn-con">
-			<button class="watch2gather-con" data-slug="{{anime_slug}}">Watch Togather</button>
+		<div class="act-btns-con">
+			{% include "pages/anime/widgets/watch_togather.html" %}
+			{% include "pages/anime/widgets/add_to_list.html" %}
 		</div>
 		<div class="servers-links-con">
-		<!-- 	<div class="servers-embed-label">
-				<div class="servers-label">
-					Site Servers
-				</div>
-				<div class="server-links-con">
-					{% for server in data.safe_links %}
-						{% with link=server.embed_id name=server.name %}
-							{% include "pages/anime/widgets/server_wrapper.html" %}
-						{% endwith %}
-					{% endfor %}
-				</div>
-			</div> -->
 			<div class="servers-embed-label">
 				<div class="servers-label">
 					Servers

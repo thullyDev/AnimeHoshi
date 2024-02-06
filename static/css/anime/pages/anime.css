@@ -8,7 +8,7 @@ img.poster {
     justify-content: center;
 }
 
-button.watch2gather-con {
+button.watch2gather-con, button.add-to-list-btn {
     padding: 10px;
     background: var(--third-color);
     font-family: var(--primary-font);
@@ -20,6 +20,15 @@ button.watch2gather-con {
 .watch2gather-btn-con {
     display: flex;
     justify-content: center;
+}
+
+.add-to-list-btn-con {
+    display: flex;
+    margin: 0 0 14px 0;
+}
+
+button.add-to-list-btn {
+    margin: 0;
 }
 
 .ticks-con {

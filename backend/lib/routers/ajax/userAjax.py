@@ -5,6 +5,7 @@ from ...resources import (
     hide_text, 
     SITE_EMAIL, 
     SITE_EMAIL_PASS,
+    get_data_from_string,
     generate_unique_id,
 )
 from ...database import UserDatabase
@@ -18,10 +19,8 @@ class UserAjax(Base):
     def add_to_list(self, request, user, **kwargs):
         if not request.POST: return redirect("/")
 
-        slug = request.POST.get("slug")
+        post_data = get_data_from_string(post_data.get("data"))
+        
         user_id = user.get("id")
-        temporary_id = user.get("temporary_id")
-
-        response = self.add_to_list(slug=slug, list_type="watch", user_id=user_id, temporary_id=temporary_id)
 
         if not slug: return self.bad_request_response(data={ "message": "slug invalid"})
