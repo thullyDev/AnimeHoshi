@@ -11,6 +11,12 @@
 		const showEle = closeEle == "login" ? "signup" : "login"
 		showCloseAuthEle(closeEle, showEle)
 	});
+	
+	$(".forgot-btn").click(function() {
+		const thisEle = $(this)
+		const closeEle = thisEle.data('type')
+		showCloseAuthEle(closeEle, "forgot_password")
+	});
 
 	$(".submit-btn").click(function () {
 		const thisEle = $(this)
@@ -76,13 +82,22 @@
 	    	showLoader()
 	    },
 	    success: function(response) {
-	        const { message } = response
+	        const { message, data } = response
 			showAlert({ message })
 			closeLoader()
 			
-			if (["login", "renew_password", "verify"].includes(type)) window.location.reload()
+			if ("verify" == type) {
+				const isfor = thisEle.data('isfor')
+				isfor == "signup" ? window.location.reload() : renewPasswordProcessor(data.code)
+				return 
+			}
 
-			if (["signup", "forgot_password"].includes(type)) showCloseAuthEle(type, "verify")
+			if (["login", "renew_password"].includes(type)) window.location.reload()
+
+			if (["signup", "forgot_password"].includes(type)) {
+				$(`.submit-btn[data-type="verify"]`).data("isfor", type)
+				showCloseAuthEle(type, "verify")
+			} 
 
 	    },
 	    error: function(error) {
@@ -97,4 +112,9 @@
 function showCloseAuthEle(closeEle, showEle) {
 	$(`.form-con[data-type="${closeEle}"]`).removeClass('active')
 	$(`.form-con[data-type="${showEle}"]`).addClass('active')
+}
+
+function renewPasswordProcessor(code) {
+	$(`.renew_password .code`).val(code)
+	showCloseAuthEle("verify", "renew_password")
 }

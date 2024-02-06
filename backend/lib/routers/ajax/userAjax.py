@@ -24,8 +24,6 @@ class UserAjax(Base):
 
         data = {
             "profile_image_url": user.get("profile_image_url"),
-            "wachlist": user.get("wachlist"),
-            "likeslist": user.get("likeslist"),
             **cookies,
         }
         

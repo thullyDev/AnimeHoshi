@@ -14,8 +14,8 @@ from ..resources import (
 )
 
 class ResponseHandler:
-	def json_response(self, data, status_code, safe=False, cookies=False, cookies_data={}):
-		response = JsonResponse(data=data, status=status_code, safe=False) 
+	def json_response(self, data, status_code, safe, cookies, cookies_data={}):
+		response = JsonResponse(data=data, status=status_code, safe=safe) 
 
 		if cookies:
 			SIXTY_DAYS = 2_592_000 * 3 #* 30 days (in seconds) * 3
@@ -43,32 +43,32 @@ class ResponseHandler:
 		data["status_code"] = FORBIDDEN
 		if not data.get("message"): data["message"] = FORBIDDEN_MSG
 		
-		return self.json_response(data=data, status_code=FORBIDDEN, cookies=cookies, cookies_data=cookies_data)
+		return self.json_response(safe=safe, data=data, status_code=FORBIDDEN, cookies=cookies, cookies_data=cookies_data)
 
 	def successful_response(self, data=None, safe=False, cookies=False, cookies_data={}):
 		data = data if data else {}
 		data["status_code"] = SUCCESSFUL
 		if not data.get("message"): data["message"] = SUCCESSFUL_MSG
 
-		return self.json_response(data=data, status_code=SUCCESSFUL, cookies=cookies, cookies_data=cookies_data)
+		return self.json_response(safe=safe, data=data, status_code=SUCCESSFUL, cookies=cookies, cookies_data=cookies_data)
 
 	def not_found_response(self, data=None, safe=False, cookies=False, cookies_data={}):
 		data = data if data else {}
 		data["status_code"] = NOT_FOUND
 		if not data.get("message"): data["message"] = NOT_FOUND_MSG
 		
-		return self.json_response(data=data, status_code=NOT_FOUND, cookies=cookies, cookies_data=cookies_data)
+		return self.json_response(safe=safe, data=data, status_code=NOT_FOUND, cookies=cookies, cookies_data=cookies_data)
 
 	def crash_response(self, data=None, safe=False, cookies=False, cookies_data={}):
 		data = data if data else {}
 		data["status_code"] = CRASH
 		if not data.get("message"): data["message"] = CRASH_MSG
 		
-		return self.json_response(data=data, status_code=CRASH, cookies=cookies, cookies_data=cookies_data)
+		return self.json_response(safe=safe, data=data, status_code=CRASH, cookies=cookies, cookies_data=cookies_data)
 
 	def bad_request_response(self, data=None, safe=False, cookies=False, cookies_data={}):
 		data = data if data else {}
 		data["status_code"] = BAD_REQUEST
 		if not data.get("message"): data["message"] = BAD_REQUEST_MSG
 		
-		return self.json_response(data=data, status_code=BAD_REQUEST, cookies=cookies, cookies_data=cookies_data)
+		return self.json_response(safe=safe, data=data, status_code=BAD_REQUEST, cookies=cookies, cookies_data=cookies_data)

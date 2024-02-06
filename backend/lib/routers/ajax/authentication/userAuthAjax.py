@@ -42,14 +42,12 @@ class UserAuthAjax(Base):
                 })
 
         del data["id"]
-        del data["wachlist"]
-        del data["likeslist"]
         del data["password"]
         del data["deleted"]
 
         temporary_id = self.update_user(email)
 
-        return self.successful_response(data=data, no_cookies=False, cookies={
+        return self.successful_response(data=data, cookies=True, cookies_data={
             "email": data["email"],
             "username": data["username"],
             "temporary_id": temporary_id,
@@ -155,32 +153,31 @@ class UserAuthAjax(Base):
 
     @timer
     def forgot_password(self, request):
-        if request.POST: return redirect("/")
+        if not request.POST: return redirect("/")
 
         post_data = request.POST
+        post_data = get_data_from_string(post_data.get("data"))
         email = post_data.get("email")
-
+        
         if not valid_email(email): 
             return self.bad_request_response(data={ "message": "this email is not a valid email" })
 
-        data = db.get_user(email=email)
+        data = db.get_user({"email": email})
 
         if not data: 
             return self.forbidden_response(data={
                     "message": "this user does not exist"
                 })
-        username = data[""]
+        username = data["username"]
 
-        message, code = self.send_verification(email=email, username=username, host=host)
+        message, code = self.send_verification(email=email, username=username, host=request.get_host())
         data = {
             "email": email,
             "username": username,
             "isfor": "forgot_password",
         }
 
-        db.cset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 15 minues
-
-        del data["isfor"]
+        db.hset(name=f"vf_code_{code}", data=data, expiry=1500) # expires in 15 minues
 
         return self.successful_response(data={
                 "message": message,
@@ -192,7 +189,10 @@ class UserAuthAjax(Base):
         if request.POST: return redirect("/")
 
         post_data = request.POST
+        post_data = get_data_from_string(post_data.get("data"))
         code = post_data.get("code")
+        password = post_data.get("password")
+        confirm = post_data.get("confirm")
 
         if confirm != password: 
             return self.bad_request_response(data={
@@ -212,15 +212,16 @@ class UserAuthAjax(Base):
             "email": email,
             "username": username,
             "temporary_id": temporary_id,
+            "password": password,
         }
 
         res = db.update_user(data=data)
 
         db.cdelete(f"vf_code_{code}")
 
-        del data["isfor"]
+        del data["password"]
         
-        return self.successful_response(data={ "message": "sucessfully renew password", "data": data, }, cookies=data, no_cookies=False)
+        return self.successful_response(data={ "message": "sucessfully renew password", "data": data, }, cookies_data=data, cookies=True)
 
     def send_email(self, subject, body, to_email):
         yag = yagmail.SMTP(SITE_EMAIL, SITE_EMAIL_PASS)
@@ -242,7 +243,7 @@ class UserAuthAjax(Base):
         self.send_email(subject=subject, body=body, to_email=email)
         db.cset(name=f"vf_email_{email}", value=code, expiry=1500) # expires in 15 minutes 
 
-        return f"sent verification code to {hidden_email}", code
+        return f"sent verification code to {email}, may take 60 seconds to reflect", code
 
     def update_user(self, email):
         temporary_id = generate_unique_id()

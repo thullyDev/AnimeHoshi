@@ -159,3 +159,17 @@ span.auth-link {
 p.signup-login-text {
     font-size: 13px;
 }
+
+.forgot-btn-con {
+    display: flex;
+    justify-content: center;
+}
+
+button.forgot-btn {
+    background: #00000000;
+    color: var(--secondary-accent-color);
+    text-decoration: underline;
+    font-size: 16px;
+    font-family: var(--primary-font);
+    font-weight: 600;
+}

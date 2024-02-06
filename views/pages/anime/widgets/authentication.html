@@ -35,6 +35,11 @@
                     </p> 
                   {% endif %}
                 </div>
+                {% if auth == "login" %}
+                <div class="forgot-btn-con">
+                  <button class="forgot-btn" type="button" data-type="{{auth}}">forgot password</buttonk>
+                </div>
+                {% endif %}
               </div>
           </form>
       </div>

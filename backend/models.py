@@ -26,8 +26,6 @@ class User(models.Model):
     password = models.CharField(max_length=20) 
     temporary_id = models.CharField(max_length=100, blank=True) 
     profile_image = models.CharField(max_length=100, null=True, blank=True) 
-    # wachlist = models.BooleanField(null=True, blank=True)
-    # likeslist = models.BooleanField(null=True, blank=True)
     deleted = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False,unique=True)
     updated_at = models.DateTimeField(auto_now=True, editable=False, unique=True)
