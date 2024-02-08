@@ -29,10 +29,10 @@ class UserDatabase(Database):
         if not email: return False
 
         sqldata = self.sql_set(unit="lists", data=data)
-        cache_data = get_cached_user_list(email)
+        cache_data = self.get_cached_user_list(email)
         cache_data.append(sqldata)
 
-        save_cached_user_list(email=email, data=cache_data)
+        self.save_cached_user_list(email=email, data=cache_data)
         
         return sqldata != None
 
@@ -41,12 +41,12 @@ class UserDatabase(Database):
 
         if not email: return 
 
-        cache_data = get_cached_user_list(email)
+        cache_data = self.get_cached_user_list(email)
 
         if cache_data: 
             return cache_data
 
-        sqldata = self.sql_get_query(unit="lists", query=email)
+        sqldata = self.sql_get_query(unit="lists", email=email, query=email, be_dynmc=True)
         list_query = [
             {
                 'slug': obj.slug,
@@ -55,13 +55,13 @@ class UserDatabase(Database):
                 'anime_title': obj.anime_title,
                 'watch_type': obj.watch_type,
                 'anime_image': obj.anime_image,
-                'created_at': obj.created_at,
-                'updated_at': obj.updated_at,
+                'created_at': obj.created_at.isoformat(),
+                'updated_at': obj.updated_at.isoformat(),
             }
             for obj in sqldata
         ]
 
-        save_cached_user_list(email=email, data=list_query)
+        self.save_cached_user_list(email=email, data=list_query)
         return list_query
 
     def get_cached_user_list(self, email): 

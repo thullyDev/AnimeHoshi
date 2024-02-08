@@ -13,7 +13,7 @@ class Sql:
 		instance = self.get_instance(unit=unit, **kwargs)
 
 		if not instance: return None
-		
+
 		data = self.get_instance_as_dict(instance) if as_dict else instance
 
 		return data
@@ -92,7 +92,7 @@ class Sql:
 		model = self.get_valid_model(unit)
 		return list(model.objects.values())
 
-	def sql_get_query(self, unit, query):
+	def sql_get_query(self, unit, query, be_dynmc=False, **kwargs):
 		model = self.get_valid_model(unit)
-		values = model.objects.filter(username=query, email=query)
+		values = model.objects.filter(username=query, email=query) if not be_dynmc else model.objects.filter(**kwargs)
 		return list(values)
