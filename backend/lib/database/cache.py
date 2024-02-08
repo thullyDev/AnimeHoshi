@@ -2,7 +2,7 @@ from ..resources import REDIS_PORT, REDIS_HOST, REDIS_PASSWORD
 from redis import Redis
 import ast
 import json
-# port 6379
+
 redis = Redis(
     host=REDIS_HOST,
     port=REDIS_PORT, 
@@ -26,11 +26,11 @@ class Cache:
         
         return raw_data.decode()
         
-    def hget(self, name, default=None):
+    def hget(self, name, default=None, is_list=False):
         raw_data = redis.get(name)
         if not raw_data: return default
         raw_data =  raw_data.decode()
-        data = json.loads(raw_data)
+        data = json.loads(raw_data) if not is_list else ast.literal_eval(raw_data)
 
         return data
 

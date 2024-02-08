@@ -15,3 +15,6 @@ def get_data_from_string(rawdata):
 def generate_random_code(length=6): return ''.join(random.choices('0123456789', k=length))
 
 def generate_unique_id(length=6): return str(uuid.uuid4())
+
+def get_email(data):
+    return data.get("email")

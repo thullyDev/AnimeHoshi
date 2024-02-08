@@ -13,17 +13,17 @@ class Sql:
 		instance = self.get_instance(unit=unit, **kwargs)
 
 		if not instance: return None
-		if not as_dict: return instance
-		data = self.get_instance_as_dict(instance)
+		
+		data = self.get_instance_as_dict(instance) if as_dict else instance
 
 		return data
 
-	def sql_set(self, unit, data):
+	def sql_set(self, unit, data, as_dict=True):
 		model = self.get_valid_model(unit)
 		try:
 			instance = model.objects.create(**data)
 			instance.save()
-			return self.get_instance_as_dict(instance)
+			return self.get_instance_as_dict(instance) if as_dict else instance
 		except IntegrityError as e:
 			# logging.exception(e)
 			print(e)
@@ -87,8 +87,6 @@ class Sql:
 
 	def get_instance_as_dict(self, instance):
 		return model_to_dict(instance)
-
-		# filtered_data = YourModel.objects.filter(your_field1__condition1='value1', your_field2__condition2='value2')
 
 	def sql_get_all(self, unit):
 		model = self.get_valid_model(unit)

@@ -1,4 +1,5 @@
 from .database import Database
+from ..resources import get_email
 
 class AdminDatabase(Database):
     _instance = None
@@ -16,12 +17,9 @@ class AdminDatabase(Database):
         return self.set(unit="admin", unique_id=email, data=data)
 
     def update_admin(self, data):
-        email = self.get_email(data)
+        email = get_email(data)
         if not email: return 
         return self.update(unit="admin", data=data, unique_id=email, key="email")
-
-    def get_email(self, data):
-        return data.get("email")
 
     def get_admins(self):
         return self.get_all(unit="admin")
@@ -30,7 +28,7 @@ class AdminDatabase(Database):
         return self.get_all(unit="user")
 
     def update_users(self, data):
-        email = self.get_email(data)
+        email = get_email(data)
         if not email: return 
         return self.update(unit="user", data=data, unique_id=email, key="email")
 
