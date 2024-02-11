@@ -16,6 +16,7 @@ body {
 input, input::placeholder {
   font-size: 15px;
   font-family: var(--primary-font);
+  color: var(--secondary-color);
 }
 
 
@@ -23,6 +24,8 @@ button {
     cursor: pointer;
     outline: none;
     border: none;
+    font-family: var(--primary-font);
+    font-size: 15px;
 }
 
 .page-content {
