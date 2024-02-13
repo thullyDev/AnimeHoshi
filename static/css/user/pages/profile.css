@@ -1,13 +1,17 @@
 label.profile-image {
     display: flex;
     align-items: center;
-    cursor: pointer;
+}
+
+img.profile-image {
+    border-radius: 100%;
 }
 
 label.profile-image > * {
     font-size: 70px;
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
 }
 
 .profile-image-con {

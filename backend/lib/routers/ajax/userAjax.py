@@ -54,7 +54,7 @@ class UserAjax(Base):
 
         if change_type not in ["username", "profile_image"]: return self.bad_request_response()
 
-        if "profile_image" == change_type: value = storage.upload_base64_image(name=username + "_profile_image", base64_img=value)
+        if "profile_image" == change_type: value = storage.upload_base64_image(name=user["username"] + "_profile_image", base64_img=value)
 
         data = { "email": user["email"] }
         data[change_type] = value
@@ -62,7 +62,7 @@ class UserAjax(Base):
 
         if not res: return self.crash_response()
 
-        return self.successful_response(data={ "message": "successfully changed " + change_type.replace("_", " ")})
+        return self.successful_response(data={ "message": "successfully changed " + change_type.replace("_", " ") })
 
     def get_anime_data(self, slug, watch_type):
         scraper = tioanime if "main" == watch_type else latanime

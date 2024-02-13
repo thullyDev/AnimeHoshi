@@ -2,22 +2,27 @@
 	$("#profile-image-inp").change(function() {
 	  const file = this.files[0];
 	  const thisEle = $(this)
-	  
+
 	  const reader = new FileReader();
 	  reader.onload = function(e) {
+	  	const callback = () => {
+		  	const image = `<img src="${res}" alt="${username}" class="profile-image">`
+		    $(".profile-image").html(image)
+	  	}
 	  	const res = e.target.result
-	  	const image = `<img src="${res}" alt="${username}" class="profile-image">`
-	    $(".profile-image").html(image)
-	    thisEle.data("value", res)
-	    changeUserDetails("profile_image", res)
+	    changeUserDetails("profile_image", res, callback)
 	  }
-	  
 	  reader.readAsDataURL(file);
 	});
+	  
+	$("input.username-inp").change(() => changeUsername());
+	$("button.username-inp").click(() => changeUsername());
+
 })();
 
 
-function changeUserDetails(type, value) {
+function changeUserDetails(type, value, callback = null) {
+	console.log({ type, value })
 	$.ajax({
 	    url: "/user/ajax/post/change_user_details/",
 	    type: 'POST',
@@ -32,6 +37,7 @@ function changeUserDetails(type, value) {
 	    success: (response) => {
 	        const { message } = response
 			showAlert({ message })
+			if (callback) callback()
 			closeLoader()
 	    },
 	    error: (error) => {
@@ -40,5 +46,11 @@ function changeUserDetails(type, value) {
 			closeLoader()
 	    }
 	});
+}
 
+function changeUsername() {
+	const value = $("input.username-inp").val()
+	changeUserDetails("username", value, () => {
+		username = value
+	})
 }
