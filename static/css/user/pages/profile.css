@@ -1,6 +1,7 @@
 label.profile-image {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 label.profile-image > * {

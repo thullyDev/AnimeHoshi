@@ -24,6 +24,16 @@ class UserDatabase(Database):
         if not email: return 
         return self.update(unit="user", data=data, unique_id=email, key="email")
 
+    def change_user_details(self, data):
+        email = get_email(data)
+        if not email: return False
+
+        sqldata = self.sql_set(unit="lists", data=data)
+        cache_data = self.get_cached_user_list(email)
+        cache_data.append(sqldata)
+
+        self.save_cached_user_list(email=email, data=cache_data)
+
     def add_to_list(self, data):
         email = get_email(data)
         if not email: return False

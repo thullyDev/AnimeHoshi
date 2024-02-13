@@ -8,7 +8,7 @@ from ...resources import (
     get_data_from_string,
     generate_unique_id,
 )
-from ...database import UserDatabase
+from ...database import UserDatabase, Storage
 from ...decorators import userValidator
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ..base import Base
@@ -16,6 +16,7 @@ from ..base import Base
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
 
+storage = Storage()
 database = UserDatabase()
 
 class UserAjax(Base):
@@ -42,6 +43,26 @@ class UserAjax(Base):
         if not res: return self.crash_response()
 
         return self.successful_response(data={ "message": "added to my list"})
+
+    @userValidator
+    def change_user_details(self, request, user, **kwargs):
+        if not request.POST: return redirect("/")
+
+        post_data = request.POST
+        change_type = post_data.get("type")
+        value = post_data.get("value")
+
+        if change_type not in ["username", "profile_image"]: return self.bad_request_response()
+
+        if "profile_image" == change_type: value = storage.upload_base64_image(name=username + "_profile_image", base64_img=value)
+
+        data = { "email": user["email"] }
+        data[change_type] = value
+        res = database.change_user_details(data)
+
+        if not res: return self.crash_response()
+
+        return self.successful_response(data={ "message": "successfully changed " + change_type.replace("_", " ")})
 
     def get_anime_data(self, slug, watch_type):
         scraper = tioanime if "main" == watch_type else latanime

@@ -2,6 +2,9 @@
 {% load filters %}
 
 {% block head_content %}
+<script defer type="text/javascript">
+	let username = "{{user_data.username}}"
+</script>
 {% endblock %}
 
 {% block main_content %}
@@ -40,7 +43,7 @@
 				<ul class="list-animes-list">
 					{% for anime in user_list %}
 						{% with watch_type=anime.watch_type slug=anime.slug image_url=anime.anime_image title=anime.anime_title %}
-						<li class="anime-con" title="{{title}}">
+						<li class="anime-con" title="{{title}}" data-slug="{{slug}}">
 							<a href="/{{watch_type}}/anime{{slug}}" target="_blank" class="anime-link">
 								<div class="inner-anime-con">
 									<div class="anime-poster-con">
@@ -49,7 +52,7 @@
 									<span class="anime-title">{{title|truncatechars:20}}</span>
 								</div>
 							</a>
-							<button class="delete-btn">
+							<button class="delete-btn" data-slug="{{slug}}">
 								<i class="fa-solid fa-trash-can"></i>
 							</button>
 						</li>

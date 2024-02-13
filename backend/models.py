@@ -21,7 +21,7 @@ class Admin(models.Model):
 
 
 class User(models.Model):
-    username = models.CharField(max_length=80, unique=True)
+    username = models.CharField(max_length=80)
     email = models.CharField(max_length=80, unique=True)
     password = models.CharField(max_length=20) 
     temporary_id = models.CharField(max_length=100, blank=True) 
