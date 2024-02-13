@@ -107,6 +107,8 @@
 	    }
 	});
 	});
+
+	$(".logout-btn").click(logoutUser());
 })();
 
 function showCloseAuthEle(closeEle, showEle) {
@@ -117,4 +119,28 @@ function showCloseAuthEle(closeEle, showEle) {
 function renewPasswordProcessor(code) {
 	$(`.renew_password .code`).val(code)
 	showCloseAuthEle("verify", "renew_password")
+}
+
+function logoutUser () {
+	$.ajax({
+	    url: "/admin/ajax/get/logout/",
+	    type: 'GET',
+	    data: {
+	        csrfmiddlewaretoken: csrfToken,
+	    },
+	    beforeSend: function() {
+	    	showLoader()
+	    },
+	    success: (response) => {
+	        const { message } = response
+			showAlert({ message })
+			closeLoader()
+			window.location.replace("/")
+	    },
+	    error: (error) => {
+	    	const { message } = error.responseJSON
+			showAlert({ message })
+			closeLoader()
+	    }
+	});
 }

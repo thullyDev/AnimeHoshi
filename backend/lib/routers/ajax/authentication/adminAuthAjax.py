@@ -48,11 +48,3 @@ class AdminAuthAjax(Base):
             "temporary_id": data["temporary_id"],
         })
     
-    @timer
-    def logout(self, request):
-        return self.successful_response(data={ "message": "successful logout" }, cookies=True, cookies_data={
-            "email": None,
-            "username": None,
-            "temporary_id": None,
-        })
-    

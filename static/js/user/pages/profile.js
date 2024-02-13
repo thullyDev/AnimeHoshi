@@ -22,7 +22,6 @@
 
 
 function changeUserDetails(type, value, callback = null) {
-	console.log({ type, value })
 	$.ajax({
 	    url: "/user/ajax/post/change_user_details/",
 	    type: 'POST',

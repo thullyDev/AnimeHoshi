@@ -32,3 +32,10 @@ class Base(APIView, ResponseHandler):
         for key, value in data.items():
             context[key] = value
 
+    def logout(self, request):
+        return self.successful_response(data={ "message": "successful logout" }, cookies=True, cookies_data={
+            "email": None,
+            "username": None,
+            "temporary_id": None,
+        })
+    

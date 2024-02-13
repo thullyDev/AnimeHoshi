@@ -2,7 +2,7 @@
 	$(".logout-btn").click(function() {
 		$.ajax({
 		    url: "/admin/ajax/get/logout/",
-		    type: 'POST',
+		    type: 'GET',
 		    data: {
 		        csrfmiddlewaretoken: csrfToken,
 		    },
