@@ -9,6 +9,7 @@
 	  	const image = `<img src="${res}" alt="${username}" class="profile-image">`
 	    $(".profile-image").html(image)
 	    thisEle.data("value", res)
+	    changeUserDetails("profile_image", res)
 	  }
 	  
 	  reader.readAsDataURL(file);
