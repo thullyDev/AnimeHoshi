@@ -35,30 +35,30 @@ class ResponseHandler:
 
 		return response
 
+	def data_processor(self, data, status_code, message):
+		data = data if data else {}
+		data["status_code"] = status_code
+		if not data.get("message"): data["message"] = message
+
 	def http_response(self, text, status_code):
 		return HttpResponse(text, status=status_code)
 
 	def forbidden_response(self, data={}, **kwargs):
 		self.data_processor(data=data, status_code=FORBIDDEN, message=FORBIDDEN_MSG)
-		return self.json_response(safe=safe, data=data, status_code=FORBIDDEN, **kwargs)
+		return self.json_response(data=data, status_code=FORBIDDEN, **kwargs)
 
 	def successful_response(self, data={}, **kwargs):
 		self.data_processor(data=data, status_code=SUCCESSFUL, message=SUCCESSFUL_MSG)
-		return self.json_response(safe=safe, data=data, status_code=SUCCESSFUL, **kwargs)
+		return self.json_response(data=data, status_code=SUCCESSFUL, **kwargs)
 
 	def not_found_response(self, data={}, **kwargs):
 		self.data_processor(data=data, status_code=NOT_FOUND, message=NOT_FOUND_MSG)
-		return self.json_response(safe=safe, data=data, status_code=NOT_FOUND, **kwargs)
+		return self.json_response(data=data, status_code=NOT_FOUND, **kwargs)
 
 	def crash_response(self, data={}, **kwargs):
 		self.data_processor(data=data, status_code=CRASH, message=CRASH_MSG)
-		return self.json_response(safe=safe, data=data, status_code=CRASH, **kwargs)
+		return self.json_response(data=data, status_code=CRASH, **kwargs)
 
 	def bad_request_response(self, data={}, **kwargs):
 		self.data_processor(data=data, status_code=BAD_REQUEST, message=BAD_REQUEST_MSG)
-		return self.json_response(safe=safe, data=data, status_code=BAD_REQUEST, **kwargs)
-
-	def data_processor(self, data, status_code, message):
-		data = data if data else {}
-		data["status_code"] = status_code
-		if not data.get("message"): data["message"] = message
+		return self.json_response(data=data, status_code=BAD_REQUEST, **kwargs)
