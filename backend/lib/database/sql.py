@@ -91,8 +91,13 @@ class Sql:
 	def sql_get_all(self, unit):
 		model = self.get_valid_model(unit)
 		return list(model.objects.values())
-
+			
 	def sql_get_query(self, unit, query, be_dynmc=False, **kwargs):
-		model = self.get_valid_model(unit)
-		values = model.objects.filter(username=query, email=query) if not be_dynmc else model.objects.filter(**kwargs)
-		return list(values)
+	    model = self.get_valid_model(unit)
+	    
+	    if not be_dynmc:
+	        values = model.objects.filter(email=query, **kwargs)
+	    else:
+	        values = model.objects.filter(**kwargs)
+	    
+	    return list(values)

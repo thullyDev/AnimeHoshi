@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from ..resources import ROOT_FILE
 from ..database import Database
@@ -39,3 +40,12 @@ class Base(APIView, ResponseHandler):
             "temporary_id": None,
         })
     
+    def paginate(self, data, page, limit=20):
+        paginator = Paginator(data, limit) 
+
+        try:
+            paginated = paginator.page(page)
+        except EmptyPage:
+            paginated = paginator.page(paginator.num_pages)
+
+        return paginated, paginator.num_pages

@@ -1,5 +1,4 @@
 from django.shortcuts import redirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..decorators import adminValidator, timer
 from ..handlers import SiteHandler
 from ..scraping import TioanimeScraper, LatanimeScraper
@@ -145,13 +144,3 @@ class Admin(Base):
             "admins_count": len(admins),
         })
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
-
-    def paginate(self, data, page, limit=20):
-        paginator = Paginator(data, limit) 
-
-        try:
-            paginated = paginator.page(page)
-        except EmptyPage:
-            paginated = paginator.page(paginator.num_pages)
-
-        return paginated, paginator.num_pages
