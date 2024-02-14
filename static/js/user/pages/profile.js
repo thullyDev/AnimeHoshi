@@ -15,6 +15,12 @@
 	  reader.readAsDataURL(file);
 	});
 	  
+	$("input.list-search-inp").change(function() {
+		const thisEle = $(this)
+		const value = thisEle.val()
+		console.log({ value })
+	});
+
 	$("input.username-inp").change(() => changeUsername());
 	$("button.username-inp").click(() => changeUsername());
 

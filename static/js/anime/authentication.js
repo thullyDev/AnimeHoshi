@@ -108,7 +108,7 @@
 	});
 	});
 
-	$(".logout-btn").click(logoutUser());
+	$(".logout-btn").click(() => logoutUser());
 })();
 
 function showCloseAuthEle(closeEle, showEle) {

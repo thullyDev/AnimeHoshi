@@ -75,7 +75,6 @@ class UserAjax(Base):
             "anime_image": data["poster_image"],
         }
 
-
     def anime_processing(self, rawdata, base=None):
         poster = rawdata.get("poster_image").get("poster_image")
         poster = f"https://{base}/" + poster
