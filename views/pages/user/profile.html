@@ -59,6 +59,31 @@
 						{% endwith %}
 					{% endfor %}
 				</ul>
+				<div class="pagination-con">
+					<ul>
+						{% with pages=user_list_pages page=user_list_page query=user_list_keywords%}
+							{% for page in pages|pagi %}
+					          <li class="pages-ticks">
+					            <a href="?page={{page}}&keywords={{query}}" 
+					               class="{% if page == 1 %} hl-ele {% endif %}pagination-btn page-btn">
+					              {{ page }}
+					            </a>
+					          </li>
+					        {% endfor %}
+							{% if pages > 1 %}
+					          <li class="pages-ticks">
+					            <i class="fas fa-ellipsis-h"></i>
+					          </li>
+						      <li class="pages-ticks">
+						        <a href="?page={{pages}}&keywords={{query}}" 
+						           class="hl-ele pagination-btn page-btn">
+						          {{ pages }}
+						        </a>
+						      </li>
+							{% endif %}
+						{% endwith %}
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

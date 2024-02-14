@@ -338,11 +338,6 @@ a.pagination-btn.page-btn {
     background: #a5a5a580;
 }
 
-a.hl-ele.pagination-btn.page-btn {
-    background: var(--third-color);
-    color: var(--primary-color);
-}
-
 
 button.save-btn {
   cursor: pointer;
