@@ -32,6 +32,9 @@ class UserDatabase(Database):
 
         return sqldata != None
 
+    def delete_list_item(self, slug):
+        return self.sql_delete(unit="lists", unique_id=slug, key="slug")
+
     def add_to_list(self, data):
         email = get_email(data)
         if not email: return False

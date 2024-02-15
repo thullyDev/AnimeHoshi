@@ -125,10 +125,11 @@ button.delete-btn {
     position: absolute;
     top: 5px;
     right: 5px;
-    padding: 10px;
     background: var(--secondary-accent-color);
     border-radius: 100%;
     transition: background .5s ease-in-out;
+    width: 36px;
+    height: 36px;
 }
 
 button.delete-btn:hover {

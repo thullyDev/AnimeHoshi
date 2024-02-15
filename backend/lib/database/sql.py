@@ -39,10 +39,10 @@ class Sql:
 
 		return self.get_instance_as_dict(instance)
 
-	def sql_delete(self, **kwargs):
+	def sql_delete(self, unit, **kwargs):
 		instance = self.get_instance(unit=unit, **kwargs)
 
-		if not instance: return None
+		if not instance: return False
 		instance.delete()
 
 		return True
@@ -59,6 +59,9 @@ class Sql:
 		try:
 			if key == "id":
 				return model.objects.get(id=unique_id)
+
+			if key == "slug":
+				return model.objects.get(slug=unique_id)
 
 			if key == "email":
 				return model.objects.get(email=unique_id)

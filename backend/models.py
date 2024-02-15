@@ -39,7 +39,7 @@ class User(models.Model):
 
 
 class Watchlists(models.Model):
-    slug = models.CharField(unique=True)
+    slug = models.CharField(unique=True, primary_key=True)
     user = models.IntegerField() 
     email = models.CharField(max_length=80)
     anime_title = models.CharField(max_length=200)

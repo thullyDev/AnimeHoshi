@@ -1,3 +1,5 @@
+const print = (message) => console.log(message)
+
 function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
   const alertBox = $(".alert-box");
 
@@ -13,6 +15,10 @@ function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
 function showLoader({ selector=".page-loader" } = {}) {
     const loader = $(selector) 
     loader.css("display", "flex").hide().fadeIn()
+}
+
+function removeEle(id) {
+    $(`*[data-id="${id}"]`).fadeOut().remove()
 }
 
 function closeLoader({ selector=".page-loader" } = {}) {

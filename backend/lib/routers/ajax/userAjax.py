@@ -45,6 +45,20 @@ class UserAjax(Base):
         return self.successful_response(data={ "message": "added to my list"})
 
     @userValidator
+    def delete_list_item(self, request, user, **kwargs):
+        if not request.POST: return redirect("/")
+
+        POST = request.POST
+        anime_title = POST.get("anime_title")
+        slug = POST.get("slug")
+
+        res = database.delete_list_item(slug=slug)
+
+        if not res: return self.crash_response()
+
+        return self.successful_response(data={ "message": f"removed {anime_title}"})
+
+    @userValidator
     def change_user_details(self, request, user, **kwargs):
         if not request.POST: return redirect("/")
 
