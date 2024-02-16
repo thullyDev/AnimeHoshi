@@ -13,6 +13,8 @@ def userValidator(request_func):
     def wrapper(request_obj, *args, **kwargs):
         start_time = time.time()
         request = args[0]
+        GET = request.GET
+        POST = request.POST
         user = get_user(request)
         ajax = is_ajax(request)
 
@@ -23,6 +25,8 @@ def userValidator(request_func):
         site_data = site.get_site_data()
         response = request_func(
             request_obj, 
+            GET=GET, 
+            POST=POST,
             site_data=site_data, 
             user=user,
             context={ "user_data": user, "site_data": site_data}, 

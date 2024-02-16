@@ -85,9 +85,13 @@ class Anime(Base):
         return self.root(request=request, context=context, template="pages/anime/home.html")
 
     @recorder
-    def tioanime_filter(self, request, context, **kwargs):
+    def watch_togather(self, request, **kwargs):
+        return
+
+    @recorder
+    def tioanime_filter(self, request, GET, context, **kwargs):
         filter_data = {}
-        for key, value in request.GET.items():
+        for key, value in GET.items():
             if value: filter_data[key] = value
 
         rawdata = tioanime.get_filter(data=filter_data)
@@ -101,9 +105,9 @@ class Anime(Base):
         return self.root(request=request, context=context, template="pages/anime/filter.html")
 
     @recorder
-    def latanime_filter(self, request, context, **kwargs):
+    def latanime_filter(self, request, GET, context, **kwargs):
         filter_data = {}
-        for key, value in request.GET.items():
+        for key, value in GET.items():
             if value: filter_data[key] = value
 
         rawdata = latanime.get_filter(data=filter_data)
@@ -147,9 +151,9 @@ class Anime(Base):
         return self.root(request=request, context=context, template="pages/anime/schedule.html")
 
     @recorder
-    def latanime_search(self, request, context, **kwargs):
+    def latanime_search(self, request, GET, context, **kwargs):
         search_data = {}
-        for key, value in request.GET.items():
+        for key, value in GET.items():
             if value: search_data[key] = value
 
         rawdata = latanime.get_search(data=search_data)
@@ -229,7 +233,7 @@ class Anime(Base):
         return self.root(request=request, context=context, template="pages/anime/watch.html")
 
     @recorder
-    def stream(self, request, encrypted_link, context, **kwargs):
+    def stream(self, request, encrypted_link, GET, context, **kwargs):
         link = b64decode(encrypted_link.replace("b'", "").replace("'", "")).decode("utf-8")
         site = link.replace("https://", "").split("/")[0]
         valid_sites = {
@@ -258,8 +262,8 @@ class Anime(Base):
 
     @recorder
     def alert(self, request, context, **kwargs):
-        message = request.GET.get("message")
-        description = request.GET.get("description")
+        message = GET.get("message")
+        description = GET.get("description")
 
         if None in [message, description]: return redirect("home")
 

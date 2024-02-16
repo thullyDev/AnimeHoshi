@@ -9,7 +9,7 @@ from ...resources import (
     generate_unique_id,
 )
 from ...database import UserDatabase, Storage
-from ...decorators import userValidator
+from ...decorators import userValidator, timer
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ..base import Base
 
@@ -20,13 +20,16 @@ storage = Storage()
 database = UserDatabase()
 
 class UserAjax(Base):
-    @userValidator
-    def add_to_list(self, request, user, **kwargs):
-        if not request.POST: return redirect("/")
+    @timer
+    def make_watch_room(self, request, GET, **kwargs):
+        pass
 
-        post_data = request.POST
-        slug = post_data.get("slug")
-        watch_type = post_data.get("watch_type")
+    @userValidator
+    def add_to_list(self, request, POST, user, **kwargs):
+        if not POST: return redirect("/")
+
+        slug = POST.get("slug")
+        watch_type = POST.get("watch_type")
 
         if watch_type not in ["latino", "main"]: return self.bad_request_response()
 
@@ -45,10 +48,9 @@ class UserAjax(Base):
         return self.successful_response(data={ "message": "added to my list"})
 
     @userValidator
-    def delete_list_item(self, request, user, **kwargs):
-        if not request.POST: return redirect("/")
+    def delete_list_item(self, request, POST, user, **kwargs):
+        if not POST: return redirect("/")
 
-        POST = request.POST
         anime_title = POST.get("anime_title")
         slug = POST.get("slug")
 
@@ -59,12 +61,11 @@ class UserAjax(Base):
         return self.successful_response(data={ "message": f"removed {anime_title}"})
 
     @userValidator
-    def change_user_details(self, request, user, **kwargs):
-        if not request.POST: return redirect("/")
+    def change_user_details(self, request, POST, user, **kwargs):
+        if not POST: return redirect("/")
 
-        post_data = request.POST
-        change_type = post_data.get("type")
-        value = post_data.get("value")
+        change_type = POST.get("type")
+        value = POST.get("value")
 
         if change_type not in ["username", "profile_image"]: return self.bad_request_response()
 

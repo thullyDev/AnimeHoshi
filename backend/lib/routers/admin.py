@@ -17,24 +17,21 @@ latanime = LatanimeScraper()
 
 class Admin(Base):
     @timer
-    def base(self, request):
+    def base(self, request, **kwargs):
         return redirect("admin_login")
 
     @timer
-    def admin_login(self, request):
+    def admin_login(self, request, **kwargs):
         return self.root(request=request, context={}, template="pages/admin/login.html")   
    
     @adminValidator
-    def dashboard(self, request, site_data, context, **kwargs):
-        # gets data from GET
-        get_data = request.GET
-        users_keyword = get_data.get("user_keyword")
-        users_page = get_data.get("users_page", 1)
-        tioanime_keyword = get_data.get("tioanime_keyword", "")
-        latanime_keyword = get_data.get("latanime_keyword", "")
-        latanime_page = get_data.get("latanime_page", 1)
-        tioanime_page = get_data.get("tioanime_page", 1)
-        # end
+    def dashboard(self, request, GET, site_data, context, **kwargs):
+        users_keyword = GET.get("user_keyword")
+        users_page = GET.get("users_page", 1)
+        tioanime_keyword = GET.get("tioanime_keyword", "")
+        latanime_keyword = GET.get("latanime_keyword", "")
+        latanime_page = GET.get("latanime_page", 1)
+        tioanime_page = GET.get("tioanime_page", 1)
 
         admins = admin_database.get_admins()
         users = admin_database.get_query_users(query=users_keyword) if users_keyword else admin_database.get_users()
@@ -129,7 +126,6 @@ class Admin(Base):
 
     @adminValidator
     def advance(self, request, site_data, context, **kwargs):
-        # settings = json.loads(json.dumps(site_data["settings"]))
         settings = site_data["settings"]
         self.set_context(context=context, data={
             "settings": settings,

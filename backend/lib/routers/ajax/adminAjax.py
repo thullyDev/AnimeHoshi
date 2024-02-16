@@ -14,13 +14,12 @@ storage = Storage()
 
 class AdminAjax(Base):
     @adminValidator
-    def save_data(self, request, site_data, *args, **kwargs):
-        if not request.POST:
+    def save_data(self, request, POST, site_data, *args, **kwargs):
+        if not POST:
             return redirect("admin_login")
 
-        post = request.POST
-        data = get_data_from_string(post.get("save_data"))
-        save = post.get("save")
+        data = get_data_from_string(POST.get("save_data"))
+        save = POST.get("save")
 
         if save not in { "settings", "values", "scripts" }:
             return self.bad_request_response()
@@ -33,12 +32,11 @@ class AdminAjax(Base):
         return self.successful_response()
 
     @adminValidator
-    def reset_settings(self, request, *args, **kwargs):
-        if not request.POST:
+    def reset_settings(self, request, POST, *args, **kwargs):
+        if not POST:
             return redirect("admin_login")
 
-        post = request.POST
-        site_key = post.get("site_key")
+        site_key = POST.get("site_key")
 
         if SITE_KEY != site_key:
             return self.forbidden_response(data={ "message": "site key is invalid" })
@@ -47,17 +45,16 @@ class AdminAjax(Base):
         return self.successful_response()
 
     @adminValidator
-    def add_admin(self, request, *args, **kwargs):
-        if not request.POST:
+    def add_admin(self, request, POST, *args, **kwargs):
+        if not POST:
             return redirect("admin_login")
 
-        post = request.POST
-        site_key = post.get("site_key")
+        site_key = POST.get("site_key")
 
         if SITE_KEY != site_key:
             return self.forbidden_response(data={ "message": "site key is invalid" })
 
-        data = get_data_from_string(post.get("data"))
+        data = get_data_from_string(POST.get("data"))
         is_validate = self.validate(
             username=data["username"],
             email=data["email"],
@@ -70,29 +67,27 @@ class AdminAjax(Base):
         return self.successful_response()
 
     @adminValidator
-    def update_admin(self, request, *args, **kwargs):
-        if not request.POST:
+    def update_admin(self, request, POST, *args, **kwargs):
+        if not POST:
             return redirect("admin_login")
 
-        post = request.POST
-        site_key = post.get("site_key")
+        site_key = POST.get("site_key")
 
         if SITE_KEY != site_key:
             return self.forbidden_response(data={ "message": "site key is invalid" })
 
-        data = get_data_from_string(post.get("data"))
+        data = get_data_from_string(POST.get("data"))
 
         admin_database.update_admin(data=data)
         return self.successful_response()
 
     @adminValidator
-    def update_user(self, request, *args, **kwargs):
-        if not request.POST:
+    def update_user(self, request, POST, *args, **kwargs):
+        if not POST:
             return redirect("admin_login")
 
-        post = request.POST
-        email = post.get("id")
-        data = get_data_from_string(post.get("data"))
+        email = POST.get("id")
+        data = get_data_from_string(POST.get("data"))
         deleted = bool(data["deleted"])
         deleted = False if deleted else True
 
@@ -104,11 +99,10 @@ class AdminAjax(Base):
 
     @adminValidator
     def update_anime(self, request, site_data, *args, **kwargs):
-        if not request.POST:
+        if not POST:
             return redirect("admin_login")
 
-        post = request.POST
-        slug = post.get("id")
+        slug = POST.get("id")
         disabled_animes = site_data["disabled_animes"]
 
         if slug in disabled_animes:
@@ -121,10 +115,9 @@ class AdminAjax(Base):
         return self.successful_response(data={ "data": { "deleted": True }})
 
     @timer
-    def create_owner(self, request):
-        data = request.GET
-        req_site_key = data.get("key")
-        password = data.get("password")
+    def create_owner(self, GETrequest):
+        req_site_key = GET.get("key")
+        password = GET.get("password")
         
         if req_site_key != SITE_KEY:
             return self.forbidden_response()
