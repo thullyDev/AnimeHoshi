@@ -179,6 +179,11 @@ class Anime(Base):
         context["type"] = "main"
         context["data"] = data
         context["page"] = "anime"
+        context["room_inputs"] = self.get_watch_room_inputs(
+            slug=slug, 
+            anime_title=data.get("title"), 
+            watch_type=watch_type
+        )
 
         return self.root(request=request, context=context, template="pages/anime/anime.html")
 
@@ -193,6 +198,11 @@ class Anime(Base):
         context["type"] = "latino"
         context["data"] = data
         context["page"] = "anime"
+        context["room_inputs"] = self.get_watch_room_inputs(
+            slug=slug, 
+            anime_title=data.get("title"), 
+            watch_type=watch_type
+        )
 
         return self.root(request=request, context=context, template="pages/anime/anime.html")
 
@@ -211,6 +221,11 @@ class Anime(Base):
         context["episodes"] = episodes
         context["type"] = "latino"
         context["page"] = "watch"
+        context["room_inputs"] = self.get_watch_room_inputs(
+            slug=slug, 
+            anime_title=anime_slug.replace("_", " "), 
+            watch_type=watch_type
+        )
 
         return self.root(request=request, context=context, template="pages/anime/watch.html")
 
@@ -229,6 +244,11 @@ class Anime(Base):
         context["episodes"] = episodes
         context["type"] = "main"
         context["page"] = "watch"
+        context["room_inputs"] = self.get_watch_room_inputs(
+            slug=slug, 
+            anime_title=anime_slug.replace("_", " "), 
+            watch_type=watch_type
+        )
 
         return self.root(request=request, context=context, template="pages/anime/watch.html")
 
@@ -494,4 +514,25 @@ class Anime(Base):
                 })
 
         return data
+
+    def get_watch_room_inputs(self, anime_title, slug, watch_type):
+        watch_room_inputs = [
+                {
+                    "input": "hidden",
+                    "key": "slug",
+                    "value": slug,
+                },
+                {
+                    "input": "hidden",
+                    "key": "anime_title",
+                    "value": anime_title,
+                },
+                {
+                    "input": "hidden",
+                    "key": "type",
+                    "value": watch_type,
+                },
+            ]
+
+        return watch_room_inputs
     #*** helper functions END ***#

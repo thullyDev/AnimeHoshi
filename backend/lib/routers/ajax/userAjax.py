@@ -20,9 +20,24 @@ storage = Storage()
 database = UserDatabase()
 
 class UserAjax(Base):
-    @timer
-    def make_watch_room(self, request, GET, **kwargs):
-        pass
+    @userValidator
+    def make_watch_room(self, request, POST, **kwargs):
+        if not POST: return redirect("/")
+
+        slug = POST.get("slug")
+        anime_title = POST.get("anime_title")
+        number = POST.get("number")
+        watch_type = POST.get("type")
+        enable_code = POST.get("enable_code")
+
+        print(f"slug ===> {slug}")
+        print(f"anime_title ===> {anime_title}")
+        print(f"number ===> {number}")
+        print(f"watch_type ===> {watch_type}")
+        print(f"enable_code ===> {enable_code}")
+
+
+        return self.successful_response()
 
     @userValidator
     def add_to_list(self, request, POST, user, **kwargs):

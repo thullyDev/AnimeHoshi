@@ -6,6 +6,7 @@ user_ajax = UserAjax()
 
 routes = [
     route_producer(route="get/logout/", view=user_auth_ajax.logout),
+    route_producer(route="post/make_watch_room/", view=user_ajax.make_watch_room),
     route_producer(route="post/add/list/", view=user_ajax.add_to_list),
     route_producer(route="post/delete_list_item/", view=user_ajax.delete_list_item),
     route_producer(route="post/change_user_details/", view=user_ajax.change_user_details),
