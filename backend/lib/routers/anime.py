@@ -174,9 +174,11 @@ class Anime(Base):
 
         if not rawdata: return redirect("not_found")
 
+
         data = self.anime_processing(rawdata=rawdata, base=tioanime.base)
+        watch_type = "main"
         context["anime_slug"] = slug
-        context["type"] = "main"
+        context["type"] = watch_type
         context["data"] = data
         context["page"] = "anime"
         context["room_inputs"] = self.get_watch_room_inputs(
@@ -194,8 +196,9 @@ class Anime(Base):
         if not rawdata: return redirect("not_found")
 
         data = self.anime_processing(rawdata=rawdata, base=latanime.base)
+        watch_type = "latino"
         context["anime_slug"] = slug
-        context["type"] = "latino"
+        context["type"] = watch_type
         context["data"] = data
         context["page"] = "anime"
         context["room_inputs"] = self.get_watch_room_inputs(
@@ -219,10 +222,11 @@ class Anime(Base):
         first_embed = {} if not embed_links else embed_links[0]
         context["first_embed"] = first_embed
         context["episodes"] = episodes
-        context["type"] = "latino"
+        watch_type = "latino"
+        context["type"] = watch_type
         context["page"] = "watch"
         context["room_inputs"] = self.get_watch_room_inputs(
-            slug=slug, 
+            slug=anime_slug, 
             anime_title=anime_slug.replace("_", " "), 
             watch_type=watch_type
         )
@@ -242,10 +246,11 @@ class Anime(Base):
         first_embed = {} if not embed_links else embed_links[0]
         context["first_embed"] = first_embed
         context["episodes"] = episodes
-        context["type"] = "main"
+        watch_type = "main"
+        context["type"] = watch_type
         context["page"] = "watch"
         context["room_inputs"] = self.get_watch_room_inputs(
-            slug=slug, 
+            slug=anime_slug, 
             anime_title=anime_slug.replace("_", " "), 
             watch_type=watch_type
         )
