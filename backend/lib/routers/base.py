@@ -24,6 +24,15 @@ class Base(APIView, ResponseHandler):
 
         return render(request, template, context=context)
 
+    def redirect_to_alert(self, raw_message, raw_description):
+        url = reverse('alert')
+        message = quote(raw_message)
+        description = quote(raw_description)
+
+        url = f"{url}?message={message}&description={description}"
+        
+        return redirect(url)
+
     def process_request(self, data):
         if not data: return {}
 

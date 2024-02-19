@@ -31,6 +31,13 @@ class Anime(Base):
         tioanime_rawdata = tioanime.get_home()
         latanime_rawdata = latanime.get_home()
 
+        if None in [ tioanime_rawdata, latanime_rawdata ]:
+            return redirect_to_alert(
+                raw_message="Something Went Wrong", 
+                raw_description="the site received an internal server crash, please try again"
+                )
+
+
         data = {
             "tioanime": {
                 "episodes": [],
@@ -299,23 +306,17 @@ class Anime(Base):
 
     @recorder
     def maintenance(self, request, context, **kwargs):
-        url = reverse('alert')
-        message = quote("Under Construction")
-        description = quote("we are currently doing maintenance to the site")
-
-        url = f"{url}?message={message}&description={description}"
-        
-        return redirect(url)
+        return redirect_to_alert(
+            raw_message="Under Construction", 
+            raw_description="we are currently doing maintenance to the site"
+            )
 
     @recorder
     def not_found(self, request, context, **kwargs):
-        url = reverse('alert')
-        message = quote("404 - Page Not Found")
-        description = quote("The requested page could not be found.")
-
-        url = f"{url}?message={message}&description={description}"
-        
-        return redirect(url)
+        return redirect_to_alert(
+            raw_message="404 - Page Not Found", 
+            raw_description="The requested page could not be found."
+            )
 
     #*** helper functions START ***#
     def get_episodes(self, slug, instance):
