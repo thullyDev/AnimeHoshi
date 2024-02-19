@@ -278,6 +278,7 @@ p.text-limit {
     width: calc(100% - 10px);
     border-radius: .25rem;
     box-sizing: border-box;
+    max-width: 450px;
     background: var(--secondary-accent-color);
 }
 
@@ -354,6 +355,20 @@ p.check-label {
 
 .unlimited-con input.watch-room-input[type=number] {
   -moz-appearance: textfield;
+}
+
+.create-room-btn-con {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button.create-room-btn {
+    background: var(--third-color);
+    width: 70px;
+    padding: 4px;
+    font-size: 16px;
+    border-radius: .25rem;
 }
 /* watch_room_modal */
 

@@ -7,39 +7,44 @@
 	                <div class="watch-room-hidden-inputs-con" style="display: none;">  
 	                {% for input in hidden_room_inputs %}
 	                  {% with type=input.input value=input.value key=input.key %}
-	                    	<input type="{{type}}" value="{{value}}" data-key="{{key}}" class="hidden-input watch-room-input">
+	                    	<input type="{{type}}" value="{{value}}" data-name="{{key}}" class="hidden-input watch-room-input">
 	                  {% endwith %}
 	                {% endfor %}
 	                </div>
-	                <div class="watch-room-inputs-con">  
+	                <div class="watch-room-inputs-con">
+	                  {% with limit=50 %}
 	                	<div class="watch-room-input-con">
 	                		<div class="watch-room-input-label-con">
 	                			Room Name
 	                		</div>
 	                		<div class="watch-room-input-con">
-	                			<textarea maxlength="20" name="room_name" id="" cols="30" rows="10" class="watch-room-input"></textarea>
+	                			<textarea maxlength="{{limit}}" data-name="room_name" name="room_name" id="" cols="30" rows="10" class="watch-room-input"></textarea>
 	                		</div>
-	                		<p class="text-limit">20/20</p>
+	                		<p class="text-limit">0/{{limit}}</p>
 	                	</div>
+	                  {% endwith %}
 	                </div>
 	                <div class="unlimited-private-con">
 	                	<div class="unlimited-con">
-				            {% with class="room-checkbox-input" name="unlimited" value="false" %}
+				            {% with class="room-checkbox-input watch-room-input" name="unlimited" value="false" %}
 				            	<div class="check-label-con">
 				            		<p class="check-label">{{name|title}}</p>
 				            		{% include 'widgets/checkbox2.html' %}
 				            	</div>
 				            {% endwith %}
-	                    	<input type="number" data-key="unlimited" value="0" class="watch-room-input">
+	                    	<input type="number" data-key="unlimited" value="0"  data-name="room_name" class="watch-room-input" data-open="false" style="display: none;">
 	                	</div>
 	                	<div class="private-con">
-				            {% with class="room-checkbox-input" name="private" value="false" %}
+				            {% with class="room-checkbox-input watch-room-input" name="private" value="false" %}
 				            	<div class="check-label-con">
 				            		<p class="check-label">{{name|title}}</p>
 				            		{% include 'widgets/checkbox2.html' %}
 				            	</div>
 				            {% endwith %}
 	                	</div>
+	                </div>
+	                <div class="create-room-btn-con">
+	                	<button class="create-room-btn">create</button>
 	                </div>
 				</div>
 			</form>
