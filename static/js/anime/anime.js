@@ -1,15 +1,13 @@
 (function () {
-	const searchInp = $(".search-input")
 	$(".menu-btn").click(() => showCloseEle(".mobile-viewer-con", "slide"));
 	$(".watch2gather-btn, .watch-room-modal-close-btn").click(() => showCloseEle(".watch-room-modal-con", "fade"));
-	$(".create-room-btn").click(() => createRoom())
-
+	$(".create-watch-room-btn").click(() => createRoom())
 	$(".search-btn").click(() => search())
-
-	searchInp.change(() => search())
+	$(".search-input").change(() => search())
 })();
 
 function search() {
+	const searchInp = $(".search-input")
 	const value = searchInp.val()
 	const type = searchInp.data("type")
 
@@ -44,9 +42,6 @@ function createRoom() {
 	} 
 
 	data.csrfmiddlewaretoken = csrfToken
-
-	print({data})
-	return
 
 	$.ajax({
 	    data,

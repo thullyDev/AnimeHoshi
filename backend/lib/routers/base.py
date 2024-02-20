@@ -11,7 +11,7 @@ from pprint import pprint
 database = Database()
 
 class Base(APIView, ResponseHandler):
-    def root(self, request, context={}, template=ROOT_FILE): 
+    def root(self, request, context={}, template=ROOT_FILE, titled=False): 
         if "page" in context: return render(request, template, context=context)
 
         path = request.path.split("/")
@@ -21,6 +21,7 @@ class Base(APIView, ResponseHandler):
         page = paths[length - 2]
 
         context["page"] = page 
+        context["titled"] = titled 
 
         return render(request, template, context=context)
 

@@ -194,7 +194,7 @@ class Anime(Base):
             watch_type=watch_type
         )
 
-        return self.root(request=request, context=context, template="pages/anime/anime.html")
+        return self.root(request=request, context=context, template="pages/anime/anime.html", titled=True)
 
     @recorder
     def latanime_anime(self, request, slug, context, **kwargs):
@@ -214,7 +214,7 @@ class Anime(Base):
             watch_type=watch_type
         )
 
-        return self.root(request=request, context=context, template="pages/anime/anime.html")
+        return self.root(request=request, context=context, template="pages/anime/anime.html", titled=True)
 
     @recorder
     def latanime_watch(self, request, slug, context, **kwargs):
@@ -238,7 +238,7 @@ class Anime(Base):
             watch_type=watch_type
         )
 
-        return self.root(request=request, context=context, template="pages/anime/watch.html")
+        return self.root(request=request, context=context, template="pages/anime/watch.html", titled=True)
 
     @recorder
     def tioanime_watch(self, request, slug, context, **kwargs):
@@ -262,7 +262,7 @@ class Anime(Base):
             watch_type=watch_type
         )
 
-        return self.root(request=request, context=context, template="pages/anime/watch.html")
+        return self.root(request=request, context=context, template="pages/anime/watch.html", titled=True)
 
     @recorder
     def stream(self, request, encrypted_link, GET, context, **kwargs):
