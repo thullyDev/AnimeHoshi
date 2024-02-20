@@ -51,15 +51,15 @@ function createRoom() {
 	    	showLoader()
 	    },
 	    success: (response) => {
-	        const { message, room_id } = response
-			showAlert({ message })
-			closeLoader()
-			window.location.replace(`/watch2gather/${room_id}`)
+        const { message, room_id } = response
+				showAlert({ message })
+				closeLoader()
+				// window.location.replace(`/watch2gather/${room_id}`)
 	    },
 	    error: (error) => {
 	    	const { message } = error.responseJSON
-			showAlert({ message })
-			closeLoader()
+				showAlert({ message })
+				closeLoader()
     	}	
 	});
 

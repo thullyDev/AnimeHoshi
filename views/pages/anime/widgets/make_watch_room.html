@@ -5,7 +5,7 @@
 			<form action="post" class="watch-room-form">
 				<div class="watch-room-inputs-con">
 	                <div class="watch-room-hidden-inputs-con" style="display: none;">  
-	                {% for input in hidden_room_inputs %}
+	                {% for input in room_inputs %}
 	                  {% with type=input.input value=input.value key=input.key %}
 	                    	<input type="{{type}}" value="{{value}}" data-name="{{key}}" class="hidden-input watch-room-input">
 	                  {% endwith %}
