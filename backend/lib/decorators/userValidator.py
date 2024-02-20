@@ -19,7 +19,7 @@ def userValidator(request_func):
         ajax = is_ajax(request)
 
         if not user:
-            return redirect("home") if not ajax else response_handler.forbidden_response()
+            return redirect("home") if not ajax else response_handler.forbidden_response({ "message": "login" })
 
 
         site_data = site.get_site_data()

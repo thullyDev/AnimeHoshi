@@ -19,7 +19,7 @@ database = UserDatabase()
 
 class UserAuthAjax(Base):
     @timer
-    def login(self, request):
+    def login(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
 
         post_data = request.POST
@@ -54,7 +54,7 @@ class UserAuthAjax(Base):
         })
     
     @timer
-    def signup(self, request):
+    def signup(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
 
         post_data = request.POST
@@ -106,7 +106,7 @@ class UserAuthAjax(Base):
             })
     
     @timer
-    def resend_code(self, request):
+    def resend_code(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
         post_data = request.POST
         post_data = get_data_from_string(post_data.get("data"))
@@ -123,7 +123,7 @@ class UserAuthAjax(Base):
         return message
     
     @timer
-    def verify(self, request):
+    def verify(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
         post_data = request.POST
         post_data = get_data_from_string(post_data.get("data"))
@@ -152,7 +152,7 @@ class UserAuthAjax(Base):
          })
 
     @timer
-    def forgot_password(self, request):
+    def forgot_password(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
 
         post_data = request.POST
@@ -185,7 +185,7 @@ class UserAuthAjax(Base):
             })
 
     @timer
-    def renew_password(self, request):
+    def renew_password(self, request, *args, **kwargs):
         if request.POST: return redirect("/")
 
         post_data = request.POST

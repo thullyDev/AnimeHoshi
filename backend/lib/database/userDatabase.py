@@ -41,7 +41,8 @@ class UserDatabase(Database):
 
         sqldata = self.sql_set(unit="lists", data=data)
         cache_data = self.get_cached_user_list(email)
-        cache_data.append(sqldata)
+
+        if None not in [ sqldata, cache_data ]: cache_data.append(sqldata)
 
         self.save_cached_user_list(email=email, data=cache_data)
         

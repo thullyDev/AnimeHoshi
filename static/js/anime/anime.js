@@ -2,7 +2,7 @@
 	const searchInp = $(".search-input")
 	$(".menu-btn").click(() => showCloseEle(".mobile-viewer-con", "slide"));
 	$(".watch2gather-btn, .watch-room-modal-close-btn").click(() => showCloseEle(".watch-room-modal-con", "fade"));
-	$(".create-room-bt").click(() => createRoom())
+	$(".create-room-btn").click(() => createRoom())
 
 	$(".search-btn").click(() => search())
 
@@ -27,7 +27,7 @@ function getRoomInputs() {
   inputs.each((_, ele) => {
     const thisEle = $(ele)
     const name = thisEle.data("name")
-    const value = thisEle.is(':checked') : $.trim(thisEle.data("value")) || $.trim(thisEle.val())  
+    const value = thisEle.is(':checked') || $.trim(thisEle.val())  
 
     data[name] = value
   })
@@ -44,6 +44,9 @@ function createRoom() {
 	} 
 
 	data.csrfmiddlewaretoken = csrfToken
+
+	print({data})
+	return
 
 	$.ajax({
 	    data,
