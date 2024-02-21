@@ -54,3 +54,19 @@ class Watchlists(models.Model):
     def _str_(self):
         return self.name
 
+class Rooms(models.Model):
+    room_id = models.CharField(unique=True, primary_key=True)
+    creator_email = models.CharField(max_length=80)
+    creator_id = models.CharField(max_length=80)
+    creator_username = models.CharField(max_length=80)
+    anime_title = models.CharField(max_length=200)
+    unlimited = models.BooleanField(default=False)
+    private = models.BooleanField(default=True)
+    limit = models.IntegerField() 
+
+    class Meta:
+        app_label = 'backend'
+
+    def _str_(self):
+        return self.name
+

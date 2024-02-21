@@ -60,9 +60,12 @@ class Base(APIView, ResponseHandler):
 
         return paginated, paginator.num_pages
 
-    def filter_url_data(self, data, valids):
-        return {
+    def filter_url_data(self, data, keys):
+        data = {
             key: value
             for key, value in data.items()
-            if key in valids
+            if key in keys
         }
+        valid = all(key in data for key in keys)
+
+        return data if valid else None

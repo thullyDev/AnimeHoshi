@@ -10,27 +10,49 @@ from ...resources import (
 )
 from ...database import UserDatabase, Storage
 from ...decorators import userValidator, timer
+from ...handlers import LiveChat
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ..base import Base
 from pprint import pprint
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
-
 storage = Storage()
 database = UserDatabase()
+live_chat = LiveChat()
 
 class UserAjax(Base):
     @userValidator
-    def make_watch_room(self, request, POST, **kwargs):
+    def make_watch_room(self, request, POST, user, **kwargs):
         if not POST: return redirect("/")
 
-        data = self.filter_url_data(POST, ["slug", "anime_title", "type", "room_name", "unlimited", "limit", "private"])
+        data = self.filter_url_data(POST, ["slug", "type", "room_name", "unlimited", "limit", "private"])
+
+        if not data: return self.bad_request_response()
+
         name = data.get("room_name", "")
+        slug = data.get("slug", "")
+        watch_type = data.get("type", "")
+
+        if watch_type not in ["latino", "main"]: return self.bad_request_response()
+
+        anime = self.get_anime_data(watch_type=watch_type, slug=slug)
+
+        data["anime_title"] = anime["title"]
+        data["poster_image"] = anime["poster_image"]
 
         if len(name) > 10:
             return self.bad_request_response({ "message": "room name should be atleast 10 characters long" })
-            
+
+        room = live_chat.create_room()
+
+        if not room:
+            return self.crash_response({ "message": "room was not recreated" })
+
+        room_id = data["data"]["room_id"]
+
+
+        response = database.create_watch_room(data=data, email=user["email"], room_id=room_id) 
         
         return self.successful_response()
 
@@ -43,9 +65,7 @@ class UserAjax(Base):
 
         if watch_type not in ["latino", "main"]: return self.bad_request_response()
 
-        data = self.get_anime_data(watch_type=watch_type, slug=slug) 
-
-        pprint(data)
+        data = self.get_anime_data(watch_type=watch_type, slug=slug)
 
         if not data: return self.bad_request_response()
 

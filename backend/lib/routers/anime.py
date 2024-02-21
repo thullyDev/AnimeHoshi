@@ -190,7 +190,6 @@ class Anime(Base):
         context["page"] = "anime"
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=slug, 
-            anime_title=data.get("title"), 
             watch_type=watch_type
         )
 
@@ -210,7 +209,6 @@ class Anime(Base):
         context["page"] = "anime"
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=slug, 
-            anime_title=data.get("title"), 
             watch_type=watch_type
         )
 
@@ -521,17 +519,12 @@ class Anime(Base):
 
         return data
 
-    def get_watch_room_inputs(self, anime_title, slug, watch_type):
+    def get_watch_room_inputs(self, slug, watch_type):
         watch_room_inputs = [
                 {
                     "input": "hidden",
                     "key": "slug",
                     "value": slug,
-                },
-                {
-                    "input": "hidden",
-                    "key": "anime_title",
-                    "value": anime_title,
                 },
                 {
                     "input": "hidden",

@@ -78,3 +78,6 @@ class UserDatabase(Database):
         name = f"{email}_list"
         self.hset(name=name, data=data)
 
+    def create_watch_room(self, user, data, room_id): 
+        pass
+
