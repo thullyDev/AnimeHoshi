@@ -1,4 +1,4 @@
-from ...models import User as user, Admin as admin, Watchlists as lists
+from ...models import User as user, Admin as admin, Watchlists as lists, Rooms as rooms
 from django.forms.models import model_to_dict
 from django.db import IntegrityError
 from ..resources import ( 
@@ -85,6 +85,9 @@ class Sql:
 
 		if unit == "lists":
 			return lists
+
+		if unit == "rooms":
+			return rooms
 
 		return None
 

@@ -59,6 +59,7 @@ class Rooms(models.Model):
     creator_email = models.CharField(max_length=80)
     creator_id = models.CharField(max_length=80)
     creator_username = models.CharField(max_length=80)
+    slug = models.CharField(default=None)
     anime_title = models.CharField(max_length=200)
     unlimited = models.BooleanField(default=False)
     private = models.BooleanField(default=True)

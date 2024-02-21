@@ -38,6 +38,8 @@ class UserAjax(Base):
 
         anime = self.get_anime_data(watch_type=watch_type, slug=slug)
 
+        if not anime: return self.bad_request_response()
+
         data["anime_title"] = anime["title"]
         data["poster_image"] = anime["poster_image"]
 
@@ -49,12 +51,14 @@ class UserAjax(Base):
         if not room:
             return self.crash_response({ "message": "room was not recreated" })
 
-        room_id = data["data"]["room_id"]
+        room_id = room["data"]["room_id"]
+        room_code = None if data["unlimited"] else generate_random_code(7)
 
+        response = database.create_watch_room(data=data, email=user, room_id=room_id, room_code=room_code) 
 
-        response = database.create_watch_room(data=data, email=user["email"], room_id=room_id) 
+        if not response: return self.crash_response()
         
-        return self.successful_response()
+        return self.successful_response({ "message": "room was created", "data": {"room_id": room_id} })
 
     @userValidator
     def add_to_list(self, request, POST, user, **kwargs):

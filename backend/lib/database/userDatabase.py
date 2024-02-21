@@ -78,6 +78,20 @@ class UserDatabase(Database):
         name = f"{email}_list"
         self.hset(name=name, data=data)
 
-    def create_watch_room(self, user, data, room_id): 
-        pass
+    def create_watch_room(self, user, data, room_id, room_code=None): 
+        room_data = {
+            "room_id": room_id,
+            "creator_email": user["email"],
+            "creator_id": user["id"],
+            "slug": data["slug"],
+            "anime_title": data["anime_title"],
+            "unlimited": data["unlimited"],
+            "limit": data["limit"],
+            "private": data["private"],
+            "room_code": room_code,
+        }
+
+        sqldata = self.sql_set(unit="rooms", data=data)
+
+        return sqldata != None
 
