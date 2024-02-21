@@ -12,6 +12,7 @@ from ...database import UserDatabase, Storage
 from ...decorators import userValidator, timer
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ..base import Base
+from pprint import pprint
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
@@ -24,19 +25,13 @@ class UserAjax(Base):
     def make_watch_room(self, request, POST, **kwargs):
         if not POST: return redirect("/")
 
-        slug = POST.get("slug")
-        anime_title = POST.get("anime_title")
-        number = POST.get("number")
-        watch_type = POST.get("type")
-        unlimited = POST.get("unlimited")
+        data = self.filter_url_data(POST, ["slug", "anime_title", "type", "room_name", "unlimited", "limit", "private"])
+        name = data.get("room_name", "")
 
-        print(f"slug ===> {slug}")
-        print(f"anime_title ===> {anime_title}")
-        print(f"number ===> {number}")
-        print(f"watch_type ===> {watch_type}")
-        print(f"unlimited ===> {unlimited}")
-
-
+        if len(name) > 10:
+            return self.bad_request_response({ "message": "room name should be atleast 10 characters long" })
+            
+        
         return self.successful_response()
 
     @userValidator
@@ -49,6 +44,8 @@ class UserAjax(Base):
         if watch_type not in ["latino", "main"]: return self.bad_request_response()
 
         data = self.get_anime_data(watch_type=watch_type, slug=slug) 
+
+        pprint(data)
 
         if not data: return self.bad_request_response()
 

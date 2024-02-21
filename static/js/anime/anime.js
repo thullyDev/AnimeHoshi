@@ -35,11 +35,12 @@ function getRoomInputs() {
 
 function createRoom() {
 	data = getRoomInputs()
+	const { room_name } = data
 
-	if (!data.room_name) {
-		showAlert({ message: "type the room name"})
+	if (room_name.length <= 10) {
+		showAlert({ message: "room name should be atleast 10 characters long" })
 		return
-	} 
+	}
 
 	data.csrfmiddlewaretoken = csrfToken
 

@@ -92,7 +92,7 @@ class Anime(Base):
         return self.root(request=request, context=context, template="pages/anime/home.html")
 
     @recorder
-    def watch_togather(self, request, **kwargs):
+    def watch_togather_rooms(self, request, **kwargs):
         return
 
     @recorder
