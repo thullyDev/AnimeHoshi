@@ -8,3 +8,4 @@ env
 *.log
 __pycache__/
 *.py[cod]
+backend/migrations/
