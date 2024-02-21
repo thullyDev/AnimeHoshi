@@ -63,6 +63,7 @@ class Rooms(models.Model):
     unlimited = models.BooleanField(default=False)
     private = models.BooleanField(default=True)
     limit = models.IntegerField() 
+    room_code = models.CharField(max_length=7, default=None)
 
     class Meta:
         app_label = 'backend'
