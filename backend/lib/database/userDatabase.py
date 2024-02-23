@@ -1,4 +1,5 @@
 from .database import Database
+from pprint import pprint
 from ..resources import get_email
 
 class UserDatabase(Database):
@@ -79,19 +80,25 @@ class UserDatabase(Database):
         self.hset(name=name, data=data)
 
     def create_watch_room(self, user, data, room_id, room_code=None): 
+        unlimited = True if data["unlimited"] == "true" else False
+        private = True if data["private"] == "true" else False
+
         room_data = {
             "room_id": room_id,
             "creator_email": user["email"],
             "creator_id": user["id"],
+            "room_name": data["room_name"],
             "slug": data["slug"],
             "anime_title": data["anime_title"],
-            "unlimited": data["unlimited"],
+            "anime_image": data["anime_image"],
+            "unlimited": unlimited,
             "limit": data["limit"],
-            "private": data["private"],
+            "private": private,
             "room_code": room_code,
+            "watch_type": data["type"],
         }
 
-        sqldata = self.sql_set(unit="rooms", data=data)
+        sqldata = self.sql_set(unit="rooms", data=room_data)
 
         return sqldata != None
 

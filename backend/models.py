@@ -1,4 +1,5 @@
 # from django.contrib.auth.models import User
+from django.utils import timezone
 from django.db import models
 
 class Admin(models.Model):
@@ -56,15 +57,20 @@ class Watchlists(models.Model):
 
 class Rooms(models.Model):
     room_id = models.CharField(unique=True, primary_key=True)
+    room_name = models.CharField(max_length=100, default="") 
     creator_email = models.CharField(max_length=80)
     creator_id = models.CharField(max_length=80)
     creator_username = models.CharField(max_length=80)
     slug = models.CharField(default=None)
+    anime_image = models.CharField(max_length=200, default="") 
     anime_title = models.CharField(max_length=200)
+    watch_type = models.CharField(max_length=200, default="main")
     unlimited = models.BooleanField(default=False)
     private = models.BooleanField(default=True)
     limit = models.IntegerField() 
-    room_code = models.CharField(max_length=7, default=None)
+    created_at = models.DateTimeField(auto_now=True, editable=False,unique=True)
+    updated_at = models.DateTimeField(auto_now=True, editable=False, unique=True)
+    room_code = models.CharField(max_length=7, null=True, default=None)
 
     class Meta:
         app_label = 'backend'

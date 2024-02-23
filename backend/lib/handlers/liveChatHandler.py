@@ -11,7 +11,7 @@ class LiveChat(ApiHandler):
         return self._instance
         
     def create_room(self):
-        data = self.request(base=live_base, endpoint=self.create_room_endpoint)
+        data = self.request(base=live_base, endpoint=self.create_room_endpoint, https_safe=False)
 
         if not data: return None
 

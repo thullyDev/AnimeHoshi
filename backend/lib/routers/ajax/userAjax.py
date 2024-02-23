@@ -36,15 +36,15 @@ class UserAjax(Base):
 
         if watch_type not in ["latino", "main"]: return self.bad_request_response()
 
+        if len(name) < 10:
+            return self.bad_request_response({ "message": "room name should be atleast 10 characters long" })
+
         anime = self.get_anime_data(watch_type=watch_type, slug=slug)
 
         if not anime: return self.bad_request_response()
 
-        data["anime_title"] = anime["title"]
-        data["poster_image"] = anime["poster_image"]
-
-        if len(name) > 10:
-            return self.bad_request_response({ "message": "room name should be atleast 10 characters long" })
+        data["anime_title"] = anime["anime_title"]
+        data["anime_image"] = anime["anime_image"]
 
         room = live_chat.create_room()
 
@@ -54,7 +54,7 @@ class UserAjax(Base):
         room_id = room["data"]["room_id"]
         room_code = None if data["unlimited"] else generate_random_code(7)
 
-        response = database.create_watch_room(data=data, email=user, room_id=room_id, room_code=room_code) 
+        response = database.create_watch_room(data=data, user=user, room_id=room_id, room_code=room_code) 
 
         if not response: return self.crash_response()
         

@@ -62,7 +62,7 @@ class Base(APIView, ResponseHandler):
 
     def filter_url_data(self, data, keys):
         data = {
-            key: value
+            key: value 
             for key, value in data.items()
             if key in keys
         }
