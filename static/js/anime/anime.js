@@ -4,6 +4,13 @@
 	$(".create-watch-room-btn").click(() => createRoom())
 	$(".search-btn").click(() => search())
 	$(".search-input").change(() => search())
+	$(".watch-room-input").keyup(function() {
+		const thisEle = $(this)
+		const limit = thisEle.data("limit")
+		const value = $.trim(thisEle.val())
+		const length = value.length
+		$(".text-limit").text(`${length}/${limit}`)
+	})
 })();
 
 function search() {

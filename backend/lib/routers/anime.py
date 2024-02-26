@@ -8,7 +8,6 @@ from ..database import Cache
 from ..scraping import TioanimeScraper, LatanimeScraper
 from ..handlers import ResponseHandler, SiteHandler
 from .base import Base
-from urllib.parse import quote
 import ast
 from pprint import pprint
 
@@ -32,7 +31,7 @@ class Anime(Base):
         latanime_rawdata = latanime.get_home()
 
         if None in [ tioanime_rawdata, latanime_rawdata ]:
-            return redirect_to_alert(
+            return self.redirect_to_alert(
                 raw_message="Something Went Wrong", 
                 raw_description="the site received an internal server crash, please try again"
                 )
@@ -291,7 +290,7 @@ class Anime(Base):
         return self.successful_response(data={ "data": data })
 
     @recorder
-    def alert(self, request, context, **kwargs):
+    def alert(self, request, GET, context, **kwargs):
         message = GET.get("message")
         description = GET.get("description")
 
@@ -304,14 +303,14 @@ class Anime(Base):
 
     @recorder
     def maintenance(self, request, context, **kwargs):
-        return redirect_to_alert(
+        return self.redirect_to_alert(
             raw_message="Under Construction", 
             raw_description="we are currently doing maintenance to the site"
             )
 
     @recorder
     def not_found(self, request, context, **kwargs):
-        return redirect_to_alert(
+        return self.redirect_to_alert(
             raw_message="404 - Page Not Found", 
             raw_description="The requested page could not be found."
             )
