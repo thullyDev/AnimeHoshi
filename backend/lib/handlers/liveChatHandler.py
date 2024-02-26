@@ -21,3 +21,6 @@ class LiveChat(ApiHandler):
             return None
 
         return data
+
+    def room_sweeper(self):
+        pass

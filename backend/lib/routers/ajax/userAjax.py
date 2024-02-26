@@ -54,6 +54,10 @@ class UserAjax(Base):
         room_id = room["data"]["room_id"]
         room_code = None if data["unlimited"] else generate_random_code(7)
 
+        pprint(anime)
+
+        return self.successful_response({ "message": "room was created", "data": {"room_id": room_id} })
+
         response = database.create_watch_room(data=data, user=user, room_id=room_id, room_code=room_code) 
 
         if not response: return self.crash_response()

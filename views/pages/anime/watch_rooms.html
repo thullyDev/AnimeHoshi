@@ -1,0 +1,48 @@
+{% extends "bases/anime.html" %}
+{% load filters %}
+
+{% block head_content %}
+{% endblock %}
+
+{% block main_content %}
+	<div class="inner-con inner-main-content">
+		<h3>Watch Rooms on {{site_data.values.inputs.site_name.value}}</h3>
+		<div class="outer-watch-rooms-con">
+			<div class="inner-watch-rooms-com">
+				<ul class="watch-rooms-list">
+					{% for room in rooms %}
+						{% with creator_profile=room.creator_profile creator_username=room.creator_username room_name=room.room_name room_id=room.room_id anime_title=room.anime_title anime_image=room.anime_image watch_type=room.watch_type private=room.private unlimited=room.unlimited limit=room.limit created_at=room.created_at  %}
+						<li class="room-item">
+							<a href="/watch_togather/{{room_id}}/{{watch_type}}/{{slug}}" title="Watch {{anime_title|title}} together" class="room-thumbnail">
+								<!-- <div class="room-tick room-tick-viewer"></div> -->
+								<div class="room-tick room-tick-anime-title">{{anime_title}}</div>
+								<div class="room-tick room-tick-type">{% if watch_type == "main" %} English {% else %} Latino {% endif %}</div>
+								<img src="{{anime_image}}" alt="{{anime_title}}" class="room-thumbnail-img">
+								<img src="{{anime_image}}" alt="{{anime_title}}" class="room-thumbnail-blur">
+							</a>
+							<div class="room-info">
+								<div class="owner">
+									<div class="user">
+										<div class="user-avatar">
+										      {% if creator_profile %}
+												<img class="user-avatar-img" src="{{creator_profile}}">
+										      {% else %}
+										        <i class="fa fa-user"></i>
+										      {% endif %}
+										</div>
+									</div>
+									<div class="user-created">
+										<div class="anime-name">Moriarty the Patriot</div>
+										<h3 class="room-name"><a href="/watch_togather/{{room_id}}/{{watch_type}}/{{slug}}" title="Watch {{anime_title|title}} together">Watch {{anime_title|title}} together</a></h3>
+										<div class="uc-info"><strong>{{creator_username}}</strong><span class="dot ml-2 mr-2"></span><span class="time">{{created_at}}</span></div>
+									</div>
+								</div>
+							</div>
+						</li>
+						{% endwith %}
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}

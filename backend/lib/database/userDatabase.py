@@ -87,6 +87,7 @@ class UserDatabase(Database):
             "room_id": room_id,
             "creator_email": user["email"],
             "creator_id": user["id"],
+            "creator_profile": user["profile_image"],
             "room_name": data["room_name"],
             "slug": data["slug"],
             "anime_title": data["anime_title"],
@@ -101,4 +102,7 @@ class UserDatabase(Database):
         sqldata = self.sql_set(unit="rooms", data=room_data)
 
         return sqldata != None
+
+    def get_watch_room(self, room_id): 
+        pass
 

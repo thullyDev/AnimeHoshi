@@ -4,7 +4,7 @@ from django.urls import reverse
 from base64 import b64decode, b64encode
 from ..decorators import recorder
 from ..resources import generate_unique_id
-from ..database import Cache
+from ..database import Cache, Database
 from ..scraping import TioanimeScraper, LatanimeScraper
 from ..handlers import ResponseHandler, SiteHandler
 from .base import Base
@@ -15,6 +15,7 @@ tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
 site = SiteHandler()
 cache = Cache()
+database = Database()
 
 class Anime(Base):
     @recorder
@@ -91,8 +92,10 @@ class Anime(Base):
         return self.root(request=request, context=context, template="pages/anime/home.html")
 
     @recorder
-    def watch_togather_rooms(self, request, **kwargs):
-        return
+    def watch_rooms(self, request, context, **kwargs):
+        rooms = database.get_all(unit="rooms")
+        context["rooms"] = rooms
+        return self.root(request=request, context=context, template="pages/anime/watch_rooms.html")
 
     @recorder
     def tioanime_filter(self, request, GET, context, **kwargs):
@@ -179,7 +182,6 @@ class Anime(Base):
         rawdata = tioanime.get_anime(slug=slug)
 
         if not rawdata: return redirect("not_found")
-
 
         data = self.anime_processing(rawdata=rawdata, base=tioanime.base)
         watch_type = "main"
