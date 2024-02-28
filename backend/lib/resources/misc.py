@@ -4,6 +4,7 @@ import random
 import json
 import datetime
 import string
+import threading
 
 def valid_email(email):
     email_regex = r"^[^\s@]+@[^\s@]+\.[^\s@]+$"
@@ -28,3 +29,9 @@ def get_time_difference(TIME_A, TIME_B):
     time_b = datetime.datetime.strptime(TIME_B.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
 
     return time_a - time_b
+
+def set_interval(_time, func):
+    _ttimer = threading.Timer(_time, func) 
+    _ttimer.start()
+
+    return _ttimer
