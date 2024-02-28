@@ -43,3 +43,6 @@ class Database(Cache, Sql):
 
     def get_query(self, unit, query):
         return self.sql_get_query(unit=unit, query=query)
+
+    def delete(self, unit, **kwargs):
+        return self.sql_delete(unit=unit, **kwargs)

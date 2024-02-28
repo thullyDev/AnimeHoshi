@@ -54,10 +54,6 @@ class UserAjax(Base):
         room_id = room["data"]["room_id"]
         room_code = None if data["unlimited"] else generate_random_code(7)
 
-        pprint(anime)
-
-        return self.successful_response({ "message": "room was created", "data": {"room_id": room_id} })
-
         response = database.create_watch_room(data=data, user=user, room_id=room_id, room_code=room_code) 
 
         if not response: return self.crash_response()
@@ -123,7 +119,7 @@ class UserAjax(Base):
         scraper = tioanime if "main" == watch_type else latanime
         rawdata = scraper.get_anime(slug=slug)
         if not rawdata: return None
-        data = self.anime_processing(rawdata=rawdata, base=tioanime.base)
+        data = self.anime_processing(rawdata=rawdata, base=scraper.base)
         return {
             "slug": slug,
             "anime_title": data["title"],
@@ -132,7 +128,7 @@ class UserAjax(Base):
 
     def anime_processing(self, rawdata, base=None):
         poster = rawdata.get("poster_image").get("poster_image")
-        poster = f"https://{base}/" + poster
+        poster = f"https://{base}/" + poster if base == tioanime.base else poster
         data = {
             "title": rawdata.get("title").get("title"),
             "poster_image": poster,

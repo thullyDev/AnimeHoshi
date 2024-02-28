@@ -60,6 +60,9 @@ class Sql:
 			if key == "id":
 				return model.objects.get(id=unique_id)
 
+			if key == "room_id":
+				return model.objects.get(room_id=unique_id)
+
 			if key == "slug":
 				return model.objects.get(slug=unique_id)
 
