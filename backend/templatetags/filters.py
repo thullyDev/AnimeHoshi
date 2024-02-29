@@ -18,7 +18,7 @@ def times(number):
 
 @register.filter(name='pagi') 
 def pagi(pages):
-    end = 6 if pages > 6 else pages
+    end = 6 if pages > 6 else pages + 1
     return range(1, end)
 
 @register.filter(name='safebool') 

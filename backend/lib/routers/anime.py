@@ -92,9 +92,25 @@ class Anime(Base):
         return self.root(request=request, context=context, template="pages/anime/home.html")
 
     @recorder
-    def watch_rooms(self, request, context, **kwargs):
-        rooms = database.get_all(unit="rooms")
-        context["rooms"] = rooms
+    def watch_rooms(self, request, GET, context, **kwargs):
+        page = GET.get("page", "1")
+        query = GET.get("keywords")
+        rooms = None
+
+        if query:
+            rooms = database.get_query(unit="rooms", query=query)
+        else:
+            rooms = database.get_all(unit="rooms")
+
+        paginated_rooms, pages = self.paginate(data=list(reversed(rooms)), page=page, limit=16)
+        pagination = {
+            "page": page,
+            "pages": pages,
+        }
+        context["rooms"] = paginated_rooms
+        context["query"] = "" if not query else f"&keywords={query}"
+        context["pagination"] = pagination
+
         return self.root(request=request, context=context, template="pages/anime/watch_rooms.html")
 
     @recorder
