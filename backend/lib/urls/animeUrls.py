@@ -6,6 +6,7 @@ anime = Anime()
 routes = [
     route_producer(route="", view=anime.home, name="home"),
     route_producer(route="watch_rooms/", view=anime.watch_rooms),
+    route_producer(route="watch_rooms/<str:room_id>/", view=anime.watch_room),
     route_producer(route="main/filter/", view=anime.tioanime_filter),
     route_producer(route="latino/filter/", view=anime.latanime_filter),
     route_producer(route="main/schedule/", view=anime.tioanime_schedule),

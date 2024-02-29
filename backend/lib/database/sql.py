@@ -101,7 +101,7 @@ class Sql:
 		model = self.get_valid_model(unit)
 		return list(model.objects.values())
 			
-	def sql_get_query(self, unit, query, be_dynmc=False, **kwargs):
+	def sql_get_query(self, unit, query="", be_dynmc=False, **kwargs):
 	    model = self.get_valid_model(unit)
 	    
 	    if not be_dynmc:

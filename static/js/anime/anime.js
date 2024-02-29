@@ -18,7 +18,7 @@ function search() {
 	const value = searchInp.val()
 	const type = searchInp.data("type")
 
-	if (value) return 
+	if (!value) return 
 
 	const url = type == "latino" ? "/latino/search/" : "/main/filter/"
 	const query = `${url}?keywords=${encodeURIComponent(value)}`
