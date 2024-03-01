@@ -22,11 +22,40 @@ const getToken = () => {
 	return getCookie("token")
 }
 
+function sendMsgEle(data) {
+	// const messageEle = `
+	// 	<span class="msg-box">
+	// 		<div class="user-avatar-con">
+	// 			<img class="avatar-img" src="https://img.flawlessfiles.com/_r/100x100/100/avatar/demon_splayer/File11.jpg" alt="user">
+	// 		</div>
+	// 		<div class="user-msg-info-con">
+	// 			<div class="user-info-con">
+	// 				<span class="user-name">
+	// 					james
+	// 				</span>
+	// 				<span class="user-msg-time-box">
+	// 					2023/10/05, 09:30
+	// 				</span>
+	// 			</div>
+	// 			<div class="user-msg-con">
+	// 				hello
+	// 			</div>
+	// 		</div>
+	// 	</span>
+	// `
+}
+
+function editMsgEle(data) {
+}
+
+function deleteMsgEle(data) {
+}
+
 function sendToChatAjax(data, endpoint, action_type) {
 	const actions = {
-		send,
-		edit,
-		delete,
+		send: sendMsgEle,
+		edit: editMsgEle,
+		delete: deleteMsgEle,
 	}
     $.ajax({
       data,
