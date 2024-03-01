@@ -12,8 +12,17 @@ def recorder(request_func):
         request = args[0]
         GET = request.GET
         POST = request.POST
+        COOKIES = request.COOKIES
         increment_views()
-        response = request_func(request_obj, GET=GET, POST=POST, context={ "site_data": site.get_site_data() }, *args, **kwargs)
+        response = request_func(
+            request_obj, 
+            GET=GET, 
+            POST=POST, 
+            # COOKIES=COOKIES, 
+            context={ "site_data": site.get_site_data() }, 
+            *args, 
+            **kwargs
+        )
         end_time = time.time()
         elapsed_time = end_time - start_time
         FUNCTION_NAME = request_func.__name__.upper()

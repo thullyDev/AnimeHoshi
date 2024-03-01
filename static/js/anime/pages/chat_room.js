@@ -1,62 +1,72 @@
 (function () {
+	$(".msg-box").click(function() {
+		const thisEle = $(this)
+		const message_id = thisEle.data("data-message-id")
+		deleteMsg({ message_id: message_id })
+	})
+
+	$(".send-msg-box").change(() => sendMsg())
+	$(".send-msg-btn").click(() => sendMsg())
 })();
-// room_id = data.room_id
-// user_id = data.user_id
-// display_name = data.display_name
-// token = data.token
-// message = data.message
+const sendMsg = () => {
+	const value = $(".send-msg-box").val()
+	const data = {
+		message: value,
+	}
 
-const sendMsg = (data) => {
-	const { room_id, user_id, display_name, message } = data 
+if (userName !== "None") {
+    data.display_name = userName;
 }
-
-const deleteMsg = () => { 
+	sendToChatAjax(data) 
 }
-
-const editMsg = () => { 
-}
-
+const deleteMsg = (data) => sendToChatAjax(data)
 const updateToken = (token) => setCookie("token", token, 1);
 const deleteToken = () => deleteCookie("token");
-const getToken = () => {
-	return getCookie("token")
-}
+const getToken = () => getCookie("token")
 
 function sendMsgEle(data) {
-	// const messageEle = `
-	// 	<span class="msg-box">
-	// 		<div class="user-avatar-con">
-	// 			<img class="avatar-img" src="https://img.flawlessfiles.com/_r/100x100/100/avatar/demon_splayer/File11.jpg" alt="user">
-	// 		</div>
-	// 		<div class="user-msg-info-con">
-	// 			<div class="user-info-con">
-	// 				<span class="user-name">
-	// 					james
-	// 				</span>
-	// 				<span class="user-msg-time-box">
-	// 					2023/10/05, 09:30
-	// 				</span>
-	// 			</div>
-	// 			<div class="user-msg-con">
-	// 				hello
-	// 			</div>
-	// 		</div>
-	// 	</span>
-	// `
-}
+	const { display_name, user_id, message, message_id, room_id, created_at } = data
 
-function editMsgEle(data) {
+	const profileEle = profileImg ? 
+		`<img class="avatar-img" src="${profileImg}" alt="${display_name}">` : 
+		`<i class="avatar-img fa fa-user" title="${display_name}"><i/>`
+	const messageEle = `
+		<span class="msg-box" data-user-id="${user_id}" data-message-id="${message_id}" data-room-id="${room_id}">
+			<div class="user-avatar-con">
+				${profileEle}
+			</div>
+			<div class="user-msg-info-con">
+				<div class="user-info-con">
+					<span class="user-name">
+						${display_name}
+					</span>
+					<span class="user-msg-time-box">
+						${created_at}
+					</span>
+				</div>
+				<div class="user-msg-con">
+					${message}
+				</div>
+			</div>
+		</span>
+	`
+	$('.chat-msgs-box').append(messageEle);
 }
 
 function deleteMsgEle(data) {
+	const { message_id } = data
+	$(`.msgs-box[data-message-id="${message}"]`).fadeOut().remove();
+}
+
+const actions = {
+	send: sendMsgEle,
+	delete: deleteMsgEle,
 }
 
 function sendToChatAjax(data, endpoint, action_type) {
-	const actions = {
-		send: sendMsgEle,
-		edit: editMsgEle,
-		delete: deleteMsgEle,
-	}
+	data.token = getToken()
+	data.user_id = userLiveChatId
+	data.room_id = roomId
     $.ajax({
       data,
       url: liveChatBase + endpoint,
@@ -64,6 +74,7 @@ function sendToChatAjax(data, endpoint, action_type) {
       success: (response) => {
       	const { data } = response
         const action = actions[action_type]
+				updateToken(data.token)
         action(data)
       },
       error: (error) => {

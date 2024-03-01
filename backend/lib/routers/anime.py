@@ -98,12 +98,31 @@ class Anime(Base):
         return self.root(request=request, context=context, template="pages/anime/watch.html", titled=True)
 
     @recorder
-    def chat_room(self, request, room_id, context, **kwargs):
+    def chat_room(self, request, room_id, GET, COOKIES, context, **kwargs):
+        profile_image = GET.get("profile_image")
         context["room_id"] = room_id
         context["page"] = "chat_room"
         context["no_layout"] = True
+        context["username"] = COOKIES.get("username")
+        user_live_chat_id = COOKIES.get("user_live_chat_id")
 
-        return self.root(request=request, context=context, template="pages/anime/chat_room.html")
+        if not user_live_chat_id: 
+            context["user_live_chat_id"] = user_live_chat_id
+            return self.root(request=request, context=context, template="pages/anime/chat_room.html")
+
+        key = "user_live_chat_id"
+        user_live_chat_id = generate_unique_id()
+        context["user_live_chat_id"] = user_live_chat_id
+        response = self.root(request=request, context=context, template="pages/anime/chat_room.html")
+        response.set_cookie(
+            key=key, 
+            value=user_live_chat_id, 
+            max_age=86_400, # 24 hours
+            secure=True, 
+            httponly=True
+        )
+        return response
+
 
 
     @recorder

@@ -25,10 +25,12 @@ class ResponseHandler:
 					response.delete_cookie(key)
 					continue
 
+				max_age = NINETY_DAYS
+
 				response.set_cookie(
 					key=key, 
 					value=val, 
-					max_age=NINETY_DAYS, 
+					max_age=max_age, 
 					secure=True, 
 					httponly=True
 				)
