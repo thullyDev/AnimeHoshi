@@ -1,5 +1,7 @@
 from datetime import datetime
 from functools import lru_cache
+from ..lib.resources import LIVECHAT_API_URL as live_base
+
 
 
 def global_static_data(request):
@@ -270,11 +272,13 @@ def global_static_data(request):
 			},
 		],
 	}
+
 	data = {
 		"admin_menu_items": admin_menu_items,
 		"tioanime_queries": tioanime_queries,
 		"latanime_queries": latanime_queries,
 		"auths": auths,
+		"live_chat_base": live_base,
 	}
 	return data
 

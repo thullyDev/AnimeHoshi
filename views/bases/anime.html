@@ -40,19 +40,28 @@
 </head> 
 <body>
 	  <div class="page-content">
-        {% include "sections/anime/header.html" %}
-        <main class="main-content">
-          <div class="core-content">
-            {% block main_content %}
-            {% endblock %}
+        {% if not no_layout %}
+          {% include "sections/anime/header.html" %}
+          <main class="main-content">
+            <div class="core-content">
+              {% block main_content %}
+              {% endblock %}
+            </div>
+            {% include "pages/anime/widgets/authentication.html" %}
+          </main>
+          <div style="display: none;" class="page-loader">
+            {% include "widgets/spinner.html" %}
           </div>
-          {% include "pages/anime/widgets/authentication.html" %}
-        </main>
-        <div style="display: none;" class="page-loader">
-          {% include "widgets/spinner.html" %}
-        </div>
-        <div class="alert-box"></div>
-        {% include "sections/admin/footer.html" %}
+          <div class="alert-box"></div>
+          {% include "sections/admin/footer.html" %}
+        {% else %}
+          <main class="main-content">
+            <div class="core-content">
+              {% block main_content_2 %}
+              {% endblock %}
+            </div>
+          </main>
+        {% endif %} 
     </div>
 </body>
 </html>

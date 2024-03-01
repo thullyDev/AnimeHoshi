@@ -97,6 +97,14 @@ class Anime(Base):
 
         return self.root(request=request, context=context, template="pages/anime/watch.html", titled=True)
 
+    @recorder
+    def chat_room(self, request, room_id, context, **kwargs):
+        context["room_id"] = room_id
+        context["page"] = "chat_room"
+        context["no_layout"] = True
+
+        return self.root(request=request, context=context, template="pages/anime/chat_room.html")
+
 
     @recorder
     def watch_rooms(self, request, GET, context, **kwargs):
