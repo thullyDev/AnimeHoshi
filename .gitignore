@@ -6,7 +6,6 @@ some_image.jpg
 env
 *.env
 *.log
-__pycache__/
 **/__pycache__/
 *.py[cod]
-backend/migrations/
+/backend/migrations/
