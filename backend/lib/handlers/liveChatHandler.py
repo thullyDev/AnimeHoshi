@@ -32,23 +32,25 @@ class LiveChat(ApiHandler):
         return data
 
     def room_sweeper(self):
-        print("ROOM_SWEEPER running")
-        rooms = database.get_all(unit="rooms")
+        try:
+            print("ROOM_SWEEPER running")
+            rooms = database.get_all(unit="rooms")
 
-        if not len(rooms): return 
+            if not len(rooms): return 
 
-        current_time = datetime.datetime.now(datetime.timezone.utc)
+            current_time = datetime.datetime.now(datetime.timezone.utc)
 
-        for room in rooms:
-            created_at = room.get("created_at")
-            if not created_at:
-                return
+            for room in rooms:
+                created_at = room.get("created_at")
+                if not created_at:
+                    return
 
-            time_difference = get_time_difference(current_time, created_at)
+                time_difference = get_time_difference(current_time, created_at)
 
-            if time_difference.total_seconds() < 24 * 3600: return # 3600 = 24 hours
-
-            self.delete_room(room)
+                if time_difference.total_seconds() < 24 * 3600: return # 3600 = 24 hours
+                self.delete_room(room)
+        except Exception as e:
+            print(e)
 
 
     def delete_room(self, room): # 3600 = 24 hours

@@ -13,6 +13,7 @@ from .errors import (
 from .configs import (
 	ROOT_FILE,
 	REDIS_PORT,
+	CLOUD_REDIS_URL,
 	REDIS_HOST,
 	REDIS_PASSWORD,
 	SITE_EMAIL,

@@ -1,6 +1,7 @@
 from pathlib import Path
 from decouple import config as env_config
 import os
+import dj_database_url
 # import django
 
 # django.setup()
@@ -8,7 +9,6 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -123,7 +123,12 @@ DATABASES = {
         'PORT': env_config("SQL_PORT"),
     }
 }
+CLOUD_SQL = env_config("CLOUD_SQL")
+if CLOUD_SQL != "none": DATABASES["default"] = dj_database_url.parse(CLOUD_SQL) 
 
+
+
+# if not DEBUG:
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
