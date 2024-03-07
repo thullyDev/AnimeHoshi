@@ -126,10 +126,6 @@ DATABASES = {
 SQL_URL = env_config("SQL_URL")
 if SQL_URL != "none": DATABASES["default"] = dj_database_url.parse(SQL_URL) 
 
-
-
-# if not DEBUG:
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -171,6 +167,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'static'),
    ]
 else:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
