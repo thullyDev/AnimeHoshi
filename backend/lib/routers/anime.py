@@ -285,7 +285,6 @@ class Anime(Base):
         context["page"] = "watch"
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=anime_slug, 
-            anime_title=anime_slug.replace("_", " "), 
             watch_type=watch_type
         )
 
@@ -309,7 +308,6 @@ class Anime(Base):
         context["page"] = "watch"
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=anime_slug, 
-            anime_title=anime_slug.replace("_", " "), 
             watch_type=watch_type
         )
 
