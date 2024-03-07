@@ -14,6 +14,9 @@ database = Database()
 
 class Base(APIView, ResponseHandler):
     def root(self, request, context={}, template=ROOT_FILE, titled=False): 
+        page_url = request.build_absolute_uri()
+        context["page_url"] = page_url 
+        
         if "page" in context: return render(request, template, context=context)
 
         path = request.path.split("/")

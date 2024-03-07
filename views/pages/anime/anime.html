@@ -77,6 +77,9 @@
 				</ul>
 			</div>
 		</div>
-        {% include "pages/anime/widgets/make_watch_room.html" %}
+		{% with PAGE_URL=page_url  PAGE_ID=anime_slug %}
+    	{% include "pages/anime/widgets/commet_section.html" %}
+    {% endwith %}
+    {% include "pages/anime/widgets/make_watch_room.html" %}
 	</div>
 {% endblock %}

@@ -123,8 +123,6 @@ class Anime(Base):
         )
         return response
 
-
-
     @recorder
     def watch_rooms(self, request, GET, context, **kwargs):
         page = GET.get("page", "1")
