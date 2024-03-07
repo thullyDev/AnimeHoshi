@@ -1,6 +1,9 @@
 :root {
-    --primary-color: #1e0429;
+    --primary-color: #0e0e0e;
     --secondary-color: #fff;
+    --primary-font: "Nunito", sans-serif;
+    --highlight-color: #1c1c1c;
+    --secondary-highlight-color: #2b2929;
 }
 
 .page-content {
@@ -22,7 +25,9 @@ button {
 }
 
 img.site-logo.normal-logo {
-    width: 116px;
+    position: relative;
+    top: -5px;
+    width: 100px;
 }
 
 .header-viewer-con {
@@ -32,7 +37,7 @@ img.site-logo.normal-logo {
 
 .header-viewer-con nav.main-nav-bar > ul {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     padding: 0 10px;
 }
 
@@ -44,8 +49,8 @@ img.site-logo.normal-logo {
 
 header.main-header {
     width: 100%;
-    padding: 15px;
-    background: var(--secondary-accent-color);
+    padding: 0px 15px;
+    background: var(--highlight-color);
 }
 
 .header-viewer-con .nav-bar-con {
@@ -57,9 +62,20 @@ header.main-header {
     align-items: center;
 }
 
+.inner-search-account-con {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary-color);
+    width: 100%;
+    height: 35px;
+    margin-right: 5px;
+    border-radius: .5rem;
+}
+
 .header-viewer-con .search-account-con {
     justify-content: center;
-    width: 40%;
+    width: 50%;
     align-items: center;
 }
 
@@ -79,7 +95,7 @@ header.main-header {
 }
 
 button.menu-btn {
-    background: var(--third-color);
+    background: none;
     width: 50px;
     height: 50px;
     border-radius: 100%;
@@ -131,12 +147,14 @@ nav.main-nav-bar > ul {
 a.nav-link {
     display: flex;
     justify-content: start;
+    align-items: center;
+    gap: 3px;
     font-size: 18px;
-    width: 100%;
     color: var(--secondary-color);
     text-decoration: none;
     padding: 12px 0;
     border-bottom: solid 1px var(--third-color);
+    text-wrap: nowrap;
 }
 
 li.nav-link-item {
@@ -161,13 +179,12 @@ a.filter-link {
     color: var(--secondary-color);
     width: 40px;
     text-decoration: none;
-    background: var(--third-color);
     border-radius: 0 .5rem .5rem 0;
 }
 
 button.search-btn {
     color: var(--secondary-color);
-    background: var(--third-color);
+    background: none;
     font-size: 20px;
     padding: 10px;
     border-radius: 0.5rem 0 0 0.5rem;
@@ -182,7 +199,6 @@ input.search-input {
     background: no-repeat;
     outline: none;
     border: none;
-    border: 1px solid var(--third-color);
     color: var(--secondary-color);
     padding: 5px;
 }
@@ -396,14 +412,10 @@ footer.main-footer {
     }
 
     .header-viewer-con a.nav-link {
-        display: flex;
         justify-content: center;
         border: none;
         font-size: 14px;
-        width: 87px;
         border-radius: 50px;
-        padding: 10px;
-        background: var(--third-color);
     }
 }
 
@@ -424,12 +436,17 @@ footer.main-footer {
         display: none;
     
     }
-    .header-viewer-con a.nav-link {
-        width: 100px;
-    }
-
     .header-viewer-con {
         justify-content: start;
+    }
+
+    .core-content {
+        width: 85%;
+    }
+
+    main.main-content {
+        display: flex;
+        align-items: center;
     }
 
 }

@@ -2,12 +2,12 @@
 	<h3 class="animes-label-con">
 		{% if icon != False  %}<i class="fa-solid fa-fire"></i>{% endif %} {{label}}
 	</h3>
-	<div class="animes-con">
+	<div class="animes-con {{type}}-animes-con">
 		<div class="inner-con">
 			<ul>
 				{% for anime in animes %}
 	           		{% with slug=anime.slug title=anime.title poster=anime.image_url %}
-					<li class="anime-con" title="{{title}}">
+					<li class="anime-con {% if episodes == True %}episode-con{% endif %}" title="{{title}}">
 						<a href="/{{type}}/{% if episodes == True %}watch{% else %}anime{% endif %}{{slug}}" target="_blank" class="anime-link">
 							<div class="inner-anime-con">
 								<div class="anime-poster-con">

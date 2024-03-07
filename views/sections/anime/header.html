@@ -3,8 +3,10 @@
     {% include "widgets/title.html" %}
     {% include "sections/anime/nav.html" %}
     <div class="search-account-con">
-      {% include "widgets/search.html" %}
-      <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
+      <div class="inner-search-account-con">
+        {% include "widgets/search.html" %}
+        <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
+      </div>
     </div>
     <div class="account-profile-image-con">
       {% if is_auth == True %}
@@ -46,8 +48,10 @@
       </div>
     </div>
     <div class="search-account-con">
-      {% include "widgets/search.html" %}
-      <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
+      <div class="inner-search-account-con">
+        {% include "widgets/search.html" %}
+        <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
+      </div>
     </div>
   </div>
 </header>

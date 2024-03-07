@@ -143,7 +143,7 @@ def global_static_data(request):
 		    {"value": "suspenso", "name": "Suspenso"}
 		 ],
 		 "alphabet_options": [
-			{"value": "None", "name": "None"},
+			{"value": "None", "name": "All"},
 		    {"value": "09", "name": "0-9"},
 		    {"value": "A", "name": "A"},
 		    {"value": "B", "name": "B"},

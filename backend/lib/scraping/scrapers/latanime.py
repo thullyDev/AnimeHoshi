@@ -14,6 +14,10 @@ class LatanimeScraper(Scraper, Latanime):
                 params["categoria"] = value
                 continue
 
+            if key == "letter": 
+                params["letra"] = value
+                continue
+
             if key == "genre": 
                 params["genero"] = value
                 continue
