@@ -123,8 +123,8 @@ DATABASES = {
         'PORT': env_config("SQL_PORT"),
     }
 }
-CLOUD_SQL = env_config("CLOUD_SQL")
-if CLOUD_SQL != "none": DATABASES["default"] = dj_database_url.parse(CLOUD_SQL) 
+SQL_URL = env_config("SQL_URL")
+if SQL_URL != "none": DATABASES["default"] = dj_database_url.parse(SQL_URL) 
 
 
 

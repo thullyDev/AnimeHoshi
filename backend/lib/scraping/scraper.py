@@ -1,7 +1,6 @@
 from ..handlers import ( ApiHandler )
 from ..database import ( Cache )
 from bs4 import BeautifulSoup
-from lxml import html
 
 cache = Cache()
 

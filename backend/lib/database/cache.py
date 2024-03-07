@@ -1,12 +1,12 @@
-from ..resources import REDIS_PORT, REDIS_HOST, REDIS_PASSWORD, CLOUD_REDIS_URL
+from ..resources import REDIS_PORT, REDIS_HOST, REDIS_PASSWORD, REDIS_URL
 from redis import Redis
 import ast
 import json
 
 redis = None
 
-if CLOUD_REDIS_URL != "none": 
-    redis = Redis().from_url(CLOUD_REDIS_URL)
+if REDIS_URL != "none": 
+    redis = Redis().from_url(REDIS_URL)
 else:
     redis = Redis(
         host=REDIS_HOST,

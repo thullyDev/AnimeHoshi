@@ -3,7 +3,7 @@ from decouple import config
 ROOT_FILE = "index.html"
 
 REDIS_PORT = config("REDIS_PORT")
-CLOUD_REDIS_URL = config("CLOUD_REDIS_URL")
+REDIS_URL = config("REDIS_URL")
 REDIS_HOST = config("REDIS_HOST")
 REDIS_PASSWORD = config("REDIS_PASSWORD")
 SITE_EMAIL = config("SITE_EMAIL")
