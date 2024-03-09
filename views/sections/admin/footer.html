@@ -21,30 +21,35 @@
           </nav>
         </div>
         <div class="site-details-con">
-          <div class="title-socials-con">
-            <div class="title-con">
-              {% include "widgets/title.html" %}
+          <div class="inner-site-details-con">
+            <div class="title-socials-con">
+              <div class="title-con">
+                {% include "widgets/title.html" %}
+              </div>
+              <div class="socials-con">
+                <div class="socials-list">
+                  <p class="socials-join-label">Join Now</p>
+                  <div class="inner-socials-list">
+                    {% for key, item in site_data.values.socials.items %}
+                    <span class="social-item">
+                      <a href="{{key}}" class="social-link"><i class="{% if item.name == 'donate' %}fas{% else %}fab{% endif %} fa-{{item.name}}"></i></a>
+                    </span>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="socials-con">
-              <ul class="socials-list">
-              {% for key, item in site_data.values.socials.items %}
-                <li class="social-item">
-                  <a href="{{key}}" class="social-link">{{item.name}}</a>
-                </li>
-              {% endfor %}
-              </ul>
+            <div class="bottom-con">
+              <div class="inner-con">
+                <p>
+                  &copy; 2023 {{SITE_NAME}}. All rights reserved. <!-- |<a href="#">Terms of Service</a> |
+                  <a href="#">Privacy Policy</a> -->
+                </p>
+                <p>Contact: {{SITE_EMAIL}}</p>
+                <p>This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
+              </div>
             </div>
           </div>
-          <div class="bottom-con">
-            <div class="inner-con">
-              <p>
-                &copy; 2023 {{SITE_NAME}}. All rights reserved. |<a href="#">Terms of Service</a> |
-                <a href="#">Privacy Policy</a>
-              </p>
-              <p>Contact: {{SITE_EMAIL}}</p>
-              <p>This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
-            </div>
-        </div>
         </div>
       </div>
     </footer>

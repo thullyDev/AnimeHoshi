@@ -244,11 +244,6 @@ label.checkbox-2-label:before {
       height: 75%;
   }
 
-  .main-footer > .inner-con {
-      flex-direction: row;
-      gap: 20px;
-  }
-
   .bottom-con > .inner-con {
       flex-direction: row;
       gap: 20px;

@@ -59,6 +59,7 @@ header.main-header {
 
 .title-con {
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -212,7 +213,8 @@ input.search-input::placeholder {
 }
 
 .bottom-con > .inner-con > p {
-    font-size: 15px;
+    font-size: 11px;
+    font-weight: 100;
 }
 
 .bottom-con {
@@ -389,12 +391,85 @@ button.create-watch-room-btn {
 /* watch_room_modal */
 
 footer.main-footer a {
-    color: var(--third-color);
+    color: var(--secondary-color);
 }
 
 footer.main-footer {
-    background: var(--secondary-accent-color);
+    background: var(--highlight-color);
 }
+
+.letter-nav-con {
+    display: none;
+}
+
+.letter-nav-con {
+    display: flex;
+    flex-direction: column;
+}
+
+ul.letter-list {display: flex;justify-content: start;flex-wrap: wrap;gap: 10px;list-style: none;margin: 0;padding: 0;}
+
+nav.letter-nav {
+    margin: 20px 0;
+}
+
+.letter-nav-label-con {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    color: var(--secondary-color);
+    font-size: 20px;
+}
+
+.letter-nav-label-con > span {
+    color: var(--accent-color);
+    font-size: 12px;
+}
+
+a.letter-link {
+    text-decoration: none;
+    padding: 5px 10px;
+    background: var(--secondary-highlight-color);
+    border-radius: .4rem;
+    transition: background .5s ease-in-out;
+}
+
+a.letter-link:hover {
+    background: var(--third-color);
+    transition: background .5s ease-in-out;
+}
+
+li.letter-item {
+    margin: 5px 0;
+}
+
+ul.socials-list {display: flex;justify-content: center;gap: 10px;list-style: none;padding: 0;margin: 0;}
+
+.socials-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: var(--secondary-color);
+    margin: 10px 0;
+    padding: 0 20px;
+    border-radius: 1000px;
+}
+
+.socials-con {
+    display: flex;
+    justify-content: center;
+}
+
+p.socials-join-label {
+    font-weight: 600;
+}
+
+a.social-link > i {
+    color: var(--primary-color);
+}
+
 /*
 @media screen and (min-width: 480px) {
 }*/
@@ -417,6 +492,30 @@ footer.main-footer {
         font-size: 14px;
         border-radius: 50px;
     }
+
+    .letter-nav-con {
+        display: flex;
+    }
+
+    .inner-site-details-con {
+        width: 70%;
+    }
+
+    .title-socials-con {
+        display: flex;
+        gap: 10px;
+    }
+
+    .bottom-con > .inner-con {
+        flex-direction: column !important; 
+        align-items: start;
+    }
+
+    .bottom-con > .inner-con > p {
+        text-align: start;
+        text-wrap: nowrap;
+    }
+
 }
 
 /*
