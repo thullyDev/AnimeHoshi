@@ -12,37 +12,14 @@
 				<div class="image-poster-con">
 					<img src="{{data.poster_image}}" alt="{{data.title}}" title="{{data.title}}" class="poster">
 				</div>
-				{% include "pages/anime/widgets/watch_togather.html" %}
+				<div class="action-buttons-con">
+					<button data-slug="{{anime_slug}}" data-type="{{type}}" class="add-to-list-btn" title="add to list"><i class="fa fa-plus"></i></button>
+					<button class="watch2gather-btn" data-slug="{{anime_slug}}"><i class="fa-solid fa-tower-broadcast" title="watch together"></i></button>
+				</div>
 			</div>
 			<div class="right-con">
 				<div class="details-con">
 					<h3 class="title">{{data.title}}</h3>
-					{% include "pages/anime/widgets/add_to_list.html" %}
-					{% if type == "main" %}
-					<div class="ticks-con">
-						<span class="tick type-tick">
-							<i class="fas fa-eye"></i> {{data.type}}
-						</span>
-						<span class="tick year-tick">
-							<i class="fas fa-birthday-cake"></i> {{data.year}}
-						</span>
-						<span class="tick season-tick">
-							<i class="fas fa-tree"></i> {{data.season}}
-						</span>
-						<span class="tick status-tick">
-							<i class="fas fa-check"></i> {{data.status}}
-						</span>
-					</div>
-					{% endif %}
-					<div class="genres-ticks-con ticks-con">
-						<ul>
-							{% for value in data.genres %}
-							<li class="tick genre-tick">
-								<a href="/{{type}}/filter/?genre={{value.genre_id}}" class="genre-link">{{value.genre}}</a>
-							</li>
-							{% endfor %}
-						</ul>
-					</div>
 					<div class="description-con">
 						<p class="description">{{data.description|truncatechars:250}}<span class="more-des-btn">more</span></p> 
 					</div>
@@ -50,6 +27,32 @@
 						<span class="close-btn"><i class="fa-solid fa-x"></i></span>
 						<p class="description">{{data.description}}</p>
 					</div>
+				</div>
+				<div class="info-con">
+					{% if type == "main" %}
+					<div class="ticks-con">
+						<div class="tick type-tick">
+							Type: <span class="inner-tick">{{data.type}}</span>
+						</div>
+						<div class="tick year-tick">
+							Year: <span class="inner-tick">{{data.year}}</span>
+						</div>
+						<div class="tick season-tick">
+							Season: <span class="inner-tick">{{data.season}}</span>
+						</div>
+						<div class="tick status-tick">
+							Status: <span class="inner-tick">{{data.status}}</span>
+						</div>
+						<div class="tick status-tick">
+							Genres: 
+							{% for value in data.genres %}
+								<span class="inner-tick"> 
+									<a href="/{{type}}/filter/?genre={{value.genre_id}}" class="genre-link">{{value.genre}}</a>
+								</span>
+							{% endfor %}
+						</div>
+					</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -61,7 +64,7 @@
 						{% for value in data.episodes %}
 							{% with title=value.episode_title slug=value.slug %}
 								<li class="episode-item">
-									<a href="/{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
+									<a href="/{{type}}/watch{{slug}}" class="episode-link">Episodio {{forloop.counter}}</a>
 								</li>
 							{% endwith %}
 						{% endfor %}
@@ -69,7 +72,7 @@
 						{% for value in data.episodes %}
 							{% with title=value|replace:"/, "|replace:"-, "|title slug=value %}
 								<li class="episode-item">
-									<a href="/{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
+									<a href="/{{type}}/watch{{slug}}" class="episode-link">Episodio {{forloop.counter}}</a>
 								</li>
 							{% endwith %}
 						{% endfor %}

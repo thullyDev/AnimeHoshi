@@ -8,13 +8,30 @@ img.poster {
     justify-content: center;
 }
 
+.info-con > div {
+    width: 100%;
+}
+
+.action-buttons-con {
+    display: flex;
+    justify-content: center;
+}
+
+button.watch2gather-btn {
+    background: var(--highlight-color);
+    border-radius: 0 .5rem .5rem 0;
+}
+
 button.watch2gather-btn, button.add-to-list-btn {
-    padding: 10px;
-    background: var(--third-color);
-    font-family: var(--primary-font);
-    margin: 10px 0;
-    border-radius: .25rem;
-    box-shadow: 0 0 15px 0px var(--third-color);
+    font-size: 12px;
+    width: 40px;
+    padding: 10px 0;
+    transition: background .5s ease-in-out;
+}
+
+button.watch2gather-btn:hover, button.add-to-list-btn:hover {
+    background: var(--secondary-accent-color);
+    transition: background .5s ease-in-out;
 }
 
 .watch2gather-btn-con {
@@ -29,54 +46,27 @@ button.watch2gather-btn, button.add-to-list-btn {
 
 button.add-to-list-btn {
     margin: 0;
+    background: var(--secondary-highlight-color);
+    border-radius: .5rem 0 0 .5rem;
 }
 
 .ticks-con {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
 }
-
-span.tick i {
-    margin-right: 5px;
+.tick {
+    font-size: smaller;
 }
 
-span.tick.type-tick {
-    color: #f00;
-}
-
-span.tick.status-tick {
-    color: #45d100;
-}
-
-span.tick {
-    font-size: 13px;
-}
-
-span.tick.season-tick {
-    color: #c2c2ff;
-}
-
-.genres-ticks-con.ticks-con ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 0;
-    list-style: none;
-}
-
-li.tick.genre-tick {
-    background: var(--secondary-accent-color);
-    padding: 5px 10px;
-    border-radius: .25rem;
-    color: var(--secondary-color);
+span.inner-tick {
+    font-size: small;
+    color: var(--third-color);
 }
 
 a.genre-link {
-    color: var(--secondary-color);
-    text-decoration: none;
+    color: var(--third-color);
 }
-
 span.more-des-btn {
     color: var(--third-color);
     padding: 0 10px;
@@ -111,6 +101,7 @@ span.close-btn {
 
 .info-con {
     display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
@@ -119,24 +110,27 @@ span.close-btn {
     flex-direction: column;
     justify-content: center;
     width: 30%;
+    gap: 10px;
 }
 
 .right-con {
+    font-size: small;
     width: 70%;
 }
 
-img.poster {width: 100%;}
+img.poster {width: 100%;border-radius: .25rem;}
 
 h3.title {
     font-size: 22px;
 }
 
+.inner-episodes-con ul {display: flex;flex-direction: column;padding: 0;list-style: none;gap: 1px;max-height: 325px;overflow: auto;}
 
-
-.inner-episodes-con ul {display: flex;padding: 0;list-style: none;flex-wrap: wrap;gap: 10px;}
-
-a.episode-link {display: flex;justify-content: center;padding: 10px 0;color: var(--secondary-color);background: var(--third-color);text-decoration: none;padding: 10px;border-radius: .25rem;}
-
+a.episode-link {display: flex;justify-content: center;padding: 10px 0;color: var(--secondary-color);background: var(--highlight-color);text-decoration: none;padding: 10px;transition: background .5s ease-in-out;}
+a.episode-link:hover {
+    background: var(--secondary-accent-color);
+    transition: background .5s ease-in-out;
+}
 /*
 @media screen and (min-width: 480px) {
 }*/

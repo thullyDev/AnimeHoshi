@@ -402,11 +402,6 @@ footer.main-footer {
     display: none;
 }
 
-.letter-nav-con {
-    display: flex;
-    flex-direction: column;
-}
-
 ul.letter-list {display: flex;justify-content: start;flex-wrap: wrap;gap: 10px;list-style: none;margin: 0;padding: 0;}
 
 nav.letter-nav {
@@ -495,6 +490,7 @@ a.social-link > i {
 
     .letter-nav-con {
         display: flex;
+        flex-direction: column;
     }
 
     .inner-site-details-con {
