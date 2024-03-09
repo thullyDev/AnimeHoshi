@@ -124,7 +124,12 @@ h3.title {
     font-size: 22px;
 }
 
-.inner-episodes-con ul {display: flex;flex-direction: column;padding: 0;list-style: none;gap: 1px;max-height: 325px;overflow: auto;}
+.inner-episodes-con {
+    display: flex;
+    justify-content: center;
+}
+
+.inner-episodes-con ul {display: flex;flex-direction: column;padding: 0;list-style: none;gap: 1px;max-height: 325px;overflow: auto;max-width: 700px;width: 100%;}
 
 a.episode-link {display: flex;justify-content: center;padding: 10px 0;color: var(--secondary-color);background: var(--highlight-color);text-decoration: none;padding: 10px;transition: background .5s ease-in-out;}
 a.episode-link:hover {
@@ -138,6 +143,7 @@ a.episode-link:hover {
 @media screen and (min-width: 600px) {
     .info-con {
         display: flex;
+        flex-direction: row;
         gap: 10px;
     }
 
@@ -145,11 +151,11 @@ a.episode-link:hover {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 30%;
+        width: 30% !important;
     }
 
     .right-con {
-        width: 70%;
+        width: 70% !important;
     }
 
     img.poster {width: 100%;}
