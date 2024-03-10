@@ -29,14 +29,14 @@ iframe.player {
     background: var(--highlight-color);
 }
 
-.action-player-buttons-con button {
+.action-player-buttons-con button, button.server-link-con {
     font-size: 12px;
     width: 40px;
     padding: 10px 0;
     transition: background .5s ease-in-out;
 }
 
-.action-player-buttons-con button:hover {
+.action-player-buttons-con button:hover, button.server-link-con:hover {
     background: var(--secondary-accent-color);
     transition: background .5s ease-in-out;
 }
@@ -61,20 +61,56 @@ button.fullscreen-btn {
     background: var(--secondary-highlight-color);
 }
 
+.servers-embed-label {
+    margin-top: 10px;
+}
+
+.servers-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: small;
+}
+
+.servers-embed-label {
+    margin-top: 10px;
+}
+
+.servers-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: small;
+}
+
+span.episode-alert-box {
+    color: var(--third-color);
+    font-weight: 600;
+}
+
+span.episode-alert-box {
+    color: var(--third-color);
+    font-weight: 600;
+}
+
 button.server-link-con {
-    background: var(--third-color);
+    background: var(--secondary-highlight-color);
     width: 100px;
     padding: 5px;
     font-family: var(--primary-font);
     font-size: 15px;
-    border-radius: .35rem;
 }
 
 .server-links-con {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 5px;
     margin: 10px 0;
+    background: var(--highlight-color);
+    padding: 10px;
 }
 
 .inner-episodes-con ul {
