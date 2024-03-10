@@ -8,18 +8,36 @@
 	<div class="inner-con inner-main-content">
 		<h2 class="title">{{data.episode_title}}</h2>
 		<div class="player-con">
+			<div class="desktop-episodes-con">
+				{% include "pages/anime/widgets/episodes_wrapper.html" %}
+			</div>
 			<div class="inner-con iframe-con">
-				<iframe src="{{first_embed.link}}" data-src="{{first_embed.link}}" frameborder="0" class="player"></iframe>
+				<iframe src="{{first_embed.link}}" data-src="{{first_embed.link}}" frameborder="0" class="player"  allow="fullscreen"></iframe>
 			</div>
 		</div>
-		<div class="act-btns-con">
-			{% include "pages/anime/widgets/watch_togather.html" %}
-			{% include "pages/anime/widgets/add_to_list.html" %}
+		<div class="action-player-buttons-con">
+				<div class="player-buttons-con">
+					<button class="prev-btn" title="previous">
+						<i class="fa fa-arrow-left"></i>
+					</button>
+					<button class="fullscreen-btn" title="fullscreen">
+						<i class="fas fa-expand-alt"></i>
+					</button>
+					<button class="next-btn" title="next">
+						<i class="fa fa-arrow-right"></i>
+					</button>
+				</div>
+				<div class="action-buttons-con">
+					<button data-slug="{{anime_slug}}" data-type="{{type}}" class="add-to-list-btn" title="add to list"><i class="fa fa-plus"></i></button>
+					<button class="watch2gather-btn" data-slug="{{anime_slug}}"><i class="fa-solid fa-tower-broadcast" title="watch together"></i></button>
+				</div>
 		</div>
 		<div class="servers-links-con">
 			<div class="servers-embed-label">
 				<div class="servers-label">
-					Servers
+					<span class="watching-text">You are watching</span>
+					<span class="episode-alert-box">Episode 1</span>
+					<span class="caution-text">If current server doesn't work please try other servers beside.</span>
 				</div>
 				<div class="server-links-con">
 					{% for server in data.embed_links %}
@@ -30,29 +48,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="episodes-con">
-			<h4 class="episodes-label">episodes</h4>
-			<div class="inner-episodes-con">
-				<ul>
-					{% if type == "main" %}
-						{% for value in episodes %}
-							{% with title=value.episode_title slug=value.slug %}
-								<li class="episode-item">
-									<a href="/{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
-								</li>
-							{% endwith %}
-						{% endfor %}
-					{% else %}
-						{% for value in episodes %}
-							{% with title=value|replace:"/, "|replace:"-, "|title slug=value %}
-								<li class="episode-item">
-									<a href="/{{type}}/watch{{slug}}" class="episode-link">{{title}}</a>
-								</li>
-							{% endwith %}
-						{% endfor %}
-					{% endif %}
-				</ul>
-			</div>
+		<div class="mobile-episodes-con">
+			{% include "pages/anime/widgets/episodes_wrapper.html" %}
 		</div>
 		{% with PAGE_URL=page_url  PAGE_ID=anime_slug %}
         	{% include "pages/anime/widgets/comment_section.html" %}

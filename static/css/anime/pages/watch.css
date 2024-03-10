@@ -6,22 +6,59 @@ iframe.player {
     padding: 0;
 }
 
-.add-to-list-btn-con {
-    display: flex;
-    margin: 0 0 14px 0;
+.desktop-episodes-con {
+    display: none;
 }
 
-button.watch2gather-btn, button.add-to-list-btn {
-    padding: 10px;
-    background: var(--third-color);
-    font-family: var(--primary-font);
-    margin: 10px 0;
-    border-radius: .25rem;
-    box-shadow: 0 0 15px 0px var(--third-color);
+.player-con {
+    height: 206px;
 }
 
-.watch2gather-btn-con {
+.player-con > div {
+    height: 100%;
+}
+
+.action-player-buttons-con {
     display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+
+.action-player-buttons-con button {
+    background: var(--highlight-color);
+}
+
+.action-player-buttons-con button {
+    font-size: 12px;
+    width: 40px;
+    padding: 10px 0;
+    transition: background .5s ease-in-out;
+}
+
+.action-player-buttons-con button:hover {
+    background: var(--secondary-accent-color);
+    transition: background .5s ease-in-out;
+}
+
+.player-buttons-con, .action-buttons-con {
+    display: flex;
+}
+
+button.prev-btn, .add-to-list-btn {
+    border-radius: .5rem 0 0 .5rem;
+}
+
+button.next-btn, .watch2gather-btn {
+    border-radius: 0 .5rem .5rem 0;
+}
+
+button.add-to-list-btn {
+    background: var(--secondary-highlight-color);
+}
+
+button.fullscreen-btn {
+    background: var(--secondary-highlight-color);
 }
 
 button.server-link-con {

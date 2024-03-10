@@ -56,33 +56,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="episodes-con">
-			<h4 class="episodes-label">{{data.title}} episodes</h4>
-			<div class="inner-episodes-con">
-				<ul>
-					{% if type == "main" %}
-						{% for value in data.episodes %}
-							{% with title=value.episode_title slug=value.slug %}
-								<li class="episode-item">
-									<a href="/{{type}}/watch{{slug}}" class="episode-link">Episodio {{forloop.counter}}</a>
-								</li>
-							{% endwith %}
-						{% endfor %}
-					{% else %}
-						{% for value in data.episodes %}
-							{% with title=value|replace:"/, "|replace:"-, "|title slug=value %}
-								<li class="episode-item">
-									<a href="/{{type}}/watch{{slug}}" class="episode-link">Episodio {{forloop.counter}}</a>
-								</li>
-							{% endwith %}
-						{% endfor %}
-					{% endif %}
-				</ul>
-			</div>
-		</div>
+
+		{% with anime_title=data.title episodes=data.episodes %}
+			{% include "pages/anime/widgets/episodes_wrapper.html" %}
+		{% endwith %}
+
 		{% with PAGE_URL=page_url  PAGE_ID=anime_slug %}
     	{% include "pages/anime/widgets/comment_section.html" %}
     {% endwith %}
+
     {% include "pages/anime/widgets/make_watch_room.html" %}
 	</div>
 {% endblock %}

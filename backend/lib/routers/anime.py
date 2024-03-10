@@ -273,6 +273,7 @@ class Anime(Base):
         data = self.watch_processing(rawdata=rawdata, base=latanime.base)
         anime_slug = slug.split("-episodio")[0]
         context["anime_slug"] = anime_slug
+        context["anime_title"] = anime_slug.replace("-", " ").title()
         episodes = self.get_episodes(anime_slug, latanime)
         del data["recommandations"]
         context["data"] = data
@@ -299,6 +300,7 @@ class Anime(Base):
         data = self.watch_processing(rawdata=rawdata, base=tioanime.base)
         context["data"] = data
         context["anime_slug"] = anime_slug
+        context["anime_title"] = anime_slug.replace("-", " ").title()
         embed_links = data.get("embed_links", [])
         first_embed = {} if not embed_links else embed_links[0]
         context["first_embed"] = first_embed
