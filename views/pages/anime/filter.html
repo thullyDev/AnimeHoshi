@@ -38,9 +38,13 @@
 			<ul>
 				{% with pages=data.pages%}
 					{% for page in pages|pagi %}
-			          <li class="pages-ticks">
+			          <li class="
+			          {% if '1' == forloop.counter|slugify %}first-pages-ticks{% endif %}
+			          {% if pages|slugify == forloop.counter|slugify %}last-pages-ticks{% endif %}
+			          {% if current_page == forloop.counter|slugify %}hl-ele{% endif %} 
+			          pages-ticks">
 			            <a href="/{{type}}/filter?page={{page}}{{query}}" 
-			               class="{% if current_page == forloop.counter|slugify %}hl-ele {% endif %}pagination-btn page-btn">
+			               class="pagination-btn page-btn">
 			              {{ page }} 
 			            </a>
 			          </li>
@@ -49,7 +53,7 @@
 			          <li class="pages-ticks">
 			            <i class="fas fa-ellipsis-h"></i>
 			          </li>
-				      <li class="pages-ticks">
+				      <li class="pages-ticks last-pages-ticks">
 				        <a href="/{{type}}/filter?page={{pages}}{{query}}" 
 				           class="pagination-btn page-btn">
 				          {{ pages }}
