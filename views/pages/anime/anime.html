@@ -18,48 +18,57 @@
 				</div>
 			</div>
 			<div class="right-con">
-				<div class="details-con">
-					<h3 class="title">{{data.title}}</h3>
-					<div class="description-con">
-						<p class="description">{{data.description|truncatechars:250}}<span class="more-des-btn">more</span></p> 
+				<div class="details-info-con">
+					<div class="details-con">
+						<h3 class="title">{{data.title}}</h3>
+						<div class="description-con">
+							<p class="description">{{data.description|truncatechars:250}}<span class="more-des-btn">more</span></p> 
+						</div>
+						<div class="modal-description-con" data-open="false" style="display: none;">
+							<span class="close-btn"><i class="fa-solid fa-x"></i></span>
+							<p class="description">{{data.description}}</p>
+						</div>
 					</div>
-					<div class="modal-description-con" data-open="false" style="display: none;">
-						<span class="close-btn"><i class="fa-solid fa-x"></i></span>
-						<p class="description">{{data.description}}</p>
+					<div class="info-con">
+						{% if type == "main" %}
+						<div class="ticks-con">
+							<div class="tick type-tick">
+								Type: <span class="inner-tick">{{data.type}}</span>
+							</div>
+							<div class="tick year-tick">
+								Year: <span class="inner-tick">{{data.year}}</span>
+							</div>
+							<div class="tick season-tick">
+								Season: <span class="inner-tick">{{data.season}}</span>
+							</div>
+							<div class="tick status-tick">
+								Status: <span class="inner-tick">{{data.status}}</span>
+							</div>
+							<div class="tick status-tick">
+								Genres: 
+								{% for value in data.genres %}
+									<span class="inner-tick"> 
+										<a href="/{{type}}/filter/?genre={{value.genre_id}}" class="genre-link">{{value.genre}}</a>
+									</span>
+								{% endfor %}
+							</div>
+						</div>
+						{% endif %}
 					</div>
 				</div>
-				<div class="info-con">
-					{% if type == "main" %}
-					<div class="ticks-con">
-						<div class="tick type-tick">
-							Type: <span class="inner-tick">{{data.type}}</span>
-						</div>
-						<div class="tick year-tick">
-							Year: <span class="inner-tick">{{data.year}}</span>
-						</div>
-						<div class="tick season-tick">
-							Season: <span class="inner-tick">{{data.season}}</span>
-						</div>
-						<div class="tick status-tick">
-							Status: <span class="inner-tick">{{data.status}}</span>
-						</div>
-						<div class="tick status-tick">
-							Genres: 
-							{% for value in data.genres %}
-								<span class="inner-tick"> 
-									<a href="/{{type}}/filter/?genre={{value.genre_id}}" class="genre-link">{{value.genre}}</a>
-								</span>
-							{% endfor %}
-						</div>
-					</div>
-					{% endif %}
+				<div class="desktop-episodes-con">
+					{% with anime_title=data.title episodes=data.episodes %}
+						{% include "pages/anime/widgets/episodes_wrapper.html" %}
+					{% endwith %}
 				</div>
 			</div>
 		</div>
+		<div class="mobile-episodes-con">
+			{% with anime_title=data.title episodes=data.episodes %}
+				{% include "pages/anime/widgets/episodes_wrapper.html" %}
+			{% endwith %}
+		</div>
 
-		{% with anime_title=data.title episodes=data.episodes %}
-			{% include "pages/anime/widgets/episodes_wrapper.html" %}
-		{% endwith %}
 
 		{% with PAGE_URL=page_url  PAGE_ID=anime_slug %}
     	{% include "pages/anime/widgets/comment_section.html" %}

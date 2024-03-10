@@ -19,7 +19,6 @@ input, input::placeholder {
   color: var(--secondary-color);
 }
 
-
 button {
     cursor: pointer;
     outline: none;
@@ -113,7 +112,7 @@ a.home-link.title-link {
 
 
 .hl-ele {
-    background: var(--third-color);
+    background: var(--third-color) !important;
     color: var(--primary-color);
 }
 
@@ -126,7 +125,7 @@ a.home-link.title-link {
     border-radius: 100%;
     text-decoration: none;
     color: var(--secondary-color);
-    background: var(--third-color);
+    background: var(--highlight-color);
     height: 30px;
     width: 30px;
 }

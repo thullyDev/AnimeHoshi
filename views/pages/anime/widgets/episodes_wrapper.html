@@ -1,7 +1,7 @@
 <div class="episodes-con">
 	<h4 class="episodes-label">{{anime_title}} episodes</h4>
 	<div class="inner-episodes-con">
-		<ul>
+		<ul class="scrollable-ele">
 			{% if type == "main" %}
 				{% for value in episodes %}
 					{% with slug=value.slug %}

@@ -157,6 +157,7 @@ class Anime(Base):
 
         rawdata = tioanime.get_filter(data=filter_data)
         data = self.filter_data_processing(rawdata=rawdata, base=tioanime.base)
+        context["current_page"] = filter_data.get("page", "1")
         if "page" in filter_data: del filter_data["page"]
         
         query = tioanime.build_query(filter_data)
@@ -173,7 +174,8 @@ class Anime(Base):
 
         rawdata = latanime.get_filter(data=filter_data)
         data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)
-        if page in filter_data: del filter_data["page"]
+        context["current_page"] = filter_data.get("page", "1")
+        if "page" in filter_data: del filter_data["page"]
         
         query = latanime.build_query(filter_data)
         context["data"] = data

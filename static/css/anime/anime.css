@@ -6,6 +6,20 @@
     --secondary-highlight-color: #2b2929;
 }
 
+.scrollable-ele::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollable-ele::-webkit-scrollbar-track {
+  background: var(--highlight-color);    
+}
+
+.scrollable-ele::-webkit-scrollbar-thumb {
+  background-color: var(--third-color);    
+  border-radius: 20px;      
+  border: 3px solid var(--highlight-color);  
+}
+
 .page-content {
     color: var(--secondary-color);
 }
@@ -39,6 +53,10 @@ img.site-logo.normal-logo {
     display: flex;
     gap: 15px;
     padding: 0 10px;
+}
+
+a.nav-link > i {
+    font-size: larger;
 }
 
 .header-viewer-con .nav-bar-con,

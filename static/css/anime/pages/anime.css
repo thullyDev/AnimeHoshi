@@ -12,6 +12,13 @@ img.poster {
     width: 100%;
 }
 
+.desktop-episodes-con {
+    display: none;
+    min-width: 219px;
+}
+.desktop-episodes-con .inner-episodes-con {
+    justify-content: start;
+}
 .action-buttons-con {
     display: flex;
     justify-content: center;
@@ -150,7 +157,7 @@ a.episode-link:hover {
     .left-con {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: start;
         width: 30% !important;
     }
 
@@ -168,10 +175,17 @@ a.episode-link:hover {
 /*@media screen and (min-width: 768px) {
 }
 */
-/*
+
 @media screen and (min-width: 901px) {
+    .mobile-episodes-con {
+        display: none;
+    }
+
+    .desktop-episodes-con {
+        display: block;
+    }
 }
-*/
+
 
 /*@media screen and (min-width: 1024px) {
 }

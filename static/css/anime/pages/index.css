@@ -125,7 +125,7 @@ h3.animes-label-con {
      width: calc(100% - 10px);
 }
 
-.animes-con.main-animes-con li.anime-con {max-width: 155px;}
+.animes-con.main-animes-con li.anime-con {max-width: 115px;}
 
 .animes-con.latino-animes-con li.anime-con.episode-con {
     max-width: 175px;
@@ -168,6 +168,7 @@ li.anime-con.episode-con {
 
 @media screen and (min-width: 480px) {
     li.anime-con {
+        max-width: 155px !important;
         width: calc(50% - 10px);
     }
 }

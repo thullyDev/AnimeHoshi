@@ -21,12 +21,13 @@
 	      				{% include "pages/anime/widgets/filters.html" %}
 					{% endfor %}
 				{% endif %}
-				<button class="apply-btn">Apply</button>
+				<div class="switch-apply-con">
+					<button class="apply-btn">Apply</button>
+					<a href='/{% if type == "main" %}latino{% else %}main{% endif %}/filter/' class="filter-swap-link">{% if type == "main" %}latino{% else %}main{% endif %}</a>
+				</div>
+
 			</div>
 			{% endif %}
-		</div>
-		<div class="switch-con">
-			<a href='/{% if type == "main" %}latino{% else %}main{% endif %}/filter/' class="filter-swap-link">{% if type == "main" %}latino{% else %}main{% endif %}</a>
 		</div>
 		<div class="outter-animes-con">
            {% with label="Animes" animes=data.animes %}
@@ -39,18 +40,18 @@
 					{% for page in pages|pagi %}
 			          <li class="pages-ticks">
 			            <a href="/{{type}}/filter?page={{page}}{{query}}" 
-			               class="{% if page == forloop.counter %} hl-ele {% endif %}pagination-btn page-btn">
-			              {{ page }}
+			               class="{% if current_page == forloop.counter|slugify %}hl-ele {% endif %}pagination-btn page-btn">
+			              {{ page }} 
 			            </a>
 			          </li>
 			        {% endfor %}
-					{% if pages > 1 %}
+					{% if pages > 6 %}
 			          <li class="pages-ticks">
 			            <i class="fas fa-ellipsis-h"></i>
 			          </li>
 				      <li class="pages-ticks">
 				        <a href="/{{type}}/filter?page={{pages}}{{query}}" 
-				           class="hl-ele pagination-btn page-btn">
+				           class="pagination-btn page-btn">
 				          {{ pages }}
 				        </a>
 				      </li>
