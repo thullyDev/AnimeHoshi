@@ -112,15 +112,14 @@ button.server-link-con {
     background: var(--highlight-color);
     padding: 10px;
 }
-
-.inner-episodes-con ul {
+.inner-episodes-con {
     display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    gap: 10px;
+    justify-content: center;
 }
 
+.inner-episodes-con ul {display: flex;flex-direction: column;padding: 0;list-style: none;gap: 1px;max-height: 325px;overflow: auto;max-width: 700px;width: 100%;}
 
-a.episode-link {display: flex;justify-content: center;padding: 10px 0;color: var(--secondary-color);background: var(--third-color);text-decoration: none;padding: 10px;border-radius: .25rem;}
+a.episode-link {display: flex;justify-content: center;padding: 10px 0;color: var(--secondary-color);background: var(--highlight-color);text-decoration: none;padding: 10px;transition: background .5s ease-in-out;}
+a.episode-link:hover {
+    background: var(--secondary-accent-color);
+    tr
