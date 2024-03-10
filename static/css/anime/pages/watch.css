@@ -6,8 +6,28 @@ iframe.player {
     padding: 0;
 }
 
-.desktop-episodes-con {
+.episodes-player-chat-con {
+    display: flex;
+}
+
+.outer-episodes-con {
     display: none;
+}
+
+.outer-episodes-con {
+    width: 400px;
+    max-height: 462px;
+    overflow-y: auto;
+}
+
+h4.episodes-label {
+    display: none;
+}
+
+.desktop-episodes-con ul {
+    margin: 0;
+    height: 100%;
+    max-height: 100% !important;
 }
 
 .player-con {
@@ -85,15 +105,21 @@ button.fullscreen-btn {
     font-size: small;
 }
 
-span.episode-alert-box {
-    color: var(--third-color);
-    font-weight: 600;
+.servers-label > p {
+    margin: 0px;
+    text-align: center;
 }
 
 span.episode-alert-box {
     color: var(--third-color);
     font-weight: 600;
 }
+
+.servers-links-con {
+    display: flex;
+    justify-content: center;
+}
+
 
 button.server-link-con {
     background: var(--secondary-highlight-color);
@@ -101,17 +127,20 @@ button.server-link-con {
     padding: 5px;
     font-family: var(--primary-font);
     font-size: 15px;
+    max-height: 30px;
 }
 
 .server-links-con {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 5px;
     margin: 10px 0;
     background: var(--highlight-color);
     padding: 10px;
 }
+
 .inner-episodes-con {
     display: flex;
     justify-content: center;
@@ -122,4 +151,51 @@ button.server-link-con {
 a.episode-link {display: flex;justify-content: center;padding: 10px 0;color: var(--secondary-color);background: var(--highlight-color);text-decoration: none;padding: 10px;transition: background .5s ease-in-out;}
 a.episode-link:hover {
     background: var(--secondary-accent-color);
-    tr
+    transition: background .5s ease-in-out;
+}
+
+/*
+@media screen and (min-width: 480px) {
+}*/
+
+@media screen and (min-width: 600px) {
+    .player-con {
+        height: 319px;
+    }
+
+    .servers-embed-label {
+        display: flex;
+    }
+
+    .servers-label {
+        padding: 10px;
+        background: var(--secondary-highlight-color);
+    }
+
+    .server-links-con {margin: 0;}
+}
+
+/*@media screen and (min-width: 768px) {
+}
+*/
+
+@media screen and (min-width: 901px) {
+    .mobile-episodes-con {
+        display: none;
+    }
+
+    .outer-episodes-con {
+        display: block;
+    }
+
+}
+
+
+/*@media screen and (min-width: 1024px) {
+}
+*/
+/*
+@media screen and (min-width: 1200px) {
+}
+
+*/

@@ -7,44 +7,50 @@
 {% block main_content %}
 	<div class="inner-con inner-main-content">
 		<h2 class="title">{{data.episode_title}}</h2>
-		<div class="player-con">
-			<div class="desktop-episodes-con">
-				{% include "pages/anime/widgets/episodes_wrapper.html" %}
+		<div class="episodes-player-chat-con">
+			<div class="outer-episodes-con">
+				<div class="desktop-episodes-con">
+					{% include "pages/anime/widgets/episodes_wrapper.html" %}
+				</div>
 			</div>
-			<div class="inner-con iframe-con">
-				<iframe src="{{first_embed.link}}" data-src="{{first_embed.link}}" frameborder="0" class="player"  allow="fullscreen"></iframe>
-			</div>
-		</div>
-		<div class="action-player-buttons-con">
-				<div class="player-buttons-con">
-					<button class="prev-btn" title="previous">
-						<i class="fa fa-arrow-left"></i>
-					</button>
-					<button class="fullscreen-btn" title="fullscreen">
-						<i class="fas fa-expand-alt"></i>
-					</button>
-					<button class="next-btn" title="next">
-						<i class="fa fa-arrow-right"></i>
-					</button>
+			<div class="outer-player-con">			
+				<div class="player-con">
+					<div class="inner-con iframe-con">
+						<iframe src="{{first_embed.link}}" data-src="{{first_embed.link}}" frameborder="0" class="player"  allow="fullscreen"></iframe>
+					</div>
 				</div>
-				<div class="action-buttons-con">
-					<button data-slug="{{anime_slug}}" data-type="{{type}}" class="add-to-list-btn" title="add to list"><i class="fa fa-plus"></i></button>
-					<button class="watch2gather-btn" data-slug="{{anime_slug}}"><i class="fa-solid fa-tower-broadcast" title="watch together"></i></button>
+				<div class="action-player-buttons-con">
+						<div class="player-buttons-con">
+							<button class="prev-btn" title="previous">
+								<i class="fa fa-arrow-left"></i>
+							</button>
+							<button class="fullscreen-btn" title="fullscreen">
+								<i class="fas fa-expand-alt"></i>
+							</button>
+							<button class="next-btn" title="next">
+								<i class="fa fa-arrow-right"></i>
+							</button>
+						</div>
+						<div class="action-buttons-con">
+							<button data-slug="{{anime_slug}}" data-type="{{type}}" class="add-to-list-btn" title="add to list"><i class="fa fa-plus"></i></button>
+							<button class="watch2gather-btn" data-slug="{{anime_slug}}"><i class="fa-solid fa-tower-broadcast" title="watch together"></i></button>
+						</div>
 				</div>
-		</div>
-		<div class="servers-links-con">
-			<div class="servers-embed-label">
-				<div class="servers-label">
-					<span class="watching-text">You are watching</span>
-					<span class="episode-alert-box">Episode 1</span>
-					<span class="caution-text">If current server doesn't work please try other servers beside.</span>
-				</div>
-				<div class="server-links-con">
-					{% for server in data.embed_links %}
-						{% with link=server.link name=server.name %}
-							{% include "pages/anime/widgets/server_wrapper.html" %}
-						{% endwith %}
-					{% endfor %}
+				<div class="servers-links-con">
+					<div class="servers-embed-label">
+						<div class="servers-label">
+							<p class="watching-text">You are watching</p>
+							<span class="episode-alert-box">Episode 1</span>
+							<p class="caution-text">If current server doesn't work please try other servers beside.</p>
+						</div>
+						<div class="server-links-con">
+							{% for server in data.embed_links %}
+								{% with link=server.link name=server.name %}
+									{% include "pages/anime/widgets/server_wrapper.html" %}
+								{% endwith %}
+							{% endfor %}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
