@@ -19,6 +19,10 @@ input, input::placeholder {
   color: var(--secondary-color);
 }
 
+input::placeholder {
+  color: var(--accent-color);
+}
+
 button {
     cursor: pointer;
     outline: none;

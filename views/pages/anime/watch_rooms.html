@@ -14,10 +14,8 @@
 						<i class="fas fa-search"></i>
 						<input placeholder="room search..." type="text" class="watch-room-search">
 					</div>
-				</div>
-				<div class="my-rooms-link-con">
-					<a href="/watch_rooms?my_rooms=true" class="my-rooms-link"> 
-						my rooms
+					<a href="/watch_rooms?mine=true" class="my-rooms-link"> 
+						your rooms
 					</a>
 				</div>
 			</div>
@@ -30,7 +28,7 @@
 								<span class="room-name">{{room_name}}</span>
 								<div class="room-details-con">
 									<div class="thumbnail-con">
-										<a href="/watch_rooms/{{room_id}}" title="Watch {{anime_title|title}} together" class="room-thumbnail">
+										<a href="{% if private %}#{{room_id}}{% else %}/watch_rooms/{{room_id}}{% endif %}" title="Watch {{anime_title|title}} together" class="{% if private %}private-link {% endif %}room-thumbnail">
 											<div class="inner-thumbnail-con">
 												<span class="room-thumbnail-info-con">
 													<div class="left-side-con">

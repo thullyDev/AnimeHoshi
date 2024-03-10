@@ -3,9 +3,40 @@ input.watch-room-search {
     background: none;
     outline: none;
     border: none;
-    border-bottom: solid 1px var(--third-color);
     width: 100%;
     max-width: 300px;
+}
+
+.outer-watch-room-search-con {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+    font-size: small;
+}
+
+a.my-rooms-link {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-wrap: nowrap;
+    padding: 0 5px;
+    background: var(--secondary-highlight-color);
+    color: var(--secondary-color);
+    border-radius: .125rem;
+}
+
+.inner-watch-room-search-con {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: solid 1px var(--accent-color);
+    background: var(--highlight-color);
+    border-radius: .125rem;
 }
 
 ul.watch-rooms-list {
