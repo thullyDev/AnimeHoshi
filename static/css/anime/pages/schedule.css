@@ -12,9 +12,10 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    background: var(--secondary-accent-color);
+    background: var(--highlight-color);
     border-radius: .25rem;
-    width: 93%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .day-con {
@@ -81,8 +82,9 @@ span.anime-title {font-size: 13px;}
 
     .days-grid-con {
         display: flex;
-        background: var(--third-color);
+        background: var(--highlight-color);
         margin-bottom: 10px;
+        border-radius: .2rem;
     }
 
     .days-grid-item.grid-item {
