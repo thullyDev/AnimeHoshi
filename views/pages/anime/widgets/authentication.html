@@ -1,24 +1,32 @@
 {% load filters %}
 <div class="auth-con" data-open="false">
-  <span class="close-btn"><i class="fa-solid fa-x"></i></span>
   <div class="inner-auth-con">
-    <div class="top-waves-con waves-con">  
-      {% with class="top-form-waves" %}
-        {% include "widgets/waves.html" %}
-      {% endwith %}
-    </div>
-    <div class="site-logo-text-con">
-      <div class="site-logo-con">
-        {% include "widgets/title.html" %}
-      </div>
+    <span class="close-btn"><i class="fa-solid fa-x"></i></span>
+    <div class="auth-bg-img-con">
+      <img src="/static/images/auth-bg-image.png" alt="authentican background image" class="auth-bg-img">
     </div>
     <div class="forms-con">
       {% for auth, items in auths.items %}
       <div class="form-con{% if forloop.counter == 1 %} active{% endif %}" data-type="{{auth}}">
-          <form action="post">
+          <form action="post">w
               <div class="auth-inputs-con">
                 <div class="auth-text">
                   {{auth|replace:"_, "|title}}
+                </div> 
+                <div class="auth-sub-text">
+                  {% if auth == "login" %}
+                    Welcome back!
+                  {% elif auth == "signup" %}
+                    Create an account to use and get all your features.
+                  {% elif auth == "forgot_password" %}
+                    We will send an email to your box, just follow that link to set your new password.
+                  {% elif auth == "resend" %}
+                    Input your email.
+                  {% elif auth == "verify" %}
+                    Input the code sent the email.
+                  {% elif auth == "renew_password" %}
+                    Renew you password please, your old password can be used.
+                  {% endif %}
                 </div> 
                 {% for value in items %}
                   {% with type=value.input placeholder=value.key|title value="" key=value.key icon=value.icon %}
@@ -44,11 +52,6 @@
           </form>
       </div>
       {% endfor %}
-    </div>
-    <div class="bottom-waves-con waves-con">          
-      {% with class="bottom-form-waves" %}
-        {% include "widgets/waves.html" %}
-      {% endwith %}
     </div>
   </div>
 </div>

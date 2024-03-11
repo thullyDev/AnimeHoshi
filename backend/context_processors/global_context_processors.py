@@ -257,13 +257,13 @@ def global_static_data(request):
 		"renew_password": [
 			{
 				"input": "password",
-				"key": "confirm",
+				"key": "password",
 				"icon": "fas fa-key",
 			},
 			{
 				"input": "password",
-				"key": "password",
-				"icon": "fas fa-key",
+				"key": "confirm",
+				"icon": "fa-regular fa-key",
 			},
 			{
 				"input": "hidden",

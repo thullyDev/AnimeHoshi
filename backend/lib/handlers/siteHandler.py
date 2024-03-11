@@ -86,6 +86,7 @@ class SiteHandler:
                     "alert": {"name": "alert", "value": "/static/images/gifs/alert.gif"},
                     "maintenance": {"name": "maintenance", "value": "/static/images/gifs/maintenance.gif"},
                     "empty": {"name": "empty", "value": "/static/images/gifs/empty.gif"},
+                    "authentication_background": {"name": "empty", "value": "/static/images/auth-bg-image.png"},
                 },
                 "inputs": {
                     "site_name": {"value": "AnimeHoshi", "name": "site_name"},
