@@ -20,12 +20,21 @@
       {% endif %}
     </div>
     <div class="menu-btn-con mobile-menu-btn-con">
+      <button type="button" class="open-search-btn">
+        <i class="fas fa-search"></i>
+      </button>
       <button type="button" class="menu-btn">
         <i class="fas fa-bars"></i>
       </button>
     </div>
   </div>
-  <div class="mobile-viewer-con" data-open="false">
+  <div class="mobile-search-con search-account-con" data-open="false" style="display: none;">
+    <div class="inner-search-account-con">
+      {% include "widgets/search.html" %}
+      <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
+    </div>
+  </div>
+  <div class="mobile-viewer-con" data-open="false" style="display: none;">
     {% include "sections/anime/nav.html" %}
     <div class="user-btns-con">
       <div class="user-action-btn-con">
@@ -45,12 +54,6 @@
           <i class="fa fa-user"></i>
         </span>
         {% endif %}
-      </div>
-    </div>
-    <div class="search-account-con">
-      <div class="inner-search-account-con">
-        {% include "widgets/search.html" %}
-        <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>

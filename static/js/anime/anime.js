@@ -1,5 +1,6 @@
 (function () {
 	$(".menu-btn").click(() => showCloseEle(".mobile-viewer-con", "slide"));
+	$(".open-search-btn").click(() => showCloseEle(".mobile-search-con", "slide"));
 	$(".watch2gather-btn, .watch-room-modal-close-btn").click(() => showCloseEle(".watch-room-modal-con", "fade"));
 	$(".create-watch-room-btn").click(() => createRoom())
 	$(".search-btn").click(() => search())
