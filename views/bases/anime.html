@@ -51,7 +51,10 @@
           <div style="display: none;" class="page-loader">
             {% include "widgets/spinner.html" %}
           </div>
-          <div class="alert-box"></div>
+          <div class="outer-alert-box">
+            <div class="alert-box">
+            </div>
+          </div>
           {% include "sections/admin/footer.html" %}
         {% else %}
           <main class="main-content">

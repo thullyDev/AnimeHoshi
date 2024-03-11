@@ -263,7 +263,7 @@ def global_static_data(request):
 			{
 				"input": "password",
 				"key": "confirm",
-				"icon": "fa-regular fa-key",
+				"icon": "fas fa-key",
 			},
 			{
 				"input": "hidden",

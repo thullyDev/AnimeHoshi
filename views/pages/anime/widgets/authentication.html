@@ -8,7 +8,7 @@
     <div class="forms-con">
       {% for auth, items in auths.items %}
       <div class="form-con{% if forloop.counter == 1 %} active{% endif %}" data-type="{{auth}}">
-          <form action="post">w
+          <form action="post">
               <div class="auth-inputs-con">
                 <div class="auth-text">
                   {{auth|replace:"_, "|title}}
@@ -30,7 +30,7 @@
                 </div> 
                 {% for value in items %}
                   {% with type=value.input placeholder=value.key|title value="" key=value.key icon=value.icon %}
-                    <div class="auth-outer-input-con">
+                    <div class="auth-outer-input-con" {% if type == "hidden" %}style='display: none;'{% endif %}>
                       {% include "widgets/icon_input.html" %}
                     </div>
                   {% endwith %}

@@ -1,12 +1,13 @@
 const print = (message) => console.log(message)
 
 function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
+  const outerAlertBox = $(".outer-alert-box");
   const alertBox = $(".alert-box");
 
   alertBox.text(message).fadeIn();
 
   setTimeout(() => {
-    alertBox.fadeOut(() => {
+    outerAlertBox.fadeOut(() => {
       alertBox.text("");
     });
   }, timeOut);
