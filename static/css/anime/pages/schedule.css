@@ -44,6 +44,7 @@ a.sched-toggle:hover {
     border-radius: .25rem;
     width: 100%;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .day-con {

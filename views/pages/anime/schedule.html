@@ -45,10 +45,10 @@
 			<div class="days-animes-grid-con">
 				{% for day, animes in data.items %}
 					<div class="day-con">
-						<div class="day-label-con">
+						<div class="day-label-con" data-day="{{day}}">
 							{{day}} <i class="fas fa-angle-down"></i>
 						</div>
-						<div class="day-animes-con mobile-day-animes-con" data-day="{{day}}">
+						<div class="day-animes-con mobile-day-animes-con" data-open="false" data-day="{{day}}" style="display: none;">
 							<ul>
 								{% for anime in animes %}
 					           		{% with title=anime.title poster=anime.image_url %}
