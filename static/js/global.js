@@ -4,8 +4,8 @@ function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
   const outerAlertBox = $(".outer-alert-box");
   const alertBox = $(".alert-box");
 
-  alertBox.text(message).fadeIn();
-
+  alertBox.text(message)
+  outerAlertBox.css("display", "flex").hide().fadeIn()
   setTimeout(() => {
     outerAlertBox.fadeOut(() => {
       alertBox.text("");
