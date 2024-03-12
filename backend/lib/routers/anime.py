@@ -31,8 +31,6 @@ class Anime(Base):
 
         return redirect(f"/main/anime{slug}")
 
-
-
     @recorder
     def home(self, request, context, **kwargs):
         cache_id = "home_data"
@@ -139,12 +137,20 @@ class Anime(Base):
         return response
 
     @recorder
-    def watch_rooms(self, request, GET, context, **kwargs):
+    def watch_rooms(self, request, GET, COOKIES, context, **kwargs):
+        mine = GET.get("mine", "false")
         page = GET.get("page", "1")
         query = GET.get("keywords")
         rooms = None
 
-        if query:
+        if mine == "true":
+            email = COOKIES.get("email")
+            rooms = database.sql_get_query(
+                unit="rooms", 
+                creator_email=email, 
+                be_dynmc=True
+            )        
+        elif query:
             rooms = database.sql_get_query(
                 unit="rooms", 
                 room_name__icontains=query, 

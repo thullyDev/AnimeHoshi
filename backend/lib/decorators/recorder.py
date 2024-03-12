@@ -18,7 +18,7 @@ def recorder(request_func):
             request_obj, 
             GET=GET, 
             POST=POST, 
-            # COOKIES=COOKIES, 
+            COOKIES=COOKIES, 
             context={ "site_data": site.get_site_data() }, 
             *args, 
             **kwargs
