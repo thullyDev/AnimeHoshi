@@ -392,9 +392,10 @@ p.check-label {
 
 .unlimited-con input.watch-room-input {
     width: 15px;
-    background: none;
+    background: var(--secondary-highlight-color);
     outline: none;
-    border: solid 1px var(--secondary-color);
+    border: solid 1px var(--accent-color);
+    border-radius: .2rem;
 }
 
 .unlimited-con input.watch-room-input::-webkit-outer-spin-button,

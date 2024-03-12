@@ -12,6 +12,12 @@
 		const length = value.length
 		$(".text-limit").text(`${length}/${limit}`)
 	})
+
+	$("input#checkbox-2-unlimited").click(function () {
+		const thisEle = $(this)
+		showCloseEle("input.watch-room-input[data-name='limit']", "fade")
+	});
+
 })();
 
 function search() {
@@ -69,6 +75,7 @@ function createRoom() {
 	    	const { message } = error.responseJSON
 				showAlert({ message })
 				closeLoader()
+				popAuth()
     	}	
 	});
 

@@ -121,6 +121,10 @@ function renewPasswordProcessor(code) {
 	showCloseAuthEle("verify", "renew_password")
 }
 
+function popAuth() {
+	$(".auth-con span.close-btn").click()
+}
+
 function logoutUser () {
 	$.ajax({
 	    url: "/admin/ajax/get/logout/",

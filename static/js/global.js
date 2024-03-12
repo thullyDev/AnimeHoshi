@@ -133,6 +133,7 @@ function addToList(slug, watchType) {
         const { message } = error.responseJSON
         showAlert({ message })
         closeLoader()
+        popAuth()
       }
   });
 }
