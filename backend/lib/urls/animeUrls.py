@@ -5,6 +5,7 @@ anime = Anime()
 
 routes = [
     route_producer(route="", view=anime.home, name="home"),
+    route_producer(route="random/", view=anime.random),
     route_producer(route="watch_rooms/", view=anime.watch_rooms),
     route_producer(route="watch_rooms/<str:room_id>/", view=anime.watch_room),
     route_producer(route="chat_room/<str:room_id>/", view=anime.chat_room),

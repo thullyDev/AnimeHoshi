@@ -8,8 +8,9 @@ from ..database import Cache, Database
 from ..scraping import TioanimeScraper, LatanimeScraper
 from ..handlers import ResponseHandler, SiteHandler
 from .base import Base
-import ast
 from pprint import pprint
+import ast
+import random
 
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
@@ -18,6 +19,20 @@ cache = Cache()
 database = Database()
 
 class Anime(Base):
+    @recorder
+    def random(self, request, **kwargs):
+        page = random.randint(1, 196) # it gets random page between 1 and 196
+        anime_index = random.randint(1, 20) - 1 # gets a random anime between the 20 shown
+        rawdata = tioanime.get_filter(data={ "page": str(page) })
+        data = self.filter_data_processing(rawdata=rawdata, base=tioanime.base)
+        animes = data["animes"]
+        anime = animes[anime_index]
+        slug = anime.get("slug")
+
+        return redirect(f"/main/anime{slug}")
+
+
+
     @recorder
     def home(self, request, context, **kwargs):
         cache_id = "home_data"
