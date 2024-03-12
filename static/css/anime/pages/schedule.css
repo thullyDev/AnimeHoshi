@@ -9,6 +9,7 @@ a.sched-toggle {
     color: var(--secondary-color);
     text-decoration: none;
     font-size: small;
+    transition: background .5s ease-in-out;
 }
 
 a.sched-toggle:first-child {
@@ -18,6 +19,11 @@ a.sched-toggle:first-child {
 
 a.sched-toggle:last-child {
     border-radius: 0 .35rem .35rem 0;
+}
+
+a.sched-toggle:hover {
+    background: var(--secondary-accent-color);
+    transition: background .5s ease-in-out;
 }
 
 .schedule-viewer-con {
