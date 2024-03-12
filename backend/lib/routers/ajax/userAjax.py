@@ -33,6 +33,10 @@ class UserAjax(Base):
         name = data.get("room_name", "")
         slug = data.get("slug", "")
         watch_type = data.get("type", "")
+        limit = data.get("limit")
+        private = data.get("private")
+
+        if private and limit < 1: return self.bad_request_response({ "message": "limit cannot to less then 1" })
 
         if watch_type not in ["latino", "main"]: return self.bad_request_response()
 
