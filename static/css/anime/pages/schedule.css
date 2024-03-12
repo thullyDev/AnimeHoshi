@@ -1,3 +1,25 @@
+.sched-toggle-con {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+a.sched-toggle {
+    padding: 5px 10px;
+    background: var(--secondary-highlight-color);
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: small;
+}
+
+a.sched-toggle:first-child {
+    background: var(--highlight-color);
+    border-radius: .35rem 0 0 .35rem;
+}
+
+a.sched-toggle:last-child {
+    border-radius: 0 .35rem .35rem 0;
+}
+
 .schedule-viewer-con {
     display: none;
 }
