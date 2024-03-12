@@ -86,52 +86,6 @@ class TioanimeBlueprints:
             },
         }
     tioanime_schedule_blueprint = { 
-            "saturday": {
-                "parent_selector": "#Saturday > .episode",
-                "children": {
-                    "slug": {
-                        "selector": "a",
-                        "attributes": {
-                            "slug": "href",
-                        }
-                    },
-                    "title": {
-                        "selector": ".title",
-                        "attributes": {
-                            "text": "text_content",
-                        }
-                    },
-                    "image": {
-                        "selector": ".fa-play-circle > img",
-                        "attributes": {
-                            "url": "src",
-                        }
-                    },
-                }
-            },
-            "sunday": {
-                "parent_selector": "#Sunday > .episode",
-                "children": {
-                    "slug": {
-                        "selector": "a",
-                        "attributes": {
-                            "slug": "href",
-                        }
-                    },
-                    "title": {
-                        "selector": ".title",
-                        "attributes": {
-                            "text": "text_content",
-                        }
-                    },
-                    "image": {
-                        "selector": ".fa-play-circle > img",
-                        "attributes": {
-                            "url": "src",
-                        }
-                    },
-                }
-            },
             "monday": {
                 "parent_selector": "#Monday > .episode",
                 "children": {
@@ -201,8 +155,77 @@ class TioanimeBlueprints:
                     },
                 }
             },
+            "thursday": {
+                "parent_selector": "#Thursday > .episode",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
             "friday": {
                 "parent_selector": "#Friday > .episode",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "saturday": {
+                "parent_selector": "#Saturday > .episode",
+                "children": {
+                    "slug": {
+                        "selector": "a",
+                        "attributes": {
+                            "slug": "href",
+                        }
+                    },
+                    "title": {
+                        "selector": ".title",
+                        "attributes": {
+                            "text": "text_content",
+                        }
+                    },
+                    "image": {
+                        "selector": ".fa-play-circle > img",
+                        "attributes": {
+                            "url": "src",
+                        }
+                    },
+                }
+            },
+            "sunday": {
+                "parent_selector": "#Sunday > .episode",
                 "children": {
                     "slug": {
                         "selector": "a",

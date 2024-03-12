@@ -195,7 +195,7 @@ class Anime(Base):
         data = self.schedule_data_processing(rawdata=rawdata)
         context["data"] = data
         context["type"] = "main"
-        self.cache_data(cache_id=cache_id, data=data)
+        # self.cache_data(cache_id=cache_id, data=data)
         return self.root(request=request, context=context, template="pages/anime/schedule.html")
 
     @recorder
