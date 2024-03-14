@@ -6,7 +6,7 @@ from ..decorators import recorder
 from ..resources import generate_unique_id
 from ..database import Cache, Database
 from ..scraping import TioanimeScraper, LatanimeScraper
-from ..handlers import ResponseHandler, SiteHandler
+from ..handlers import ResponseHandler, SiteHandler, LiveChat
 from .base import Base
 from pprint import pprint
 import ast
@@ -17,6 +17,7 @@ latanime = LatanimeScraper()
 site = SiteHandler()
 cache = Cache()
 database = Database()
+live_chat = LiveChat()
 
 class Anime(Base):
     @recorder
@@ -107,8 +108,58 @@ class Anime(Base):
     @recorder
     def watch_room(self, request, room_id, context, **kwargs):
         room_data = database.get(unit="rooms", key="room_id", unique_id=room_id)
+        slug = room_data["slug"]
+        watch_type = room_data["watch_type"]
+        scraper = tioanime if watch_type == "main" else latanime
+        rawdata = scraper.get_anime(slug=slug)
 
+        if not rawdata: return redirect("not_found")
+
+        data = self.anime_processing(rawdata=rawdata, base=scraper.base)
+        episodes = data["episodes"]
+        context["episodes"] = episodes
+        context["anime_slug"] = slug
+        context["anime_title"] = data["title"]
+        context["type"] = watch_type
+        episode_slug = episodes[0]["slug"]
+        episode_num = episode_slug.split("-")[-1]
+        rawdata = scraper.get_episode(slug=episode_slug)
+        episodes_data = self.watch_processing(rawdata=rawdata, base=scraper.base)
+        embed_links = episodes_data.get("embed_links", [])
+        first_embed = {} if not embed_links else embed_links[0]
+        context["data"] = episodes_data
+        context["first_embed"] = first_embed
+        context["episode_num"] = episode_num
+        context["page"] = "watch"
+        context["room_inputs"] = self.get_watch_room_inputs(
+            slug=slug, 
+            watch_type=watch_type
+        )
         return self.root(request=request, context=context, template="pages/anime/watch.html", titled=True)
+
+    # @recorder
+    # def tioanime_watch(self, request, slug, context, **kwargs):
+    #     rawdata = tioanime.get_episode(slug=slug)
+    #     temp = slug.split("-")
+    #     anime_slug = "-".join(temp[:-1])
+    #     episodes = self.get_episodes(anime_slug, tioanime)
+    #     data = self.watch_processing(rawdata=rawdata, base=tioanime.base)
+    #     context["data"] = data
+    #     context["anime_slug"] = anime_slug
+    #     context["anime_title"] = anime_slug.replace("-", " ").title()
+    #     embed_links = data.get("embed_links", [])
+    #     first_embed = {} if not embed_links else embed_links[0]
+    #     context["first_embed"] = first_embed
+    #     context["episodes"] = episodes
+    #     watch_type = "main"
+    #     context["type"] = watch_type
+    #     context["page"] = "watch"
+    #     context["room_inputs"] = self.get_watch_room_inputs(
+    #         slug=anime_slug, 
+    #         watch_type=watch_type
+    #     )
+
+    #     return self.root(request=request, context=context, template="pages/anime/watch.html", titled=True)
 
     @recorder
     def chat_room(self, request, room_id, GET, COOKIES, context, **kwargs):
@@ -302,6 +353,8 @@ class Anime(Base):
         context["data"] = data
         embed_links = data.get("embed_links", [])
         first_embed = {} if not embed_links else embed_links[0]
+        episode_num = slug.split("-")[-1]
+        context["episode_num"] = episode_num
         context["first_embed"] = first_embed
         context["episodes"] = episodes
         watch_type = "latino"
@@ -321,6 +374,8 @@ class Anime(Base):
         anime_slug = "-".join(temp[:-1])
         episodes = self.get_episodes(anime_slug, tioanime)
         data = self.watch_processing(rawdata=rawdata, base=tioanime.base)
+        episode_num = slug.split("-")[-1]
+        context["episode_num"] = episode_num
         context["data"] = data
         context["anime_slug"] = anime_slug
         context["anime_title"] = anime_slug.replace("-", " ").title()

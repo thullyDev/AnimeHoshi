@@ -10,7 +10,7 @@ from ...resources import (
 )
 from ...database import UserDatabase, Storage
 from ...decorators import userValidator, timer
-from ...handlers import LiveChat
+from ...handlers import LiveChat, send_email
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ..base import Base
 from pprint import pprint
@@ -34,6 +34,7 @@ class UserAjax(Base):
         slug = data.get("slug", "")
         watch_type = data.get("type", "")
         limit = data.get("limit")
+        limit = 5 if type(limit) is str else limit
         private = data.get("private")
 
         if private and limit < 1: return self.bad_request_response({ "message": "limit cannot to less then 1" })
@@ -56,7 +57,7 @@ class UserAjax(Base):
             return self.crash_response({ "message": "room was not recreated" })
 
         room_id = room["data"]["room_id"]
-        room_code = None if data["unlimited"] else generate_random_code(7)
+        room_code = room["data"]["room_code"]
 
         response = database.create_watch_room(data=data, user=user, room_id=room_id, room_code=room_code) 
 

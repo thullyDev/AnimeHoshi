@@ -17,7 +17,6 @@ class LiveChat(ApiHandler):
             cls._instance.start_room_sweeper()
         return cls._instance
 
-
     def create_room(self):
         data = self.request(base=live_base, endpoint=self.create_room_endpoint, https_safe=False)
 
@@ -30,6 +29,10 @@ class LiveChat(ApiHandler):
             return None
 
         return data
+
+    def get_room(self, room_id):
+        # data = self.request(base=live_base, endpoint=self.create_room_endpoint, https_safe=False)
+        pass
 
     def room_sweeper(self):
         try:

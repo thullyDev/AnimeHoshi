@@ -130,10 +130,10 @@ function addToList(slug, watchType) {
           closeLoader()
       },
       error: (error) => {
-        const { message } = error.responseJSON
+        const { message, status_code } = error.responseJSON
         showAlert({ message })
         closeLoader()
-        popAuth()
+        if(status_code == 403) popAuth()
       }
   });
 }

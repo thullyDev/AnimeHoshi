@@ -4,3 +4,4 @@ from .apiHandler import ApiHandler
 from .liveChatHandler import LiveChat
 from .responseHandler import ResponseHandler
 from .requestFunctions import produce_urlpatterns, route_producer
+from .mailer import send_email

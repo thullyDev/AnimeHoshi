@@ -28,7 +28,7 @@
 								<span class="room-name">{{room_name}}</span>
 								<div class="room-details-con">
 									<div class="thumbnail-con">
-										<a href="{% if private %}#{{room_id}}{% else %}/watch_rooms/{{room_id}}{% endif %}" title="Watch {{anime_title|title}} together" class="{% if private %}private-link {% endif %}room-thumbnail">
+										<a href="/watch_rooms/{{room_id}}" title="Watch {{anime_title|title}} together" class="{% if private %}private-link {% endif %}room-thumbnail">
 											<div class="inner-thumbnail-con">
 												<span class="room-thumbnail-info-con">
 													<div class="left-side-con">

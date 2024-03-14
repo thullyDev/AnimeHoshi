@@ -10,7 +10,7 @@ from ....resources import (
     get_data_from_string
 )
 from ....database import UserDatabase
-from ....handlers import ResponseHandler
+from ....handlers import ResponseHandler, send_email
 from ....decorators import timer
 from ...base import Base
 import yagmail
@@ -223,24 +223,13 @@ class UserAuthAjax(Base):
         
         return self.successful_response(data={ "message": "sucessfully renew password", "data": data, }, cookies_data=data, cookies=True)
 
-    def send_email(self, subject, body, to_email):
-        yag = yagmail.SMTP(SITE_EMAIL, SITE_EMAIL_PASS)
-
-        yag.send(
-            to=to_email,
-            subject=subject,
-            contents=body
-        )
-
-        yag.close()
-
     def send_verification(self, email, username, host):
         hidden_email = hide_text(text=email, limit=3)
         code = generate_random_code()
         body = f"user with the username of {username} registed on {host} with this email, please verify by inputting the code {code}, this code expires in 15 minutes"
         subject = f"{host} verification"
 
-        self.send_email(subject=subject, body=body, to_email=email)
+        send_email(subject=subject, body=body, to_email=email)
         database.cset(name=f"vf_email_{email}", value=code, expiry=1500) # expires in 15 minutes 
 
         return f"sent verification code to {email}, may take 60 seconds to reflect", code
