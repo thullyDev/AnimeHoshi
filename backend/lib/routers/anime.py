@@ -151,6 +151,8 @@ class Anime(Base):
         watch_room_data["data"] = episodes_data
         watch_room_data["first_embed"] = first_embed
         watch_room_data["page"] = "watch"
+        watch_room_data["room_id"] = room_id
+        context["is_watch_room"] = True
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=slug, 
             watch_type=watch_type
@@ -160,30 +162,6 @@ class Anime(Base):
         data["episode_num"] = ep_num
 
         return self.root(request=request, context=data, template="pages/anime/watch.html", titled=True)
-
-    # @recorder
-    # def tioanime_watch(self, request, slug, context, **kwargs):
-    #     rawdata = tioanime.get_episode(slug=slug)
-    #     temp = slug.split("-")
-    #     anime_slug = "-".join(temp[:-1])
-    #     episodes = self.get_episodes(anime_slug, tioanime)
-    #     data = self.watch_processing(rawdata=rawdata, base=tioanime.base)
-    #     context["data"] = data
-    #     context["anime_slug"] = anime_slug
-    #     context["anime_title"] = anime_slug.replace("-", " ").title()
-    #     embed_links = data.get("embed_links", [])
-    #     first_embed = {} if not embed_links else embed_links[0]
-    #     context["first_embed"] = first_embed
-    #     context["episodes"] = episodes
-    #     watch_type = "main"
-    #     context["type"] = watch_type
-    #     context["page"] = "watch"
-    #     context["room_inputs"] = self.get_watch_room_inputs(
-    #         slug=anime_slug, 
-    #         watch_type=watch_type
-    #     )
-
-    #     return self.root(request=request, context=context, template="pages/anime/watch.html", titled=True)
 
     @recorder
     def chat_room(self, request, room_id, GET, COOKIES, context, **kwargs):

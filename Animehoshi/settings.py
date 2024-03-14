@@ -21,6 +21,7 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 25  # 25 MB
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(env_config("DEBUG"))
+X_FRAME_OPTIONS = 'ALLOWALL'
 # DEBUG = False
 
 # Use secure cookies

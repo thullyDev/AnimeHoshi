@@ -2,12 +2,13 @@
     width: 30%;
 }
 
-.outter-chat-con {padding: 0 10px;height: 100vh;}
+.outter-chat-con {padding: 5px;height: calc(100vh - 10px);}
 
 .inner-chat-con {
     background: var(--secondary-highlight-color);
     border-radius: .5rem;
-    height: 99%;
+    height: 100%;
+    padding: 0 10px;
 }
 
 .chat-label {
@@ -22,7 +23,7 @@
 input.send-msg-box {
     outline: none;
     border: solid 1.5px var(--accent-color);
-    height: 34px;
+    height: 100%;
     width: 70%;
     border-radius: .5rem 0 0 .5rem;
     background: var(--secondary-highlight-color);
@@ -35,19 +36,20 @@ input.send-msg-box::placeholder {
     color: var(--secondary-color);
 }
 
-.chat-msg-box {
+.inner-chat-msg-box {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+}
+
+.chat-msg-box {
     border-top: solid 1.5px var(--accent-color);
     height: 10%;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 button.send-msg-btn {
     width: 20%;
-    height: 77%;
+    height: 10;
     background: var(--accent-color);
     outline: none;
     border: solid 1.5px var(--accent-color);
@@ -58,7 +60,7 @@ button.send-msg-btn {
 }
 
 .chat-msgs-box {
-    height: 75%;
+    height: calc(85% - 25px);
 }
 
 span.joined-spam-box {

@@ -6,7 +6,7 @@
 				{% for value in episodes %}
 					{% with slug=value.slug %}
 						<li class="episode-item">
-							<a href="/{{type}}/watch{{slug}}" class="episode-link">Episodio {{forloop.counter}}</a>
+							<a href="{% if is_watch_room == True %}/watch_room/{{room_id}}/?ep_num={{forloop.counter}}{% else %}/{{type}}/watch{{slug}}{% endif %}" class="episode-link">Episodio {{forloop.counter}}</a>
 						</li>
 					{% endwith %}
 				{% endfor %}
@@ -14,7 +14,7 @@
 				{% for value in episodes %}
 					{% with slug=value %}
 						<li class="episode-item">
-							<a href="/{{type}}/watch{{slug}}" class="episode-link">Episodio {{forloop.counter}}</a>
+							<a href="{% if is_watch_room == True %}/watch_room/{{room_id}}/?ep_num={{forloop.counter}}{% else %}/{{type}}/watch{{slug}}{% endif %}" class="episode-link">Episodio {{forloop.counter}}</a>
 						</li>
 					{% endwith %}
 				{% endfor %}

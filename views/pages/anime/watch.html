@@ -53,6 +53,21 @@
 					</div>
 				</div>
 			</div>
+			{% if is_watch_room == True %}
+			<div class="chat-frame-con">
+				<div class="chat-close-open-btns-con">
+					<button class="iframe-toggle-btn">
+						<i class="fas fa-chevron-left"></i>
+					</button>
+					<button class="mobile-iframe-toggle-btn">
+						<i class="fas fa-chevron-left"></i>
+					</button>
+				</div>
+				<div class="inner-chat-frame-con">
+					<iframe src="/chat_room/{{room_id}}/" frameborder="0" class="chat-frame"></iframe>
+				</div>
+			</div>
+		    {% endif %}
 		</div>
 		<div class="mobile-episodes-con">
 			{% include "pages/anime/widgets/episodes_wrapper.html" %}

@@ -14,9 +14,9 @@
         <img src="{{user.profile_image_url}}" alt="{{user.username}}" class="profile-image-con">
       </a>
       {% else %}
-      <span class="anon-user-con login-btn">
-        <i class="fa fa-user"></i>
-      </span>
+      <a href="#" class="profile-link login-btn">
+        <img src="/static/images/default-pfp.jpg" alt="anon profile picture" class="profile-image-con">
+      </a>
       {% endif %}
     </div>
     <div class="menu-btn-con mobile-menu-btn-con">
@@ -50,9 +50,9 @@
           <img src="{{user.profile_image_url}}" alt="{{user.username}}" class="profile-image-con">
         </a>
         {% else %}
-        <span class="anon-user-con login-btn">
-          <i class="fa fa-user"></i>
-        </span>
+        <a href="#" class="profile-link login-btn">
+          <img src="/static/images/default-pfp.jpg" alt="anon profile picture" class="profile-image-con">
+        </a>
         {% endif %}
       </div>
     </div>
