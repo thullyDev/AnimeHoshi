@@ -76,5 +76,8 @@
         	{% include "pages/anime/widgets/comment_section.html" %}
         {% endwith %}
         {% include "pages/anime/widgets/make_watch_room.html" %}
+        {% if is_watch_room == True %}
+        	{% include "pages/anime/widgets/code_modal.html" %}
+		{% endif %}
 	</div>
 {% endblock %}
