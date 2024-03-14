@@ -23,7 +23,7 @@ class Cache:
             cls._instance = super(Cache, cls).__new__(cls)
         return cls._instance
         
-    default_expiry = 86400
+    default_expiry = 86400 # 24 hours
 
     def cget(self, name): 
         raw_data = redis.get(name)

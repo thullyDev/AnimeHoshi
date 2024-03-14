@@ -106,7 +106,16 @@ class Anime(Base):
         return self.root(request=request, context=context, template="pages/anime/home.html")
 
     @recorder
-    def watch_room(self, request, room_id, context, **kwargs):
+    def watch_room(self, request, room_id, GET, context, **kwargs):
+        ep_num = GET.get("ep_num", "1")
+
+        try:
+            ep_num = int(ep_num)
+        except ValueError:
+            ep_num = 1            
+
+        cache_id = room_id.replace("room:*", "room_data:*")
+
         room_data = database.get(unit="rooms", key="room_id", unique_id=room_id)
         slug = room_data["slug"]
         watch_type = room_data["watch_type"]
@@ -115,27 +124,42 @@ class Anime(Base):
 
         if not rawdata: return redirect("not_found")
 
-        data = self.anime_processing(rawdata=rawdata, base=scraper.base)
+        cache_data = cache.hget(name=cache_id)
+        data = None
+
+        if cache_data:
+            data = cache_data 
+        else: 
+            data = self.anime_processing(rawdata=rawdata, base=scraper.base)
+            cache.hset(name=cache_id, data=data, expiry=86400) # 24 hours 
+
+        # just a mess
+        watch_room_data = {}
         episodes = data["episodes"]
-        context["episodes"] = episodes
-        context["anime_slug"] = slug
-        context["anime_title"] = data["title"]
-        context["type"] = watch_type
-        episode_slug = episodes[0]["slug"]
+        episodes_length = len(episodes)
+        ep_num = episodes_length if ep_num >= episodes_length else ep_num
+        watch_room_data["episodes"] = episodes
+        watch_room_data["anime_slug"] = slug
+        watch_room_data["anime_title"] = data["title"]
+        watch_room_data["type"] = watch_type
+        episode_slug = episodes[ep_num - 1]["slug"] 
         episode_num = episode_slug.split("-")[-1]
         rawdata = scraper.get_episode(slug=episode_slug)
         episodes_data = self.watch_processing(rawdata=rawdata, base=scraper.base)
         embed_links = episodes_data.get("embed_links", [])
         first_embed = {} if not embed_links else embed_links[0]
-        context["data"] = episodes_data
-        context["first_embed"] = first_embed
-        context["episode_num"] = episode_num
-        context["page"] = "watch"
+        watch_room_data["data"] = episodes_data
+        watch_room_data["first_embed"] = first_embed
+        watch_room_data["page"] = "watch"
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=slug, 
             watch_type=watch_type
         )
-        return self.root(request=request, context=context, template="pages/anime/watch.html", titled=True)
+        # just a mess [end]
+        data = {**context, **watch_room_data}
+        data["episode_num"] = ep_num
+
+        return self.root(request=request, context=data, template="pages/anime/watch.html", titled=True)
 
     # @recorder
     # def tioanime_watch(self, request, slug, context, **kwargs):
