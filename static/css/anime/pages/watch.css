@@ -186,6 +186,7 @@ button.iframe-toggle-btn:hover {
 button.mobile-iframe-toggle-btn {
     position: absolute;
     right: 0;
+    top: 5px;
     right: 11px;
     padding: 15px 25px;
     background: none;

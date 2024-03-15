@@ -75,6 +75,7 @@ function createRoom() {
 	    	const { message, status_code } = error.responseJSON
 				showAlert({ message })
 				closeLoader()
+
 				if(status_code == 403) popAuth()
     	}	
 	});

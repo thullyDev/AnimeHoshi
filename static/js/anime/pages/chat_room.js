@@ -17,7 +17,9 @@ const sendMsg = () => {
 if (userName !== "None") {
     data.display_name = userName;
 }
-	sendToChatAjax(data) 
+
+console.log({data})
+	// sendToChatAjax(data) 
 }
 const deleteMsg = (data) => sendToChatAjax(data)
 const updateToken = (token) => setCookie("token", token, 1);
@@ -67,6 +69,7 @@ function sendToChatAjax(data, endpoint, action_type) {
 	data.token = getToken()
 	data.user_id = userLiveChatId
 	data.room_id = roomId
+	data.room_code = roomCode
     $.ajax({
       data,
       url: liveChatBase + endpoint,

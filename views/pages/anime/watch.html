@@ -2,6 +2,15 @@
 {% load filters %}
 
 {% block head_content %}
+{% if is_watch_room == True %}
+<script defer>
+	const roomId = "{{room_id}}"
+	const roomCode = "{{room_code}}"
+    function getRoomCode() {
+    	return roomCode
+    }
+</script>
+{% endif %}
 {% endblock %}
 
 {% block main_content %}

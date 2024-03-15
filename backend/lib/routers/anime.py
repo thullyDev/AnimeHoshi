@@ -117,6 +117,7 @@ class Anime(Base):
         cache_id = room_id.replace("room:*", "room_data:*")
 
         room_data = database.get(unit="rooms", key="room_id", unique_id=room_id)
+        room_code = room_data["room_code"]
         slug = room_data["slug"]
         watch_type = room_data["watch_type"]
         scraper = tioanime if watch_type == "main" else latanime
@@ -153,6 +154,7 @@ class Anime(Base):
         watch_room_data["page"] = "watch"
         watch_room_data["room_id"] = room_id
         context["is_watch_room"] = True
+        context["room_code"] = room_code
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=slug, 
             watch_type=watch_type
@@ -165,10 +167,10 @@ class Anime(Base):
 
     @recorder
     def chat_room(self, request, room_id, GET, COOKIES, context, **kwargs):
-        profile_image = GET.get("profile_image")
         context["room_id"] = room_id
         context["page"] = "chat_room"
         context["no_layout"] = True
+        context["profile_image"] = COOKIES.get("profile_image")
         context["username"] = COOKIES.get("username")
         user_live_chat_id = COOKIES.get("user_live_chat_id")
 
