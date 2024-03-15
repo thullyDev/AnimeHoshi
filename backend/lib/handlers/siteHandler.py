@@ -87,6 +87,7 @@ class SiteHandler:
                     "maintenance": {"name": "maintenance", "value": "/static/images/gifs/maintenance.gif"},
                     "empty": {"name": "empty", "value": "/static/images/gifs/empty.gif"},
                     "authentication_background": {"name": "empty", "value": "/static/images/auth-bg-image.png"},
+                    "default_account_image": {"name": "empty", "value": "/static/images/default-pfp.jpg"},
                 },
                 "inputs": {
                     "site_name": {"value": "AnimeHoshi", "name": "site_name"},

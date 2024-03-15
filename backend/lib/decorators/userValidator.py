@@ -15,6 +15,7 @@ def userValidator(request_func):
         request = args[0]
         GET = request.GET
         POST = request.POST
+        COOKIES = request.COOKIES
         user = get_user(request)
         ajax = is_ajax(request)
 
@@ -27,6 +28,7 @@ def userValidator(request_func):
             request_obj, 
             GET=GET, 
             POST=POST,
+            COOKIES=COOKIES, 
             site_data=site_data, 
             user=user,
             context={ "user_data": user, "site_data": site_data}, 
@@ -41,6 +43,21 @@ def userValidator(request_func):
         set_cookies(response=response,
             key="temporary_id", 
             value=user["temporary_id"], 
+            age=SIXTY_DAYS, 
+        )
+        set_cookies(response=response,
+            key="email", 
+            value=user["email"], 
+            age=SIXTY_DAYS, 
+        )
+        set_cookies(response=response,
+            key="username", 
+            value=user["username"], 
+            age=SIXTY_DAYS, 
+        )
+        set_cookies(response=response,
+            key="profile_image", 
+            value=user["profile_image"], 
             age=SIXTY_DAYS, 
         )
 

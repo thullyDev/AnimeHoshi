@@ -10,11 +10,12 @@ from ....resources import (
     get_data_from_string
 )
 from ....database import UserDatabase
-from ....handlers import ResponseHandler, send_email
+from ....handlers import SiteHandler, ResponseHandler, send_email
 from ....decorators import timer
 from ...base import Base
 import yagmail
 
+site = SiteHandler()
 database = UserDatabase()
 
 class UserAuthAjax(Base):
@@ -50,6 +51,7 @@ class UserAuthAjax(Base):
         return self.successful_response(data=data, cookies=True, cookies_data={
             "email": data["email"],
             "username": data["username"],
+            "profile_image": data["profile_image"],
             "temporary_id": temporary_id,
         })
     
@@ -63,6 +65,8 @@ class UserAuthAjax(Base):
         username = post_data.get("user")
         password = post_data.get("password")
         confirm = post_data.get("confirm")
+        site_data = site.get_site_data() # site_data.values.images.favicon_logo.value
+        profile_image = site_data.get("values").get("images").get("default_account_image").get("value")
 
         if None in [email, username, confirm, password]: return self.bad_request_response()
 
@@ -93,6 +97,7 @@ class UserAuthAjax(Base):
             "email": email,
             "username": username,
             "password": password,
+            "profile_image": profile_image,
             "isfor": "signup",
         }
 
