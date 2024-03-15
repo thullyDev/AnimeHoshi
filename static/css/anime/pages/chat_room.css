@@ -61,6 +61,7 @@ button.send-msg-btn {
 
 .chat-msgs-box {
     height: calc(85% - 25px);
+    overflow: auto;
 }
 
 span.joined-spam-box {

@@ -167,6 +167,7 @@ class Anime(Base):
 
     @recorder
     def chat_room(self, request, room_id, GET, COOKIES, context, **kwargs):
+        context["room_code"] = GET.get("room_code", "")
         context["room_id"] = room_id
         context["page"] = "chat_room"
         context["no_layout"] = True
@@ -174,7 +175,7 @@ class Anime(Base):
         context["username"] = COOKIES.get("username")
         user_live_chat_id = COOKIES.get("user_live_chat_id")
 
-        if not user_live_chat_id: 
+        if user_live_chat_id: 
             context["user_live_chat_id"] = user_live_chat_id
             return self.root(request=request, context=context, template="pages/anime/chat_room.html")
 

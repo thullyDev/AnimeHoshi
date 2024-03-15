@@ -4,13 +4,11 @@
 {% block head_content %}
 <script defer>
 	const roomCode = window.parent.getRoomCode() || "{{room_code}}";
-	console.log({ roomCode })
 	const liveChatBase = "{% if '127.0.0.1' in live_chat_base or 'localhost' in live_chat_base %}http://{{live_chat_base}}{% else %}https://{{live_chat_base}}{% endif %}"
 	const roomId = "{{room_id}}"
 	const userName = "{% if username %}{{username}}{% else %}None{% endif %}"
 	const userLiveChatId = "{{user_live_chat_id}}"
-	const profileImgIsUrl = isURL("{{profile_image}}")
-	const profileImg = profileImgIsUrl ? "{{profile_image}}" : null
+	const profileImg = "{{profile_image}}"
 </script>
 {% endblock %}
 
@@ -21,31 +19,7 @@
 				<div class="chat-label">
 					Room Chat
 				</div>
-				<div class="chat-msgs-box">
-					<span class="joined-spam-box">
-						james joined
-					</span>
-					<span class="msg-box">
-						<div class="user-avatar-con">
-							<img class="avatar-img" src="https://img.flawlessfiles.com/_r/100x100/100/avatar/demon_splayer/File11.jpg" alt="user">
-						</div>
-						<div class="user-msg-info-con">
-							<div class="user-info-con">
-								<span class="user-name">
-									james
-								</span>
-								<span class="user-msg-time-box">
-									2023/10/05, 09:30
-								</span>
-							</div>
-							<div class="user-msg-con">
-								hello
-							</div>
-						</div>
-					</span>
-					<span class="joined-spam-box">
-						james left
-					</span>
+				<div class="chat-msgs-box scrollable-ele">
 				</div>
 				<div class="chat-msg-box">
 					<div class="inner-chat-msg-box">
