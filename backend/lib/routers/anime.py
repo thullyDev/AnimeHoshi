@@ -298,6 +298,7 @@ class Anime(Base):
             if value: search_data[key] = value
 
         rawdata = latanime.get_search(data=search_data)
+
         if not rawdata["animes"]: return redirect("home")
 
         data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)

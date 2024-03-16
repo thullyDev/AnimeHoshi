@@ -514,6 +514,11 @@ a.social-link > i {
         display: none;
     }
 
+    .mobile-viewer-con {
+        padding: 10px;
+        top: 70px;
+    }
+
     .header-viewer-con a.nav-link {
         justify-content: center;
         border: none;
