@@ -301,13 +301,16 @@ class Anime(Base):
 
         if not rawdata["animes"]: return redirect("home")
 
+        pprint(rawdata)
+
         data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)
-        if page in search_data: del search_data["page"]
+        if "page" in search_data: del search_data["page"]
 
         query = latanime.build_query(search_data)
         context["data"] = data
         context["query"] = query.replace("?", "&")
         context["type"] = "latino"
+        context["page"] = "filter"
         return self.root(request=request, context=context, template="pages/anime/filter.html")
 
     @recorder
@@ -469,8 +472,8 @@ class Anime(Base):
         animes = rawdata.get("animes")
         pages = rawdata.get("pages")[0]
         data = {
-            "page": int(rawdata.get("page")[0].get("page").get("text")),
-            "pages": int(pages[len(pages) - 2]),
+            "page": int(rawdata.get("page")[0].get("page", {}).get("text", "1")),
+            "pages": "1" if not pages else int(pages[len(pages) - 2]),
             "animes": []
         }
 
