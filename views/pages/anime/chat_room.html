@@ -3,7 +3,10 @@
 
 {% block head_content %}
 <script defer>
-	const roomCode = window.parent.getRoomCode() || "{{room_code}}";
+	let roomCode = ""
+	function getRoomCode() {
+		roomCode = window.parent.getRoomCode() || "{{room_code}}";
+	}
 	const liveChatBase = "{% if '127.0.0.1' in live_chat_base or 'localhost' in live_chat_base %}http://{{live_chat_base}}{% else %}https://{{live_chat_base}}{% endif %}"
 	const roomId = "{{room_id}}"
 	const userName = "{% if username %}{{username}}{% else %}None{% endif %}"

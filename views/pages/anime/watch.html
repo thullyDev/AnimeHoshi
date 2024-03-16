@@ -5,7 +5,7 @@
 {% if is_watch_room == True %}
 <script defer>
 	const roomId = "{{room_id}}"
-	const roomCode = "{{room_code}}"
+	const roomCode = '{% if private == False %}{{room_code}}{% endif %}'
     function getRoomCode() {
     	return roomCode
     }
@@ -42,7 +42,7 @@
 						</div>
 						<div class="action-buttons-con">
 							<button data-slug="{{anime_slug}}" data-type="{{type}}" class="add-to-list-btn" title="add to list"><i class="fa fa-plus"></i></button>
-							<button class="watch2gather-btn" data-slug="{{anime_slug}}"><i class="fa-solid fa-tower-broadcast" title="watch together"></i></button>
+							<button class="watch2gather-btn" data-slug="{{anime_slug}}" title="watch together"><i class="fa-solid fa-tower-broadcast" title="watch together"></i></button>
 						</div>
 				</div>
 				<div class="servers-links-con">
@@ -86,7 +86,9 @@
         {% endwith %}
         {% include "pages/anime/widgets/make_watch_room.html" %}
         {% if is_watch_room == True %}
-        	{% include "pages/anime/widgets/code_modal.html" %}
+			{% with private=False %}
+	        	{% include "pages/anime/widgets/code_modal.html" %}
+	        {% endwith %}
 		{% endif %}
 	</div>
 {% endblock %}

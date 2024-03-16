@@ -143,9 +143,9 @@ class Anime(Base):
         watch_room_data["anime_slug"] = slug
         watch_room_data["anime_title"] = data["title"]
         watch_room_data["type"] = watch_type
-        episode_slug = episodes[ep_num - 1]["slug"] 
+        episode_slug = episodes[ep_num - 1]
         episode_num = episode_slug.split("-")[-1]
-        rawdata = scraper.get_episode(slug=episode_slug)
+        rawdata = scraper.get_episode(slug=episode_slug.replace("/", ""))
         episodes_data = self.watch_processing(rawdata=rawdata, base=scraper.base)
         embed_links = episodes_data.get("embed_links", [])
         first_embed = {} if not embed_links else embed_links[0]
@@ -154,6 +154,7 @@ class Anime(Base):
         watch_room_data["page"] = "watch"
         watch_room_data["room_id"] = room_id
         context["is_watch_room"] = True
+        context["room_data"] = room_data
         context["room_code"] = room_code
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=slug, 

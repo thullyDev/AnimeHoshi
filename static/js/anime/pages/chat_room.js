@@ -20,10 +20,14 @@ if (userName !== "None") {
     data.display_name = userName;
 }
 
-// console.log({data})
 	sendToChatAjax(data, "/room/message/send", "send") 
 }
 function setupRoom() {
+	getRoomCode()
+	if (!roomCode) {
+		console.log("no room code")
+		return
+	} 
   $.ajax({
 	  url: liveChatBase + "/room/",
 	  type: 'POST',
