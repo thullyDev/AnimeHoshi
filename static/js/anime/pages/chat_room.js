@@ -23,9 +23,11 @@ if (userName !== "None") {
 	sendToChatAjax(data, "/room/message/send", "send") 
 }
 function setupRoom() {
+	roomCode = getCookie(cacheID)
 	getRoomCode()
 	if (!roomCode) {
 		console.log("no room code")
+		window.parent?.openCloseRoomCodeModal()
 		return
 	} 
   $.ajax({
@@ -52,10 +54,19 @@ function setupRoom() {
       	renderMsgEle(message)
 
     	}
+			console.log("chat room running")
+
+			setCookie(cacheID, roomCode, 1)
+	    if (!parentWindow) return 
+
+	    if (parentWindow.codeModalOpen()) parentWindow.openCloseRoomCodeModal()
     },
     error: (error) => {
-      const { message } = error.responseJSON
-      showAlert({ message })
+      const { message, status_code } = error.responseJSON
+
+      if (window.parent) window.parent.showAlert({ message })
+      else showAlert({ message })
+
     }
 	});
 }
@@ -93,16 +104,6 @@ function renderMsgEle(data) {
 	$('.chat-msgs-box').append(messageEle);
 }
 
-
-            // message_data = {
-            //     "display_name": user_data.get("display_name"),
-            //     "user_id": user_data.get("user_id"),
-            //     "created_at": get_current_date(),
-            //     "message": message,
-            //     "deleted": False,
-            // }
-
-
 function deleteMsgEle(data) {
 	const { message_id } = data
 	$(`.msgs-box[data-message-id="${message}"]`).fadeOut().remove();
@@ -118,8 +119,6 @@ function sendToChatAjax(data, endpoint, action_type) {
 	data.user_id = userLiveChatId 
 	data.room_id = roomId
 	data.room_code = roomCode
-
-	console.log({ data })
 
   $.ajax({
 	  url: liveChatBase + endpoint,

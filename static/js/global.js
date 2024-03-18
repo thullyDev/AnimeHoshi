@@ -1,5 +1,17 @@
 const print = (message) => console.log(message)
 
+$.fn.slideLeft = function(speed=500, callback=() => {}) {
+    this.animate({
+        width: 'toggle',
+        paddingLeft: 'toggle',
+        paddingRight: 'toggle',
+        marginLeft: 'toggle',
+        marginRight: 'toggle'
+    }, speed, callback);
+
+    return this;
+};
+
 function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
   const outerAlertBox = $(".outer-alert-box");
   const alertBox = $(".alert-box");
@@ -33,8 +45,12 @@ function redirect({ path=null } = {}) {
 }
 
 function showCloseEle(showele_key, animate="fade") {
+
     const showEle = $(showele_key)
     const showEleIsOpen = showEle.data("open")
+
+    if (animate == "slideLeft") {
+    }
  
     if (animate == "slide") {
         !showEleIsOpen ?
@@ -42,6 +58,7 @@ function showCloseEle(showele_key, animate="fade") {
           showEle.slideUp().data("open", false) 
           return
     }
+
     !showEleIsOpen ?
       showEle.css("display", "flex").hide().fadeIn().data("open", true) :
       showEle.fadeOut().data("open", false) 

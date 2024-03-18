@@ -3,12 +3,15 @@
 
 {% block head_content %}
 <script defer>
+	const parentWindow = window.parent
+	const roomId = "{{room_id}}"
 	let roomCode = ""
-	function getRoomCode() {
-		roomCode = window.parent.getRoomCode() || "{{room_code}}";
+	const cacheID = "room_code***" + roomId 
+ 	function getRoomCode() {
+		if (roomCode) return 
+		roomCode = parentWindow?.getRoomCode() || "{{room_code}}";
 	}
 	const liveChatBase = "{% if '127.0.0.1' in live_chat_base or 'localhost' in live_chat_base %}http://{{live_chat_base}}{% else %}https://{{live_chat_base}}{% endif %}"
-	const roomId = "{{room_id}}"
 	const userName = "{% if username %}{{username}}{% else %}None{% endif %}"
 	const userLiveChatId = "{{user_live_chat_id}}"
 	const profileImg = "{{profile_image}}"

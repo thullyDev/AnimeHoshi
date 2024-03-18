@@ -144,6 +144,7 @@ class Anime(Base):
         watch_room_data["anime_title"] = data["title"]
         watch_room_data["type"] = watch_type
         episode_slug = episodes[ep_num - 1]
+        if type(episode_slug) is dict: episode_slug = episode_slug['slug']
         episode_num = episode_slug.split("-")[-1]
         rawdata = scraper.get_episode(slug=episode_slug.replace("/", ""))
         episodes_data = self.watch_processing(rawdata=rawdata, base=scraper.base)
@@ -300,8 +301,6 @@ class Anime(Base):
         rawdata = latanime.get_search(data=search_data)
 
         if not rawdata["animes"]: return redirect("home")
-
-        pprint(rawdata)
 
         data = self.filter_data_processing(rawdata=rawdata, base=latanime.base)
         if "page" in search_data: del search_data["page"]

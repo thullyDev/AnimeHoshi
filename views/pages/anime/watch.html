@@ -5,9 +5,12 @@
 {% if is_watch_room == True %}
 <script defer>
 	const roomId = "{{room_id}}"
-	const roomCode = '{% if private == False %}{{room_code}}{% endif %}'
+	let roomCode = '{% if private == False %}{{room_code}}{% endif %}'
     function getRoomCode() {
     	return roomCode
+    }
+    function codeModalOpen() {
+    	return $(".code-modal-con").css('display') != 'none'
     }
 </script>
 {% endif %}
@@ -63,7 +66,7 @@
 				</div>
 			</div>
 			{% if is_watch_room == True %}
-			<div class="chat-frame-con">
+			<div class="chat-frame-con" data-open="true" style="display: flex;">
 				<div class="chat-close-open-btns-con">
 					<button class="iframe-toggle-btn">
 						<i class="fas fa-chevron-left"></i>
@@ -86,9 +89,7 @@
         {% endwith %}
         {% include "pages/anime/widgets/make_watch_room.html" %}
         {% if is_watch_room == True %}
-			{% with private=False %}
-	        	{% include "pages/anime/widgets/code_modal.html" %}
-	        {% endwith %}
+        	{% include "pages/anime/widgets/code_modal.html" %}
 		{% endif %}
 	</div>
 {% endblock %}
