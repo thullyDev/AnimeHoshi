@@ -5,7 +5,7 @@
 		loadPlayer(link)
 	});
 
-	$(".mobile-iframe-toggle-btn, .iframe-toggle-btn").click(() => showCloseEle(".inner-chat-frame-con", "slide"));
+	$(".close-open-chat-btn").click(() => showCloseEle(".chat-frame-con", "fade"));
 
 	$(".code-inp-submit-btn").click(function() {
 		const thisEle = $(this)

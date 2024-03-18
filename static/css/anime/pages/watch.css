@@ -241,20 +241,12 @@ iframe.chat-frame {
     height: 100%;
 }
 
-button.iframe-toggle-btn {
-    position: absolute;
-    padding: 15px 20px;
+.chat-frame-con > button.close-open-chat-btn {
+    position: fixed;
+    top: 13px;
+    right: 20px;
     background: none;
-    left: -50px;
-    top: 104px;
-    background: var(--third-color);
-    border-radius: 1000px 0 0 1000px;
-    transition: background .5s ease-in-out;
-}
-
-button.iframe-toggle-btn:hover {
-    background: var(--secondary-accent-color);
-    transition: background .5s ease-in-out;
+    font-size: x-large;
 }
 
 .chat-close-open-btns-con {

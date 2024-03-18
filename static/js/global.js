@@ -1,16 +1,29 @@
 const print = (message) => console.log(message)
 
-$.fn.slideLeft = function(speed=500, callback=() => {}) {
-    this.animate({
-        width: 'toggle',
-        paddingLeft: 'toggle',
-        paddingRight: 'toggle',
-        marginLeft: 'toggle',
-        marginRight: 'toggle'
-    }, speed, callback);
+// $.fn.slideLeft = function(speed=500, callback=() => {}) {
+//     this.animate({
+//         width: 'toggle',
+//         paddingLeft: 'toggle',
+//         paddingRight: 'toggle',
+//         marginLeft: '500px',
+//         marginRight: '0px'
+//     }, speed, callback);
 
-    return this;
-};
+//     return this;
+// };
+
+
+// $.fn.slideRight = function(speed=500, callback=() => {}) {
+//     this.animate({
+//         width: 'toggle',
+//         paddingLeft: 'toggle',
+//         paddingRight: 'toggle',
+//         marginLeft: '0px',
+//         marginRight: '500px'
+//     }, speed, callback);
+
+//     return this;
+// };
 
 function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
   const outerAlertBox = $(".outer-alert-box");
@@ -45,13 +58,9 @@ function redirect({ path=null } = {}) {
 }
 
 function showCloseEle(showele_key, animate="fade") {
+    const showEle  = $(showele_key)
+    const showEleIsOpen  = showEle.data("open")
 
-    const showEle = $(showele_key)
-    const showEleIsOpen = showEle.data("open")
-
-    if (animate == "slideLeft") {
-    }
- 
     if (animate == "slide") {
         !showEleIsOpen ?
           showEle.css("display", "flex").hide().slideDown().data("open", true) :
