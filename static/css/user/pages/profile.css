@@ -79,7 +79,7 @@ button.delete-btn {
     position: absolute;
     top: 5px;
     right: 5px;
-    background: var(--secondary-accent-color);
+    background: var(--secondary-highlight-color);
     border-radius: 100%;
     transition: background .5s ease-in-out;
     width: 36px;
@@ -91,6 +91,9 @@ button.delete-btn:hover {
     transition: background .5s ease-in-out;
 }
 
+.animes-con {
+    margin: 15px 0;
+}
 
  .animes-con ul {
      display: flex;
@@ -102,6 +105,7 @@ button.delete-btn:hover {
      margin: 0;
 }
  li.anime-con {
+    position: relative;
      max-width: 140px;
      width: calc(100% - 10px);
 }
