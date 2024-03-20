@@ -122,6 +122,10 @@ li.anime-con.episode-con {
      display: flex;
 }
 
+.pagination-con > ul {
+    justify-content: center;
+}
+
 @media screen and (min-width: 480px) {
     li.anime-con {
         max-width: 155px !important;

@@ -39,7 +39,7 @@
 				</div>
 				<div class="list-search-con"><input type="text" placeholder="search..." class="list-search-inp"></div>
 			</div>
-			<div class="list-animes-con">
+			<div class="animes-con">
 				<ul class="list-animes-list">
 					{% for anime in user_list %}
 						{% with watch_type=anime.watch_type slug=anime.slug image_url=anime.anime_image title=anime.anime_title %}
@@ -84,6 +84,37 @@
 						{% endwith %}
 					</ul>
 				</div>
+		<div class="pagination-con">
+			<ul>
+				{% with pages=user_list_pages page=user_list_page query=user_list_keywords%}
+					{% if pages > 1 %}
+						{% for page in pages|pagi %}
+				          <li class="
+				          {% if '1' == forloop.counter|slugify %}first-pages-ticks{% endif %}
+				          {% if pages|slugify == forloop.counter|slugify %}last-pages-ticks{% endif %}
+				          {% if current_page == forloop.counter|slugify %}hl-ele{% endif %} 
+				          pages-ticks">
+				            <a href="?page={{page}}&keywords={{query}}" 
+				               class="pagination-btn page-btn">
+				              {{ page }} 
+				            </a>
+				          </li>
+				        {% endfor %}
+						{% if pages > 6 %}
+				          <li class="pages-ticks">
+				            <i class="fas fa-ellipsis-h"></i>
+				          </li>
+					      <li class="pages-ticks last-pages-ticks">
+					        <a href="?page={{page}}&keywords={{query}}" 
+					           class="pagination-btn page-btn">
+					          {{ pages }}
+					        </a>
+					      </li>
+						{% endif %}
+					{% endif %}
+				{% endwith %}
+			</ul>
+		</div>
 			</div>
 		</div>
 	</div>

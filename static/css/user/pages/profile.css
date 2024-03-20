@@ -75,52 +75,6 @@ p.list-label {
     width: 100%;
 }
 
-ul.list-animes-list {
-    display: flex;
-    justify-content: space-around;
-    gap: 10px;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-}
-
-img.anime-poster {
-    width: 100%;
-}
-
- li.anime-con {
-     position: relative;
-     width: calc(100% - 10px);
-     max-width: 170px;
-     box-shadow: 0 0 10px 8px var(--secondary-accent-color);
-}
- span.anime-title {
-     display: flex;
-     justify-content: center;
-     flex-wrap: wrap;
-     width: 100%;
-     background: var(--third-color);
-     padding: 5px 0;
-     border-radius: 0 0 .25rem .25rem;
-}
- .inner-anime-con {
-     display: flex;
-     justify-content: center;
-     flex-direction: column;
-}
- img.anime-poster {
-     width: 100%;
-     height: 100%;
-     border-radius: .25rem .25rem 0 0;
-}
- a.anime-link {
-     text-decoration: none;
-     color: var(--seconcary-color);
-}
- .anime-poster-con {
-     display: flex;
-}
-
 button.delete-btn {
     position: absolute;
     top: 5px;
@@ -138,7 +92,78 @@ button.delete-btn:hover {
 }
 
 
+ .animes-con ul {
+     display: flex;
+     justify-content: start;
+     flex-wrap: wrap;
+     gap: 10px;
+     list-style: none;
+     padding: 0;
+     margin: 0;
+}
+ li.anime-con {
+     max-width: 140px;
+     width: calc(100% - 10px);
+}
+
+.animes-con.main-animes-con li.anime-con {max-width: 115px;}
+
+.animes-con.latino-animes-con li.anime-con.episode-con {
+    max-width: 175px;
+}
+
+.animes-con.main-animes-con li.anime-con.episode-con {
+    max-width: 211px;
+}
+
+
+li.anime-con.episode-con {
+    max-width: 211px;
+}
+
+ span.anime-title {
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     width: 100%;
+     padding: 5px 0;
+     font-size: small;
+}
+ .inner-anime-con {
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+}
+ img.anime-poster {
+     width: 100%;
+     height: 100%;
+     border-radius: .25rem;
+}
+ a.anime-link {
+     text-decoration: none;
+     color: var(--seconcary-color);
+}
+ .anime-poster-con {
+     display: flex;
+}
+
+@media screen and (min-width: 480px) {
+    li.anime-con {
+        max-width: 155px !important;
+        width: calc(50% - 10px);
+    }
+}
+
+@media screen and (min-width: 601px) {
+    li.anime-con {
+        width: calc(33% - 10px);
+    }
+}
+
 @media screen and (min-width: 768px) {
+    li.anime-con {
+        width: calc(25% - 10px);
+    }
     .profile-con {
         display: flex;
         justify-content: center;
@@ -146,3 +171,20 @@ button.delete-btn:hover {
         margin: 25px 0;
     }
 }
+
+@media screen and (min-width: 901px) {
+    li.anime-con {
+        width: calc(20% - 10px);
+    }
+}
+
+/*
+@media screen and (min-width: 1024px) {
+}
+*/
+
+/*
+@media screen and (min-width: 1200px) {
+}
+*/
+
