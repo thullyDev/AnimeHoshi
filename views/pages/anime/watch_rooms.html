@@ -2,6 +2,9 @@
 {% load filters %}
 
 {% block head_content %}
+<script defer>
+	const liveChatBase = "{% if '127.0.0.1' in live_chat_base or 'localhost' in live_chat_base %}http://{{live_chat_base}}{% else %}https://{{live_chat_base}}{% endif %}"
+</script>
 {% endblock %}
 
 {% block main_content %}
@@ -58,7 +61,7 @@
 											</div>
 											<div class="user-created">
 												<div class="anime-name">{{anime_title|title}}</div>
-												<div class="uc-info"><strong>creator_username</strong><span class="dot"></span><span class="time" data-room-id="{{room_id}}" data-created-at="{{created_at}}">created_at</span></div>
+												<div class="uc-info"><strong>creator_username</strong><span class="dot"></span><span class="time" data-room-id="{{room_id}}" data-created-at="{{created_at}}">{{created_at}}</span></div>
 												<div class="room-tick room-tick-viewer" data-room-id="{{room_id}}" ></div>
 												<div class="room-tick">{% if private %}private{% else %}public{% endif %}</div>
 											</div>

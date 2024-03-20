@@ -11,7 +11,9 @@
 	setupRoom()
 })();
 const sendMsg = () => {
-	const value = $(".send-msg-box").val()
+	const msgBox = $(".send-msg-box")
+	const value = msgBox.val()
+	msgBox.val("")
 	const data = {
 		message: value,
 	}

@@ -13,4 +13,8 @@
 	})
 })();
 
+function get_rooms_views() {
+	
+}
+
 
