@@ -32,16 +32,13 @@
 					</div>
 				</div>
 				<div class="action-player-buttons-con">
-						<div class="player-buttons-con">
-							<button class="prev-btn" title="previous">
+						<div class="player-links-con">
+							<a href="/{{type}}/watch{{prev_episode_slug}}" class="prev-link player-links" title="previous">
 								<i class="fa fa-arrow-left"></i>
-							</button>
-							<button class="fullscreen-btn" title="fullscreen">
-								<i class="fas fa-expand-alt"></i>
-							</button>
-							<button class="next-btn" title="next">
+							</a>
+							<a href="/{{type}}/watch{{next_episode_slug}}" class="next-link player-links" title="next">
 								<i class="fa fa-arrow-right"></i>
-							</button>
+							</a>
 						</div>
 						<div class="action-buttons-con">
 							<button data-slug="{{anime_slug}}" data-type="{{type}}" class="add-to-list-btn" title="add to list" {% if is_watch_room == True %}style="background: var(--highlight-color); !important"{% endif %}><i class="fa fa-plus"></i></button>

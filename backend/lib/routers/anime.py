@@ -367,7 +367,12 @@ class Anime(Base):
         context["first_embed"] = first_embed
         context["episodes"] = episodes
         watch_type = "latino"
-        context["type"] = watch_type
+        context["next_episode_slug"], context["prev_episode_slug"] = self.get_anchor_episodes(
+            episode_slug=slug, 
+            watch_type=watch_type, 
+            episodes=episodes
+        )
+        context["type"] = watch_type    
         context["page"] = "watch"
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=anime_slug, 
@@ -392,9 +397,15 @@ class Anime(Base):
         first_embed = {} if not embed_links else embed_links[0]
         context["first_embed"] = first_embed
         context["episodes"] = episodes
+        context["episodes_amount"] = str(len(episodes))
         watch_type = "main"
         context["type"] = watch_type
         context["page"] = "watch"
+        context["next_episode_slug"], context["prev_episode_slug"] = self.get_anchor_episodes(
+            episode_slug=slug, 
+            watch_type=watch_type, 
+            episodes=episodes
+        )
         context["room_inputs"] = self.get_watch_room_inputs(
             slug=anime_slug, 
             watch_type=watch_type
@@ -674,4 +685,26 @@ class Anime(Base):
             ]
 
         return watch_room_inputs
+
+    def get_anchor_episodes(self, episode_slug, watch_type, episodes):
+        prev_episode_slug = ""
+        next_episode_slug = ""
+        episodes_amount = len(episodes)
+
+        if episodes_amount <= 1:
+            prev_episode_slug = episodes[0]
+            next_episode_slug = episodes[0]
+
+            return next_episode_slug, prev_episode_slug
+            
+        for index, episode in enumerate(episodes):
+            episode = episode if watch_type == "latino" else episode.get("slug", "")
+            slug = episode.replace("/", "")
+
+            if slug == episode_slug:
+                prev_episode_slug = episodes[index - 1]
+                next_episode_slug = episodes[index + 1] if index < episodes_amount - 1 else episodes[-1]
+                break
+
+        return next_episode_slug, prev_episode_slug
     #*** helper functions END ***#
