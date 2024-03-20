@@ -173,8 +173,6 @@ class Anime(Base):
         context["room_id"] = room_id
         context["page"] = "chat_room"
         context["no_layout"] = True
-        context["profile_image"] = COOKIES.get("profile_image")
-        context["username"] = COOKIES.get("username")
         user_live_chat_id = COOKIES.get("user_live_chat_id")
 
         if user_live_chat_id: 
@@ -183,7 +181,6 @@ class Anime(Base):
 
         key = "user_live_chat_id"
         user_live_chat_id = generate_unique_id()
-        context["user_live_chat_id"] = user_live_chat_id
         response = self.root(request=request, context=context, template="pages/anime/chat_room.html")
         response.set_cookie(
             key=key, 

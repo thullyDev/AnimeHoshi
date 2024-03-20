@@ -42,6 +42,28 @@ h4.episodes-label {
     height: 100%;
 }
 
+.code-show-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-code-show-con > i {
+    font-size: x-small;
+}
+
+.inner-code-show-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 67px;
+    gap: 5px;
+    background: var(--secondary-highlight-color);
+    padding: 5px 10px;
+    border-radius: .25rem;
+    border: solid 1px var(--accent-color);
+}
+
 .action-player-buttons-con {
     display: flex;
     justify-content: space-between;

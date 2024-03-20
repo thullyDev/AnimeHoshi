@@ -5,7 +5,7 @@
 {% if is_watch_room == True %}
 <script defer>
 	const roomId = "{{room_id}}"
-	let roomCode = '{% if private == False %}{{room_code}}{% endif %}'
+	let roomCode = '{% if room_data.private == False or room_data.creator_email == COOKIES.email %}{{room_code}}{% endif %}'
     function getRoomCode() {
     	return roomCode
     }
@@ -40,6 +40,13 @@
 								<i class="fa fa-arrow-right"></i>
 							</a>
 						</div>
+						{% if is_watch_room == True and room_data.private == True and room_data.creator_email == COOKIES.email %}
+						<div class="code-show-con">
+							<div class="inner-code-show-con">
+								<i class="fas fa-key"></i><input type="text" value="{{room_code}}" class="code-inp" readonly>
+							</div>
+						</div>
+						{% endif %}
 						<div class="action-buttons-con">
 							<button data-slug="{{anime_slug}}" data-type="{{type}}" class="add-to-list-btn" title="add to list" {% if is_watch_room == True %}style="background: var(--highlight-color); !important"{% endif %}><i class="fa fa-plus"></i></button>
 							{% if is_watch_room == True %}
