@@ -85,6 +85,7 @@ class UserDatabase(Database):
 
         room_data = {
             "room_id": room_id,
+            "creator_username": user["username"],
             "creator_email": user["email"],
             "creator_id": user["id"],
             "creator_profile": user["profile_image"],
