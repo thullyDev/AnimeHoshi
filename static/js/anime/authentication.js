@@ -1,5 +1,5 @@
 (function () {
-	$(".auth-con span.close-btn, .user-action-btn, .anon-user-con").click(() => {
+	$(".auth-con span.close-btn, .user-action-btn[data-type='login'], .anon-user-con").click(() => {
 		$(`.form-con`).removeClass('active')
 		$(`.form-con[data-type="signup"]`).addClass('active')
 		showCloseEle(".auth-con", "fade")
