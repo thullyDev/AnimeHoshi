@@ -13,13 +13,21 @@ def recorder(request_func):
         GET = request.GET
         POST = request.POST
         COOKIES = request.COOKIES
+        is_auth = False
+
+        if None not in [ COOKIES.get("email"), COOKIES.get("username") ]: is_auth = True
+
         increment_views()
         response = request_func(
             request_obj, 
             GET=GET, 
             POST=POST, 
             COOKIES=COOKIES, 
-            context={ "site_data": site.get_site_data(), "COOKIES": COOKIES }, 
+            context={ 
+                "site_data": site.get_site_data(), 
+                "COOKIES": COOKIES, 
+                "is_auth": is_auth 
+            }, 
             *args, 
             **kwargs
         )
