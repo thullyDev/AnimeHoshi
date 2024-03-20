@@ -217,7 +217,7 @@ class Anime(Base):
         else:
             rooms = database.sql_get_all(unit="rooms")
 
-        paginated_rooms, pages = self.paginate(data=list(reversed(rooms)), page=page, limit=16)
+        paginated_rooms, pages = self.paginate(data=list(reversed(rooms)), page=page, limit=12)
         pagination = {
             "page": page,
             "pages": pages,
