@@ -121,23 +121,25 @@ h3.animes-label-con {
      margin: 0;
 }
  li.anime-con {
-     max-width: 140px;
+     /* max-width: 140px; */
      width: calc(100% - 10px);
 }
 
-.animes-con.main-animes-con li.anime-con {max-width: 115px;}
+.animes-con.main-animes-con li.anime-con {
+/*    max-width: 115px;*/
+}
 
 .animes-con.latino-animes-con li.anime-con.episode-con {
-    max-width: 175px;
+/*    max-width: 175px;*/
 }
 
 .animes-con.main-animes-con li.anime-con.episode-con {
-    max-width: 211px !important;
+/*    max-width: 211px !important;*/
 }
 
 
 li.anime-con.episode-con {
-    max-width: 211px;
+/*    max-width: 211px;*/
 }
 
  span.anime-title {
@@ -167,14 +169,12 @@ li.anime-con.episode-con {
 }
 
 
-.animes-con.main-animes-con li.anime-con.episode-con {
-    max-width: 134px;
-}
+.animes-con.main-animes-con li.anime-con.episode-con {/*    max-width: 134px;*/}
 
 
 @media screen and (min-width: 480px) {
     li.anime-con {
-        max-width: 155px !important;
+/*        max-width: 155px !important;*/
         width: calc(50% - 10px);
     }
 }

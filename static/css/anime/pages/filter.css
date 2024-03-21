@@ -77,11 +77,13 @@ select.filter-select {
      margin: 0;
 }
  li.anime-con {
-     max-width: 140px;
+/*     max-width: 140px;*/
      width: calc(100% - 10px);
 }
 
-.animes-con.main-animes-con li.anime-con {max-width: 115px;}
+/*.animes-con.main-animes-con li.anime-con {
+    max-width: 115px;
+}
 
 .animes-con.latino-animes-con li.anime-con.episode-con {
     max-width: 175px;
@@ -95,7 +97,7 @@ select.filter-select {
 li.anime-con.episode-con {
     max-width: 211px;
 }
-
+*/
  span.anime-title {
      display: flex;
      justify-content: center;
@@ -126,13 +128,18 @@ li.anime-con.episode-con {
     justify-content: center;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 350px) {
     li.anime-con {
-        max-width: 155px !important;
         width: calc(50% - 10px);
     }
 }
 
+/*@media screen and (min-width: 480px) {
+    li.anime-con {
+        width: calc(50% - 10px);
+    }
+}
+*/
 @media screen and (min-width: 601px) {
     li.anime-con {
         width: calc(33% - 10px);
