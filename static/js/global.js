@@ -25,6 +25,10 @@ const print = (message) => console.log(message)
 //     return this;
 // };
 
+function getRecaptchaResponse(widgetID) {
+    return grecaptcha.getResponse(widgetID)
+}
+
 function showAlert({ message, timeOut = 3500 } = {}) { // 3.5 secs
   const outerAlertBox = $(".outer-alert-box");
   const alertBox = $(".alert-box");

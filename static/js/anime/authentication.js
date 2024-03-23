@@ -18,7 +18,8 @@
 		showCloseAuthEle(closeEle, "forgot_password")
 	});
 
-	$(".submit-btn").click(function () {
+	$(".submit-btn").click(function (e) {
+		e.preventDefault();
 		const thisEle = $(this)
 	  	const type = thisEle.data("type")
 
@@ -70,6 +71,9 @@
 	  		}
 	  	}
 
+	const recaptchaToken = getRecaptchaResponse(type + "_ID")
+
+	if (recaptchaToken.length < 0) return 
 
 	$.ajax({
 	    url: `/user/ajax/post/${type}/`,
@@ -77,6 +81,7 @@
 	    data: {
 	        csrfmiddlewaretoken: csrfToken,
 	        data: JSON.stringify(data),
+	        recaptchaToken: recaptchaToken,
 	    },
 	    beforeSend: function() {
 	    	showLoader()

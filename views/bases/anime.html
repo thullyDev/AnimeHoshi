@@ -15,6 +15,39 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@200..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
   <link href="/static/css/global.css" rel="stylesheet" />
+  <!-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdzP6ApAAAAAEqMsA_MBaJEGDe26RpobCdCZxPL" defer></script> -->
+  <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LdzP6ApAAAAAEqMsA_MBaJEGDe26RpobCdCZxPL" async defer></script> -->
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+    </script>
+    <script>
+      let recaptchaWidgets = null
+    </script>
+  <style>
+/*    :root {
+        --primary-color: #0e0e0e; 
+        --secondary-color: #fff;
+        --primary-font: "Nunito", sans-serif;
+        --highlight-color: #34003b;
+        --secondary-highlight-color: #7f009c; 
+        --third-color: #2b2929;
+        --accent-color: #575652;
+        --secondary-accent-color: #1c1c1c;
+    }*/
+
+          
+      :root {
+              --primary-color: #0e0e0e;
+              --secondary-color: #fff;
+              --primary-font: "Nunito", sans-serif;
+              --highlight-color: #1c1c1c;
+              --secondary-highlight-color: #2b2929;
+              --third-color: #7f009c;
+              --accent-color: #575652;
+              --secondary-accent-color: #34003b;
+          }
+
+  </style>
   <link href="/static/css/anime/anime.css" rel="stylesheet" />
   <link href="/static/css/anime/authentication.css" rel="stylesheet" />
   <link href="/static/css/{% if page == 'profile' %}user{% else %}anime{% endif %}/pages/{{page}}.css" rel="stylesheet" />

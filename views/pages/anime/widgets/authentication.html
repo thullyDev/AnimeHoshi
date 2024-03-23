@@ -35,8 +35,11 @@
                     </div>
                   {% endwith %}
                 {% endfor %}
+                {% with id=auth %}
+                  {% include "pages/anime/widgets/recaptcha.html" %}
+                {% endwith %}
                 <div class="submit-btn-con">
-                  <button class="submit-btn" type="button" data-type="{{auth}}">submit</button>
+                  <button id="{{auth}}_ID"  class="submit-btn" type="submit" data-type="{{auth}}">submit</button>
                   {% if auth == "login" or auth == "signup" %}
                     <p class="signup-login-text">
                       I {% if auth == "login" %}dont {% endif %}have an account <span class="auth-link" data-type="{{auth}}">{% if auth == "login" %}signup{% else %}login{% endif %}</span>

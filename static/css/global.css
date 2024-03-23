@@ -41,6 +41,12 @@ button {
   /* position: relative; */
 }
 
+.recaptcha-outer-con {
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
 .alert-box {
     background: var(--secondary-highlight-color);
     padding: 10px 5px;
