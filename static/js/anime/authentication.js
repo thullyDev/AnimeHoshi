@@ -166,7 +166,7 @@ function renderCaptchas(IDs) {
 }
 
 function renderCaptchaWidgets() {
-	const captchaWidgetsIDs = []
+	const captchaIDs = []
 	$(".captcha-widgets").each(function() {
 		const thisEle = $(this)
 		const id = thisEle.attr("id")
@@ -177,7 +177,7 @@ function renderCaptchaWidgets() {
 	renderCaptchas(captchaIDs)
 }
 
-function getCaptchaResponse(widgetID) {
+function getCaptchaResponse(id) {
 	const widgetID = captchas[id] 
 	return hcaptcha.getResponse(widgetID)
 }
