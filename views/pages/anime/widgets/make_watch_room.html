@@ -43,6 +43,9 @@
 				            {% endwith %}
 	                	</div>
 	                </div>
+	                {% with id="watch_rooms" %}
+	                  {% include "pages/anime/widgets/captcha.html" %}
+	                {% endwith %}
 	                <div class="create-room-btn-con">
 	                	<button type="button" class="create-watch-room-btn">create</button>
 	                </div>
