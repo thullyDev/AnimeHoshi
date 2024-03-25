@@ -190,6 +190,15 @@ li.anime-con.episode-con {
         width: calc(25% - 10px);
     }
 
+    .animes-con.main-animes-con li.anime-con.episode-con {
+        width: calc(20% - 10px);
+    }
+
+
+    .animes-con.main-animes-con li.anime-con {
+        width: calc(16% - 10px);
+    }
+
     p.description {
         display: flex;
         margin: 10px 0px;

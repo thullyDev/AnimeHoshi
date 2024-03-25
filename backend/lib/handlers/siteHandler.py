@@ -75,8 +75,8 @@ class SiteHandler:
                     "under_player_advertisement": {"name": "under_player_advertisement", "value": ""},
                     "under_player_advertisement_height": {"name": "under_player_advertisement_height", "value": ""},
                     
-                    "under_suggestions_advertisement": {"name": "under_suggestions_advertisement", "value": ""},
-                    "under_suggestions_advertisement_height": {"name": "under_suggestions_advertisement_height", "value": ""},
+                    "above_comments_advertisement": {"name": "above_comments_advertisement", "value": ""},
+                    "above_comments_advertisement_height": {"name": "above_comments_advertisement_height", "value": ""},
                 },
             },
             "values": {
@@ -108,12 +108,15 @@ class SiteHandler:
             },
             "settings": {
                 "maintanence": {"name": "maintanence", "value": False},
-                "adblocker_detection": {"name": "adblocker_detection", "value": True},
+                "adblocker_detection": {"name": "adblocker_detection", "value": False},
                 "alert": {"name": "alert", "value": True},
                 "authentication": {"name": "authentication", "value": True},
                 "anime": {"name": "anime", "value": True},
                 "watch": {"name": "watch", "value": True},
+                "random": {"name": "random", "value": True},
+                "comments": {"name": "comments", "value": True},
                 "watch_togather": {"name": "watch_togather", "value": True},
+                "add_list": {"name": "add_list", "value": True},
                 "user": {"name": "user", "value": True},
                 "schedule": {"name": "schedule", "value": True},
                 "features": {"name": "features", "value": True},
@@ -122,7 +125,7 @@ class SiteHandler:
                 "donation": {"name": "donation", "value": True},
                 "socials": {"name": "socials", "value": True},
                 "contact": {"name": "contact", "value": True},
-                "dark_mode": {"name": "dark_mode", "value": True},
+                # "dark_mode": {"name": "dark_mode", "value": True},
             },
             "disabled_animes": {},
         }
