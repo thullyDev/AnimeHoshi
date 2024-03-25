@@ -1,7 +1,7 @@
-from ..handlers import SiteHandler, ResponseHandler, ApiHandler
+from ..handlers import ResponseHandler, ApiHandler
+from ..resources import CAPTCHA_SECRET_KEY
 import time
 
-site = SiteHandler()
 api = ApiHandler()
 response_handler = ResponseHandler()
 
@@ -24,11 +24,9 @@ def captchaValidator(func):
 
 def valid_captcha(POST):
     token = POST.get("captcha_token", "")
-    site_data = site.get_site_data()
-    secretkey = site_data.get("values").get("inputs").get("captcha_secret_key").get("value") 
     data = {
         "response": token,
-        "secret": secretkey,
+        "secret": CAPTCHA_SECRET_KEY,
     }
 
     response = api.request(base="api.hcaptcha.com", endpoint="/siteverify", post=True, params=data)

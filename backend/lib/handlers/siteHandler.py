@@ -98,8 +98,6 @@ class SiteHandler:
                         "name": "site_description",
                         "type": "field",
                     },
-                    "captcha_site_key": {"value": "39e81e61-6f35-44ba-b557-668c9016779a", "name": "captcha_site_key"},
-                    "captcha_secret_key": {"value": "ES_922065bf12cf441f8087c64d24bfb16d", "name": "captcha_secret_key"},
                 },
                 "socials": {
                     "discord": {"value": "https://discord.com/", "name": "discord"},

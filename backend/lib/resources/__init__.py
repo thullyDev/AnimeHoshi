@@ -24,6 +24,8 @@ from .configs import (
 	IMAGEKIT_PRIVATE_KEY,
 	IMAGEKIT_URL_ENDPOINT,
 	LIVECHAT_API_URL,
+	CAPTCHA_SITE_KEY,
+	CAPTCHA_SECRET_KEY,
 )
 from .misc import (
 	valid_email,

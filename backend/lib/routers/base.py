@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from urllib.parse import quote
-from ..resources import ROOT_FILE
+from ..resources import ROOT_FILE, CAPTCHA_SITE_KEY
 from ..database import Database
 from ..handlers import ResponseHandler
 import json
@@ -16,6 +16,7 @@ class Base(APIView, ResponseHandler):
     def root(self, request, context={}, template=ROOT_FILE, titled=False): 
         page_url = request.build_absolute_uri()
         context["page_url"] = page_url 
+        context["CAPTCHA_SITE_KEY"] = CAPTCHA_SITE_KEY 
         
         if "page" in context: return render(request, template, context=context)
 
