@@ -15,14 +15,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@200..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
   <link href="/static/css/global.css" rel="stylesheet" />
-  <!-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdzP6ApAAAAAEqMsA_MBaJEGDe26RpobCdCZxPL" defer></script> -->
-  <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LdzP6ApAAAAAEqMsA_MBaJEGDe26RpobCdCZxPL" async defer></script> -->
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
-        async defer>
-    </script>
-    <script>
-      let recaptchaWidgets = null
-    </script>
   <style>
 /*    :root {
         --primary-color: #0e0e0e; 
@@ -51,7 +43,12 @@
   <link href="/static/css/anime/anime.css" rel="stylesheet" />
   <link href="/static/css/anime/authentication.css" rel="stylesheet" />
   <link href="/static/css/{% if page == 'profile' %}user{% else %}anime{% endif %}/pages/{{page}}.css" rel="stylesheet" />
-  <script 
+<script
+  src="https://js.hcaptcha.com/1/api.js?hl=es&onload=renderCaptchaWidgets&render=explicit"
+  async
+  defer
+></script>
+ <script 
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
     crossorigin="anonymous" 
@@ -60,6 +57,7 @@
     ></script>
   <script>
     const csrfToken = "{{csrf_token}}"
+    const captchas = {}
   </script>
   <script defer type="text/javascript" src="/static/js/resources/urlUtils.js"></script>
   <script defer type="text/javascript" src="/static/js/global.js"></script>

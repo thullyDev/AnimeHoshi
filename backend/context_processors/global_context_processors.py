@@ -233,44 +233,44 @@ def global_static_data(request):
 				"icon": "fas fa-key",
 			},
 		],
-		# "forgot_password": [
-		# 	{
-		# 		"input": "text",
-		# 		"key": "email",
-		# 		"icon": "fas fa-envelope",
-		# 	},
-		# ],
-		# "resend": [
-		# 	{
-		# 		"input": "text",
-		# 		"key": "email",
-		# 		"icon": "fas fa-envelope",
-		# 	},
-		# ],
-		# "verify": [
-		# 	{
-		# 		"input": "number",
-		# 		"key": "code",
-		# 		"icon": "fas fa-key",
-		# 	},
-		# ],
-		# "renew_password": [
-		# 	{
-		# 		"input": "password",
-		# 		"key": "password",
-		# 		"icon": "fas fa-key",
-		# 	},
-		# 	{
-		# 		"input": "password",
-		# 		"key": "confirm",
-		# 		"icon": "fas fa-key",
-		# 	},
-		# 	{
-		# 		"input": "hidden",
-		# 		"key": "code",
-		# 		"icon": "",
-		# 	},
-		# ],
+		"forgot_password": [
+			{
+				"input": "text",
+				"key": "email",
+				"icon": "fas fa-envelope",
+			},
+		],
+		"resend": [
+			{
+				"input": "text",
+				"key": "email",
+				"icon": "fas fa-envelope",
+			},
+		],
+		"verify": [
+			{
+				"input": "number",
+				"key": "code",
+				"icon": "fas fa-key",
+			},
+		],
+		"renew_password": [
+			{
+				"input": "password",
+				"key": "password",
+				"icon": "fas fa-key",
+			},
+			{
+				"input": "password",
+				"key": "confirm",
+				"icon": "fas fa-key",
+			},
+			{
+				"input": "hidden",
+				"key": "code",
+				"icon": "",
+			},
+		],
 	}
 
 	data = {

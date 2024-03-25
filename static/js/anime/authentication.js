@@ -71,9 +71,9 @@
 	  		}
 	  	}
 
-	const recaptchaToken = getRecaptchaResponse(type + "_ID")
+	const captchaToken = getCaptchaResponse("#auth_id_" + type)
 
-	if (recaptchaToken.length < 0) return 
+	if (captchaToken.length < 0) return 
 
 	$.ajax({
 	    url: `/user/ajax/post/${type}/`,
@@ -81,7 +81,7 @@
 	    data: {
 	        csrfmiddlewaretoken: csrfToken,
 	        data: JSON.stringify(data),
-	        recaptchaToken: recaptchaToken,
+	        captcha_token: captchaToken,
 	    },
 	    beforeSend: function() {
 	    	showLoader()
@@ -114,6 +114,7 @@
 	});
 
 	$(".logout-btn").click(() => logoutUser());
+
 })();
 
 function showCloseAuthEle(closeEle, showEle) {
@@ -152,4 +153,31 @@ function logoutUser () {
 			closeLoader()
 	    }
 	});
+}
+
+
+function renderCaptchas(IDs) {
+	for (let i = 0; i < IDs.length; i++) {
+		const id = IDs[i]
+		captchas[id] = hcaptcha.render(id, {
+          'sitekey' : '39e81e61-6f35-44ba-b557-668c9016779a',
+        });
+	}
+}
+
+function renderCaptchaWidgets() {
+	const captchaWidgetsIDs = []
+	$(".captcha-widgets").each(function() {
+		const thisEle = $(this)
+		const id = thisEle.attr("id")
+
+		captchaIDs.push(id)
+	})
+
+	renderCaptchas(captchaIDs)
+}
+
+function getCaptchaResponse(widgetID) {
+	const widgetID = captchas[id] 
+	return hcaptcha.getResponse(widgetID)
 }
