@@ -71,9 +71,9 @@
 	  		}
 	  	}
 
-	const captchaToken = getCaptchaResponse("#auth_id_" + type)
+	const captchaToken = getCaptchaResponse("auth_id_" + type)
 
-	if (captchaToken.length < 0) return 
+	if (captchaToken.length < 1) return 
 
 	$.ajax({
 	    url: `/user/ajax/post/${type}/`,

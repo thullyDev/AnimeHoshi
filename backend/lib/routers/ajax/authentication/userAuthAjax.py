@@ -11,7 +11,7 @@ from ....resources import (
 )
 from ....database import UserDatabase
 from ....handlers import SiteHandler, ResponseHandler, send_email
-from ....decorators import timer
+from ....decorators import timer, captchaValidator
 from ...base import Base
 import yagmail
 
@@ -19,7 +19,7 @@ site = SiteHandler()
 database = UserDatabase()
 
 class UserAuthAjax(Base):
-    @timer
+    @captchaValidator
     def login(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
 
@@ -55,7 +55,7 @@ class UserAuthAjax(Base):
             "temporary_id": temporary_id,
         })
     
-    @timer
+    @captchaValidator
     def signup(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
 
@@ -110,7 +110,7 @@ class UserAuthAjax(Base):
                 "data": data,
             })
     
-    @timer
+    @captchaValidator
     def resend_code(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
         post_data = request.POST
@@ -127,7 +127,7 @@ class UserAuthAjax(Base):
 
         return message
     
-    @timer
+    @captchaValidator
     def verify(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
         post_data = request.POST
@@ -156,7 +156,7 @@ class UserAuthAjax(Base):
             }
          })
 
-    @timer
+    @captchaValidator
     def forgot_password(self, request, *args, **kwargs):
         if not request.POST: return redirect("/")
 
@@ -189,7 +189,7 @@ class UserAuthAjax(Base):
                 "data": data
             })
 
-    @timer
+    @captchaValidator
     def renew_password(self, request, *args, **kwargs):
         if request.POST: return redirect("/")
 
