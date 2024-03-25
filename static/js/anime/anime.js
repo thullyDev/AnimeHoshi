@@ -57,6 +57,10 @@ function createRoom() {
 	}
 
 	const captchaToken = getCaptchaResponse("auth_id_watch_rooms")
+
+	if (captchaToken.length < 1) return
+
+
 	data.csrfmiddlewaretoken = csrfToken
 	data.captcha_token = captchaToken
 
@@ -71,7 +75,7 @@ function createRoom() {
         const { message, room_id } = response
 				showAlert({ message })
 				closeLoader()
-				window.location.replace(`/watch2gather/${room_id}`)
+				window.location.replace(`/watch_rooms/${room_id}`)
 	    },
 	    error: (error) => {
 	    	const { message, status_code } = error.responseJSON

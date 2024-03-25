@@ -8,13 +8,15 @@ from ...resources import (
     get_data_from_string,
     generate_unique_id,
 )
+from ...resources import CAPTCHA_SECRET_KEY
 from ...database import UserDatabase, Storage
 from ...decorators import userValidator, timer
-from ...handlers import LiveChat, send_email
+from ...handlers import LiveChat, send_email, ApiHandler
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ..base import Base
 from pprint import pprint
 
+api = ApiHandler()
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
 storage = Storage()
@@ -25,6 +27,8 @@ class UserAjax(Base):
     @userValidator
     def make_watch_room(self, request, POST, user, **kwargs):
         if not POST: return redirect("/")
+
+        if not self.valid_captcha(POST): return self.bad_request_response()
 
         data = self.filter_url_data(POST, ["slug", "type", "room_name", "unlimited", "limit", "private"])
 
@@ -139,3 +143,16 @@ class UserAjax(Base):
             "poster_image": poster,
         }
         return data
+
+    def valid_captcha(self, POST):
+        token = POST.get("captcha_token", "")
+        data = {
+            "response": token,
+            "secret": CAPTCHA_SECRET_KEY,
+        }
+
+        response = api.request(base="api.hcaptcha.com", endpoint="/siteverify", post=True, params=data)
+
+        success = response.get("success", False)
+
+        return success == True
