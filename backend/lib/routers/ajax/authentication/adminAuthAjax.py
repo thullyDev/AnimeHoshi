@@ -31,6 +31,8 @@ class AdminAuthAjax(Base):
                     "message": "this user does not exist"
                 })
 
+        if data["deleted"] == True:  
+            return self.forbidden_response()
 
         if password != data["password"]:
             return self.forbidden_response(data={
