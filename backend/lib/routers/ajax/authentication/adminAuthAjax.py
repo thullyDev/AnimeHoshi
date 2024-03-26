@@ -10,10 +10,10 @@ admin_database = AdminDatabase()
 
 class AdminAuthAjax(Base):
     @timer
-    def login(self, request):
-        if not request.POST: return redirect("/")
+    def login(self, request, POST, **kwargs):
+        if not POST: return redirect("/")
 
-        data = self.process_request(request.POST.get("data", "{}"))
+        data = self.process_request(POST.get("data", "{}"))
         email = data.get("email")
         password = data.get("password")
         

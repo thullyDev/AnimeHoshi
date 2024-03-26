@@ -84,7 +84,7 @@ class Sql:
 			return user
 
 		if unit == "admin":
-			return user
+			return admin
 
 		if unit == "lists":
 			return lists

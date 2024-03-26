@@ -15,7 +15,6 @@ from ..resources import (
 
 class ResponseHandler:
 	def json_response(self, status_code, data, safe=False, cookies=False, cookies_data={}):
-		print(data)
 		response = JsonResponse(data=data, status=status_code, safe=safe) 
 
 		if cookies:
