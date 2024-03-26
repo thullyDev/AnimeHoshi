@@ -67,8 +67,6 @@ def get_admin(request):
     username = cookies.get('username')
     temporary_id = cookies.get('temporary_id')
 
-    print("cookies ===>", cookies)
-
     if None in [email, username, temporary_id]:
         return 
 
