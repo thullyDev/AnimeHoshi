@@ -41,6 +41,16 @@ def adminValidator(request_func):
             value=admin["temporary_id"], 
             age=SIXTY_DAYS, 
         )
+        set_cookies(response=response,
+            key="email", 
+            value=admin["email"], 
+            age=SIXTY_DAYS, 
+        )
+        set_cookies(response=response,
+            key="username", 
+            value=admin["username"], 
+            age=SIXTY_DAYS, 
+        )
 
         end_time = time.time()
         elapsed_time = end_time - start_time
@@ -56,6 +66,8 @@ def get_admin(request):
     email = cookies.get('email')
     username = cookies.get('username')
     temporary_id = cookies.get('temporary_id')
+
+    print("cookies ===>", cookies)
 
     if None in [email, username, temporary_id]:
         return 

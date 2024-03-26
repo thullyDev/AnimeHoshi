@@ -19,8 +19,8 @@ def userValidator(request_func):
         user = get_user(request)
         ajax = is_ajax(request)
 
-        # if not user:
-        #     return redirect("home") if not ajax else response_handler.forbidden_response({ "message": "login" })
+        if not user:
+            return redirect("home") if not ajax else response_handler.forbidden_response({ "message": "login" })
 
 
         site_data = site.get_site_data()
@@ -32,34 +32,34 @@ def userValidator(request_func):
             site_data=site_data, 
             user=user,
             context={ "user_data": user, "site_data": site_data}, 
-            # email=user["email"], 
-            # username=user["username"], 
-            # temporary_id=user["temporary_id"], 
+            email=user["email"], 
+            username=user["username"], 
+            temporary_id=user["temporary_id"], 
             *args, 
             **kwargs
             )
 
-        # SIXTY_DAYS = 2_592_000 * 2  #* 30 days (in seconds) * 2 = 60 days
-        # set_cookies(response=response,
-        #     key="temporary_id", 
-        #     value=user["temporary_id"], 
-        #     age=SIXTY_DAYS, 
-        # )
-        # set_cookies(response=response,
-        #     key="email", 
-        #     value=user["email"], 
-        #     age=SIXTY_DAYS, 
-        # )
-        # set_cookies(response=response,
-        #     key="username", 
-        #     value=user["username"], 
-        #     age=SIXTY_DAYS, 
-        # )
-        # set_cookies(response=response,
-        #     key="profile_image", 
-        #     value=user["profile_image"], 
-        #     age=SIXTY_DAYS, 
-        # )
+        SIXTY_DAYS = 2_592_000 * 2  #* 30 days (in seconds) * 2 = 60 days
+        set_cookies(response=response,
+            key="temporary_id", 
+            value=user["temporary_id"], 
+            age=SIXTY_DAYS, 
+        )
+        set_cookies(response=response,
+            key="email", 
+            value=user["email"], 
+            age=SIXTY_DAYS, 
+        )
+        set_cookies(response=response,
+            key="username", 
+            value=user["username"], 
+            age=SIXTY_DAYS, 
+        )
+        set_cookies(response=response,
+            key="profile_image", 
+            value=user["profile_image"], 
+            age=SIXTY_DAYS, 
+        )
 
         end_time = time.time()
         elapsed_time = end_time - start_time
