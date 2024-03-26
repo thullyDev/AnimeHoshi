@@ -115,7 +115,7 @@ class AdminAjax(Base):
         return self.successful_response(data={ "data": { "deleted": True }})
 
     @timer
-    def create_owner(self, GETrequest):
+    def create_owner(self, request, GET, **kwargs):
         req_site_key = GET.get("key")
         password = GET.get("password")
         
