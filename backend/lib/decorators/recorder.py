@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from ..handlers import SiteHandler
 from ..database import Cache
 import time
+import pprint
 
 site = SiteHandler()
 cache = Cache()
@@ -18,13 +19,15 @@ def recorder(request_func):
         if None not in [ COOKIES.get("email"), COOKIES.get("username") ]: is_auth = True
 
         increment_views()
+        site_data = site.get_site_data()
+
         response = request_func(
             request_obj, 
             GET=GET, 
             POST=POST, 
             COOKIES=COOKIES, 
             context={ 
-                "site_data": site.get_site_data(), 
+                "site_data": site_data, 
                 "COOKIES": COOKIES, 
                 "is_auth": is_auth 
             }, 

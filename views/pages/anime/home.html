@@ -2,6 +2,11 @@
 {% load filters %}
 
 {% block head_content %}
+  {{site_data.scripts.head_scripts.home_head.value|safe}}
+{% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.home_head.value|safe}}
 {% endblock %}
 
 {% block main_content %}
@@ -50,6 +55,9 @@
 				</div>
 			</div>
 		</div>
+    {% with height=site_data.scripts.ads_scripts.middle_advertisement.height value=site_data.scripts.ads_scripts.middle_advertisement.value %}
+      {% include "widgets/ad_wrapper.html" %}
+    {% endwith %}
 		<div class="outter-animes-con">
            {% with label="Anime Episodios" animes=data.tioanime.episodes episodes=True type="main" %}
            		{% include "pages/anime/widgets/animes_wrapper.html" %}

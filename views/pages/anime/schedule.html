@@ -2,7 +2,13 @@
 {% load filters %}
 
 {% block head_content %}
+  {{site_data.scripts.head_scripts.schedule_head.value|safe}}
 {% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.schedule_head.value|safe}}
+{% endblock %}
+
 
 {% block main_content %}
 	<div class="inner-con inner-main-content">

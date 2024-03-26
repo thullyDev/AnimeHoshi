@@ -16,6 +16,11 @@
 {% endif %}
 {% endblock %}
 
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.watch_head.value|safe}}
+{% endblock %}
+
+
 {% block main_content %}
 	<div class="inner-con inner-main-content">
 		<!-- <h2 class="title">{{data.episode_title}}</h2> -->
@@ -72,6 +77,10 @@
 					</div>
 				</div>
 			</div>
+	    {% with height=site_data.scripts.ads_scripts.under_player_advertisement.height value=site_data.scripts.ads_scripts.under_player_advertisement.value %}
+	      {% include "widgets/ad_wrapper.html" %}
+	    {% endwith %}
+
 			{% if is_watch_room == True %}
 			<div class="chat-frame-con" data-open="false" style="display: none;">
 				<button class="close-open-chat-btn" title="close or open chat"><i class="fa-solid fa-comment"></i></button>
@@ -84,7 +93,7 @@
 		<div class="mobile-episodes-con">
 			{% include "pages/anime/widgets/episodes_wrapper.html" %}
 		</div>
-		{% with PAGE_URL=page_url  PAGE_ID=anime_slug %}
+				{% with PAGE_URL=page_url  PAGE_ID=anime_slug %}
         	{% include "pages/anime/widgets/comment_section.html" %}
         {% endwith %}
         {% include "pages/anime/widgets/make_watch_room.html" %}

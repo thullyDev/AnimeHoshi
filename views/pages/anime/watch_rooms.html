@@ -5,7 +5,13 @@
 <script defer>
 	const liveChatBase = "{% if '127.0.0.1' in live_chat_base or 'localhost' in live_chat_base %}http://{{live_chat_base}}{% else %}https://{{live_chat_base}}{% endif %}"
 </script>
+  {{site_data.scripts.head_scripts.watch_together_browsing_head.value|safe}}
 {% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.watch_together_browsing_head.value|safe}}
+{% endblock %}
+
 
 {% block main_content %}
 	<div class="inner-con inner-main-content">

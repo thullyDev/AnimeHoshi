@@ -5,6 +5,11 @@
 <script defer type="text/javascript">
 	let username = "{{user_data.username}}"
 </script>
+  {{site_data.scripts.head_scripts.profile_head.value|safe}}
+{% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.head_scripts.profile_head.value|safe}}
 {% endblock %}
 
 {% block main_content %}

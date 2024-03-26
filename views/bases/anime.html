@@ -68,11 +68,16 @@
   <title> {% if page == "index" %} Home {% else %} {{page|title|replace:"_, "}} {% endif %} | {{ site_data.values.inputs.title.value }} </title>
   {% block head_content %}
   {% endblock %}
-</head> 
+
+  {{site_data.scripts.head_scripts.global_head.value|safe}}
+  </head> 
 <body class="scrollable-ele">
 	  <div class="page-content">
         {% if not no_layout %}
           {% include "sections/anime/header.html" %}
+          {% with height=site_data.scripts.ads_scripts.top_advertisement.height value=site_data.scripts.ads_scripts.top_advertisement.value %}
+            {% include "widgets/ad_wrapper.html" %}
+          {% endwith %}
           <main class="main-content">
             <div class="core-content">
               {% block main_content %}
@@ -87,6 +92,10 @@
             <div class="alert-box">
             </div>
           </div>
+          {% with height=site_data.scripts.ads_scripts.bottom_advertisement.height value=site_data.scripts.ads_scripts.bottom_advertisement.value %}
+            {% include "widgets/ad_wrapper.html" %}
+          {% endwith %}
+
           {% include "sections/anime/footer.html" %}
         {% else %}
           <main class="main-content">
@@ -97,5 +106,10 @@
           </main>
         {% endif %} 
     </div>
+  {{site_data.scripts.foot_scripts.global_foot.value|safe}}
+  {% block foot_content %}
+  {% endblock %}
 </body>
 </html>
+
+

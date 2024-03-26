@@ -5,7 +5,13 @@
 <script defer>
 	const type = "{{type}}"
 </script>
+  {{site_data.scripts.head_scripts.filter_head.value|safe}}
 {% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.filter_head.value|safe}}
+{% endblock %}
+
 
 {% block main_content %}
 	<div class="inner-con inner-main-content">

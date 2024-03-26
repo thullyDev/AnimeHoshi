@@ -3,7 +3,13 @@
 
 {% block head_content %}
   <!-- <title> You're watching {{data.title}} | {{ site_data.values.inputs.title.value }} </title> -->
+  {{site_data.scripts.head_scripts.anime_head.value|safe}}
 {% endblock %}
+
+{% block foot_content %}
+  {{site_data.scripts.foot_scripts.anime_head.value|safe}}
+{% endblock %}
+
 
 {% block main_content %}
 	<div class="inner-con inner-main-content">
