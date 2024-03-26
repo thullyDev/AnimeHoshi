@@ -3,7 +3,7 @@
   <div class="inner-auth-con">
     <span class="close-btn"><i class="fa-solid fa-x"></i></span>
     <div class="auth-bg-img-con">
-      <img src="/static/images/auth-bg-image.png" alt="authentican background image" class="auth-bg-img">
+      <img src="{{ site_data.values.images.authentication_background.value }}" alt="authentican background image" class="auth-bg-img">
     </div>
     <div class="forms-con">
       {% for auth, items in auths.items %}

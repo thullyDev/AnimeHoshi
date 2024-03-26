@@ -74,14 +74,14 @@ class SiteHandler:
                     "favicon_logo": {"name": "favicon_logo", "value": "/static/images/favicon.png"},
                     "alert": {"name": "alert", "value": "/static/images/gifs/alert.gif"},
                     "maintenance": {"name": "maintenance", "value": "/static/images/gifs/maintenance.gif"},
-                    "empty": {"name": "empty", "value": "/static/images/gifs/empty.gif"},
+                    # "empty": {"name": "empty", "value": "/static/images/gifs/empty.gif"},
                     "admin_background": {"name": "admin_background", "value": "/static/images/gifs/admin-login-background.gif"},
                     "authentication_background": {"name": "authentication_background", "value": "/static/images/auth-bg-image.png"},
                     "default_account_image": {"name": "default_account_image", "value": "/static/images/default-pfp.jpg"},
                 },
                 "inputs": {
                     "site_name": {"value": "AnimeHoshi", "name": "site_name"},
-                    "email": {"value": "admin@animehoshi.com", "name": "email"},
+                    "email": {"value": "", "name": "email"},
                     "title": {"value": "Watch Anime On AnimeHoshi For No ads | AnimeHoshi", "name": "title"},
                     "site_description": {
                         "value": "AnimeHoshi is a vibrant online platform offering a diverse collection of anime content for free streaming. With an extensive library spanning genres and popular titles, AnimeHoshi provides enthusiasts with an immersive experience. User-friendly navigation and high-quality playback make it a go-to destination for anime lovers seeking free, accessible entertainment.",

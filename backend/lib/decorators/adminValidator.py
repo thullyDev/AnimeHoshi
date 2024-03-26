@@ -1,17 +1,18 @@
 from django.shortcuts import render, redirect
 from ..resources import generate_unique_id
-from ..handlers import SiteHandler, ResponseHandler
+from ..handlers import ResponseHandler, SiteHandler
 from ..database import AdminDatabase
 from ..handlers import set_cookies
 import time
 
-site = SiteHandler()
 response_handler = ResponseHandler()
+site = SiteHandler()
 database = AdminDatabase()
 
 def adminValidator(request_func):
     def wrapper(request_obj, *args, **kwargs):
         start_time = time.time()
+        FUNCTION_NAME = request_func.__name__
         request = args[0]
         GET = request.GET
         POST = request.POST
@@ -19,15 +20,17 @@ def adminValidator(request_func):
 
         ajax = is_ajax(request)
 
-        if not admin:
+        if FUNCTION_NAME != "admin_login" and not admin:
             return redirect("admin_login") if not ajax else response_handler.forbidden_response()
+
+        site_data = site.get_site_data()
 
         response = request_func(
             request_obj,
             GET=GET, 
             POST=POST,
-            site_data=site.get_site_data(), 
-            context={ "admin": admin }, 
+            site_data=site_data, 
+            context={ "admin": admin, "site_data": site_data }, 
             email=admin["email"], 
             username=admin["username"], 
             temporary_id=admin["temporary_id"], 
@@ -54,8 +57,7 @@ def adminValidator(request_func):
 
         end_time = time.time()
         elapsed_time = end_time - start_time
-        FUNCTION_NAME = request_func.__name__.upper()
-        print(f"{FUNCTION_NAME} ===> {elapsed_time:.4f} seconds")
+        print(f"{FUNCTION_NAME.upper()} ===> {elapsed_time:.4f} seconds")
 
         return response
 

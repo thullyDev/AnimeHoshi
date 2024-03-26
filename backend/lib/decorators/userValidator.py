@@ -5,7 +5,6 @@ from ..database import UserDatabase
 from ..handlers import set_cookies
 import time
 
-site = SiteHandler()
 response_handler = ResponseHandler()
 database = UserDatabase()
 
@@ -23,15 +22,13 @@ def userValidator(request_func):
             return redirect("home") if not ajax else response_handler.forbidden_response({ "message": "login" })
 
 
-        site_data = site.get_site_data()
         response = request_func(
             request_obj, 
             GET=GET, 
             POST=POST,
             COOKIES=COOKIES, 
-            site_data=site_data, 
             user=user,
-            context={ "user_data": user, "site_data": site_data}, 
+            context={ "user_data": user }, 
             email=user["email"], 
             username=user["username"], 
             temporary_id=user["temporary_id"], 

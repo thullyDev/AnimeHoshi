@@ -1,28 +1,29 @@
-from django.shortcuts import redirect
+from rest_framework.views import APIView
+from django.shortcuts import redirect, render
 from ..decorators import adminValidator, timer
-from ..handlers import SiteHandler
+from ..handlers import ResponseHandler
 from ..scraping import TioanimeScraper, LatanimeScraper
 from ..database import AdminDatabase
-from .base import Base
+# from .base import Base
 from .ajax import AdminAjax
 from .anime import Anime
 from pprint import pprint
 import json
 
+
 anime = Anime()
-site = SiteHandler()
 admin_database = AdminDatabase()
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
 
-class Admin(Base):
+class Admin(APIView, ResponseHandler):
     @timer
     def base(self, request, **kwargs):
         return redirect("admin_login")
 
-    @timer
-    def admin_login(self, request, **kwargs):
-        return self.root(request=request, context={}, template="pages/admin/login.html")   
+    @adminValidator
+    def admin_login(self, request, context, **kwargs):
+        return self.root(request=request, context=context, template="pages/admin/login.html")   
    
     @adminValidator
     def dashboard(self, request, GET, site_data, context, **kwargs):
@@ -140,3 +141,66 @@ class Admin(Base):
             "admins_count": len(admins),
         })
         return self.root(request=request, context=context, template="pages/admin/admins.html")   
+
+    def root(self, request, template, context={}, titled=False): 
+        page_url = request.build_absolute_uri()
+        context["page_url"] = page_url 
+
+        if "page" in context: return render(request, template, context=context)
+
+        path = request.path.split("/")
+        full_path = request.path_info
+        paths = full_path.split('/')
+        length = len(paths)
+        page = paths[length - 2]
+
+        context["page"] = page 
+        context["titled"] = titled 
+
+        return render(request, template, context=context)
+
+    def redirect_to_alert(self, raw_message, raw_description):
+        url = reverse('alert')
+        message = quote(raw_message)
+        description = quote(raw_description)
+
+        url = f"{url}?message={message}&description={description}"
+        
+        return redirect(url)
+
+    def process_request(self, data):
+        if not data: return {}
+
+        return json.loads(data)
+
+    def set_context(self, data, context):
+        for key, value in data.items():
+            context[key] = value
+
+    def logout(self, request):
+        return self.successful_response(data={ "message": "successful logout" }, cookies=True, cookies_data={
+            "email": None,
+            "username": None,
+            "temporary_id": None,
+        })
+    
+    def paginate(self, data, page, limit=20):
+        paginator = Paginator(data, limit) 
+
+        try:
+            paginated = paginator.page(page)
+        except EmptyPage:
+            paginated = paginator.page(paginator.num_pages)
+
+        return paginated, paginator.num_pages
+
+    def filter_url_data(self, data, keys):
+        data = {
+            key: value 
+            for key, value in data.items()
+            if key in keys
+        }
+        valid = all(key in data for key in keys)
+
+        return data if valid else None
+

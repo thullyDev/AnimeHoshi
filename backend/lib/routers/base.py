@@ -6,18 +6,21 @@ from django.urls import reverse
 from urllib.parse import quote
 from ..resources import ROOT_FILE, CAPTCHA_SITE_KEY
 from ..database import Database
-from ..handlers import ResponseHandler
+from ..handlers import ResponseHandler, SiteHandler
 import json
 from pprint import pprint
 
 database = Database()
+site = SiteHandler()
 
 class Base(APIView, ResponseHandler):
     def root(self, request, context={}, template=ROOT_FILE, titled=False): 
         page_url = request.build_absolute_uri()
         context["page_url"] = page_url 
         context["CAPTCHA_SITE_KEY"] = CAPTCHA_SITE_KEY 
-        
+        context["site_data"] = site.get_site_data()
+        context["titled"] = titled 
+
         if "page" in context: return render(request, template, context=context)
 
         path = request.path.split("/")
@@ -25,9 +28,7 @@ class Base(APIView, ResponseHandler):
         paths = full_path.split('/')
         length = len(paths)
         page = paths[length - 2]
-
         context["page"] = page 
-        context["titled"] = titled 
 
         return render(request, template, context=context)
 
@@ -35,7 +36,6 @@ class Base(APIView, ResponseHandler):
         url = reverse('alert')
         message = quote(raw_message)
         description = quote(raw_description)
-
         url = f"{url}?message={message}&description={description}"
         
         return redirect(url)
