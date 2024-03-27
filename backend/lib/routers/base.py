@@ -16,12 +16,28 @@ site = SiteHandler()
 class Base(APIView, ResponseHandler):
     def root(self, request, context={}, template=ROOT_FILE, titled=False):
         site_data = site.get_site_data()
-        maintenance = site_data.get("settings", {}).get("maintanence", {}).get("value")
         path = request.path.split("/")
         full_path = request.path_info
         paths = full_path.split('/')
         length = len(paths)
         page = paths[length - 2]
+
+        maintenance = site_data.get("settings", {}).get("maintanence", {}).get("value")
+        anime_page = site_data.get("settings", {}).get("anime", {}).get("value")
+        watch_togather = site_data.get("settings", {}).get("watch_togather", {}).get("value")
+        watch_page = site_data.get("settings", {}).get("watch", {}).get("value")
+        schedule_page = site_data.get("settings", {}).get("watch", {}).get("value")
+
+        list_pages = [ "watch_rooms", "watch", "anime", "schedule" ]
+
+        if not anime_page and context.get("page") in list_pages:
+            return self.redirect_to_alert("anime not found", "The requested anime is probably blocked by the admins or taken down")
+        if not watch_page and context.get("page") in list_pages: 
+            return self.redirect_to_alert("anime not found", "The requested anime is probably blocked by the admins or taken down")
+        if not watch_togather and context.get("page") in list_pages: 
+            return self.redirect_to_alert("home")
+        if not schedule_page and page in list_pages: 
+            return self.redirect_to_alert("home")
 
         if page not in { "alert", "maintenance" } and  maintenance == True: return redirect("maintenance")
 

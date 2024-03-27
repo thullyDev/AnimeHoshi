@@ -15,6 +15,7 @@
 {% block main_content %}
 	<div class="inner-con inner-main-content">
 		<div class="profile-con">
+			{% if site_data.settings.proifile_image.value == True %}
 			<div class="profile-image-con">
 				<label for="profile-image-inp" class="profile-image">
 					{% if user_data.profile_image %} 
@@ -25,6 +26,7 @@
 				</label>
 				<input type="file" id="profile-image-inp" style="display: none;">
 			</div>
+   		{% endif %}
 			<div class="user-details-con">
 				<div class="username-input-con">
 					<input type="text" placeholder="{{user_data.username}}" class="username-inp">

@@ -22,6 +22,11 @@ live_chat = LiveChat()
 class Anime(Base):
     @recorder
     def random(self, request, **kwargs):
+        site_data = site.get_site_data()
+        random = site_data.get("settings", {}).get("random", {}).get("value")
+
+        if not random: return redirect("home")
+        
         page = random.randint(1, 196) # it gets random page between 1 and 196
         anime_index = random.randint(1, 20) - 1 # gets a random anime between the 20 shown
         rawdata = tioanime.get_filter(data={ "page": str(page) })

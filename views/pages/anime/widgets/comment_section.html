@@ -1,3 +1,4 @@
+{% if site_data.settings.comments.value == True %}
 {% with height=site_data.scripts.ads_scripts.above_comments_advertisement.height value=site_data.scripts.ads_scripts.above_comments_advertisement.value %}
   {% include "widgets/ad_wrapper.html" %}
 {% endwith %}
@@ -21,3 +22,4 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+{% endif %}

@@ -1,4 +1,5 @@
 {% load filters %}
+{% if site_data.settings.authentication.value == True %}
 <div class="auth-con" data-open="false">
   <div class="inner-auth-con">
     <span class="close-btn"><i class="fa-solid fa-x"></i></span>
@@ -58,3 +59,4 @@
     </div>
   </div>
 </div>
+{% endif %}

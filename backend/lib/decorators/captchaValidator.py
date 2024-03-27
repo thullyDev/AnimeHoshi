@@ -1,8 +1,9 @@
-from ..handlers import ResponseHandler, ApiHandler
+from ..handlers import ResponseHandler, ApiHandler, SiteHandler
 from ..resources import CAPTCHA_SECRET_KEY
 import time
 
 api = ApiHandler()
+site = SiteHandler()
 response_handler = ResponseHandler()
 
 def captchaValidator(func):
@@ -11,7 +12,10 @@ def captchaValidator(func):
         request = args[0]
         GET = request.GET
         POST = request.POST
+        site_data = site.get_site_data()
+        authentication = site_data.get("settings", {}).get("authentication", {}).get("value")
 
+        if not authentication: return response_handler.not_found_response()
         if not valid_captcha(POST): return response_handler.forbidden_response()
 
         response = func(request_obj, GET=GET, POST=POST, *args, **kwargs)

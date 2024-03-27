@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from django.shortcuts import redirect, render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..decorators import adminValidator, timer
 from ..handlers import ResponseHandler
 from ..scraping import TioanimeScraper, LatanimeScraper

@@ -23,6 +23,13 @@ def adminValidator(request_func):
         if FUNCTION_NAME != "admin_login" and not admin:
             return redirect("admin_login") if not ajax else response_handler.forbidden_response()
 
+        if FUNCTION_NAME == "admin_login":
+            admin = {
+                "email": "",
+                "username": "",
+                "temporary_id": "",
+            }
+
         site_data = site.get_site_data()
 
         response = request_func(
