@@ -14,20 +14,25 @@ database = Database()
 site = SiteHandler()
 
 class Base(APIView, ResponseHandler):
-    def root(self, request, context={}, template=ROOT_FILE, titled=False): 
-        page_url = request.build_absolute_uri()
-        context["page_url"] = page_url 
-        context["CAPTCHA_SITE_KEY"] = CAPTCHA_SITE_KEY 
-        context["site_data"] = site.get_site_data()
-        context["titled"] = titled 
-
-        if "page" in context: return render(request, template, context=context)
-
+    def root(self, request, context={}, template=ROOT_FILE, titled=False):
+        site_data = site.get_site_data()
+        maintenance = site_data.get("settings", {}).get("maintanence", {}).get("value")
         path = request.path.split("/")
         full_path = request.path_info
         paths = full_path.split('/')
         length = len(paths)
         page = paths[length - 2]
+
+        if page not in { "alert", "maintenance" } and  maintenance == True: return redirect("maintenance")
+
+        page_url = request.build_absolute_uri()
+        context["page_url"] = page_url 
+        context["CAPTCHA_SITE_KEY"] = CAPTCHA_SITE_KEY 
+        context["site_data"] = site_data
+        context["titled"] = titled 
+
+        if "page" in context: return render(request, template, context=context)
+
         context["page"] = page 
 
         return render(request, template, context=context)
