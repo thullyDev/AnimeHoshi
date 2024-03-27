@@ -24,6 +24,15 @@
     color: var(--secondary-color);
 }
 
+.notice-con {
+  background: var(--secondary-highlight-color);
+  border-radius: 0 0 .35rem .35rem;
+}
+
+.notice {
+  text-align: center;
+}
+
 button {
     color: var(--secondary-color);
 }

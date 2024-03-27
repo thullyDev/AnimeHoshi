@@ -55,6 +55,12 @@
 				</div>
 			</div>
 		</div>
+    {% if site_data.values.inputs.notice.value %}
+		<div class="notice-con">
+			<p class="notice">{{site_data.values.inputs.notice.value}}</p>
+		</div>
+		{% endif %}
+
     {% with height=site_data.scripts.ads_scripts.middle_advertisement.height value=site_data.scripts.ads_scripts.middle_advertisement.value %}
       {% include "widgets/ad_wrapper.html" %}
     {% endwith %}
