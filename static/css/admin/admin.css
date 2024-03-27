@@ -20,7 +20,8 @@ h2.page-label {
 }
 
 .site-logo.small-logo {
-  width: 55px;
+  max-width: 55px;
+  width: 100%;
 }
 
 .inner-menu-con > ul {

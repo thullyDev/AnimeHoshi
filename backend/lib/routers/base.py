@@ -26,18 +26,22 @@ class Base(APIView, ResponseHandler):
         anime_page = site_data.get("settings", {}).get("anime", {}).get("value")
         watch_togather = site_data.get("settings", {}).get("watch_togather", {}).get("value")
         watch_page = site_data.get("settings", {}).get("watch", {}).get("value")
-        schedule_page = site_data.get("settings", {}).get("watch", {}).get("value")
+        schedule_page = site_data.get("settings", {}).get("schedule", {}).get("value")
+        user_page = site_data.get("settings", {}).get("user", {}).get("value")
 
-        list_pages = [ "watch_rooms", "watch", "anime", "schedule" ]
+        if not anime_page and context.get("page") == "anime":
+            return self.redirect_to_alert("anime not found", "The requested anime is probably blocked by the admins or taken down")
+        if not watch_page and context.get("page") == "watch": 
+            return self.redirect_to_alert("anime not found", "The requested anime is probably blocked by the admins or taken down")
 
-        if not anime_page and context.get("page") in list_pages:
-            return self.redirect_to_alert("anime not found", "The requested anime is probably blocked by the admins or taken down")
-        if not watch_page and context.get("page") in list_pages: 
-            return self.redirect_to_alert("anime not found", "The requested anime is probably blocked by the admins or taken down")
-        if not watch_togather and context.get("page") in list_pages: 
-            return self.redirect_to_alert("home")
-        if not schedule_page and page in list_pages: 
-            return self.redirect_to_alert("home")
+        if not watch_togather and page == "watch_rooms": 
+            return redirect("home")
+
+        if not schedule_page and page == "schedule": 
+            return redirect("home")
+            
+        if not user_page and page == "profile": 
+            return redirect("home")
 
         if page not in { "alert", "maintenance" } and  maintenance == True: return redirect("maintenance")
 

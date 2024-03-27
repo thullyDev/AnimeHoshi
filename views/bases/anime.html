@@ -23,31 +23,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@200..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
   <link href="/static/css/global.css" rel="stylesheet" />
-  <style>
-/*    :root {
-        --primary-color: #0e0e0e; 
-        --secondary-color: #fff;
-        --primary-font: "Nunito", sans-serif;
-        --highlight-color: #34003b;
-        --secondary-highlight-color: #7f009c; 
-        --third-color: #2b2929;
-        --accent-color: #575652;
-        --secondary-accent-color: #1c1c1c;
-    }*/
-
-          
-      :root {
-              --primary-color: #0e0e0e;
-              --secondary-color: #fff;
-              --primary-font: "Nunito", sans-serif;
-              --highlight-color: #1c1c1c;
-              --secondary-highlight-color: #2b2929;
-              --third-color: #7f009c;
-              --accent-color: #575652;
-              --secondary-accent-color: #34003b;
-          }
-
-  </style>
   <link href="/static/css/anime/anime.css" rel="stylesheet" />
   <link href="/static/css/anime/authentication.css" rel="stylesheet" />
   <link href="/static/css/{% if page == 'profile' %}user{% else %}anime{% endif %}/pages/{{page}}.css" rel="stylesheet" />
@@ -69,50 +44,9 @@
     const captchas = {}
   </script>
 
-  {% if page != "alert" and site_data.settings.adblocker_detection.value %}
-  <script>
-    // Function to check if DevTools are open
-    function isDevToolsOpen() {
-      // Check if the window object has the 'Firebug' property
-      if (window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) {
-        return true;
-      }
+  {% include "pages/anime/widgets/adblock_detection.html" %}
+  {% include "pages/anime/widgets/dev_tools_detection.html" %}
 
-      // Check if the window object has the 'outerWidth' and 'outerHeight' properties
-      if (window.outerWidth - window.innerWidth > 150 || window.outerHeight - window.innerHeight > 200) {
-        return true;
-      }
-
-      // Check if the window object has the 'opera' property
-      if (window.opera && window.opera.toString() === '[object Opera]') {
-        let operaDevToolsOpened = window.opera.extension.toSource().indexOf('OperaDevTools') > -1;
-        return operaDevToolsOpened;
-      }
-
-      // Check if the window object has the 'chrome' property
-      if (window.chrome && window.chrome.devtools) {
-        return true;
-      }
-
-      // Check if the window object has the 'devtools' property
-      if (window.devtools) {
-        return true;
-      }
-
-      return false;
-    }
-
-    function checkIsDevToolsOpen() {
-      if (!isDevToolsOpen()) return 
-
-      message = encodeURIComponent("Under Construction")
-      description = encodeURIComponent("we are currently doing maintenance to the site")
-      window.location.replace(`/alert?message=${message}&description=${description}`)
-    }
-
-    setInterval(checkIsDevToolsOpen, 1000);
-  </script>
-  {% endif %}
   <script defer type="text/javascript" src="/static/js/resources/urlUtils.js"></script>
   <script defer type="text/javascript" src="/static/js/global.js"></script>
   <script defer type="text/javascript" src="/static/js/anime/anime.js"></script>
@@ -150,6 +84,8 @@
           {% with height=site_data.scripts.ads_scripts.bottom_advertisement.height value=site_data.scripts.ads_scripts.bottom_advertisement.value %}
             {% include "widgets/ad_wrapper.html" %}
           {% endwith %}
+          <div class="adsbox ad-wrapper ads-wrapper" style="width: 1px; height: 1px;">
+          </div>
 
           {% include "sections/anime/footer.html" %}
         {% else %}

@@ -11,12 +11,13 @@ from ...resources import (
 from ...resources import CAPTCHA_SECRET_KEY
 from ...database import UserDatabase, Storage
 from ...decorators import userValidator, timer
-from ...handlers import LiveChat, send_email, ApiHandler
+from ...handlers import LiveChat, send_email, ApiHandler, SiteHandler
 from ...scraping import TioanimeScraper, LatanimeScraper
 from ..base import Base
 from pprint import pprint
 
 api = ApiHandler()
+site = SiteHandler()
 tioanime = TioanimeScraper()
 latanime = LatanimeScraper()
 storage = Storage()
@@ -27,6 +28,11 @@ class UserAjax(Base):
     @userValidator
     def make_watch_room(self, request, POST, user, **kwargs):
         if not POST: return redirect("/")
+
+        site_data = site.get_site_data()
+        watch_togather = site_data.get("settings", {}).get("watch_togather", {}).get("value")
+
+        if not watch_togather: return self.forbidden_response({"message": "not allowed at this moment, admins may have turned off this feature"})  
 
         if not self.valid_captcha(POST): return self.bad_request_response()
 
@@ -72,6 +78,11 @@ class UserAjax(Base):
     @userValidator
     def add_to_list(self, request, POST, user, **kwargs):
         if not POST: return redirect("/")
+
+        add_list = site.get_site_data()
+        add_list = add_list.get("settings", {}).get("add_list", {}).get("value")
+
+        if not add_list: return self.forbidden_response({"message": "not allowed at this moment, admins may have turned off this feature"})  
 
         slug = POST.get("slug")
         watch_type = POST.get("watch_type")

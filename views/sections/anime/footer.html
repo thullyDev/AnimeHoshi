@@ -33,9 +33,17 @@
                   <p class="socials-join-label">Join Now</p>
                   <div class="inner-socials-list">
                     {% for key, item in site_data.values.socials.items %}
-                      {% if item.name == 'donate' and site_data.settings.donation.value %}
+                      {% if item.name == 'donate' %}
                       <span class="social-item">
-                        <a href="{{key}}" class="social-link"><i class="{% if item.name == 'donate' %}fas{% else %}fab{% endif %} fa-{{item.name}}"></i></a>
+                        <a href="{% if site_data.settings.donation.value == True %}{{item.value}}{% else %}#donate{% endif %}" class="social-link">
+                          <i class="fas fa-{{item.name}}"></i>
+                        </a>
+                      </span>
+                      {% else %}
+                      <span class="social-item">
+                        <a href="{{item.value}}" class="social-link">
+                          <i class="fab fa-{{item.name}}"></i>
+                        </a>
                       </span>
                       {% endif %}
                     {% endfor %}
@@ -50,7 +58,7 @@
                   &copy; 2023 {{site_data.values.inputs.site_name.value}}. All rights reserved. <!-- |<a href="#">Terms of Service</a> |
                   <a href="#">Privacy Policy</a> -->
                 </p>
-                {% if site_data.values.inputs.email.value and site_data.settings.contact.value %} <p>Contact: {{site_data.values.inputs.email.value}}</p> {% endif %}
+                {% if site_data.settings.contact.value %} <p>Contact: {{site_data.values.inputs.email.value}}</p> {% endif %}
                 <p>This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
               </div>
             </div>

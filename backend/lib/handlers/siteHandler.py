@@ -103,6 +103,7 @@ class SiteHandler:
             },
             "settings": {
                 "maintanence": {"name": "maintanence", "value": False},
+                "dev_tools_detection": {"name": "dev_tools_detection", "value": False},
                 "adblocker_detection": {"name": "adblocker_detection", "value": False},
                 # "alert": {"name": "alert", "value": True},
                 "authentication": {"name": "authentication", "value": True},
@@ -123,7 +124,6 @@ class SiteHandler:
                 "contact": {"name": "contact", "value": True},
                 "loader": {"name": "loader", "value": True},
                 "home_animes": {"name": "home_animes", "value": True},
-                "proifile_image": {"name": "proifile_image", "value": True},
                 # "dark_mode": {"name": "dark_mode", "value": True},
             },
             "disabled_animes": {},

@@ -1,3 +1,11 @@
+label.checkbox-2-label {
+  background: var(--accent-color);
+}
+
+.checkbox-2:checked + label.checkbox-2-label:before {
+  background: var(--accent-color);
+}
+
 .inputs-con {
   display: flex;
   justify-content: center;

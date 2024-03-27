@@ -1,11 +1,11 @@
-/*:root {
+:root {
     --primary-color: #0e0e0e;
     --secondary-color: #fff;
     --primary-font: "Nunito", sans-serif;
     --highlight-color: #1c1c1c;
     --secondary-highlight-color: #2b2929;
 }
-*/
+
 .scrollable-ele::-webkit-scrollbar {
   width: 12px;
 }
