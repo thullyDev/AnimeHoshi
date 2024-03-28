@@ -51,7 +51,7 @@ function removeEle(id) {
     $(`*[data-id="${id}"]`).fadeOut().remove()
 }
 
-function closeLoader({ selector=".page-loader" } = {}) {
+function closeLoader({ selector=".progress-loader" } = {}) {
     const loader = $(selector) 
     loader.fadeOut()
 }

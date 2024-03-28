@@ -17,6 +17,7 @@
 		const thisEle = $(this)
 		showCloseEle("input.watch-room-input[data-name='limit']", "fade")
 	});
+    showCloseEle(".preloader", "fade")
 
 })();
 

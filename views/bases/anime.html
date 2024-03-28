@@ -72,11 +72,12 @@
             </div>
             {% include "pages/anime/widgets/authentication.html" %}
           </main>
-          {% if site_data.settings.loader.value == True %}
-          <div style="display: none;" class="page-loader" data-open="false">
+          <div style="display: none;" class="page-loader progress-loader" data-open="false">
             {% include "widgets/spinner.html" %}
           </div>
-          {% endif %} 
+
+          {% include "pages/anime/widgets/preloader.html" %}
+
           <div class="outer-alert-box" style="display: none;" > 
             <div class="alert-box">
             </div>
