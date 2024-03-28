@@ -46,8 +46,7 @@ class Base(APIView, ResponseHandler):
         if page not in { "alert", "maintenance" } and  maintenance == True: return redirect("maintenance")
 
         disabled_animes = site_data.get("disabled_animes", {})
-        anime_slug = context.get("anime_slug")
-
+        anime_slug = context.get("anime_slug", "none")
 
         if anime_slug.replace("/", "") in disabled_animes or \
             anime_slug in disabled_animes:
