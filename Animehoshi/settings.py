@@ -29,7 +29,10 @@ SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 
 ALLOWED_HOSTS = ["*"] if DEBUG else []
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = [
+    "https://animehoshi2test.onrender.com",
+    "https://animehoshitest.onrender.com",
+]
 
 # Application definition
 
