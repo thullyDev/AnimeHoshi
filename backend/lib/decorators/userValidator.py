@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
+from urllib.parse import quote
 from ..resources import generate_unique_id
 from ..handlers import SiteHandler, ResponseHandler
 from ..database import UserDatabase
@@ -20,6 +22,14 @@ def userValidator(request_func):
 
         if not user:
             return redirect("home") if not ajax else response_handler.forbidden_response({ "message": "login" })
+
+        if user["deleted"] == True:
+            url = reverse('alert')
+            message = quote("Disabled User Alert")
+            description = quote("this user has been disabled")
+            url = f"{url}?message={message}&description={description}"
+            
+            return self.redirect(url) if not ajax else response_handler.forbidden_response({ "message": "this user has been disabled" })
 
 
         response = request_func(

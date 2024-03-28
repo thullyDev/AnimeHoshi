@@ -42,6 +42,8 @@ class UserAuthAjax(Base):
                     "message": "this user does not exist"
                 })
 
+        if data["deleted"] == True: return self.forbidden_response({ "message": "login" })
+
         del data["id"]
         del data["password"]
         del data["deleted"]
