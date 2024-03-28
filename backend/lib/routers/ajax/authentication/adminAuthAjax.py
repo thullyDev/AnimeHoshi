@@ -16,7 +16,7 @@ class AdminAuthAjax(Base):
         data = self.process_request(POST.get("data", "{}"))
         email = data.get("email")
         password = data.get("password")
-        
+
         if not valid_email(email): 
             return self.bad_request_response(data={
                     "message": "this email is not a valid email"

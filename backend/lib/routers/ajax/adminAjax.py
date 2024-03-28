@@ -135,7 +135,7 @@ class AdminAjax(Base):
             "email": email,
             "password": password,
             "username": username,
-            "deleted": True,
+            "deleted": False,
             "profile_image": None,
             "role": "owner",
         }
