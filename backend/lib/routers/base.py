@@ -45,6 +45,14 @@ class Base(APIView, ResponseHandler):
 
         if page not in { "alert", "maintenance" } and  maintenance == True: return redirect("maintenance")
 
+        disabled_animes = site_data.get("disabled_animes", {})
+        anime_slug = context.get("anime_slug")
+
+
+        if anime_slug.replace("/", "") in disabled_animes or \
+            anime_slug in disabled_animes:
+            return self.redirect_to_alert("Anime Disabled", "This anime has been disabled by the admin")
+
         page_url = request.build_absolute_uri()
         context["page_url"] = page_url 
         context["CAPTCHA_SITE_KEY"] = CAPTCHA_SITE_KEY 
