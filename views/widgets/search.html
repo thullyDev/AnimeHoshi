@@ -1,12 +1,12 @@
 <div class="outter-search-con">
   <div class="search-con">
     <div class="search-input-con">
-      <button type="button" class="search-btn">
+      <button class="search-btn" type="button" data-view="{{view}}">
         <i class="fas fa-search"></i>
       </button>
       <input class="search-input" 
-      placeholder='search {% if type == "latino" %}latino{% endif %}...' 
-      type="search" name="search" data-type="{{type}}"/>
+      placeholder='buscar {% if type == "latino" %}latinos{% endif %}...' 
+      type="search" name="search" data-type="{{type}}" data-view="{{view}}"/>
     </div>
     <div class="search-items-con">
       <div class="search-loader-con">

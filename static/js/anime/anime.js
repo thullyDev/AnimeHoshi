@@ -3,8 +3,13 @@
 	$(".open-search-btn").click(() => showCloseEle(".mobile-search-con", "slide"));
 	$(".watch2gather-btn, .watch-room-modal-close-btn").click(() => showCloseEle(".watch-room-modal-con", "fade"));
 	$(".create-watch-room-btn").click(() => createRoom())
-	$(".search-btn").click(() => search())
-	$(".search-input").change(() => search())
+	$(".search-btn").click(function () {
+		const view = $(this).data("view")
+		search($(`.search-input[data-view="${view}"]`))
+	})
+	$(".search-input").change(function () {
+		search($(this))
+	})
 	$(".watch-room-input").keyup(function() {
 		const thisEle = $(this)
 		const limit = thisEle.data("limit")
@@ -21,10 +26,9 @@
 
 })();
 
-function search() {
-	const searchInp = $(".search-input")
-	const value = searchInp.val()
-	const type = searchInp.data("type")
+function search(thisEle) {
+	const value = thisEle.val()
+	const type = thisEle.data("type")
 
 	if (!value) return 
 

@@ -4,7 +4,9 @@
     {% include "sections/anime/nav.html" %}
     <div class="search-account-con">
       <div class="inner-search-account-con">
-        {% include "widgets/search.html" %}
+        {% with view="desktop" %}
+          {% include "widgets/search.html" %}
+        {% endwith %}
         <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
       </div>
     </div>
@@ -30,7 +32,9 @@
   </div>
   <div class="mobile-search-con search-account-con" data-open="false" style="display: none;">
     <div class="inner-search-account-con">
-      {% include "widgets/search.html" %}
+      {% with view="mobile" %}
+        {% include "widgets/search.html" %}
+      {% endwith %}
       <a href="/main/filter/" class="filter-link"><i class="fa fa-filter" aria-hidden="true"></i></a>
     </div>
   </div>
