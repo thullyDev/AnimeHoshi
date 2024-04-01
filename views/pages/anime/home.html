@@ -33,7 +33,7 @@
 								    					{{description}}
 								    				</p>		
 							    				</div>
-							    				<a href="/latino/anime{{slug}}" class="watch-link">Watch Now</a>
+							    				<a href="/latino/anime{{slug}}" class="watch-link">Ver ahora</a>
 							    			</div>
 							    			<div class="right-side">
 							    				<img src="{{poster}}" class="features-poster" alt="{{title}}">
@@ -67,15 +67,15 @@
       {% include "widgets/ad_wrapper.html" %}
     {% endwith %}
 		<div class="outter-animes-con">
-           {% with label="Anime Episodios" animes=data.tioanime.episodes episodes=True type="main" %}
+           {% with label="Animes Recientes" animes=data.tioanime.episodes episodes=True type="main" %}
            		{% include "pages/anime/widgets/animes_wrapper.html" %}
            {% endwith %}
            {% if site_data.settings.home_animes.value == True %}
-	           {% with label="Animes" animes=data.tioanime.animes episodes=False type="main" %}
+	           {% with label="Últimos Animes" animes=data.tioanime.animes episodes=False type="main" %}
 	           		{% include "pages/anime/widgets/animes_wrapper.html" %}
 	           {% endwith %}
            {% endif %}
-           {% with label="Anime Latino Episodios" animes=data.latanime.episodes episodes=True type="latino" %}
+           {% with label="Animes Recientes latinos" animes=data.latanime.episodes episodes=True type="latino" %}
            		{% include "pages/anime/widgets/animes_wrapper.html" %}
            {% endwith %}
 		</div>
