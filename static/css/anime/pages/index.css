@@ -120,8 +120,20 @@ h3.animes-label-con {
      padding: 0;
      margin: 0;
 }
+
+span.ribbon {
+    position: absolute;
+    top: 8px;
+    right: -8px;
+    font-size: xx-small;
+    background: var(--third-color);
+    padding: 5px;
+    transform: rotate(46deg);
+    border-radius: .2rem;
+}
+
  li.anime-con {
-     /* max-width: 140px; */
+    position: relative;
      width: calc(100% - 10px);
 }
 

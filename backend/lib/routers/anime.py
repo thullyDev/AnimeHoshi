@@ -110,7 +110,7 @@ class Anime(Base):
                 "description": slider.get("description").get("text"),
             })
 
-        # self.cache_data(cache_id=cache_id, data=data)
+        self.cache_data(cache_id=cache_id, data=data)
 
         context["data"] = data
         context["page"] = "index"

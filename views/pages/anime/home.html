@@ -71,7 +71,7 @@
            		{% include "pages/anime/widgets/animes_wrapper.html" %}
            {% endwith %}
            {% if site_data.settings.home_animes.value == True %}
-	           {% with label="Últimos Animes" animes=data.tioanime.animes episodes=False type="main" %}
+	           {% with label="Últimos Animes" ribbon=True animes=data.tioanime.animes episodes=False type="main" %}
 	           		{% include "pages/anime/widgets/animes_wrapper.html" %}
 	           {% endwith %}
            {% endif %}
