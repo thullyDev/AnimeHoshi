@@ -52,7 +52,10 @@
   <script defer type="text/javascript" src="/static/js/anime/anime.js"></script>
   <script defer type="text/javascript" src="/static/js/anime/authentication.js"></script>
   <script defer type="text/javascript" src="/static/js/{% if page == 'profile' %}user{% else %}anime{% endif %}/pages/{{page}}.js"></script>
+  {% if not titled %}
   <title> {% if page == "index" %} Home {% else %} {{page|title|replace:"_, "}} {% endif %} | {{ site_data.values.inputs.title.value }} | {{ site_data.values.inputs.site_name.value }} </title>
+  {% endif %}
+
   {% block head_content %}
   {% endblock %}
 

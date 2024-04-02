@@ -6,6 +6,7 @@
 	const type = "{{type}}"
 </script>
   {{site_data.scripts.head_scripts.filter_head.value|safe}}
+  <title> {{title}} | {{ site_data.values.inputs.title.value }} | {{ site_data.values.inputs.site_name.value }} </title>
 {% endblock %}
 
 {% block foot_content %}

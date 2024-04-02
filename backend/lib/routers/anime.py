@@ -248,10 +248,15 @@ class Anime(Base):
         if "page" in filter_data: del filter_data["page"]
         
         query = tioanime.build_query(filter_data)
+        context["title"] = ", ".join([
+            value.title()
+            for key, value in GET.items()
+            if key in tioanime.queries
+        ])
         context["data"] = data
         context["query"] = query.replace("?", "&")
         context["type"] = "main"
-        return self.root(request=request, context=context, template="pages/anime/filter.html")
+        return self.root(request=request, context=context, template="pages/anime/filter.html", titled=True)
 
     @recorder
     def latanime_filter(self, request, GET, context, **kwargs):
@@ -265,10 +270,15 @@ class Anime(Base):
         if "page" in filter_data: del filter_data["page"]
         
         query = latanime.build_query(filter_data)
+        context["title"] = ", ".join([
+            value.title()
+            for key, value in GET.items()
+            if key in latanime.queries
+        ])
         context["data"] = data
         context["query"] = query.replace("?", "&")
         context["type"] = "latino"
-        return self.root(request=request, context=context, template="pages/anime/filter.html")
+        return self.root(request=request, context=context, template="pages/anime/filter.html", titled=True)
 
     @recorder
     def tioanime_schedule(self, request, context, **kwargs):
@@ -318,7 +328,7 @@ class Anime(Base):
         context["query"] = query.replace("?", "&")
         context["type"] = "latino"
         context["page"] = "filter"
-        return self.root(request=request, context=context, template="pages/anime/filter.html")
+        return self.root(request=request, context=context, template="pages/anime/filter.html", titled=True)
 
     @recorder
     def tioanime_anime(self, request, slug, context, **kwargs):
