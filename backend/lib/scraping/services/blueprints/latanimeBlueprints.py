@@ -33,6 +33,12 @@ class LatanimeBlueprints:
             "latest_episodes": {
                 "parent_selector": ".col-6.col-md-6.col-lg-3.mb-3",
                 "children": {
+                    "type": {
+                        "selector": ".info_cap > span",
+                        "attributes": {
+                            "type": "text_content",
+                        }
+                    },
                     "episode_slug": {
                         "selector": "a",
                         "attributes": {

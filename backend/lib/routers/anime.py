@@ -90,9 +90,14 @@ class Anime(Base):
         sliders = latanime_rawdata.get("slider")
 
         for episode in latest_episodes:
+            episode_type = episode.get("type").get("type")
+
+            if episode_type in [ "Anime", "Cartoon" ]: continue
+
             data["latanime"]["episodes"].append({
                 "image_url": episode.get("image").get("url"),
                 "title": episode.get("image").get("title"),
+                "type": episode_type,
                 "slug": episode.get("episode_slug").get("slug").replace(f"https://{latanime.base}/ver", ""),
             })
 
@@ -105,7 +110,7 @@ class Anime(Base):
                 "description": slider.get("description").get("text"),
             })
 
-        self.cache_data(cache_id=cache_id, data=data)
+        # self.cache_data(cache_id=cache_id, data=data)
 
         context["data"] = data
         context["page"] = "index"
