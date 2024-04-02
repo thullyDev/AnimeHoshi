@@ -19,6 +19,7 @@ cache = Cache()
 database = Database()
 live_chat = LiveChat()
 
+
 class Anime(Base):
     @recorder
     def random(self, request, **kwargs):
@@ -340,6 +341,7 @@ class Anime(Base):
         if not rawdata: return redirect("not_found")
 
         data = self.anime_processing(rawdata=rawdata, base=latanime.base)
+
         watch_type = "latino"
         context["anime_slug"] = slug
         context["type"] = watch_type
@@ -581,6 +583,7 @@ class Anime(Base):
 
         data = {
             "title": rawdata.get("title").get("title"),
+            "synonyms": rawdata.get("synonyms").get("synonyms"),
             "description": rawdata.get("description").get("description"),
             "synopsis": rawdata.get("synopsis").get("synopsis"),
             "poster_image": rawdata.get("poster_image").get("poster_image"),

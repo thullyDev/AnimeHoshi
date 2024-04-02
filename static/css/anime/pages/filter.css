@@ -62,6 +62,7 @@ select.filter-select {
     width: 115px;
     border-radius: .25rem;
     font-family: var(--primary-font);
+    border: solid 1px var(--accent-color);
 }
 
 .inner-filters-options {padding: 10px 0 0 0;}

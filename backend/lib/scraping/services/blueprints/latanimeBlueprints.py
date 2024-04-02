@@ -344,6 +344,12 @@ class LatanimeBlueprints:
             "single_select": True,
             "key": "title",
         },
+        "synonyms": {
+            "parent_selector": ".col-lg-9.col-md-8 > h3.fs-6.text-light.opacity-75",
+            "attribute": "text_content",
+            "single_select": True,
+            "key": "synonyms",
+        },
         "synopsis": {
             "parent_selector": ".fs-6.text-light.opacity-75",
             "attribute": "text_content",

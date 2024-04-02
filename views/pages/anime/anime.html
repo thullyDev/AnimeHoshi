@@ -27,6 +27,9 @@
 				<div class="details-info-con">
 					<div class="details-con">
 						<h3 class="title">{{data.title}}</h3>
+						{% if data.synonyms != "" %}
+							<h4 class="synonyms">{{data.synonyms}}</h4>
+						{% endif %}
 						<div class="description-con">
 							<p class="description">{{data.description|truncatechars:250}}<span class="more-des-btn">more</span></p> 
 						</div>

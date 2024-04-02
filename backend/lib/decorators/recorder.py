@@ -14,7 +14,7 @@ def recorder(request_func):
         COOKIES = request.COOKIES
         is_auth = False
 
-        if None not in [ COOKIES.get("email"), COOKIES.get("username") ]: is_auth = True
+        if "" not in [ COOKIES.get("email", ""), COOKIES.get("username", "") ]: is_auth = True
 
         increment_views()
 

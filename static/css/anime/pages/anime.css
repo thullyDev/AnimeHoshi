@@ -28,7 +28,7 @@ button.watch2gather-btn {
     background: var(--highlight-color);
     border-radius: 0 .5rem .5rem 0;
 }
-
+kk
 button.watch2gather-btn, button.add-to-list-btn {
     font-size: 12px;
     width: 40px;
@@ -44,6 +44,11 @@ button.watch2gather-btn:hover, button.add-to-list-btn:hover {
 .watch2gather-btn-con {
     display: flex;
     justify-content: center;
+}
+
+.synonyms {
+  font-size: medium;
+  color: var(--third-color);
 }
 
 .add-to-list-btn-con {
