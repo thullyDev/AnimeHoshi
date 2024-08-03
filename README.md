@@ -25,7 +25,7 @@ Welcome to **AnimeHoshi** - your go-to destination for anime! 🌟 Dive into the
 | Repos                   | Links                                                                     | Frameworks | 
 | ----------------------- | ------------------------------------------------------------------------- |------------|
 | AnimeHoshi Site                 | [AnimeHoshi](https://github.com/thullyDev/AnimeHoshi.git)         | <p align="start"> <img src="https://img.shields.io/badge/python-%23339933.svg?style=for-the-badge&logo=python&logoColor=%23ffffff"/> <img src="https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white"/> <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white"/> </p> |
-| LiveChat Api                 | [MangaRealm.api](https://github.com/thullyDev/liveChat)         | <p align="start"> <img src="https://img.shields.io/badge/fastapi-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge"/> <img src="https://img.shields.io/badge/redis-%23DC382D.svg?style=for-the-badge&logo=redis&logoColor=white" alt="Redis Badge"/> </p> |
+| LiveChat Api                 | [liveChat](https://github.com/thullyDev/liveChat)         | <p align="start"> <img src="https://img.shields.io/badge/fastapi-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge"/> <img src="https://img.shields.io/badge/redis-%23DC382D.svg?style=for-the-badge&logo=redis&logoColor=white" alt="Redis Badge"/> </p> |
 
 </div>
 
