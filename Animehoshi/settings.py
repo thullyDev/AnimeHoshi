@@ -31,7 +31,7 @@ SESSION_COOKIE_HTTPONLY = True
 ALLOWED_HOSTS = ["*"] if DEBUG else []
 CSRF_TRUSTED_ORIGINS = [
     "https://animehoshi2test.onrender.com",
-    "https://animehoshitest.onrender.com",
+    "https://animehoshitest.onrender.com", #i should probably remove these
 ]
 
 # Application definition

@@ -517,7 +517,7 @@ a.social-link > i {
 @media screen and (min-width: 768px) {
     .header-viewer-con .nav-bar-con {
         display: flex;
-        justify-content: end;
+        justify-content: start;
     }
 
     .mobile-viewer-con .nav-bar-con {
