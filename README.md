@@ -16,7 +16,7 @@ AnimeHoshi
 
 ## What is AnimeHoshi?
 
-Welcome to **AnimeHoshi** - your go-to destination for anime! 🌟 Dive into the anime world with **[AnimeHoshi](https://www.animehoshi.com)**. Our site features a modern and sleek design, powered by **Django** and **PostgreSQL**, ensuring a fast and enjoyable experience.
+Welcome to **AnimeHoshi** - your go-to destination for anime! 🌟 Dive into the anime world with **[AnimeHoshi](https://imgur.com/a/OyePglf)**. Our site features a modern and sleek design, powered by **Django** and **PostgreSQL**, ensuring a fast and enjoyable experience.
 
 <div align="center">
 
